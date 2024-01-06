@@ -1,25 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import styled from "styled-components";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import MyLetterbox from "./pages/MyLetterbox";
+import AddressBook from "./pages/AddressBook";
+import RomanticLetterbox from "./pages/RomanticLetterbox";
+import Store from "./pages/Store";
+import MyPage from "./pages/MyPage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Background>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/MyLetterbox" element={<MyLetterbox />} />
+            <Route path="/AddressBook" element={<AddressBook />} />
+            <Route path="/RomanticLetterbox" element={<RomanticLetterbox />} />
+            <Route path="/Store" element={<Store />} />
+            <Route path="/MyPage" element={<MyPage />} />
+          </Routes>
+        </BrowserRouter>
+      </Background>
     </div>
   );
 }
 
 export default App;
+
+const Background = styled.div`
+  width: 1440px;
+  height: 1024px;
+  background: #FFFEF8;
+`
