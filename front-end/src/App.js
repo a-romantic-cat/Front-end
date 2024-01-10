@@ -1,7 +1,6 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
-import Header from "./components/Header";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import MyLetterbox from "./pages/MyLetterbox";
@@ -10,29 +9,28 @@ import RomanticLetterbox from "./pages/RomanticLetterbox";
 import Store from "./pages/Store";
 import MyPage from "./pages/MyPage";
 
+const Background = styled.div`
+  background-color: #FFFEF8;
+  width: 100vw;
+  height: 100vh;
+`
+
 function App() {
   return (
-    <div>
-      <Background>
-        <BrowserRouter>
-          <Header/>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/MyLetterbox" element={<MyLetterbox />} />
-            <Route path="/AddressBook" element={<AddressBook />} />
-            <Route path="/RomanticLetterbox" element={<RomanticLetterbox />} />
-            <Route path="/Store" element={<Store />} />
-            <Route path="/MyPage" element={<MyPage />} />
-          </Routes>
-        </BrowserRouter>
-      </Background>
-    </div>
+    <Background>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/MyLetterbox" element={<MyLetterbox />} />
+          <Route path="/AddressBook" element={<AddressBook />} />
+          <Route path="/RomanticLetterbox" element={<RomanticLetterbox />} />
+          <Route path="/Store" element={<Store />} />
+          <Route path="/MyPage" element={<MyPage />} />
+        </Routes>
+      </BrowserRouter>
+    </Background>
   );
 }
 
 export default App;
-
-const Background = styled.div`
-  background: #FFFEF8;
-`
