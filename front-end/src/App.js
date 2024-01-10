@@ -1,6 +1,7 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
+import Header from "./components/Header";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import MyLetterbox from "./pages/MyLetterbox";
@@ -14,6 +15,7 @@ function App() {
     <div>
       <Background>
         <BrowserRouter>
+          <Header/>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
@@ -32,7 +34,5 @@ function App() {
 export default App;
 
 const Background = styled.div`
-  width: 1440px;
-  height: 1024px;
   background: #FFFEF8;
 `
