@@ -3,8 +3,9 @@ import React from 'react'
 export default function Home() {
   return (
     <div>Home Test
-      <h1 style={{color:"black"}}>낭만고양이</h1>
-      <h2 style={{color:"black"}}>기본</h2>
+      <div className='container1' style={{color:"black"}}>
+        : 마음을 전하는 모바일 편지 서비스
+      </div>
     </div>
   )
 }
