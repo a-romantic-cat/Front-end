@@ -6,15 +6,16 @@ import feather from '../../assets/img/Feather.png';
 import '../../index.css';
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  padding-left: 217px;
-  padding-right: 217px;
+  width: 1486px;
+  height: 100px;
   background: '#FFFEF8';
   justify-content: center;
   align-items: center;
   display: inline-flex;
+  padding-left: 217px;
+  padding-right: 217px;
 `;
+
 
 const InnerContainer = styled.div`
   width: 1486px;
@@ -144,3 +145,4 @@ export default function Header() {
     </Container>
   );
 }
+

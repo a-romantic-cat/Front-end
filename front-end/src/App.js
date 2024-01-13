@@ -11,8 +11,8 @@ import MyPage from "./pages/MyPage";
 
 const Background = styled.div`
   background-color: #FFFEF8;
-  width: 100vw;
-  height: 100vh;
+  width: 1920px;
+  height: 1080px;
 `
 
 function App() {
