@@ -6,6 +6,7 @@ import Letterbox from '../../assets/img/우체통.png';
 import Cat from '../../assets/img/고양이.png';
 import i_button from '../../assets/img/i_button.png';
 import share_button from '../../assets/img/share_Button.png';
+import Info from './Info';
 
 //닉네임님의 우편함이름
 const Container = styled.div`
@@ -205,6 +206,7 @@ const BoxCheckText = styled.div`
 export default function MyLetterboxMain() {
 
   const [numbers, setNumbers] = useState([32, 25, 11, 9]);
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
 
   return (
     <div>
@@ -246,13 +248,12 @@ export default function MyLetterboxMain() {
         </AbsoluteText>
       </TextContainer>
 
-      <IButtonImg src={i_button} alt='i_button' />
+      <IButtonImg src={i_button} alt='i_button' onClick={() => {setIsModalOpen(true)}} /> {/* 이미지 클릭 시 모달 열림 */}
+        <Info isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <ShareButtonImg src={share_button} alt='share_button' />
       <BoxCheckContainer>
         <BoxCheckText>우편함 확인하기</BoxCheckText>
       </BoxCheckContainer>
-
-
     </div>
   )
 }
