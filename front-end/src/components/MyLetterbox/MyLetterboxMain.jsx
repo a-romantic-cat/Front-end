@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Header from '../Header/Header';
+import { useNavigate } from "react-router-dom";
 import '../../index.css';
 import Letterbox from '../../assets/img/우체통.png';
 import Cat from '../../assets/img/고양이.png';
@@ -132,6 +133,7 @@ const CatImg = styled.img`
   height: 96.5px;
   margin-left: 30px;
   margin-top: 188px;
+  cursor: pointer;
 `
 
 //고양이 설명
@@ -168,6 +170,7 @@ const IButtonImg = styled.img`
   position: absolute;
   left: 836px;
   top: 855px;
+  cursor: pointer;
 `
 
 const ShareButtonImg = styled.img`
@@ -176,6 +179,7 @@ const ShareButtonImg = styled.img`
   position: absolute;
   left: 1047px;
   top: 855px;
+  cursor: pointer;
 `
 
 //우편함 확인하기
@@ -193,6 +197,7 @@ const BoxCheckContainer = styled.div`
     align-items: center;
     gap: 12.38px;
     display: inline-flex;
+    cursor: pointer;
 `;
 
 const BoxCheckText = styled.div`
@@ -204,6 +209,16 @@ const BoxCheckText = styled.div`
 `;
 
 export default function MyLetterboxMain() {
+  
+  const navigate = useNavigate();
+
+  const navigateToCheck1 = () => {
+    navigate("/Check1");
+  };
+
+  const navigateToOpenLetter1 = () => {
+    navigate("/OpenLetter1");
+  };
 
   const [numbers, setNumbers] = useState([32, 25, 11, 9]);
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
@@ -239,7 +254,7 @@ export default function MyLetterboxMain() {
       </TimeContainer>
 
       <LetterboxImg src={Letterbox} alt='letterbox' />
-      <CatImg src={Cat} alt='cat' />
+      <CatImg src={Cat} alt='cat' onClick={navigateToOpenLetter1} />
       <TextContainer>
         <AbsoluteText style={{ left: 0, top: 0 }}>저를 누르면 닉네임님이</AbsoluteText>
         <AbsoluteText style={{ left: 0, top: 17 }}>
@@ -251,9 +266,13 @@ export default function MyLetterboxMain() {
       <IButtonImg src={i_button} alt='i_button' onClick={() => {setIsModalOpen(true)}} /> {/* 이미지 클릭 시 모달 열림 */}
         <Info isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <ShareButtonImg src={share_button} alt='share_button' />
-      <BoxCheckContainer>
-        <BoxCheckText>우편함 확인하기</BoxCheckText>
-      </BoxCheckContainer>
+
+        <BoxCheckContainer onClick={navigateToCheck1}>
+          <BoxCheckText>우편함 확인하기</BoxCheckText>
+        </BoxCheckContainer>
+      
+
+
     </div>
   )
 }

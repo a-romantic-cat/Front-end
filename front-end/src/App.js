@@ -8,6 +8,8 @@ import AddressBook from "./pages/AddressBook";
 import RomanticLetterbox from "./pages/RomanticLetterbox";
 import Store from "./pages/Store";
 import MyPage from "./pages/MyPage";
+import Check1 from './components/MyLetterbox/Check1';
+import OpenLetter1 from './components/MyLetterbox/OpenLetter1';
 
 const Background = styled.div`
   background-color: #FFFEF8;
@@ -27,6 +29,9 @@ function App() {
           <Route path="/RomanticLetterbox" element={<RomanticLetterbox />} />
           <Route path="/Store" element={<Store />} />
           <Route path="/MyPage" element={<MyPage />} />
+          <Route path="/Check1" element={<Check1 />} />
+          <Route path="/OpenLetter1" element={<OpenLetter1 />} />
+
         </Routes>
       </BrowserRouter>
     </Background>
