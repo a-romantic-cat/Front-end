@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components';
 import InfoImage from '../../assets/img/info.png';
 import Vector from '../../assets/img/Vector.png';
@@ -140,11 +140,12 @@ const WhoeverContainer = styled.div`
   justify-content: center;
   align-items: flex-end;
   gap: 69px;
+  cursor: pointer; /* 추가: 마우스 커서를 포인터로 변경 */
 `;
 
 const WhoeverText = styled.div`
   position: absolute;
-  width: 39px;
+  width: 95px;
   height: 15px;
   left: 6px;
   color: black;
@@ -165,6 +166,56 @@ const UnderImg = styled.img`
   bottom: 5px;
   left: 114px;
 `
+
+//드롭다운 내용
+const OptionContainer = styled.div`
+  width: 136.13px;
+  height: 46px;
+  left: 241px;
+  top: 22px;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  display: inline-flex;
+  cursor: pointer; /* 추가: 마우스 커서를 포인터로 변경 */
+`;
+
+const Option1 = styled.div`
+  align-self: stretch;
+  flex: 1 1 0;
+  padding: 4px 6px;
+  background: ${({ selectedOption }) => (selectedOption ? '#E5E5E5' : 'white')};
+  border: 1px solid black;
+  border-bottom-width: 0px; /* 아래쪽 테두리 설정 */
+  border-top-width: 0px; /* 위쪽 테두리 설정 */
+  justify-content: flex-start;
+  align-items: center;
+  display: inline-flex;
+`;
+
+const OptionText = styled.div`
+  color: black;
+  font-size: 15px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  line-height: 15px;
+  word-wrap: break-word;
+`;
+
+const Option2 = styled.div`
+  align-self: stretch;
+  flex: 1 1 0;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 6px;
+  padding-right: 33px;
+  background: ${({ selectedOption }) => (selectedOption ? '#E5E5E5' : 'white')};
+  border: 1px black solid;
+  justify-content: flex-start;
+  align-items: center;
+  display: inline-flex;
+`;
 
 //내용 중 '기간'
 const Container3 = styled.div`
@@ -250,6 +301,19 @@ const NameIconImg = styled.img`
 
 
 export default function Info({ isOpen, onClose }) {
+
+  const [isDropdownOpen, setDropdownOpen] = useState(false); // 드롭다운의 열림/닫힘 상태를 관리하는 변수
+  const [selectedOption, setSelectedOption] = useState('누구나'); // 선택한 옵션을 관리하는 변수
+
+  const handleDropdownToggle = () => {
+    setDropdownOpen(!isDropdownOpen); // 드롭다운의 열림/닫힘 상태를 토글
+  };
+
+  const handleOptionSelect = (option) => {
+    setSelectedOption(option); // 선택한 옵션 업데이트
+    setDropdownOpen(false); // 드롭다운 닫기
+  };
+
   if (!isOpen) {
     return null;
   }
@@ -271,10 +335,26 @@ export default function Info({ isOpen, onClose }) {
 
         <Container2>
           <Text2>편지 남길 수 있는 사람</Text2>
-          <WhoeverContainer>
-            <WhoeverText>누구나</WhoeverText>
-            <UnderImg src={Under} alt='Under' />
-          </WhoeverContainer>
+          <div>
+            <WhoeverContainer onClick={handleDropdownToggle}>
+              <WhoeverText>{selectedOption}</WhoeverText> {/* 선택한 옵션 표시 */}
+              <UnderImg src={Under} alt='Under' />
+            </WhoeverContainer>
+            {isDropdownOpen && (
+              <OptionContainer>
+                <Option1 onClick={() => handleOptionSelect('누구나')}>
+                  <OptionText>
+                    누구나
+                  </OptionText>
+                </Option1>
+                <Option2 onClick={() => handleOptionSelect('로그인한 사람')}>
+                  <OptionText>
+                    로그인한 사람만
+                  </OptionText>
+                </Option2>
+              </OptionContainer>
+            )}
+          </div>
         </Container2>
 
         <Container3>
