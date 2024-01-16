@@ -1,7 +1,10 @@
-import React from 'react'
+import React from 'react';
+import RomanticLetterboxMain from '../components/RomanticLetterbox/RomainticLetterboxMain';
 
 export default function RomanticLetterbox() {
   return (
-    <div>RomanticLetterbox</div>
+    <div>
+      <RomanticLetterboxMain />
+    </div>
   )
 }
