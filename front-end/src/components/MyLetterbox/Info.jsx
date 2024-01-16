@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import InfoImage from '../../assets/img/info.png';
 import Vector from '../../assets/img/Vector.png';
 import Under from '../../assets/img/Under.png';
-import ToggleButton from '../../assets/img/toggle_Button.png';
 import X from '../../assets/img/X.png';
 
 //모달창 열릴 때 백그라운드 블러 처리
@@ -99,13 +98,26 @@ const Text1 = styled.div`
   word-wrap: break-word;
 `;
 
-const BlackToggleImg = styled.img`
+const Toggle = styled.div`
   width: 46px;
   height: 24px;
   left: 329px;
   top: 0;
   position: absolute;
-`;
+  background-color: ${({ isActive }) => (isActive ? '#C90000' : 'black')};
+  border-radius: 20px;
+`
+
+// isActive 상태에 따라 원의 위치가 변경
+const ToggleCircle = styled.div`
+  width: 18px;
+  height: 18px;
+  left: ${({ isActive }) => (isActive ? '24px' : '4px')}; 
+  top: 3px;
+  position: absolute;
+  background: white;
+  border-radius: 9999px;
+`
 
 //내용 중 '편지 남길 수 있는 사람'
 const Container2 = styled.div`
@@ -304,6 +316,7 @@ export default function Info({ isOpen, onClose }) {
 
   const [isDropdownOpen, setDropdownOpen] = useState(false); // 드롭다운의 열림/닫힘 상태를 관리하는 변수
   const [selectedOption, setSelectedOption] = useState('누구나'); // 선택한 옵션을 관리하는 변수
+  const [isActive, setIsActive] = useState(false); // 토글 버튼의 활성 상태를 관리하는 상태 변수
 
   const handleDropdownToggle = () => {
     setDropdownOpen(!isDropdownOpen); // 드롭다운의 열림/닫힘 상태를 토글
@@ -312,6 +325,10 @@ export default function Info({ isOpen, onClose }) {
   const handleOptionSelect = (option) => {
     setSelectedOption(option); // 선택한 옵션 업데이트
     setDropdownOpen(false); // 드롭다운 닫기
+  };
+
+  const handleToggle = () => {
+    setIsActive(!isActive); // 토글 버튼 클릭 시 isActive 상태를 변환하는 핸들러 함수
   };
 
   if (!isOpen) {
@@ -330,7 +347,9 @@ export default function Info({ isOpen, onClose }) {
 
         <Container1>
           <Text1>우편함 닫기</Text1>
-          <BlackToggleImg src={ToggleButton} alt='BlackToggleButton' />
+            <Toggle isActive={isActive} onClick={handleToggle}>
+              <ToggleCircle isActive={isActive} />
+            </Toggle>
         </Container1>
 
         <Container2>
@@ -342,12 +361,12 @@ export default function Info({ isOpen, onClose }) {
             </WhoeverContainer>
             {isDropdownOpen && (
               <OptionContainer>
-                <Option1 onClick={() => handleOptionSelect('누구나')}>
+                <Option1 onClick={() => handleOptionSelect('누구나')} selectedOption={selectedOption === '누구나'}>
                   <OptionText>
                     누구나
                   </OptionText>
                 </Option1>
-                <Option2 onClick={() => handleOptionSelect('로그인한 사람')}>
+                <Option2 onClick={() => handleOptionSelect('로그인한 사람만')} selectedOption={selectedOption === '로그인한 사람만'}>
                   <OptionText>
                     로그인한 사람만
                   </OptionText>
