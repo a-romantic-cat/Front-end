@@ -1,7 +1,10 @@
-import React from 'react'
+import React from 'react';
+import StoreMain from '../components/Store/StoreMain';
 
 export default function Store() {
   return (
-    <div>Store</div>
+    <div>
+      <StoreMain />
+    </div>
   )
 }

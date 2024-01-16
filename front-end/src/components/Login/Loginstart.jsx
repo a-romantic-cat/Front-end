@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Kakao from '../assets/kakao.png'
 import Naver from '../assets/naver.png'
 import Google from '../assets/google.png'
-import {GoogleLogin, GoogleOAuthProvider} from '@react-oauth/google';
+//import {GoogleLogin, GoogleOAuthProvider} from '@react-oauth/google';
 
 
 const KakaoImg = styled.img`
