@@ -28,17 +28,19 @@ const ModalContainer = styled.div`
   background: white; 
   border-top-left-radius: 70px; 
   border-top-right-radius: 70px; 
-  overflow: hidden;
+  overflow: visible;
 `;
 
 // 검정 윗부분
 const BlackBar = styled.div`
-  width: 488px; 
+  width: 463px; 
   height: 82px; 
   left: 0; 
   top: 0; 
   position: absolute; 
   background: black;
+  border-top-left-radius: 70px;
+  border-top-right-radius: 70px;
 `;
 
 // 내 우편함 정보 
@@ -67,8 +69,7 @@ const InfoImg = styled.img`
   height: 20px;
   left: 0;
   top: 3px;
-  position: absolute; 
-  background: white;
+  position: absolute;
 `
 
 const CloseButtonImg = styled.img`
@@ -138,13 +139,22 @@ const Placeholder = styled.div`
   background: black;
   border-radius: 50px;
 `
+const Triangle = styled.div`
+  width: 0;
+  height: 0;
+  border-left: 4.3px solid transparent;  // 가로 길이의 절반
+  border-right: 4.3px solid transparent;  // 가로 길이의 절반
+  border-bottom: 10px solid black;  // 세로 길이
+  position: relative;
+  left: 19.91px;
+`
 
 const TooltipText = styled.div`
   width: 185px;
   height: 14px;
   position: absolute;
   left: 6px;
-  top: 5px;
+  top: 14px;
   color: white;
   font-size: 12px;
   font-family: 'Pretendard';
@@ -205,7 +215,6 @@ const UnderImg = styled.img`
   position: absolute;
   width: 13.86px;
   height: 12px;
-  background: black;
   top: 6px;
   right: 6.14px;
   bottom: 5px;
@@ -341,7 +350,6 @@ const NameIconImg = styled.img`
   left: 0;
   top: 0;
   position: absolute;
-  background: black;
 `
 
 
@@ -375,7 +383,7 @@ export default function Info({ isOpen, onClose }) {
         <InfoContainer>
           <InfoTitle>내 우편함 정보</InfoTitle>
           <InfoImg src={InfoImage} alt='InfoImage' />
-          <button onClick={onClose}><CloseButtonImg src={X} alt='X' /></button>
+          <CloseButtonImg src={X} alt='X' onClick={onClose} />
         </InfoContainer>
 
         <Container1>
@@ -385,6 +393,7 @@ export default function Info({ isOpen, onClose }) {
             </Toggle>
 
             <Tooltip isActive={isActive}>
+              <Triangle />
               <Placeholder />
               <TooltipText>우편함을 닫으면 편지를 받을 수 없어요.</TooltipText>
             </Tooltip>

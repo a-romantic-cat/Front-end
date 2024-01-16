@@ -31,7 +31,7 @@ const LogoContainer = styled.div`
   position: absolute;
 `;
 
-const Logo = styled.div`
+const LogoImg = styled.img`
   width: 32.02px;
   height: 33.06px;
   left: 0;
@@ -103,9 +103,9 @@ const Feather = styled.div`
   display: flex;
 `;
 
-const FeatherImage = styled.img`
-  width: 18.67px;
-  height: 20.75px;
+const FeatherImg = styled.img`
+  width: 25px;
+  height: 25px;
 `;
 
 const StyledLink = styled(Link)`
@@ -118,7 +118,7 @@ export default function Header() {
       <InnerContainer>
         <StyledLink to="/">
         <LogoContainer>
-          <Logo><img src={logo} alt='logo' /></Logo>
+          <LogoImg src={logo} alt='logo' />
           <TextLogo>낭만고양이</TextLogo>
         </LogoContainer>
         </StyledLink>
@@ -138,7 +138,7 @@ export default function Header() {
         </MenuContainer>
         <FeatherContainer>
           <Feather>
-            <StyledLink to="/MyPage"><FeatherImage src={feather} alt='feather' /></StyledLink>
+            <StyledLink to="/MyPage"><FeatherImg src={feather} alt='feather' /></StyledLink>
           </Feather>
         </FeatherContainer>
       </InnerContainer>

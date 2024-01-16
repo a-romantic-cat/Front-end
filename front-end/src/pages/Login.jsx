@@ -1,4 +1,3 @@
-
 import React from 'react'
 import Logincontrl from "../components/Login/Logincontrol"
 
