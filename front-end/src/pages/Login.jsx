@@ -1,6 +1,6 @@
 
 import React from 'react'
-import Logincontrl from "../components/Logincontrol"
+import Logincontrl from "../components/Login/Logincontrol"
 
 
 export default function Login() {
