@@ -119,6 +119,39 @@ const ToggleCircle = styled.div`
   border-radius: 9999px;
 `
 
+// Tooltip 컴포넌트 생성
+const Tooltip = styled.div`
+  width: 197px;
+  height: 33px;
+  left: 329px;
+  top: 33px;
+  position: relative;
+  display: ${({ isActive }) => (isActive ? 'visible' : 'none')};
+`;
+
+const Placeholder = styled.div`
+  width: 197px; 
+  height: 24px;
+  left: 0;
+  top: 0;
+  position: relative;
+  background: black;
+  border-radius: 50px;
+`
+
+const TooltipText = styled.div`
+  width: 185px;
+  height: 14px;
+  position: absolute;
+  left: 6px;
+  top: 5px;
+  color: white;
+  font-size: 12px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  word-wrap: break-word;
+`;
+
 //내용 중 '편지 남길 수 있는 사람'
 const Container2 = styled.div`
   left: 44px;
@@ -350,6 +383,11 @@ export default function Info({ isOpen, onClose }) {
             <Toggle isActive={isActive} onClick={handleToggle}>
               <ToggleCircle isActive={isActive} />
             </Toggle>
+
+            <Tooltip isActive={isActive}>
+              <Placeholder />
+              <TooltipText>우편함을 닫으면 편지를 받을 수 없어요.</TooltipText>
+            </Tooltip>
         </Container1>
 
         <Container2>
