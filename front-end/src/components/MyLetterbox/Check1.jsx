@@ -67,9 +67,42 @@ const XButton = styled.div`
 `;
 
 const LeftContainer = styled.div`
-  width: 505px;
-  height: 689px;
-  margin: 43px 32px 0 23px;
+  width: 560px;
+  height: 1080px;
+  margin: 63px 0 0 0;
+  display: inline-flex; //컨테이너랑 스크롤바 가로배치
+`;
+
+//핀이랑 닉네임 하얀창 컨테이너
+const PinAndUserContainer = styled.div`
+  width: 444px;
+  height: 50px;
+  margin: 0 88px 0 28px;
+  display: inline-flex; // 핀이랑 닉네임 가로배치
+`;
+
+const Pin = styled.div`
+  background-image: url("/images/핀.png");
+  width: 30px;
+  height: 30px;
+  margin: 10px 0 0 0;
+`;
+
+const WrapUserNickname = styled.div`
+  display: flex;
+  width: 400px;
+  height: 50px;
+  margin: 0 0 0 0 14px; //안 됨
+  align-items: flex-start;
+  gap: 12px;
+  border-radius: 45px;
+  background: var(--Background-Ivory, #FFFEF8);
+`;
+
+const UserNickname = styled.div`
+`;
+
+const ScrollBar = styled.div`
 `;
 
 const RightContainer = styled.div`
@@ -88,9 +121,8 @@ const WhiteLetterContainer = styled.div`
 
 const ContentContainer = styled.div`
   width: 528px;
-  //height: 288px; ???
-  height: 295px; //???
-  margin: 23px 25px 28px 25px; // 탑 에러나서 부모에 오토처리
+  height: 288px;
+  margin: 30px 25px 28px 25px; // 탑 에러나서 부모에 오토처리
 `;
 
 //답장하기 버튼
@@ -143,21 +175,24 @@ const To = styled.div`
 `;
 
 const WrapStamp = styled.div`
-  //display: inline-flex;
-  float: right;
+  /*display: inline-flex;*/
+  //float: right;
 `;
 
 const Content = styled.div`
+  //background-color: #000;
   width: 528px;
   height: 196px;
   color: #000;
-  margin-top: 50px; //???
+  margin-top: 24px;
   font-family: Gowun Dodum;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 200%; /* 28px */
   letter-spacing: -0.14px;
+  word-break: break-all;
+  //float: right;
 `;
 
 const Stamp = styled.div`
@@ -167,7 +202,7 @@ const Stamp = styled.div`
   flex-direction: column;
   align-items: center;
   background: #C0C0C0;
-  //position: absolute; //우표가 내용위로 겹치게
+  position: absolute; //우표가 내용위로 겹치게
   right: 53px;
   top: 179px;
 `;
@@ -223,6 +258,17 @@ const Check1 = () => {
       <WrapLetterContainer>
         <LetterContainer >
           <LeftContainer>
+            <PinAndUserContainer>
+              <Pin>
+              </Pin>
+              <WrapUserNickname>
+                <UserNickname>
+                  닉네임
+                </UserNickname>
+              </WrapUserNickname>
+            </PinAndUserContainer>
+            <ScrollBar>
+            </ScrollBar>
           </LeftContainer>
 
           <RightContainer>
