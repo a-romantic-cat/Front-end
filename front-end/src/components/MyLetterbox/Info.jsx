@@ -242,7 +242,7 @@ const Option1 = styled.div`
   background: ${({ selectedOption }) => (selectedOption ? '#E5E5E5' : 'white')};
   border: 1px solid black;
   border-bottom-width: 0px; /* 아래쪽 테두리 설정 */
-  border-top-width: 0px; /* 위쪽 테두리 설정 */
+  border-top-width: 1px; /* 위쪽 테두리 설정 */
   justify-content: flex-start;
   align-items: center;
   display: inline-flex;

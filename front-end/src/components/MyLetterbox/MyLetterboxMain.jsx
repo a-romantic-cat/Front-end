@@ -182,7 +182,7 @@ const StyledValue = styled.div`
 `;
 
 const HoursSeparator = styled.div`
-  left: 68px;
+  left: 69px;
   top: 10px;
   position: absolute;
   text-align: center;
@@ -217,7 +217,7 @@ const HoursLabel = styled.div`
 `;
 
 const MinutesSeparator = styled.div`
-  left: 151px;
+  left: 152px;
   top: 10px;
   position: absolute;
   text-align: center;
