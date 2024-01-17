@@ -1,5 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
+import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header';
 
 const TextContainer = styled.div`
@@ -156,6 +157,16 @@ const Next = styled.div`
 
 
 const Answer1 = () => {
+  const navigate = useNavigate();
+
+  const navigateToStore = () => {
+    navigate("/Store");
+  };
+
+  const navigateToCheck1 = () => {
+    navigate("/Check1");
+  };
+
   return (
     <div>
       <Header />
@@ -175,10 +186,11 @@ const Answer1 = () => {
       </WhiteLetterContainer>
 
       <ExplanationText>
-        ·  편지는 발송한 시간부터 24시간 후에 우편함 주인이 읽을 수 있어요.<br />
-        · 모든 편지는 우편함 주인만 볼 수 있고, 후에 공개될 수 있어요.<br />
-        · 모든 편지는 익명이 보장되지만, 욕설/모욕/성희롱 등 부적절한 내용으로 인해<br />
-           수사 협조 요청이 발생할 경우, 낭만고양이는 수사에 필요한 정보를 제공할 수 있습니다.
+        {/*figure space공백문자씀*/}
+         • 편지는 발송한 시간부터 24시간 후에 우편함 주인이 읽을 수 있어요.<br />
+         • 모든 편지는 우편함 주인만 볼 수 있고, 후에 공개될 수 있어요.<br />
+         • 모든 편지는 익명이 보장되지만, 욕설/모욕/성희롱 등 부적절한 내용으로 인해<br />
+          수사 협조 요청이 발생할 경우, 낭만고양이는 수사에 필요한 정보를 제공할 수 있습니다.
       </ExplanationText>
 
       <ButtonsContainer>
@@ -189,12 +201,12 @@ const Answer1 = () => {
                 <path d="M10.3105 1.5L2.21678 8.53806C1.74529 8.94805 1.76106 9.68519 2.24964 10.0746L10.3105 16.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
               </svg>
             </Arrow1>
-            <Prev>
+            <Prev onClick={navigateToCheck1}>
               이전
             </Prev>
           </ArrowAndText>
         </PrevButton>
-        <StoreButton>
+        <StoreButton onClick={navigateToStore}>
           상점
         </StoreButton>
         <NextButton>
