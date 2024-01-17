@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from 'styled-components';
 import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header';
@@ -50,6 +50,7 @@ const WrapLetterContainer = styled.div`
 //우편함 전체 모달창
 const LetterContainer = styled.div`
   background-image: url("/images/bg_letter.png");
+  background-size: cover; //4x export한 이미지 1x처럼
   width: 1194px;
   height: 732px;
   margin-left: 363px;
@@ -73,21 +74,31 @@ const LeftContainer = styled.div`
   display: inline-flex; //컨테이너랑 스크롤바 가로배치
 `;
 
-//핀이랑 닉네임 하얀창 컨테이너
+//핀들이랑 닉네임들 넓은 컨테이너
+const PinsAndUsersContainer = styled.div`
+  width: 444px;
+  height: 1080px;
+  margin: 0 88px 0 28px;
+`;
+
+//핀과 닉네임 한 줄 컨테이너
 const PinAndUserContainer = styled.div`
   width: 444px;
   height: 50px;
-  margin: 0 88px 0 28px;
   display: inline-flex; // 핀이랑 닉네임 가로배치
 `;
 
-const Pin = styled.div`
+//빨간핀
+const RedPin = styled.div`
   background-image: url("/images/핀.png");
+  background-size: cover; //4x export한 이미지 1x처럼
   width: 30px;
   height: 30px;
   margin: 10px 0 0 0;
+  cursor: pointer;
 `;
 
+//닉네임 적힌 모달창 여는 버튼 컨테이너
 const WrapUserNickname = styled.div`
   display: flex;
   width: 400px;
@@ -97,15 +108,47 @@ const WrapUserNickname = styled.div`
   gap: 12px;
   border-radius: 45px;
   background: var(--Background-Ivory, #FFFEF8);
+  cursor: pointer;
 `;
 
 const Envelope = styled.div`
+  width: 26px;
+  height: 16px;
+  margin: 16px 12px 16px 25px;
 `;
 
 const UserNickname = styled.div`
+  color: #000;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%; /* 18px */
+  margin: 16px 0 16px 0;
 `;
 
-const ScrollBar = styled.div`
+const ScrollBar = styled.div` // 왜안뜨지
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar { //스크롤바 전체 
+    /*height: 611px;
+    stroke-width: 8px;
+    stroke: #B3B3B3;*/
+    //display: none; //화살표 스크롤 안 보이게 하기
+    height: 611px;
+  }
+
+  &::-webkit-scrollbar-track { //스크롤 막대가 움직일 길
+    height: 611px;
+    stroke-width: 8px;
+    stroke: #B3B3B3;
+  }
+
+  &::-webkit-scrollbar-thumb { //스크롤막대
+    background: #79110E;
+    width: 8px;
+    height: 84.592px;
+  }
 `;
 
 const RightContainer = styled.div`
@@ -114,9 +157,10 @@ const RightContainer = styled.div`
   margin: 149px 0 0 28px;
 `;
 
-//편지지
+//흰 편지지
 const WhiteLetterContainer = styled.div`
-  background-image: url("/images/편지지.png");
+  background-image: url("/images/흰편지지.png");
+  background-size: cover; //4x export한 이미지 1x처럼
   width: 578px;
   height: 346px;
   overflow: auto; //자식 마진 탑 오류 때문에 오토처리
@@ -243,6 +287,10 @@ const Check1 = () => {
     navigate("/MyLetterbox");
   };
 
+  const navigateToAnswer1 = () => {
+    navigate("/Answer1");
+  };
+
   return (
     <div>
       <Header />
@@ -261,22 +309,27 @@ const Check1 = () => {
       <WrapLetterContainer>
         <LetterContainer >
           <LeftContainer>
-            <PinAndUserContainer>
-              <Pin>
-              </Pin>
-              <WrapUserNickname>
-                <Envelope>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="18" viewBox="0 0 28 18" fill="none">
-                    <path d="M1 17V1H27V17H1Z" fill="white"/>
-                    <path d="M1 1V17M1 1H27M1 1L14 9L27 1M1 17H27M1 17L12.3496 7.98437M27 17V1M27 17L15.6504 7.98437" stroke="black" stroke-linecap="round"/>
-                  </svg>
-                </Envelope>
-                <UserNickname>
-                  닉네임
-                </UserNickname>
-              </WrapUserNickname>
-            </PinAndUserContainer>
+            <PinsAndUsersContainer>
+              <PinAndUserContainer>
+                <RedPin>
+                </RedPin>
+                <WrapUserNickname>
+                  <Envelope>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="18" viewBox="0 0 28 18" fill="none">
+                      <path d="M1 17V1H27V17H1Z" fill="white"/>
+                      <path d="M1 1V17M1 1H27M1 1L14 9L27 1M1 17H27M1 17L12.3496 7.98437M27 17V1M27 17L15.6504 7.98437" stroke="black" stroke-linecap="round"/>
+                    </svg>
+                  </Envelope>
+                  <UserNickname>
+                    닉네임
+                  </UserNickname>
+                </WrapUserNickname>
+              </PinAndUserContainer>
+            </PinsAndUsersContainer>
             <ScrollBar>
+              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="611" viewBox="0 0 8 611" fill="none">
+                <path d="M4 4.28516L3.99998 607" stroke="#B3B3B3" stroke-width="8" stroke-linecap="round"/>
+              </svg>
             </ScrollBar>
           </LeftContainer>
 
@@ -312,7 +365,7 @@ const Check1 = () => {
               </ContentContainer>
             </WhiteLetterContainer>
 
-            <AnswerButton>
+            <AnswerButton onClick={navigateToAnswer1}>
               <AnswerText>
                 답장하기
               </AnswerText>
