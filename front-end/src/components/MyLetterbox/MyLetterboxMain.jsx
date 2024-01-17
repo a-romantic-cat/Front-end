@@ -69,8 +69,8 @@ const Notice = styled.div`
   margin-top: 11px;
 `;
 
-//남은 시간
-const TimeContainer = styled.div`
+//남은 시간 이전 버전
+{/*const TimeContainer = styled.div`
   width: 234px;
   height: 46px;
   position: relative;
@@ -117,6 +117,146 @@ const Number = styled.div`
   font-weight: 400;
   line-height: 15px;
   word-wrap: break-word;
+`;*/}
+
+//남은 시간 수정 버전
+const Wrapper = styled.div`
+  width: 224px;
+  height: 54px;
+  position: relative;
+  margin-left: 363px;
+  margin-top: 36px;
+`;
+
+const DaysContainer = styled.div`
+  width: 58px;
+  height: 54px;
+  left: 0;
+  top: 0;
+  position: absolute;
+`;
+
+const DaysLabel = styled.div`
+  left: 16px;
+  top: 42px;
+  position: absolute;
+  text-align: center;
+  color: #757575;
+  font-size: 12px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  line-height: 12px;
+  word-wrap: break-word;
+`;
+
+const DaysValueContainer = styled.div`
+  width: 58px;
+  height: 36px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
+`;
+
+const StyledValue = styled.div`
+  width: 8px;
+  height: 16px;
+  padding: 9px;
+  left: ${props => props.left}px;
+  top: 0;
+  position: absolute;
+  background: white;
+  border-radius: 5px;
+  border: 1px #757575 solid;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: inline-flex;
+  text-align: center;
+  color: #C90000;
+  font-size: 16px;
+  font-family: 'Pretendard';
+  font-weight: 600;
+  word-wrap: break-word;
+`;
+
+const HoursSeparator = styled.div`
+  left: 68px;
+  top: 10px;
+  position: absolute;
+  text-align: center;
+  color: black;
+  font-size: 16px;
+  font-family: 'Pretendard';
+  font-weight: 500;
+  line-height: 16px;
+  word-wrap: break-word;
+`;
+
+const HoursContainer = styled.div`
+  width: 58px;
+  height: 54px;
+  left: 83px;
+  top: 0;
+  position: absolute;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
+`;
+
+const HoursLabel = styled.div`
+  left: 13px;
+  top: 42px;
+  position: absolute;
+  text-align: center;
+  color: #757575;
+  font-size: 12px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  line-height: 12px;
+  word-wrap: break-word;
+`;
+
+const MinutesSeparator = styled.div`
+  left: 151px;
+  top: 10px;
+  position: absolute;
+  text-align: center;
+  color: black;
+  font-size: 16px;
+  font-family: 'Pretendard';
+  font-weight: 500;
+  line-height: 16px;
+  word-wrap: break-word;
+`;
+
+const MinutesContainer = styled.div`
+  width: 58px;
+  height: 54px;
+  left: 166px;
+  top: 0;
+  position: absolute;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
+`;
+
+const MinutesLabel = styled.div`
+  left: 8px;
+  top: 42px;
+  position: absolute;
+  text-align: center;
+  color: #757575;
+  font-size: 12px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  line-height: 12px;
+  word-wrap: break-word;
+`;
+
+const TimeValueContainer = styled.div`
+  width: 58px;
+  height: 36px;
+  left: 0;
+  top: 0;
+  position: absolute;
 `;
 
 //우편함 이미지
@@ -223,6 +363,44 @@ export default function MyLetterboxMain() {
   const [numbers, setNumbers] = useState([32, 25, 11, 9]);
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
 
+  const RemainingTime = (props) => {
+    const { days, hours, minutes } = props;
+  
+    // 각 값을 두 자리수로 맞추기 위해 0을 추가
+    const formattedDays = days.toString().padStart(2, '0');
+    const formattedHours = hours.toString().padStart(2, '0');
+    const formattedMinutes = minutes.toString().padStart(2, '0');
+  
+    return (
+      <Wrapper>
+        <DaysContainer>
+          <DaysLabel>Days</DaysLabel>
+          <DaysValueContainer>
+            <StyledValue left={0}>{formattedDays[0]}</StyledValue>
+            <StyledValue left={31}>{formattedDays[1]}</StyledValue>
+          </DaysValueContainer>
+        </DaysContainer>
+        <HoursSeparator>:</HoursSeparator>
+        <HoursContainer>
+          <HoursLabel>Hours</HoursLabel>
+          <TimeValueContainer>
+            <StyledValue left={0}>{formattedHours[0]}</StyledValue>
+            <StyledValue left={31}>{formattedHours[1]}</StyledValue>
+          </TimeValueContainer>
+        </HoursContainer>
+        <MinutesSeparator>:</MinutesSeparator>
+        <MinutesContainer>
+          <MinutesLabel>Minutes</MinutesLabel>
+          <TimeValueContainer>
+            <StyledValue left={0}>{formattedMinutes[0]}</StyledValue>
+            <StyledValue left={30}>{formattedMinutes[1]}</StyledValue>
+          </TimeValueContainer>
+        </MinutesContainer>
+      </Wrapper>
+    );
+  };
+  
+
   return (
     <div>
       <Header />
@@ -239,19 +417,21 @@ export default function MyLetterboxMain() {
 
       <Notice>편지가 도착했어요. 우편함을 확인해보세요!</Notice>
 
-      <TimeContainer>
+      {/*<TimeContainer>
         <TimeInnerContainer>
           <Colon>:</Colon>
           <Colon style={{ left: '58px' }}>:</Colon>
           <Colon style={{ left: '116px' }}>:</Colon>
         </TimeInnerContainer>
         <Numbers>
-          {/* numbers 배열의 각 숫자를 반복하여 표시 */}
           {numbers.map((number, index) => (
             <Number key={index}>{number}</Number>
           ))}
         </Numbers>
       </TimeContainer>
+          */}
+      
+      <RemainingTime days={3} hours={18} minutes={20} />
 
       <LetterboxImg src={Letterbox} alt='letterbox' />
       <CatImg src={Cat} alt='cat' onClick={navigateToOpenLetter1} />
