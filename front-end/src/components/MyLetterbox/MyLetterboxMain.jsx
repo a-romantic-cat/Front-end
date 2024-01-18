@@ -263,44 +263,46 @@ const TimeValueContainer = styled.div`
 const LetterboxImg = styled.img`
   width: 174px;
   height: 284px;
-  margin-left: 873px;
-  margin-top: 225px;
+  position: relative;
+  left: 873px;
+  top: 203px;
 `
 
 //고양이 이미지
 const CatImg = styled.img`
   width: 80px;
   height: 96.5px;
-  margin-left: 30px;
-  margin-top: 188px;
+  position: absolute;
+  left: 1077px;
+  top: 721px;
   cursor: pointer;
 `
 
 //고양이 설명
 const TextContainer = styled.div`
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 690px;
-    left: 1172px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 690px;
+  left: 1172px;
 `;
 
 const AbsoluteText = styled.div`
-    position: absolute;
-    color: black;
-    font-size: 12px;
-    font-family: 'Pretendard';
-    font-weight: 400;
-    word-wrap: break-word;
-    bottom: 3px;
+  position: absolute;
+  color: black;
+  font-size: 12px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  word-wrap: break-word;
+  bottom: 3px;
 `;
 
 const ColorText = styled.span`
-    color: ${props => props.color};
-    font-size: 12px;
-    font-family: 'Pretendard';
-    font-weight: 400;
-    word-wrap: break-word;
+  color: ${props => props.color};
+  font-size: 12px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  word-wrap: break-word;
 `;
 
 // 우체통 아래 버튼
@@ -308,7 +310,7 @@ const IButtonImg = styled.img`
   width: 42px;
   height: 42px;
   position: absolute;
-  left: 836px;
+  left: 811px;
   top: 855px;
   cursor: pointer;
 `
@@ -317,35 +319,36 @@ const ShareButtonImg = styled.img`
   width: 42px;
   height: 42px;
   position: absolute;
-  left: 1047px;
+  left: 1067px;
   top: 855px;
   cursor: pointer;
 `
 
 //우편함 확인하기
 const BoxCheckContainer = styled.div`
-    width: 114px;
-    height: 21px;
-    left: 884px;
-    top: 855px; 
-    position: absolute;
-    padding: 12.38px;
-    background: black;
-    border-radius: 6px;
-    border: 1px black solid;
-    justify-content: center;
-    align-items: center;
-    gap: 12.38px;
-    display: inline-flex;
-    cursor: pointer;
+  width: 149px;
+  height: 17.2px;
+  left: 873px;
+  top: 855px; 
+  position: absolute;
+  padding: 11.5px;
+  background: black;
+  border-radius: 6px;
+  border: 1px black solid;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+  cursor: pointer;
 `;
 
 const BoxCheckText = styled.div`
-    color: white;
-    font-size: 18px;
-    font-family: 'Pretendard';
-    font-weight: 400;
-    word-wrap: break-word;
+  width: 114px;
+  height: 21px;
+  color: white;
+  font-size: 18px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  word-wrap: break-word;
 `;
 
 export default function MyLetterboxMain() {

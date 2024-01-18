@@ -13,8 +13,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   display: inline-flex;
-  padding-left: 217px;
-  padding-right: 217px;
+  padding: 0 217px;
 `;
 
 const InnerContainer = styled.div`
@@ -33,13 +32,15 @@ const LogoContainer = styled.div`
 
 const LogoImg = styled.img`
   width: 32.02px;
-  height: 33.06px;
+  height: 35.66px;
   left: 0;
   top: 0;
   position: absolute;
 `;
 
 const TextLogo = styled.div`
+  width: 109px;
+  height: 35px;
   left: 37px;
   top: 1px;
   position: absolute;
