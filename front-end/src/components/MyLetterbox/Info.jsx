@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components';
-import InfoImage from '../../assets/img/info.png';
-import Vector from '../../assets/img/Vector.png';
-import Under from '../../assets/img/Under.png';
-import X from '../../assets/img/X.png';
+import InfoImage from '../../assets/img/Info.svg';
+import Vector from '../../assets/img/Vector.svg';
+import Under from '../../assets/img/Under.svg';
+import X from '../../assets/img/X.svg';
 
 //모달창 열릴 때 백그라운드 블러 처리
 const BackgroundBlur = styled.div`

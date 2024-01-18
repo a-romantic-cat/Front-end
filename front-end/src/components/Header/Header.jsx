@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { NavLink, useLocation } from 'react-router-dom';
-import logo from '../../assets/img/낭만고양이.png';
-import feather from '../../assets/img/Feather.png';
-import featherRed from '../../assets/img/FeatherRed.png';
+import logo from '../../assets/img/낭만고양이.svg';
+import feather from '../../assets/img/Feather.svg';
+import featherRed from '../../assets/img/FeatherRed.svg';
 import '../../index.css';
 
 const Container = styled.div`

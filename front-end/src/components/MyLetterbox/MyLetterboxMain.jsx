@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import Header from '../Header/Header';
 import { useNavigate } from "react-router-dom";
 import '../../index.css';
-import Letterbox from '../../assets/img/우체통.png';
-import Cat from '../../assets/img/고양이.png';
-import i_button from '../../assets/img/i_button.png';
-import share_button from '../../assets/img/share_Button.png';
+import Letterbox from '../../assets/img/우체통.svg';
+import Cat from '../../assets/img/고양이.svg';
+import i_button from '../../assets/img/i_button.svg';
+import share_button from '../../assets/img/share_Button.svg';
 import Info from './Info';
 
 //닉네임님의 우편함이름
@@ -305,8 +305,8 @@ const ColorText = styled.span`
 
 // 우체통 아래 버튼
 const IButtonImg = styled.img`
-  width: 37px;
-  height: 37px;
+  width: 42px;
+  height: 42px;
   position: absolute;
   left: 836px;
   top: 855px;
@@ -314,8 +314,8 @@ const IButtonImg = styled.img`
 `
 
 const ShareButtonImg = styled.img`
-  width: 39px;
-  height: 37px;
+  width: 42px;
+  height: 42px;
   position: absolute;
   left: 1047px;
   top: 855px;
@@ -329,7 +329,7 @@ const BoxCheckContainer = styled.div`
     left: 884px;
     top: 855px; 
     position: absolute;
-    padding: 8px 19.5px;
+    padding: 12.38px;
     background: black;
     border-radius: 6px;
     border: 1px black solid;
