@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from '../Header/Header';
 import { useNavigate } from "react-router-dom";
@@ -68,56 +68,6 @@ const Notice = styled.div`
   margin-left: 363px;
   margin-top: 11px;
 `;
-
-//남은 시간 이전 버전
-{/*const TimeContainer = styled.div`
-  width: 234px;
-  height: 46px;
-  position: relative;
-  background: linear-gradient(180deg, #F5F3E9 0%, #FFFEF8 100%);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-  border-radius: 3px;
-  overflow: hidden;
-  margin-left: 363px;
-  margin-top: 22px;
-`;
-
-const TimeInnerContainer = styled.div`
-  left: 56px;
-  top: 5px;
-  position: absolute;
-`;
-
-const Colon = styled.div`
-  position: absolute;
-  text-align: center;
-  color: black;
-  font-size: 15px;
-  font-family: 'Pretendard';
-  font-weight: 400;
-  line-height: 37px;
-  word-wrap: break-word;
-`;
-
-const Numbers = styled.div`
-  left: 19px;
-  top: 16px;
-  position: absolute;
-  display: inline-flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 42px;
-`;
-
-const Number = styled.div`
-  text-align: center;
-  color: black;
-  font-size: 15px;
-  font-family: 'Pretendard';
-  font-weight: 400;
-  line-height: 15px;
-  word-wrap: break-word;
-`;*/}
 
 //남은 시간 수정 버전
 const Wrapper = styled.div`
@@ -363,16 +313,58 @@ export default function MyLetterboxMain() {
     navigate("/OpenLetter1");
   };
 
-  const [numbers, setNumbers] = useState([32, 25, 11, 9]);
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
 
-  const RemainingTime = (props) => {
-    const { days, hours, minutes } = props;
-  
-    // 각 값을 두 자리수로 맞추기 위해 0을 추가
-    const formattedDays = days.toString().padStart(2, '0');
-    const formattedHours = hours.toString().padStart(2, '0');
-    const formattedMinutes = minutes.toString().padStart(2, '0');
+  {/* API로부터 닉네임과 우편함 이름을 받아오는 경우, 일반적으로 비동기 작업을 처리, fetch 함수를 사용하여 API에서 데이터를 받아오는 간단한 예시
+  function MyComponent() {
+    const [nickname, setNickname] = useState('');
+    const [mailboxName, setMailboxName] = useState('');
+
+    useEffect(() => {
+      fetch('API_URL') // 실제 API URL로 교체하세요.
+        .then(response => response.json())
+        .then(data => {
+          setNickname(data.nickname);
+          setMailboxName(data.mailboxName);
+        });
+    }, []);
+
+    return (
+      <Container>
+        <InnerContainer>
+          <Nickname>
+            <div>{nickname}</div>
+          </Nickname>
+          <Message>님의</Message>
+        </InnerContainer>
+        <MailboxName>{mailboxName}</MailboxName>
+      </Container>
+    );
+  }
+  */}
+
+  const RemainingTime = () => {
+    const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0 });
+    const targetTime = new Date('2024-12-31'); // 여기에 설정한 시간을 입력
+
+    useEffect(() => {
+      const intervalId = setInterval(() => {
+        const currentTime = new Date();
+        const remainingTime = targetTime - currentTime;
+
+        const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+
+        setTime({ days, hours, minutes });
+      }, 1000);
+
+      return () => clearInterval(intervalId); // 컴포넌트가 언마운트될 때 인터벌을 정리
+    }, [targetTime]);
+
+    const formattedDays = String(time.days).padStart(2, '0');
+    const formattedHours = String(time.hours).padStart(2, '0');
+    const formattedMinutes = String(time.minutes).padStart(2, '0');
   
     return (
       <Wrapper>
@@ -420,21 +412,7 @@ export default function MyLetterboxMain() {
 
       <Notice>편지가 도착했어요. 우편함을 확인해보세요!</Notice>
 
-      {/*<TimeContainer>
-        <TimeInnerContainer>
-          <Colon>:</Colon>
-          <Colon style={{ left: '58px' }}>:</Colon>
-          <Colon style={{ left: '116px' }}>:</Colon>
-        </TimeInnerContainer>
-        <Numbers>
-          {numbers.map((number, index) => (
-            <Number key={index}>{number}</Number>
-          ))}
-        </Numbers>
-      </TimeContainer>
-          */}
-      
-      <RemainingTime days={3} hours={18} minutes={20} />
+      <RemainingTime />
 
       <LetterboxImg src={Letterbox} alt='letterbox' />
       <CatImg src={Cat} alt='cat' onClick={navigateToOpenLetter1} />
@@ -453,8 +431,6 @@ export default function MyLetterboxMain() {
         <BoxCheckContainer onClick={navigateToCheck1}>
           <BoxCheckText>우편함 확인하기</BoxCheckText>
         </BoxCheckContainer>
-      
-
 
     </div>
   )

@@ -354,10 +354,13 @@ const NameIconImg = styled.img`
 
 
 export default function Info({ isOpen, onClose }) {
-
-  const [isDropdownOpen, setDropdownOpen] = useState(false); // 드롭다운의 열림/닫힘 상태를 관리하는 변수
-  const [selectedOption, setSelectedOption] = useState('누구나'); // 선택한 옵션을 관리하는 변수
   const [isActive, setIsActive] = useState(false); // 토글 버튼의 활성 상태를 관리하는 상태 변수
+
+  const [isDropdownOpen, setDropdownOpen] = useState(false); // 드롭다운의 열림/닫힘 상태를 관리하는 상태 변수
+  const [selectedOption, setSelectedOption] = useState('누구나'); // 선택한 옵션을 관리하는 상태 변수
+
+  const [mailboxName, setMailboxName] = useState('23번째 생일 우편함'); // mailboxName은 우편함 이름을 관리하는 상태 변수
+  const [isEditing, setIsEditing] = useState(false); // isEditing은 편집 모드 여부를 관리하는 상태 변수
 
   const handleDropdownToggle = () => {
     setDropdownOpen(!isDropdownOpen); // 드롭다운의 열림/닫힘 상태를 토글
@@ -370,6 +373,18 @@ export default function Info({ isOpen, onClose }) {
 
   const handleToggle = () => {
     setIsActive(!isActive); // 토글 버튼 클릭 시 isActive 상태를 변환하는 핸들러 함수
+  };
+
+  const handleIconClick = () => {
+    setIsEditing(true); // 아이콘을 클릭하면 편집 모드로 전환
+  };
+
+  const handleNameChange = (event) => {
+    setMailboxName(event.target.value); //텍스트 입력 필드에서 이름을 변경하면 mailboxName 상태를 업데이트
+  };
+
+  const handleBlur = () => {
+    setIsEditing(false); // 입력 필드에서 포커스가 사라지면 편집 모드를 종료
   };
 
   if (!isOpen) {
@@ -428,6 +443,7 @@ export default function Info({ isOpen, onClose }) {
           <DateRange>2024-01-04 ~ 2024-01-07</DateRange>
         </Container3>
 
+        {/*
         <Container4>
           <NameText>이름</NameText>
           <NameContainer>
@@ -435,6 +451,22 @@ export default function Info({ isOpen, onClose }) {
             <NameIconImg src={Vector} alt='NameIcon'/>
           </NameContainer>
         </Container4>
+        */}
+
+        <Container4>
+          <NameText>이름</NameText>
+          <NameContainer>
+            {/* 편집 모드일 때는 텍스트 입력 필드를, 그렇지 않을 때는 일반 텍스트를 렌더링합니다. */}
+            {isEditing ? (
+              <input type="text" value={mailboxName} onChange={handleNameChange} onBlur={handleBlur} autoFocus />
+            ) : (
+              <RealNameText>{mailboxName}</RealNameText>
+            )}
+            {/* 아이콘을 클릭하면 편집 모드로 전환합니다. */}
+            <NameIconImg src={Vector} alt='NameIcon' onClick={handleIconClick}/>
+          </NameContainer>
+        </Container4>
+
       </ModalContainer>
     </BackgroundBlur>
   );
