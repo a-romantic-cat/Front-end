@@ -197,10 +197,14 @@ const AnswerText = styled.div`
   line-height: normal;
 `;
 
+//닉네임에게
 const ToContainer = styled.div`
-  display: inline-flex; //수평 정렬
+  width: 62px;
+  height: 14px;
+  display: flex;
 `;
 
+//'닉네임'(나)
 const ToMyNickname = styled.div`
   color: #000;
   font-family: Pretendard;
@@ -211,6 +215,7 @@ const ToMyNickname = styled.div`
   letter-spacing: 0.28px;
 `;
 
+//에게
 const To = styled.div`
   color: #000;
   font-family: Pretendard;
@@ -221,10 +226,10 @@ const To = styled.div`
   letter-spacing: 0.28px;
 `;
 
-const WrapStamp = styled.div`
-  /*display: inline-flex;*/
+/*const WrapStamp = styled.div`
+  //display: inline-flex;
   //float: right;
-`;
+`;*/
 
 const Content = styled.div`
   //background-color: #000;
@@ -243,22 +248,40 @@ const Content = styled.div`
 `;
 
 const Stamp = styled.div`
-  //텍스트가 우표를 감싸게 하면 될 것 같음
+  //shape-outside: url("/images/우표.svg");
+  background-image: url("/images/우표.svg");
+  float: right;
   width: 84px;
   height: 112px;
-  flex-direction: column;
-  align-items: center;
-  background: #C0C0C0;
+
   position: absolute; //우표가 내용위로 겹치게
   right: 53px;
   top: 179px;
 `;
 
+/*const Stamp = styled.img.attrs({
+  src: "/images/우표.svg",
+  alt: "우표임",
+ })`
+
+  width: 84px;
+  height: 112px;
+  flex-direction: column;
+  align-items: center;
+  position: absolute; //우표가 내용위로 겹치게
+  //right: 53px;
+  //top: 179px;
+`;*/
+
+//닉네임이
 const FromContainer = styled.div`
-  float: right; //오른쪽 정렬
-  display: inline-flex; //수평 정렬
+  width: 50px;
+  height: 14px;
+  margin: 33px 0 0 478px;
+  display: flex;
 `;
 
+//'닉네임'(다른 사용자)
 const FromNickname = styled.div`
   color: #000;
   font-family: Pretendard;
@@ -269,6 +292,7 @@ const FromNickname = styled.div`
   letter-spacing: 0.28px;
 `;
 
+//이
 const From = styled.div`
   color: #000;
   font-family: Pretendard;
@@ -345,13 +369,13 @@ const Check1 = () => {
                   </To>
                 </ToContainer>
                 
-                <WrapStamp>
+                {/*<WrapStamp>*/}
                   <Content>
                   편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명 으로 작성 돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼 요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익 명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.
                   </Content>
                   <Stamp alt='우표'>
                   </Stamp>
-                </WrapStamp>
+                {/*</WrapStamp>*/}
 
                 <FromContainer>
                   <FromNickname>
