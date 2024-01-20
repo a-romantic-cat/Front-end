@@ -20,9 +20,9 @@ const TextInnerContainer = styled.div`
   display: flex;
 `;
 
-//닉네임
-const Nickname = styled.div`
-  color: #79110E;
+//편지지
+const TextLetter = styled.div`
+  color: #C90000;
   font-size: 40px;
   font-family: 'Pretendard';
   font-weight: 500;
@@ -33,7 +33,7 @@ const Nickname = styled.div`
   gap: 10px;
 `;
 
-//님에게 편지를 작성해주세요
+//를 골라주세요.
 const Message = styled.div`
   color: black;
   font-size: 40px;
@@ -42,37 +42,36 @@ const Message = styled.div`
   word-wrap: break-word;
 `;
 
-//흰 편지지 컨테이너
+//편지지 양쪽 컨테이너
+const LetterConatiner = styled.div`
+  background-image: url("/images/양쪽편지지.svg");
+  background-size: cover;
+  width: 1194px;
+  height: 556px;
+  margin: 70px 363px 0 363px;
+  overflow: auto; // 자식 마진탑오류
+  display: flex; //자식 가로배치
+`;
+
 const WhiteLetterContainer = styled.div`
   background-image: url("/images/더흰편지지.svg");
   background-size: cover;
-  //background-size: contain;
-  width: 846px;
-  height: 506.42908px;
-  margin: 70px 537px 0 537px;
+  width: 480px;
+  height: 287.33566px;
+  margin: 134px 0 0 38px;
 `;
 
-//주의사항 설명 글
-const ExplanationText = styled.div`
-  width: 407px;
-  height: 64px;
-  margin: 13.57px 0 0 537px;
-
-  color: var(--Grey-Dark, #757575);
-  font-family: Pretendard;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 130%; /* 15.6px */
-  letter-spacing: -0.2px;
-  white-space: pre-line
+const ScrollBoxContainer = styled.div`
+  width: 638px;
+  height: 464px;
+  margin: 46px 0 0 38px;
 `;
 
 //버튼 3개 컨테이너
 const ButtonsContainer = styled.div`
   width: 846px;
   height: 52px;
-  margin: 84px 537px 0 537px;
+  margin: 112px 537px 0 537px;
   display: flex; // 버튼들 가로배치
   justify-content: space-between; //양옆끝으로 떨어트리기
 `;
@@ -112,7 +111,7 @@ const Prev = styled.div`
   line-height: 100%; /* 18px */
 `;
 
-// 상점 버튼
+//상점 버튼
 const StoreButton = styled.div`
   display: flex;
   width: 378px;
@@ -131,9 +130,9 @@ const StoreButton = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  `;
+`;
 
-// 다음 버튼
+//다음 버튼
 const NextButton = styled.div`
   display: flex;
   width: 174px;
@@ -162,19 +161,19 @@ const Next = styled.div`
 `;
 
 
-const Answer1 = () => {
+const Answer2 = () => {
   const navigate = useNavigate();
 
   const navigateToStore = () => {
     navigate("/Store");
   };
 
-  const navigateToCheck1 = () => {
-    navigate("/Check1");
+  const navigateToAnswer1 = () => {
+    navigate("/Answer1");
   };
 
-  const navigateToAnswer2 = () => {
-    navigate("/Answer2");
+  const navigateToAnswer3 = () => {
+    navigate("/Answer3");
   };
 
   return (
@@ -183,28 +182,26 @@ const Answer1 = () => {
       
       <TextContainer>
         <TextInnerContainer>
-          <Nickname>
-            닉네임
-          </Nickname>
+          <TextLetter>
+            편지지
+          </TextLetter>
           <Message>
-            님에게 편지를 작성해주세요.
+            를 골라주세요.
           </Message>
         </TextInnerContainer>
       </TextContainer>
 
-      <WhiteLetterContainer>
-      </WhiteLetterContainer>
+      <LetterConatiner>
+        <WhiteLetterContainer>
 
-      <ExplanationText>
-        {/*figure space공백문자씀*/}
-         • 편지는 발송한 시간부터 24시간 후에 우편함 주인이 읽을 수 있어요.<br />
-         • 모든 편지는 우편함 주인만 볼 수 있고, 후에 공개될 수 있어요.<br />
-         • 모든 편지는 익명이 보장되지만, 욕설/모욕/성희롱 등 부적절한 내용으로 인해<br />
-          수사 협조 요청이 발생할 경우, 낭만고양이는 수사에 필요한 정보를 제공할 수 있습니다.
-      </ExplanationText>
+        </WhiteLetterContainer>
+        <ScrollBoxContainer>
+
+        </ScrollBoxContainer>
+      </LetterConatiner>      
 
       <ButtonsContainer>
-        <PrevButton onClick={navigateToCheck1}>
+        <PrevButton onClick={navigateToAnswer1}>
           <ArrowAndText>
             <Arrow1>
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="18" viewBox="0 0 12 18" fill="none">
@@ -219,7 +216,7 @@ const Answer1 = () => {
         <StoreButton onClick={navigateToStore}>
           상점
         </StoreButton>
-        <NextButton onClick={navigateToAnswer2}>
+        <NextButton onClick={navigateToAnswer3}>
           <ArrowAndText>
             <Next>
               다음
@@ -236,4 +233,4 @@ const Answer1 = () => {
   );
 };
  
-export default Answer1;
+export default Answer2;
