@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from '../Header/Header';
 import { useNavigate } from "react-router-dom";
 import '../../index.css';
-import Letterbox from '../../assets/img/우체통.png';
-import Cat from '../../assets/img/고양이.png';
-import i_button from '../../assets/img/i_button.png';
-import share_button from '../../assets/img/share_Button.png';
+import Letterbox from '../../assets/img/우체통.svg';
+import Cat from '../../assets/img/고양이.svg';
+import i_button from '../../assets/img/i_button.svg';
+import share_button from '../../assets/img/share_Button.svg';
 import Info from './Info';
 
 //닉네임님의 우편함이름
@@ -69,143 +69,236 @@ const Notice = styled.div`
   margin-top: 11px;
 `;
 
-//남은 시간
-const TimeContainer = styled.div`
-  width: 234px;
-  height: 46px;
+//남은 시간 수정 버전
+const Wrapper = styled.div`
+  width: 224px;
+  height: 54px;
   position: relative;
-  background: linear-gradient(180deg, #F5F3E9 0%, #FFFEF8 100%);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-  border-radius: 3px;
-  overflow: hidden;
   margin-left: 363px;
-  margin-top: 22px;
+  margin-top: 36px;
 `;
 
-const TimeInnerContainer = styled.div`
-  left: 56px;
-  top: 5px;
+const DaysContainer = styled.div`
+  width: 58px;
+  height: 54px;
+  left: 0;
+  top: 0;
   position: absolute;
 `;
 
-const Colon = styled.div`
+const DaysLabel = styled.div`
+  left: 16px;
+  top: 42px;
   position: absolute;
   text-align: center;
-  color: black;
-  font-size: 15px;
+  color: #757575;
+  font-size: 12px;
   font-family: 'Pretendard';
   font-weight: 400;
-  line-height: 37px;
+  line-height: 12px;
   word-wrap: break-word;
 `;
 
-const Numbers = styled.div`
-  left: 19px;
-  top: 16px;
+const DaysValueContainer = styled.div`
+  width: 58px;
+  height: 36px;
+  left: 0;
+  top: 0;
   position: absolute;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
+`;
+
+const StyledValue = styled.div`
+  width: 8px;
+  height: 16px;
+  padding: 9px;
+  left: ${props => props.left}px;
+  top: 0;
+  position: absolute;
+  background: white;
+  border-radius: 5px;
+  border: 1px #757575 solid;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
   display: inline-flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 42px;
+  text-align: center;
+  color: #C90000;
+  font-size: 16px;
+  font-family: 'Pretendard';
+  font-weight: 600;
+  word-wrap: break-word;
 `;
 
-const Number = styled.div`
+const HoursSeparator = styled.div`
+  left: 69px;
+  top: 10px;
+  position: absolute;
   text-align: center;
   color: black;
-  font-size: 15px;
+  font-size: 16px;
+  font-family: 'Pretendard';
+  font-weight: 500;
+  line-height: 16px;
+  word-wrap: break-word;
+`;
+
+const HoursContainer = styled.div`
+  width: 58px;
+  height: 54px;
+  left: 83px;
+  top: 0;
+  position: absolute;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
+`;
+
+const HoursLabel = styled.div`
+  left: 13px;
+  top: 42px;
+  position: absolute;
+  text-align: center;
+  color: #757575;
+  font-size: 12px;
   font-family: 'Pretendard';
   font-weight: 400;
-  line-height: 15px;
+  line-height: 12px;
   word-wrap: break-word;
+`;
+
+const MinutesSeparator = styled.div`
+  left: 152px;
+  top: 10px;
+  position: absolute;
+  text-align: center;
+  color: black;
+  font-size: 16px;
+  font-family: 'Pretendard';
+  font-weight: 500;
+  line-height: 16px;
+  word-wrap: break-word;
+`;
+
+const MinutesContainer = styled.div`
+  width: 58px;
+  height: 54px;
+  left: 166px;
+  top: 0;
+  position: absolute;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
+`;
+
+const MinutesLabel = styled.div`
+  left: 8px;
+  top: 42px;
+  position: absolute;
+  text-align: center;
+  color: #757575;
+  font-size: 12px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  line-height: 12px;
+  word-wrap: break-word;
+`;
+
+const TimeValueContainer = styled.div`
+  width: 58px;
+  height: 36px;
+  left: 0;
+  top: 0;
+  position: absolute;
 `;
 
 //우편함 이미지
 const LetterboxImg = styled.img`
   width: 174px;
   height: 284px;
-  margin-left: 873px;
-  margin-top: 225px;
+  position: relative;
+  left: 873px;
+  top: 203px;
 `
 
 //고양이 이미지
 const CatImg = styled.img`
   width: 80px;
   height: 96.5px;
-  margin-left: 30px;
-  margin-top: 188px;
+  position: absolute;
+  left: 1077px;
+  top: 721px;
   cursor: pointer;
 `
 
 //고양이 설명
 const TextContainer = styled.div`
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 690px;
-    left: 1172px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 690px;
+  left: 1172px;
 `;
 
 const AbsoluteText = styled.div`
-    position: absolute;
-    color: black;
-    font-size: 12px;
-    font-family: 'Pretendard';
-    font-weight: 400;
-    word-wrap: break-word;
-    bottom: 3px;
+  position: absolute;
+  color: black;
+  font-size: 12px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  word-wrap: break-word;
+  bottom: 3px;
 `;
 
 const ColorText = styled.span`
-    color: ${props => props.color};
-    font-size: 12px;
-    font-family: 'Pretendard';
-    font-weight: 400;
-    word-wrap: break-word;
+  color: ${props => props.color};
+  font-size: 12px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  word-wrap: break-word;
 `;
 
 // 우체통 아래 버튼
 const IButtonImg = styled.img`
-  width: 37px;
-  height: 37px;
+  width: 42px;
+  height: 42px;
   position: absolute;
-  left: 836px;
+  left: 811px;
   top: 855px;
   cursor: pointer;
 `
 
 const ShareButtonImg = styled.img`
-  width: 39px;
-  height: 37px;
+  width: 42px;
+  height: 42px;
   position: absolute;
-  left: 1047px;
+  left: 1067px;
   top: 855px;
   cursor: pointer;
 `
 
 //우편함 확인하기
 const BoxCheckContainer = styled.div`
-    width: 114px;
-    height: 21px;
-    left: 884px;
-    top: 855px; 
-    position: absolute;
-    padding: 8px 19.5px;
-    background: black;
-    border-radius: 6px;
-    border: 1px black solid;
-    justify-content: center;
-    align-items: center;
-    gap: 12.38px;
-    display: inline-flex;
-    cursor: pointer;
+  width: 149px;
+  height: 17.2px;
+  left: 873px;
+  top: 855px; 
+  position: absolute;
+  padding: 11.5px;
+  background: black;
+  border-radius: 6px;
+  border: 1px black solid;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+  cursor: pointer;
 `;
 
 const BoxCheckText = styled.div`
-    color: white;
-    font-size: 18px;
-    font-family: 'Pretendard';
-    font-weight: 400;
-    word-wrap: break-word;
+  width: 114px;
+  height: 21px;
+  color: white;
+  font-size: 18px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  word-wrap: break-word;
 `;
 
 export default function MyLetterboxMain() {
@@ -220,8 +313,88 @@ export default function MyLetterboxMain() {
     navigate("/OpenLetter1");
   };
 
-  const [numbers, setNumbers] = useState([32, 25, 11, 9]);
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
+
+  {/* API로부터 닉네임과 우편함 이름을 받아오는 경우, 일반적으로 비동기 작업을 처리, fetch 함수를 사용하여 API에서 데이터를 받아오는 간단한 예시
+  function MyComponent() {
+    const [nickname, setNickname] = useState('');
+    const [mailboxName, setMailboxName] = useState('');
+
+    useEffect(() => {
+      fetch('API_URL') // 실제 API URL로 교체하세요.
+        .then(response => response.json())
+        .then(data => {
+          setNickname(data.nickname);
+          setMailboxName(data.mailboxName);
+        });
+    }, []);
+
+    return (
+      <Container>
+        <InnerContainer>
+          <Nickname>
+            <div>{nickname}</div>
+          </Nickname>
+          <Message>님의</Message>
+        </InnerContainer>
+        <MailboxName>{mailboxName}</MailboxName>
+      </Container>
+    );
+  }
+  */}
+
+  const RemainingTime = () => {
+    const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0 });
+    const targetTime = new Date('2024-12-31'); // 여기에 설정한 시간을 입력
+
+    useEffect(() => {
+      const intervalId = setInterval(() => {
+        const currentTime = new Date();
+        const remainingTime = targetTime - currentTime;
+
+        const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+
+        setTime({ days, hours, minutes });
+      }, 1000);
+
+      return () => clearInterval(intervalId); // 컴포넌트가 언마운트될 때 인터벌을 정리
+    }, [targetTime]);
+
+    const formattedDays = String(time.days).padStart(2, '0');
+    const formattedHours = String(time.hours).padStart(2, '0');
+    const formattedMinutes = String(time.minutes).padStart(2, '0');
+  
+    return (
+      <Wrapper>
+        <DaysContainer>
+          <DaysLabel>Days</DaysLabel>
+          <DaysValueContainer>
+            <StyledValue left={0}>{formattedDays[0]}</StyledValue>
+            <StyledValue left={31}>{formattedDays[1]}</StyledValue>
+          </DaysValueContainer>
+        </DaysContainer>
+        <HoursSeparator>:</HoursSeparator>
+        <HoursContainer>
+          <HoursLabel>Hours</HoursLabel>
+          <TimeValueContainer>
+            <StyledValue left={0}>{formattedHours[0]}</StyledValue>
+            <StyledValue left={31}>{formattedHours[1]}</StyledValue>
+          </TimeValueContainer>
+        </HoursContainer>
+        <MinutesSeparator>:</MinutesSeparator>
+        <MinutesContainer>
+          <MinutesLabel>Minutes</MinutesLabel>
+          <TimeValueContainer>
+            <StyledValue left={0}>{formattedMinutes[0]}</StyledValue>
+            <StyledValue left={30}>{formattedMinutes[1]}</StyledValue>
+          </TimeValueContainer>
+        </MinutesContainer>
+      </Wrapper>
+    );
+  };
+  
 
   return (
     <div>
@@ -239,19 +412,7 @@ export default function MyLetterboxMain() {
 
       <Notice>편지가 도착했어요. 우편함을 확인해보세요!</Notice>
 
-      <TimeContainer>
-        <TimeInnerContainer>
-          <Colon>:</Colon>
-          <Colon style={{ left: '58px' }}>:</Colon>
-          <Colon style={{ left: '116px' }}>:</Colon>
-        </TimeInnerContainer>
-        <Numbers>
-          {/* numbers 배열의 각 숫자를 반복하여 표시 */}
-          {numbers.map((number, index) => (
-            <Number key={index}>{number}</Number>
-          ))}
-        </Numbers>
-      </TimeContainer>
+      <RemainingTime />
 
       <LetterboxImg src={Letterbox} alt='letterbox' />
       <CatImg src={Cat} alt='cat' onClick={navigateToOpenLetter1} />
@@ -270,8 +431,6 @@ export default function MyLetterboxMain() {
         <BoxCheckContainer onClick={navigateToCheck1}>
           <BoxCheckText>우편함 확인하기</BoxCheckText>
         </BoxCheckContainer>
-      
-
 
     </div>
   )

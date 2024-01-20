@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components';
-import InfoImage from '../../assets/img/info.png';
-import Vector from '../../assets/img/Vector.png';
-import Under from '../../assets/img/Under.png';
-import X from '../../assets/img/X.png';
+import InfoImage from '../../assets/img/Info.svg';
+import Vector from '../../assets/img/Vector.svg';
+import Under from '../../assets/img/Under.svg';
+import X from '../../assets/img/X.svg';
 
 //모달창 열릴 때 백그라운드 블러 처리
 const BackgroundBlur = styled.div`
@@ -28,17 +28,19 @@ const ModalContainer = styled.div`
   background: white; 
   border-top-left-radius: 70px; 
   border-top-right-radius: 70px; 
-  overflow: hidden;
+  overflow: visible;
 `;
 
 // 검정 윗부분
 const BlackBar = styled.div`
-  width: 488px; 
+  width: 463px; 
   height: 82px; 
   left: 0; 
   top: 0; 
   position: absolute; 
   background: black;
+  border-top-left-radius: 70px;
+  border-top-right-radius: 70px;
 `;
 
 // 내 우편함 정보 
@@ -67,8 +69,7 @@ const InfoImg = styled.img`
   height: 20px;
   left: 0;
   top: 3px;
-  position: absolute; 
-  background: white;
+  position: absolute;
 `
 
 const CloseButtonImg = styled.img`
@@ -138,13 +139,22 @@ const Placeholder = styled.div`
   background: black;
   border-radius: 50px;
 `
+const Triangle = styled.div`
+  width: 0;
+  height: 0;
+  border-left: 4.3px solid transparent;  // 가로 길이의 절반
+  border-right: 4.3px solid transparent;  // 가로 길이의 절반
+  border-bottom: 10px solid black;  // 세로 길이
+  position: relative;
+  left: 19.91px;
+`
 
 const TooltipText = styled.div`
   width: 185px;
   height: 14px;
   position: absolute;
   left: 6px;
-  top: 5px;
+  top: 14px;
   color: white;
   font-size: 12px;
   font-family: 'Pretendard';
@@ -205,7 +215,6 @@ const UnderImg = styled.img`
   position: absolute;
   width: 13.86px;
   height: 12px;
-  background: black;
   top: 6px;
   right: 6.14px;
   bottom: 5px;
@@ -233,7 +242,7 @@ const Option1 = styled.div`
   background: ${({ selectedOption }) => (selectedOption ? '#E5E5E5' : 'white')};
   border: 1px solid black;
   border-bottom-width: 0px; /* 아래쪽 테두리 설정 */
-  border-top-width: 0px; /* 위쪽 테두리 설정 */
+  border-top-width: 1px; /* 위쪽 테두리 설정 */
   justify-content: flex-start;
   align-items: center;
   display: inline-flex;
@@ -341,15 +350,17 @@ const NameIconImg = styled.img`
   left: 0;
   top: 0;
   position: absolute;
-  background: black;
 `
 
 
 export default function Info({ isOpen, onClose }) {
-
-  const [isDropdownOpen, setDropdownOpen] = useState(false); // 드롭다운의 열림/닫힘 상태를 관리하는 변수
-  const [selectedOption, setSelectedOption] = useState('누구나'); // 선택한 옵션을 관리하는 변수
   const [isActive, setIsActive] = useState(false); // 토글 버튼의 활성 상태를 관리하는 상태 변수
+
+  const [isDropdownOpen, setDropdownOpen] = useState(false); // 드롭다운의 열림/닫힘 상태를 관리하는 상태 변수
+  const [selectedOption, setSelectedOption] = useState('누구나'); // 선택한 옵션을 관리하는 상태 변수
+
+  const [mailboxName, setMailboxName] = useState('23번째 생일 우편함'); // mailboxName은 우편함 이름을 관리하는 상태 변수
+  const [isEditing, setIsEditing] = useState(false); // isEditing은 편집 모드 여부를 관리하는 상태 변수
 
   const handleDropdownToggle = () => {
     setDropdownOpen(!isDropdownOpen); // 드롭다운의 열림/닫힘 상태를 토글
@@ -364,6 +375,18 @@ export default function Info({ isOpen, onClose }) {
     setIsActive(!isActive); // 토글 버튼 클릭 시 isActive 상태를 변환하는 핸들러 함수
   };
 
+  const handleIconClick = () => {
+    setIsEditing(true); // 아이콘을 클릭하면 편집 모드로 전환
+  };
+
+  const handleNameChange = (event) => {
+    setMailboxName(event.target.value); //텍스트 입력 필드에서 이름을 변경하면 mailboxName 상태를 업데이트
+  };
+
+  const handleBlur = () => {
+    setIsEditing(false); // 입력 필드에서 포커스가 사라지면 편집 모드를 종료
+  };
+
   if (!isOpen) {
     return null;
   }
@@ -375,7 +398,7 @@ export default function Info({ isOpen, onClose }) {
         <InfoContainer>
           <InfoTitle>내 우편함 정보</InfoTitle>
           <InfoImg src={InfoImage} alt='InfoImage' />
-          <button onClick={onClose}><CloseButtonImg src={X} alt='X' /></button>
+          <CloseButtonImg src={X} alt='X' onClick={onClose} />
         </InfoContainer>
 
         <Container1>
@@ -385,6 +408,7 @@ export default function Info({ isOpen, onClose }) {
             </Toggle>
 
             <Tooltip isActive={isActive}>
+              <Triangle />
               <Placeholder />
               <TooltipText>우편함을 닫으면 편지를 받을 수 없어요.</TooltipText>
             </Tooltip>
@@ -419,6 +443,7 @@ export default function Info({ isOpen, onClose }) {
           <DateRange>2024-01-04 ~ 2024-01-07</DateRange>
         </Container3>
 
+        {/*
         <Container4>
           <NameText>이름</NameText>
           <NameContainer>
@@ -426,6 +451,22 @@ export default function Info({ isOpen, onClose }) {
             <NameIconImg src={Vector} alt='NameIcon'/>
           </NameContainer>
         </Container4>
+        */}
+
+        <Container4>
+          <NameText>이름</NameText>
+          <NameContainer>
+            {/* 편집 모드일 때는 텍스트 입력 필드를, 그렇지 않을 때는 일반 텍스트를 렌더링합니다. */}
+            {isEditing ? (
+              <input type="text" value={mailboxName} onChange={handleNameChange} onBlur={handleBlur} autoFocus />
+            ) : (
+              <RealNameText>{mailboxName}</RealNameText>
+            )}
+            {/* 아이콘을 클릭하면 편집 모드로 전환합니다. */}
+            <NameIconImg src={Vector} alt='NameIcon' onClick={handleIconClick}/>
+          </NameContainer>
+        </Container4>
+
       </ModalContainer>
     </BackgroundBlur>
   );

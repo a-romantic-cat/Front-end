@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import logo from '../../assets/img/낭만고양이.png';
-import feather from '../../assets/img/Feather.png';
+import { NavLink, useLocation } from 'react-router-dom';
+import logo from '../../assets/img/낭만고양이.svg';
+import feather from '../../assets/img/Feather.svg';
+import featherRed from '../../assets/img/FeatherRed.svg';
 import '../../index.css';
 
 const Container = styled.div`
@@ -12,10 +13,8 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   display: inline-flex;
-  padding-left: 217px;
-  padding-right: 217px;
+  padding: 0 217px;
 `;
-
 
 const InnerContainer = styled.div`
   width: 1486px;
@@ -31,15 +30,17 @@ const LogoContainer = styled.div`
   position: absolute;
 `;
 
-const Logo = styled.div`
+const LogoImg = styled.img`
   width: 32.02px;
-  height: 33.06px;
+  height: 35.66px;
   left: 0;
   top: 0;
   position: absolute;
 `;
 
 const TextLogo = styled.div`
+  width: 109px;
+  height: 35px;
   left: 37px;
   top: 1px;
   position: absolute;
@@ -79,6 +80,12 @@ const Text = styled.div`
   font-family: Pretendard;
   font-weight: 400;
   word-wrap: break-word;
+
+  .active & {
+    color: #C90000;
+    border-bottom: 2px #C90000 solid;
+    padding-bottom: 39px;
+  }
 `;
 
 const FeatherContainer = styled.div`
@@ -93,7 +100,18 @@ const FeatherContainer = styled.div`
   display: inline-flex;
 `;
 
-const Feather = styled.div`
+const StyledNavLink = styled(NavLink)`
+  text-decoration: none;
+  color: black;
+`;
+
+//아이콘 클릭시 빨간색 아이콘 이미지로 변경
+const Feather = ({ to, alt }) => {
+  const location = useLocation();
+  const isActive = location.pathname === to;
+  const src = isActive ? featherRed : feather;
+
+  const FeatherIcon = styled.div`
   width: 25px;
   height: 25px;
   position: relative;
@@ -101,45 +119,54 @@ const Feather = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   display: flex;
-`;
+  `;
 
-const FeatherImage = styled.img`
-  width: 18.67px;
-  height: 20.75px;
-`;
+  const FeatherImg = styled.img`
+    width: 25px;
+    height: 25px;
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-`;
+    .active & {
+      color: #C90000;
+      border-bottom: 2px #C90000 solid;
+      padding-bottom: 39px;
+    }
+  `;
+
+  return (
+    <FeatherIcon>
+      <FeatherImg src={src} alt={alt} />
+    </FeatherIcon>
+  );
+};
 
 export default function Header() {
   return (
     <Container>
       <InnerContainer>
-        <StyledLink to="/">
+        <StyledNavLink to="/">
         <LogoContainer>
-          <Logo><img src={logo} alt='logo' /></Logo>
+          <LogoImg src={logo} alt='logo' />
           <TextLogo>낭만고양이</TextLogo>
         </LogoContainer>
-        </StyledLink>
+        </StyledNavLink>
         <MenuContainer>
           <MenuItem>
-            <StyledLink to="/MyLetterbox"><Text>내 우편함</Text></StyledLink>
+            <StyledNavLink to="/MyLetterbox"><Text>내 우편함</Text></StyledNavLink>
           </MenuItem>
           <MenuItem>
-            <StyledLink to="/AddressBook"><Text>주소록</Text></StyledLink>
+            <StyledNavLink to="/AddressBook"><Text>주소록</Text></StyledNavLink>
           </MenuItem>
           <MenuItem>
-            <StyledLink to="/RomanticLetterbox"><Text>낭만 우편함</Text></StyledLink>
+            <StyledNavLink to="/RomanticLetterbox"><Text>낭만 우편함</Text></StyledNavLink>
           </MenuItem>
           <MenuItem>
-            <StyledLink to="/Store"><Text>상점</Text></StyledLink>
+            <StyledNavLink to="/Store"><Text>상점</Text></StyledNavLink>
           </MenuItem>
         </MenuContainer>
         <FeatherContainer>
-          <Feather>
-            <StyledLink to="/MyPage"><FeatherImage src={feather} alt='feather' /></StyledLink>
-          </Feather>
+          <StyledNavLink to="/MyPage">
+            <Feather to="/MyPage" alt='feather' />
+          </StyledNavLink>
         </FeatherContainer>
       </InnerContainer>
     </Container>
