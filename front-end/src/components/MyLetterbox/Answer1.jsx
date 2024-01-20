@@ -44,12 +44,11 @@ const Message = styled.div`
 
 //흰 편지지 컨테이너
 const WhiteLetterContainer = styled.div`
-  background-image: url("/images/더흰편지지.png");
+  background-image: url("/images/더흰편지지.svg");
   background-size: cover; //4x export한 이미지 1x처럼
   width: 990px;
   height: 592.63px;
   margin: 65px 465px 0 465px;
-  //box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.20);
 `;
 
 //주의사항 설명 글

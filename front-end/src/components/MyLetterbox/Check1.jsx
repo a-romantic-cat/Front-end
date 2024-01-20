@@ -49,7 +49,7 @@ const WrapLetterContainer = styled.div`
 
 //우편함 전체 모달창
 const LetterContainer = styled.div`
-  background-image: url("/images/bg_letter.png");
+  background-image: url("/images/bg_letter.svg");
   background-size: cover; //4x export한 이미지 1x처럼
   width: 1194px;
   height: 732px;
@@ -90,7 +90,7 @@ const PinAndUserContainer = styled.div`
 
 //빨간핀
 const RedPin = styled.div`
-  background-image: url("/images/핀.png");
+  background-image: url("/images/핀.svg");
   background-size: cover; //4x export한 이미지 1x처럼
   width: 30px;
   height: 30px;
@@ -159,7 +159,7 @@ const RightContainer = styled.div`
 
 //흰 편지지
 const WhiteLetterContainer = styled.div`
-  background-image: url("/images/흰편지지.png");
+  background-image: url("/images/흰편지지.svg");
   background-size: cover; //4x export한 이미지 1x처럼
   width: 578px;
   height: 346px;
