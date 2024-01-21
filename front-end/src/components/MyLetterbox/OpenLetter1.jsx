@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components';
 import Header from '../Header/Header';
 import { useNavigate } from 'react-router-dom';
+import '../../index.css';
 import Pin from '../../assets/img/Pin.svg';
 import XButton from '../../assets/img/X_Button.svg';
 import Cat from '../../assets/img/고양이.svg';
 import DropButton from '../../assets/img/Drop_Button.svg';
 import DotStyle from '../../assets/img/DotStyle.svg';
-import '../../index.css';
+import OpenLetter2 from './OpenLetter2';
 
 //닉네임님의 우편함
 const Container = styled.div`
@@ -73,10 +74,11 @@ const XButtonImg = styled.img`
   position: absolute;
   left: 965px;
   top: -25px;
+  cursor: pointer;
 `;
 
 const StampCollectionInnerContainer = styled.div`
-  width: 990px;
+  width: 957px;
   height: 614px;
   position: absolute;
   left: 0;
@@ -85,37 +87,31 @@ const StampCollectionInnerContainer = styled.div`
   overflow-y: scroll; // 세로 방향으로 스크롤 허용
   overflow-x: hidden; // 가로 방향으로 스크롤 제거
 
-  //스크롤바의 영역
-::-webkit-scrollbar {
-  width: 4px;
-  height: 558px;
-  position: absolute;
-  left: 953px;
-  top: 28px;
-}
+  // 스크롤바의 영역
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 558px;
+    position: absolute;
+    top: 28px;
+  }
 
-/* 스크롤바의 배경색 지정 */
-::-webkit-scrollbar-track {
-  background: #B3B3B3;
-}
+  // 스크롤바의 배경색 지정
+  &::-webkit-scrollbar-track {
+    background: #B3B3B3;
+    border-radius: 10px;
+  }
 
-/* 스크롤바의 실제 움직이는 부분(Thumb)의 스타일 지정 */
-::-webkit-scrollbar-thumb {
-  background: #79110E;
-  border-radius: 10px;
-  width: 77.64px;
-  height: 0;
-  position: absolute;
-  left: 4px;
-  top: ${props => props.top}px; // 라인의 top 위치는 props로 받아와서 설정
-  transform: rotate(90deg);
-  transform-origin: 0 0;
-  border: 8px solid;
-}
+  // 스크롤바의 실제 움직이는 부분(Thumb)의 스타일 지정 
+  &::-webkit-scrollbar-thumb {
+    height: 77px;
+    background: #79110E;
+    border-radius: 10px;
+    position: absolute;
+  }
 
-::webkit-scrollbar-button {
-  display: none;
-}
+  &::webkit-scrollbar-button {
+    display: none;
+  }
 `;
 
 const SubContainer = styled.div`
@@ -134,6 +130,7 @@ const StampContainer = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  cursor: pointer;
 `;
 
 const DropButtonImg = styled.img`
@@ -156,27 +153,6 @@ const StampText = styled.div`
   position: absolute;
 `;
 
-{/*
-const BorderLine = styled.div`
-  width: 4px;
-  height: 558px;
-  position: absolute;
-  left: 953px;
-  top: 28px;
-`;
-
-const Line = styled.div`
-  height: 0;
-  position: absolute;
-  left: 4px;
-  top: ${props => props.top}px; // 라인의 top 위치는 props로 받아와서 설정
-  transform: rotate(90deg);
-  transform-origin: 0 0;
-  border: 8px solid;
-  border-radius: 10px;
-`;
-*/}
-
 const DotStyleImg = styled.img`
   width: 925px;
   position: absolute;
@@ -194,6 +170,9 @@ const PinImg = styled.img`
 export default function OpenLetter1() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const navigate = useNavigate(); 
+  const subContainerPositions = [28, 307, 586]; // 각 SubContainer의 top 위치를 저장
+  const stampContainerPositions = [0, 227, 454, 681]; // 각 StampContainer의 left 위치를 저장
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
 
   const navigateToMyLetterbox = () => {
     navigate('/MyLetterbox');  
@@ -215,7 +194,6 @@ export default function OpenLetter1() {
   return (
     <div>
       <Header />
-
       <Container>
         <InnerContainer>
           <Nickname>
@@ -230,6 +208,7 @@ export default function OpenLetter1() {
       <StampCollectionContainer>
         <XButtonImg src={XButton} alt='XButton' onClick={navigateToMyLetterbox}/>
         <StampCollectionInnerContainer>
+          {/*
           <SubContainer style={{top: 28}}>
             <StampContainer style={{left: 0}}>
               <DropButtonImg src={DropButton} alt='DropButton' />
@@ -284,17 +263,33 @@ export default function OpenLetter1() {
               <StampText>우표</StampText>
             </StampContainer>
           </SubContainer>
-          {/*
-          <BorderLine>
-            <Line style={{borderColor: '#B3B3B3', width: '553.15px'}} />
-            <Line style={{borderColor: '#79110E', width: '77.64px', top: scrollPosition}} />
-          </BorderLine>
           */}
+          {
+            // subContainerPositions 배열을 순회하면서 SubContainer 컴포넌트를 생성합니다.
+            subContainerPositions.map((top) => (
+              <SubContainer style={{ top }}>
+                {
+                  // stampContainerPositions 배열을 순회하면서 StampContainer 컴포넌트를 생성합니다.
+                  stampContainerPositions.map((left) => (
+                    <div>
+                      <StampContainer style={{ left }} onClick={() => setIsModalOpen(true)}>
+                        <DropButtonImg src={DropButton} alt='DropButton' />
+                        <StampText>우표</StampText>
+                      </StampContainer>
+                    </div>
+                  ))
+                }
+              </SubContainer>
+            ))
+          }
         </StampCollectionInnerContainer>
         <DotStyleImg src={DotStyle} alt='DotStyle' style={{top: 20}} />
         <DotStyleImg src={DotStyle} alt='DotStyle' style={{top: 712}} />
         <PinImg src={Pin} alt='핀' />
       </StampCollectionContainer>
+
+      {/* OpenLetter2 모달 */}
+      <OpenLetter2 isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   )
 }

@@ -302,7 +302,6 @@ const BoxCheckText = styled.div`
 `;
 
 export default function MyLetterboxMain() {
-  
   const navigate = useNavigate();
 
   const navigateToCheck1 = () => {
