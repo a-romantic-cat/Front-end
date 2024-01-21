@@ -87,10 +87,21 @@ const PinAndUserContainer = styled.div`
   width: 444px;
   height: 50px;
   display: inline-flex; // 핀이랑 닉네임 가로배치
+  margin-bottom: 40px;
 `;
 
-//빨간핀
+//빨간 고정 핀
 const RedPin = styled.div`
+  background-image: url("/images/레드핀.svg");
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+  margin: 10px 0 0 0;
+  cursor: pointer;
+`;
+
+//투명 핀
+const Pin = styled.div`
   background-image: url("/images/핀.svg");
   background-size: cover;
   width: 30px;
@@ -182,6 +193,7 @@ const Check1 = () => {
         <LetterContainer >
           <LeftContainer>
             <PinsAndUsersContainer>
+              {/*1번째 */}
               <PinAndUserContainer>
                 <RedPin>
                 </RedPin>
@@ -197,6 +209,126 @@ const Check1 = () => {
                   </UserNickname>
                 </WrapUserNickname>
               </PinAndUserContainer>
+
+              {/*2번째 */}
+              <PinAndUserContainer>
+                <Pin>
+                </Pin>
+                <WrapUserNickname onClick={() => {setIsModalOpen(true)}}>
+                  <Envelope>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="18" viewBox="0 0 28 18" fill="none">
+                      <path d="M1 17V1H27V17H1Z" fill="white"/>
+                      <path d="M1 1V17M1 1H27M1 1L14 9L27 1M1 17H27M1 17L12.3496 7.98437M27 17V1M27 17L15.6504 7.98437" stroke="black" stroke-linecap="round"/>
+                    </svg>
+                  </Envelope>
+                  <UserNickname>
+                    닉네임
+                  </UserNickname>
+                </WrapUserNickname>
+              </PinAndUserContainer>
+
+              {/*3번째 */}
+              <PinAndUserContainer>
+                <Pin>
+                </Pin>
+                <WrapUserNickname onClick={() => {setIsModalOpen(true)}}>
+                  <Envelope>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="18" viewBox="0 0 28 18" fill="none">
+                      <path d="M1 17V1H27V17H1Z" fill="white"/>
+                      <path d="M1 1V17M1 1H27M1 1L14 9L27 1M1 17H27M1 17L12.3496 7.98437M27 17V1M27 17L15.6504 7.98437" stroke="black" stroke-linecap="round"/>
+                    </svg>
+                  </Envelope>
+                  <UserNickname>
+                    닉네임
+                  </UserNickname>
+                </WrapUserNickname>
+              </PinAndUserContainer>
+
+              {/*4번째 */}
+              <PinAndUserContainer>
+                <Pin>
+                </Pin>
+                <WrapUserNickname onClick={() => {setIsModalOpen(true)}}>
+                  <Envelope>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="18" viewBox="0 0 28 18" fill="none">
+                      <path d="M1 17V1H27V17H1Z" fill="white"/>
+                      <path d="M1 1V17M1 1H27M1 1L14 9L27 1M1 17H27M1 17L12.3496 7.98437M27 17V1M27 17L15.6504 7.98437" stroke="black" stroke-linecap="round"/>
+                    </svg>
+                  </Envelope>
+                  <UserNickname>
+                    닉네임
+                  </UserNickname>
+                </WrapUserNickname>
+              </PinAndUserContainer>
+
+              {/*5번째 */}
+              <PinAndUserContainer>
+                <Pin>
+                </Pin>
+                <WrapUserNickname onClick={() => {setIsModalOpen(true)}}>
+                  <Envelope>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="18" viewBox="0 0 28 18" fill="none">
+                      <path d="M1 17V1H27V17H1Z" fill="white"/>
+                      <path d="M1 1V17M1 1H27M1 1L14 9L27 1M1 17H27M1 17L12.3496 7.98437M27 17V1M27 17L15.6504 7.98437" stroke="black" stroke-linecap="round"/>
+                    </svg>
+                  </Envelope>
+                  <UserNickname>
+                    닉네임
+                  </UserNickname>
+                </WrapUserNickname>
+              </PinAndUserContainer>
+
+              {/*6번째 */}
+              <PinAndUserContainer>
+                <Pin>
+                </Pin>
+                <WrapUserNickname onClick={() => {setIsModalOpen(true)}}>
+                  <Envelope>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="18" viewBox="0 0 28 18" fill="none">
+                      <path d="M1 17V1H27V17H1Z" fill="white"/>
+                      <path d="M1 1V17M1 1H27M1 1L14 9L27 1M1 17H27M1 17L12.3496 7.98437M27 17V1M27 17L15.6504 7.98437" stroke="black" stroke-linecap="round"/>
+                    </svg>
+                  </Envelope>
+                  <UserNickname>
+                    닉네임
+                  </UserNickname>
+                </WrapUserNickname>
+              </PinAndUserContainer>
+
+              {/*7번째 */}
+              <PinAndUserContainer>
+                <Pin>
+                </Pin>
+                <WrapUserNickname onClick={() => {setIsModalOpen(true)}}>
+                  <Envelope>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="18" viewBox="0 0 28 18" fill="none">
+                      <path d="M1 17V1H27V17H1Z" fill="white"/>
+                      <path d="M1 1V17M1 1H27M1 1L14 9L27 1M1 17H27M1 17L12.3496 7.98437M27 17V1M27 17L15.6504 7.98437" stroke="black" stroke-linecap="round"/>
+                    </svg>
+                  </Envelope>
+                  <UserNickname>
+                    닉네임
+                  </UserNickname>
+                </WrapUserNickname>
+              </PinAndUserContainer>
+
+              {/*8번째 */}
+              <PinAndUserContainer>
+                <Pin>
+                </Pin>
+                <WrapUserNickname onClick={() => {setIsModalOpen(true)}}>
+                  <Envelope>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="18" viewBox="0 0 28 18" fill="none">
+                      <path d="M1 17V1H27V17H1Z" fill="white"/>
+                      <path d="M1 1V17M1 1H27M1 1L14 9L27 1M1 17H27M1 17L12.3496 7.98437M27 17V1M27 17L15.6504 7.98437" stroke="black" stroke-linecap="round"/>
+                    </svg>
+                  </Envelope>
+                  <UserNickname>
+                    닉네임
+                  </UserNickname>
+                </WrapUserNickname>
+              </PinAndUserContainer>
+
             </PinsAndUsersContainer>
             <ScrollBar>
               <svg xmlns="http://www.w3.org/2000/svg" width="8" height="611" viewBox="0 0 8 611" fill="none">
