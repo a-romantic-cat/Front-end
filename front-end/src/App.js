@@ -9,6 +9,7 @@ import RomanticLetterbox from "./pages/RomanticLetterbox";
 import Store from "./pages/Store";
 import MyPage from "./pages/MyPage";
 import Check1 from './components/MyLetterbox/Check1';
+import Check2 from './components/MyLetterbox/Check2';
 import Answer1 from './components/MyLetterbox/Answer1';
 import Answer2 from './components/MyLetterbox/Answer2';
 import Answer3 from './components/MyLetterbox/Answer3';
@@ -34,6 +35,7 @@ function App() {
           <Route path="/Store" element={<Store />} />
           <Route path="/MyPage" element={<MyPage />} />
           <Route path="/Check1" element={<Check1 />} />
+          <Route path="/Check2" element={<Check2 />} />
           <Route path="/Answer1" element={<Answer1 />} />
           <Route path="/Answer2" element={<Answer2 />} />
           <Route path="/Answer3" element={<Answer3 />} />
