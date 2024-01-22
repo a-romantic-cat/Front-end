@@ -53,14 +53,112 @@ const LetterConatiner = styled.div`
   display: flex; //자식 가로배치
 `;
 
+//왼쪽 컨테이너
 const WhiteLetterContainer = styled.div`
   background-image: url("/images/더흰편지지.svg");
   background-size: cover;
   width: 480px;
   height: 287.33566px;
   margin: 134px 0 0 38px;
+  position: relative;
 `;
 
+const ContentContainer = styled.div`
+  width: 438.01419px;
+  height: 238.54566px;
+  margin: 24.91px 20.99px 23.88px 20.99px; // 탑 에러나서 부모에 오토처리
+`;
+
+//닉네임에게
+const ToContainer = styled.div`
+  width: 50px;
+  height: 11px;
+  display: flex;
+`;
+
+//'닉네임'(나)
+const ToMyNickname = styled.div`
+  color: #000;
+  font-family: 'NanumGothic';
+  font-size: 11.348px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%; /* 11.348px */
+  letter-spacing: 0.227px;
+  white-space: nowrap; //줄바꿈 안 되게
+`;
+
+//에게
+const To = styled.div`
+  color: #000;
+  font-family: 'NanumGothic';
+  font-size: 11.348px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%; /* 11.348px */
+  letter-spacing: 0.227px;
+  white-space: nowrap;
+`;
+
+const Content = styled.div`
+  width: 438.01419px;
+  height: 161px;
+  color: #000;
+  font-family: "Gowun Dodum";
+  font-size: 11.348px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 200%; /* 22.695px */
+  letter-spacing: -0.113px;
+  word-break: break-all;
+
+  margin-top: 28.76px;
+`;
+
+const Stamp = styled.div`
+  background-image: url("/images/우표2.svg");
+  background-size: cover;
+  float: right;
+  width: 78.03125px;
+  height: 104.03989px;
+  position: absolute; //우표가 내용위로 겹치게
+  right: 24.7px;
+  top: 20.86px;
+`;
+
+//닉네임이
+const FromContainer = styled.div`
+  width: 40px;
+  height: 11px;
+  margin: 26.78px 0 0 388.25px;
+  display: flex;
+`;
+
+//'닉네임'(다른 사용자)
+const FromNickname = styled.div`
+  color: #000;
+  font-family: 'NanumGothic';
+  font-size: 11.348px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%; /* 11.348px */
+  letter-spacing: 0.227px;
+  white-space: nowrap;
+`;
+
+//이
+const From = styled.div`
+  color: #000;
+  font-family: 'NanumGothic';
+  font-size: 11.348px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%; /* 11.348px */
+  letter-spacing: 0.227px;
+  white-space: nowrap;
+`;
+
+//오른쪽 컨테이너 스크롤 되는 전체 영역
 const ScrollBoxContainer = styled.div`
   width: 638px;
   height: 464px;
@@ -104,7 +202,7 @@ const Arrow1 = styled.div`
 
 const Prev = styled.div`
   color: #FFF;
-  font-family: Pretendard;
+  font-family: 'Pretendard';
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
@@ -125,7 +223,7 @@ const StoreButton = styled.div`
   cursor: pointer;
 
   color: #000;
-  font-family: Pretendard;
+  font-family: 'Pretendard';
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
@@ -153,7 +251,7 @@ const Arrow2 = styled.div`
 
 const Next = styled.div`
   color: #FFF;
-  font-family: Pretendard;
+  font-family: 'Pretendard';
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
@@ -193,10 +291,35 @@ const Answer2 = () => {
 
       <LetterConatiner>
         <WhiteLetterContainer>
+          <ContentContainer>
+            <ToContainer>
+              <ToMyNickname>
+                닉네임
+              </ToMyNickname>
+              <To>
+                에게
+              </To>
+            </ToContainer>
+            
+            <Content>
+              편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명 으로 작성 돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼 요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익 명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.
+            </Content>
+            <Stamp>
+            </Stamp>
 
+            <FromContainer>
+              <FromNickname>
+                닉네임
+              </FromNickname>
+              <From>
+                이
+              </From>
+            </FromContainer>
+            
+          </ContentContainer>
         </WhiteLetterContainer>
+        
         <ScrollBoxContainer>
-
         </ScrollBoxContainer>
       </LetterConatiner>      
 

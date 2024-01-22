@@ -68,6 +68,7 @@ const XButton = styled.div`
   cursor: pointer;
 `;
 
+//스크롤 하는 영역
 const LeftContainer = styled.div`
   width: 560px;
   height: 1080px;
@@ -124,6 +125,8 @@ const WrapUserNickname = styled.div`
 `;
 
 const Envelope = styled.div`
+  background-image: url("/images/envelope.svg");
+  background-size: cover;
   width: 26px;
   height: 16px;
   margin: 16px 12px 16px 25px;
@@ -131,7 +134,7 @@ const Envelope = styled.div`
 
 const UserNickname = styled.div`
   color: #000;
-  font-family: Pretendard;
+  font-family: 'Pretendard';
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
@@ -139,28 +142,25 @@ const UserNickname = styled.div`
   margin: 16px 0 16px 0;
 `;
 
-const ScrollBar = styled.div` // 왜안뜨지
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar { //스크롤바 전체 
-    /*height: 611px;
-    stroke-width: 8px;
-    stroke: #B3B3B3;*/
-    //display: none; //화살표 스크롤 안 보이게 하기
+const ScrollBar = styled.div`
+  
+ /* &::-webkit-scrollbar { //스크롤바 전체 
     height: 611px;
+    width: 8px;
+    position: absolute;
   }
 
-  &::-webkit-scrollbar-track { //스크롤 막대가 움직일 길
-    height: 611px;
-    stroke-width: 8px;
-    stroke: #B3B3B3;
+  &::-webkit-scrollbar-track { //스크롤바 배경색
+    background: #B3B3B3;
+    border-radius: 10px;
   }
 
-  &::-webkit-scrollbar-thumb { //스크롤막대
+  &::-webkit-scrollbar-thumb { //스크롤 움직이는 작은 막대
     background: #79110E;
     width: 8px;
     height: 84.592px;
-  }
+    position: absolute;
+  }*/
 `;
  
 const Check1 = () => {
@@ -171,8 +171,47 @@ const Check1 = () => {
     navigate("/MyLetterbox");
   };
 
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
+  const [pin, setPin] = useState(false); //고정핀
+  const handlePin = () => { 
+    setPin(!pin);
+  }
 
+  const [pin2, setPin2] = useState(false); //고정핀
+  const handlePin2 = () => { 
+    setPin2(!pin2);
+  }
+
+  const [pin3, setPin3] = useState(false); //고정핀
+  const handlePin3 = () => { 
+    setPin3(!pin3);
+  }
+
+  const [pin4, setPin4] = useState(false); //고정핀
+  const handlePin4 = () => { 
+    setPin4(!pin4);
+  }
+
+  const [pin5, setPin5] = useState(false); //고정핀
+  const handlePin5 = () => { 
+    setPin5(!pin5);
+  }
+
+  const [pin6, setPin6] = useState(false); //고정핀
+  const handlePin6 = () => { 
+    setPin6(!pin6);
+  }
+
+  const [pin7, setPin7] = useState(false); //고정핀
+  const handlePin7 = () => { 
+    setPin7(!pin7);
+  }
+
+  const [pin8, setPin8] = useState(false); //고정핀
+  const handlePin8 = () => { 
+    setPin8(!pin8);
+  }
+
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
 
   return (
     <div>
@@ -195,31 +234,35 @@ const Check1 = () => {
             <PinsAndUsersContainer>
               {/*1번째 */}
               <PinAndUserContainer>
-                <RedPin>
-                </RedPin>
+                <div onClick={handlePin}> {/*고정핀 핸들*/}
+                    {pin ? (
+                    <RedPin />
+                  ) :
+                  (
+                    <Pin />
+                  )}
+                </div>
                 <WrapUserNickname onClick={() => {setIsModalOpen(true)}}>
                   <Envelope>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="18" viewBox="0 0 28 18" fill="none">
-                      <path d="M1 17V1H27V17H1Z" fill="white"/>
-                      <path d="M1 1V17M1 1H27M1 1L14 9L27 1M1 17H27M1 17L12.3496 7.98437M27 17V1M27 17L15.6504 7.98437" stroke="black" stroke-linecap="round"/>
-                    </svg>
                   </Envelope>
                   <UserNickname>
                     닉네임
                   </UserNickname>
                 </WrapUserNickname>
               </PinAndUserContainer>
-
+              
               {/*2번째 */}
               <PinAndUserContainer>
-                <Pin>
-                </Pin>
+                <div onClick={handlePin2}>
+                    {pin2 ? (
+                    <RedPin />
+                  ) :
+                  (
+                    <Pin />
+                  )}
+                </div>
                 <WrapUserNickname onClick={() => {setIsModalOpen(true)}}>
                   <Envelope>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="18" viewBox="0 0 28 18" fill="none">
-                      <path d="M1 17V1H27V17H1Z" fill="white"/>
-                      <path d="M1 1V17M1 1H27M1 1L14 9L27 1M1 17H27M1 17L12.3496 7.98437M27 17V1M27 17L15.6504 7.98437" stroke="black" stroke-linecap="round"/>
-                    </svg>
                   </Envelope>
                   <UserNickname>
                     닉네임
@@ -229,14 +272,16 @@ const Check1 = () => {
 
               {/*3번째 */}
               <PinAndUserContainer>
-                <Pin>
-                </Pin>
+                <div onClick={handlePin3}>
+                    {pin3 ? (
+                    <RedPin />
+                  ) :
+                  (
+                    <Pin />
+                  )}
+                </div>
                 <WrapUserNickname onClick={() => {setIsModalOpen(true)}}>
                   <Envelope>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="18" viewBox="0 0 28 18" fill="none">
-                      <path d="M1 17V1H27V17H1Z" fill="white"/>
-                      <path d="M1 1V17M1 1H27M1 1L14 9L27 1M1 17H27M1 17L12.3496 7.98437M27 17V1M27 17L15.6504 7.98437" stroke="black" stroke-linecap="round"/>
-                    </svg>
                   </Envelope>
                   <UserNickname>
                     닉네임
@@ -246,14 +291,16 @@ const Check1 = () => {
 
               {/*4번째 */}
               <PinAndUserContainer>
-                <Pin>
-                </Pin>
+                <div onClick={handlePin4}>
+                    {pin4 ? (
+                    <RedPin />
+                  ) :
+                  (
+                    <Pin />
+                  )}
+                </div>
                 <WrapUserNickname onClick={() => {setIsModalOpen(true)}}>
                   <Envelope>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="18" viewBox="0 0 28 18" fill="none">
-                      <path d="M1 17V1H27V17H1Z" fill="white"/>
-                      <path d="M1 1V17M1 1H27M1 1L14 9L27 1M1 17H27M1 17L12.3496 7.98437M27 17V1M27 17L15.6504 7.98437" stroke="black" stroke-linecap="round"/>
-                    </svg>
                   </Envelope>
                   <UserNickname>
                     닉네임
@@ -263,14 +310,16 @@ const Check1 = () => {
 
               {/*5번째 */}
               <PinAndUserContainer>
-                <Pin>
-                </Pin>
+                <div onClick={handlePin5}>
+                    {pin5 ? (
+                    <RedPin />
+                  ) :
+                  (
+                    <Pin />
+                  )}
+                </div>
                 <WrapUserNickname onClick={() => {setIsModalOpen(true)}}>
                   <Envelope>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="18" viewBox="0 0 28 18" fill="none">
-                      <path d="M1 17V1H27V17H1Z" fill="white"/>
-                      <path d="M1 1V17M1 1H27M1 1L14 9L27 1M1 17H27M1 17L12.3496 7.98437M27 17V1M27 17L15.6504 7.98437" stroke="black" stroke-linecap="round"/>
-                    </svg>
                   </Envelope>
                   <UserNickname>
                     닉네임
@@ -280,14 +329,16 @@ const Check1 = () => {
 
               {/*6번째 */}
               <PinAndUserContainer>
-                <Pin>
-                </Pin>
+                <div onClick={handlePin6}>
+                    {pin6 ? (
+                    <RedPin />
+                  ) :
+                  (
+                    <Pin />
+                  )}
+                </div>
                 <WrapUserNickname onClick={() => {setIsModalOpen(true)}}>
                   <Envelope>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="18" viewBox="0 0 28 18" fill="none">
-                      <path d="M1 17V1H27V17H1Z" fill="white"/>
-                      <path d="M1 1V17M1 1H27M1 1L14 9L27 1M1 17H27M1 17L12.3496 7.98437M27 17V1M27 17L15.6504 7.98437" stroke="black" stroke-linecap="round"/>
-                    </svg>
                   </Envelope>
                   <UserNickname>
                     닉네임
@@ -297,14 +348,16 @@ const Check1 = () => {
 
               {/*7번째 */}
               <PinAndUserContainer>
-                <Pin>
-                </Pin>
+                <div onClick={handlePin7}>
+                    {pin7 ? (
+                    <RedPin />
+                  ) :
+                  (
+                    <Pin />
+                  )}
+                </div>
                 <WrapUserNickname onClick={() => {setIsModalOpen(true)}}>
                   <Envelope>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="18" viewBox="0 0 28 18" fill="none">
-                      <path d="M1 17V1H27V17H1Z" fill="white"/>
-                      <path d="M1 1V17M1 1H27M1 1L14 9L27 1M1 17H27M1 17L12.3496 7.98437M27 17V1M27 17L15.6504 7.98437" stroke="black" stroke-linecap="round"/>
-                    </svg>
                   </Envelope>
                   <UserNickname>
                     닉네임
@@ -314,14 +367,16 @@ const Check1 = () => {
 
               {/*8번째 */}
               <PinAndUserContainer>
-                <Pin>
-                </Pin>
+                <div onClick={handlePin8}>
+                    {pin8 ? (
+                    <RedPin />
+                  ) :
+                  (
+                    <Pin />
+                  )}
+                </div>
                 <WrapUserNickname onClick={() => {setIsModalOpen(true)}}>
                   <Envelope>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="18" viewBox="0 0 28 18" fill="none">
-                      <path d="M1 17V1H27V17H1Z" fill="white"/>
-                      <path d="M1 1V17M1 1H27M1 1L14 9L27 1M1 17H27M1 17L12.3496 7.98437M27 17V1M27 17L15.6504 7.98437" stroke="black" stroke-linecap="round"/>
-                    </svg>
                   </Envelope>
                   <UserNickname>
                     닉네임
@@ -331,9 +386,6 @@ const Check1 = () => {
 
             </PinsAndUsersContainer>
             <ScrollBar>
-              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="611" viewBox="0 0 8 611" fill="none">
-                <path d="M4 4.28516L3.99998 607" stroke="#B3B3B3" stroke-width="8" stroke-linecap="round"/>
-              </svg>
             </ScrollBar>
           </LeftContainer>
 

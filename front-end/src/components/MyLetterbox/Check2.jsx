@@ -43,7 +43,7 @@ const AnswerButton = styled.div`
 
 const AnswerText = styled.div`
   color: #FFF;
-  font-family: Pretendard;
+  font-family: 'Pretendard';
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
@@ -60,7 +60,7 @@ const ToContainer = styled.div`
 //'닉네임'(나)
 const ToMyNickname = styled.div`
   color: #000;
-  font-family: Pretendard;
+  font-family: 'Pretendard';
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -71,7 +71,7 @@ const ToMyNickname = styled.div`
 //에게
 const To = styled.div`
   color: #000;
-  font-family: Pretendard;
+  font-family: 'Pretendard';
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -85,12 +85,11 @@ const To = styled.div`
 `;*/
 
 const Content = styled.div`
-  //background-color: #000;
   width: 528px;
   height: 196px;
   color: #000;
   margin-top: 24px;
-  font-family: Gowun Dodum;
+  font-family: 'Gowun Dodum';
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -137,7 +136,7 @@ const FromContainer = styled.div`
 //'닉네임'(다른 사용자)
 const FromNickname = styled.div`
   color: #000;
-  font-family: Pretendard;
+  font-family: 'Pretendard';
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -148,7 +147,7 @@ const FromNickname = styled.div`
 //이
 const From = styled.div`
   color: #000;
-  font-family: Pretendard;
+  font-family: 'Pretendard';
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -156,7 +155,7 @@ const From = styled.div`
   letter-spacing: 0.28px;
 `;
  
-export default function Info({ isOpen, onClose }) {
+export default function Check2({ isOpen, onClose }) {
 
   const navigate = useNavigate();
 
