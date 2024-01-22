@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import '../../index.css';
+import Stamp from '../../assets/img/우표예시.svg';
 
 const BackgroundBlur = styled.div`
   width: 990px;
@@ -28,20 +29,6 @@ const MainContainer = styled.div`
   background: #FFFEF8;
   border-radius: 10px;
   overflow: hidden;
-`;
-
-const StampContainer = styled.div`
-  width: 39px;
-  height: 22px;
-  padding: 43px 23px 47px 22px;
-  left: 469px;
-  top: 30px;
-  position: absolute;
-  background: #C0C0C0;
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
 `;
 
 const FromContainer = styled.div`
@@ -72,15 +59,6 @@ const LineContainer = styled.div`
   position: absolute;
 `;
 
-const Text = styled.div`
-  color: black;
-  font-size: 22px;
-  font-family: 'Pretendard';
-  font-weight: 400;
-  line-height: 22px;
-  word-wrap: break-word;
-`;
-
 const Text2 = styled.div`
   color: black;
   font-size: 14px;
@@ -91,11 +69,24 @@ const Text2 = styled.div`
   word-wrap: break-word;
 `;
 
-const Text3 = styled.div`
-  width: 528px;
-  left: 25px;
-  top: 75px;
+const LetterTextContainer = styled.div`
   position: absolute;
+  left: 25px;
+  top: 32px;
+  width: 528px;
+  height: 239px;
+`;
+
+const StampImg = styled.img`
+  width: 84px;
+  height: 112px;
+  float: right;
+  margin-left: 22px;
+`;
+
+const LetterText = styled.div`
+  margin-top: 43px;
+  width: 528px;
   color: black;
   font-size: 14px;
   font-family: 'Gowun Dodum';
@@ -120,7 +111,6 @@ const Line2 = styled.div`
   border: 0.50px #C5C5C5 solid;
 `;
 
-
 export default function OpenLetter2({ isOpen, onClose }) {
   if (!isOpen) {
     return null;
@@ -130,15 +120,15 @@ export default function OpenLetter2({ isOpen, onClose }) {
     <div>
       <BackgroundBlur>
         <MainContainer>
-          <StampContainer>
-            <Text>우표</Text>
-          </StampContainer>
+
           <FromContainer>
             <Text2>닉네임이</Text2>
           </FromContainer>
+
           <ToContainer>
             <Text2>닉네임에게</Text2>
           </ToContainer>
+          
           <LineContainer>
             <Line1 style={{top: 0}} />
             <Line1 style={{top: 28}} />
@@ -148,7 +138,12 @@ export default function OpenLetter2({ isOpen, onClose }) {
             <Line2 style={{top: 140}} />
             <Line2 style={{top: 168}} />
           </LineContainer>
-          <Text3>편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요...</Text3>
+
+          <LetterTextContainer>
+            <StampImg src={Stamp} alt='우표예시' />
+            <LetterText>편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. </LetterText>
+          </LetterTextContainer>
+          
         </MainContainer>
       </BackgroundBlur>
     </div>

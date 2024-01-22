@@ -359,9 +359,9 @@ export default function Info({ isOpen, onClose }) {
   const [isDropdownOpen, setDropdownOpen] = useState(false); // 드롭다운의 열림/닫힘 상태를 관리하는 상태 변수
   const [selectedOption, setSelectedOption] = useState('누구나'); // 선택한 옵션을 관리하는 상태 변수
 
-  const [mailboxName, setMailboxName] = useState('23번째 생일 우편함'); // mailboxName은 우편함 이름을 관리하는 상태 변수
-  const [isEditing, setIsEditing] = useState(false); // isEditing은 편집 모드 여부를 관리하는 상태 변수
-  const [errorMessage, setErrorMessage] = useState(''); // errorMessage는 에러 메시지를 관리하는 상태 변수
+  const [mailboxName, setMailboxName] = useState('23번째 생일 우편함'); // 우편함 이름을 관리하는 상태 변수
+  const [isEditing, setIsEditing] = useState(false); // 편집 모드 여부를 관리하는 상태 변수
+  const [errorMessage, setErrorMessage] = useState(''); // 에러 메시지를 관리하는 상태 변수
 
   const handleDropdownToggle = () => {
     setDropdownOpen(!isDropdownOpen); // 드롭다운의 열림/닫힘 상태를 토글
@@ -391,17 +391,6 @@ export default function Info({ isOpen, onClose }) {
     } else {
       setErrorMessage('');
       setMailboxName(value);
-    }
-  };
-
-  // 입력 필드에서 포커스가 사라지면 편집 모드를 종료
-  // 이때, 입력된 값이 빈 문자열이면 에러 메시지를 설정
-  const handleBlur = () => {
-    if (mailboxName === '') {
-      setErrorMessage('필수 정보입니다.');
-    } else {
-      setErrorMessage('');
-      setIsEditing(false);
     }
   };
 
