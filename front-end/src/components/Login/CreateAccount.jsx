@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import logo from '../../assets/img/낭만고양이.png'
+import logo from '../../assets/img/낭만고양이.svg'
 import Back from '../../assets/img/back.svg'
 import Signin from './Signin';
 

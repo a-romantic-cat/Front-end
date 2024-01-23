@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Kakao from '../../assets/kakao.png'
-import Naver from '../../assets/naver.png'
-import Google from '../../assets/google.png'
+import Kakao from '../../assets/img/Kakao.svg'
+import Naver from '../../assets/img/Naver.svg'
+import Google from '../../assets/img/Google.svg'
 import {useGoogleLogin, GoogleOAuthProvider} from '@react-oauth/google';
 import axios from "axios";
 
