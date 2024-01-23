@@ -19,6 +19,7 @@ const Backlogo = styled.div`
   left: 0px;
   top: 7px;
   position: absolute;
+  cursor: pointer;
 `;
 
 const Logo = styled.div`
