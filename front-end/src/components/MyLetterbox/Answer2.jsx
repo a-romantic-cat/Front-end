@@ -100,6 +100,20 @@ const To = styled.div`
   white-space: nowrap;
 `;
 
+const Wrap = styled.div`
+`;
+
+const Stamp = styled.div`
+  background-image: url("/images/우표2.svg");
+  background-size: cover;
+  float: right;
+  width: 78.03125px;
+  height: 104.03989px;
+  position: absolute; //우표가 내용위로 겹치게
+  right: 24.7px;
+  top: 20.86px;
+`;
+
 const Content = styled.div`
   width: 438.01419px;
   height: 161px;
@@ -112,18 +126,7 @@ const Content = styled.div`
   letter-spacing: -0.113px;
   word-break: break-all;
 
-  margin-top: 28.76px;
-`;
-
-const Stamp = styled.div`
-  background-image: url("/images/우표2.svg");
-  background-size: cover;
-  float: right;
-  width: 78.03125px;
-  height: 104.03989px;
-  position: absolute; //우표가 내용위로 겹치게
-  right: 24.7px;
-  top: 20.86px;
+  //margin-top: 28.76px;
 `;
 
 //닉네임이
@@ -301,12 +304,14 @@ const Answer2 = () => {
               </To>
             </ToContainer>
             
-            <Content>
-              편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명 으로 작성 돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼 요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익 명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.
-            </Content>
-            <Stamp>
-            </Stamp>
-
+            <Wrap>
+              <Stamp>
+              </Stamp>
+              <Content>
+                편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명 으로 작성 돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼 요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익 명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.
+              </Content>
+            </Wrap>
+          
             <FromContainer>
               <FromNickname>
                 닉네임

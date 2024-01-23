@@ -91,15 +91,12 @@ const To = styled.div`
   white-space: nowrap;
 `;
 
-const Content = styled.div`
-  color: #000;
-  font-family: "Gowun Dodum";
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 200%; /* 40px */
-  letter-spacing: -0.2px;
-  margin-top: 50.08px;
+const Wrap = styled.div`
+  width: 770px;
+  height: 350.09px;
+  position: absolute;
+  left: 37px;
+  top: 50.09px;
 `;
 
 const Stamp = styled.div`
@@ -108,17 +105,29 @@ const Stamp = styled.div`
   float: right;
   width: 137.40875px;
   height: 183.21165px;
+  margin-left: 35px;//임시
 
-  position: absolute; //우표가 내용위로 겹치게
+  /*position: absolute; //우표가 내용위로 겹치게
   right: 37px;
-  top: 43.91px;
+  top: 43.91px;*/
+`;
+
+const Content = styled.div`
+  color: #000;
+  font-family: "Gowun Dodum";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 200%; /* 40px */
+  letter-spacing: -0.2px;
+  margin-top: 59px; //임시
 `;
 
 //닉네임이
 const FromContainer = styled.div`
   width: 71px;
   height: 20px;
-  margin: 50.96px 0 0 688.41px;
+  margin: 390px 0 0px 688.41px;
   display: flex;
 `;
 
@@ -297,11 +306,13 @@ const Answer1 = () => {
               </To>
           </ToContainer>
           
-          <Content>
-            편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명 으로 작 성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼 요. 편지는 익명 으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지 는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.
-          </Content>
-          <Stamp>
-          </Stamp>
+          <Wrap>
+            <Stamp>
+            </Stamp>
+            <Content>
+              편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명 으로 작 성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼 요. 편지는 익명 으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지 는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.
+            </Content>
+          </Wrap>
 
           <FromContainer>
             <FromNickname>
