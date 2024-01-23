@@ -359,8 +359,9 @@ export default function Info({ isOpen, onClose }) {
   const [isDropdownOpen, setDropdownOpen] = useState(false); // 드롭다운의 열림/닫힘 상태를 관리하는 상태 변수
   const [selectedOption, setSelectedOption] = useState('누구나'); // 선택한 옵션을 관리하는 상태 변수
 
-  const [mailboxName, setMailboxName] = useState('23번째 생일 우편함'); // mailboxName은 우편함 이름을 관리하는 상태 변수
-  const [isEditing, setIsEditing] = useState(false); // isEditing은 편집 모드 여부를 관리하는 상태 변수
+  const [mailboxName, setMailboxName] = useState('23번째 생일 우편함'); // 우편함 이름을 관리하는 상태 변수
+  const [isEditing, setIsEditing] = useState(false); // 편집 모드 여부를 관리하는 상태 변수
+  const [errorMessage, setErrorMessage] = useState(''); // 에러 메시지를 관리하는 상태 변수
 
   const handleDropdownToggle = () => {
     setDropdownOpen(!isDropdownOpen); // 드롭다운의 열림/닫힘 상태를 토글
@@ -375,16 +376,32 @@ export default function Info({ isOpen, onClose }) {
     setIsActive(!isActive); // 토글 버튼 클릭 시 isActive 상태를 변환하는 핸들러 함수
   };
 
+  // 아이콘을 클릭하면 편집 모드로 전환
   const handleIconClick = () => {
-    setIsEditing(true); // 아이콘을 클릭하면 편집 모드로 전환
+    setIsEditing(true);
   };
 
+  // 텍스트 입력 필드에서 이름을 변경하면 mailboxName 상태를 업데이트
+  // 이때, 입력된 값의 길이가 32자를 초과하면 에러 메시지를 설정
   const handleNameChange = (event) => {
-    setMailboxName(event.target.value); //텍스트 입력 필드에서 이름을 변경하면 mailboxName 상태를 업데이트
+    const value = event.target.value;
+
+    if (value.length > 32) {
+      setErrorMessage('최대 32자까지 적을 수 있습니다.');
+    } else {
+      setErrorMessage('');
+      setMailboxName(value);
+    }
   };
 
-  const handleBlur = () => {
-    setIsEditing(false); // 입력 필드에서 포커스가 사라지면 편집 모드를 종료
+  // 변경 버튼 클릭 시 편집 모드를 종료하고, 입력된 값이 빈 문자열이면 에러 메시지를 설정
+  const handleSaveClick = () => {
+    if (mailboxName === '') {
+      setErrorMessage('필수 정보입니다.');
+    } else {
+      setErrorMessage('');
+      setIsEditing(false);
+    }
   };
 
   if (!isOpen) {
@@ -458,12 +475,23 @@ export default function Info({ isOpen, onClose }) {
           <NameContainer>
             {/* 편집 모드일 때는 텍스트 입력 필드를, 그렇지 않을 때는 일반 텍스트를 렌더링합니다. */}
             {isEditing ? (
-              <input type="text" value={mailboxName} onChange={handleNameChange} onBlur={handleBlur} autoFocus />
+              <>
+                <input 
+                  type="text" 
+                  value={mailboxName} 
+                  onChange={handleNameChange} 
+                  placeholder="우편함 이름을 입력하세요."
+                  autoFocus 
+                />
+                <button onClick={handleSaveClick}>변경</button>
+              </>
             ) : (
               <RealNameText>{mailboxName}</RealNameText>
             )}
             {/* 아이콘을 클릭하면 편집 모드로 전환합니다. */}
             <NameIconImg src={Vector} alt='NameIcon' onClick={handleIconClick}/>
+            {/* 에러 메시지가 있으면 이를 화면에 표시합니다. */}
+            {errorMessage && <div>{errorMessage}</div>}
           </NameContainer>
         </Container4>
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { NavLink, useLocation } from 'react-router-dom';
-import logo from '../../assets/img/낭만고양이.svg';
+import logo from '../../assets/img/낭만고양이로고.svg';
 import feather from '../../assets/img/Feather.svg';
 import featherRed from '../../assets/img/FeatherRed.svg';
 import '../../index.css';
