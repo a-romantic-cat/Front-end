@@ -101,6 +101,11 @@ const To = styled.div`
 `;
 
 const Wrap = styled.div`
+  width: 438.01419px;
+  height: 200.77px;
+  position: absolute; //흰편지지컨테이너랑 연결
+  left: 23px;
+  top: 28.77px;
 `;
 
 const Stamp = styled.div`
@@ -109,14 +114,10 @@ const Stamp = styled.div`
   float: right;
   width: 78.03125px;
   height: 104.03989px;
-  position: absolute; //우표가 내용위로 겹치게
-  right: 24.7px;
-  top: 20.86px;
+  margin-left: 30px; //임시
 `;
 
 const Content = styled.div`
-  width: 438.01419px;
-  height: 161px;
   color: #000;
   font-family: "Gowun Dodum";
   font-size: 11.348px;
@@ -125,15 +126,14 @@ const Content = styled.div`
   line-height: 200%; /* 22.695px */
   letter-spacing: -0.113px;
   word-break: break-all;
-
-  //margin-top: 28.76px;
+  margin-top: 33px; //임시
 `;
 
 //닉네임이
 const FromContainer = styled.div`
   width: 40px;
   height: 11px;
-  margin: 26.78px 0 0 388.25px;
+  margin: 215px 0 0 388.25px;
   display: flex;
 `;
 

@@ -46,7 +46,6 @@ const Message = styled.div`
 const WhiteLetterContainer = styled.div`
   background-image: url("/images/더흰편지지.svg");
   background-size: cover;
-  //background-size: contain;
   width: 846px;
   height: 506.42908px;
   margin: 70px 537px 0 537px;
@@ -93,7 +92,7 @@ const To = styled.div`
 
 const Wrap = styled.div`
   width: 770px;
-  height: 350.09px;
+  height: 401.09px;
   position: absolute;
   left: 37px;
   top: 50.09px;
@@ -105,11 +104,7 @@ const Stamp = styled.div`
   float: right;
   width: 137.40875px;
   height: 183.21165px;
-  margin-left: 35px;//임시
-
-  /*position: absolute; //우표가 내용위로 겹치게
-  right: 37px;
-  top: 43.91px;*/
+  margin-left: 32px;//임시
 `;
 
 const Content = styled.div`
