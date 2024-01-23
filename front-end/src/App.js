@@ -10,6 +10,7 @@ import Store from "./pages/Store";
 import MyPage from "./pages/MyPage";
 import Check1 from './components/MyLetterbox/Check1';
 import OpenLetter1 from './components/MyLetterbox/OpenLetter1';
+import CreateAccount from './components/Login/CreateAccount';
 
 const Background = styled.div`
   background-color: #FFFEF8;
@@ -24,6 +25,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/CreateAccount" element={<CreateAccount />} />
           <Route path="/MyLetterbox" element={<MyLetterbox />} />
           <Route path="/AddressBook" element={<AddressBook />} />
           <Route path="/RomanticLetterbox" element={<RomanticLetterbox />} />
