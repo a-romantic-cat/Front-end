@@ -68,8 +68,8 @@ const InfoTitle = styled.div`
 const InfoImg = styled.img`
   width: 20px;
   height: 20px;
-  left: 0;
   top: 3px;
+  left: 0;
   position: absolute;
 `;
 
@@ -329,30 +329,35 @@ const NameText = styled.div`
 `;
 
 //편집 후 이름
+const NameWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  position: relative;
+`;
+
 const RealNameText = styled.div`
-  left: 21px;
+  right: 0;
   top: 1px;
-  position: absolute;
   color: black;
   font-size: 15px;
   font-family: Pretendard;
   font-weight: 400;
   line-height: 15px;
   word-wrap: break-word;
+  margin-left: 6.77px;
 `;
 
 //이름 편집 아이콘
 const NameIconImg = styled.img`
   width: 14.23px;
   height: 16.24px;
-  left: 0;
-  top: 0;
-  position: absolute;
+  top: 1px;
 `;
 
 //편집모드
 const NameContainer = styled.div`
-  width: 304px;
+  width: 298px;
   height: 24px;
   left: 79px;
   top: 0;
@@ -532,10 +537,12 @@ export default function Info({ isOpen, onClose }) {
                 <EditCompleteButtonImg src={EditCompleteButton} alt='편집완료버튼' onClick={handleSaveClick} />
               </div>
             ) : (
-              <RealNameText>{mailboxName}</RealNameText>
+              <NameWrapper>
+                {/* 아이콘을 클릭하면 편집 모드로 전환합니다. isEditing이 false일 때만 아이콘을 렌더링합니다. */}
+                {!isEditing && <NameIconImg src={Vector} alt='NameIcon' onClick={handleIconClick}/>}
+                <RealNameText>{mailboxName}</RealNameText>
+              </NameWrapper>
             )}
-            {/* 아이콘을 클릭하면 편집 모드로 전환합니다. isEditing이 false일 때만 아이콘을 렌더링합니다. */}
-            {!isEditing && <NameIconImg src={Vector} alt='NameIcon' onClick={handleIconClick}/>}
             {/* 에러 메시지가 있으면 이를 화면에 표시합니다. */}
             {errorMessage && <div>{errorMessage}</div>}
           </NameContainer>
