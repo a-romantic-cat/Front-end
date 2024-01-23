@@ -4,6 +4,9 @@ import Header from '../Header/Header';
 import '../../index.css';
 import Slow1 from '../../assets/img/Slow1.svg';
 import Slow2 from '../../assets/img/Slow2.svg';
+import Footprint from '../../assets/img/발자국.svg';
+import LeftTitle from '../../assets/img/달력제목왼쪽.svg';
+import RightTitle from '../../assets/img/달력제목오른쪽.svg';
 
 const SlowLetterboxContainer = styled.div`
   width: 60px;
@@ -74,6 +77,136 @@ const HappyText = styled.div`
   word-wrap: break-word;
 `;
 
+const FootprintImg = styled.img`
+  width: 220.5px;
+  height: 394px;
+  position: absolute;
+  left: 1267px;
+  top: 474.97px;
+`;
+
+//달력
+const StyledContainer = styled.div`
+  width: 375px;
+  height: 389px;
+  position: absolute;
+  left: 465px;
+  top: 1080px;
+`;
+
+const StyledTitle = styled.div`
+  width: 133px;
+  height: 18px;
+  left: 119px;
+  top: 0;
+  position: absolute;
+`;
+
+const LeftTitleImg = styled.img`
+  width: 8px;
+  height: 14px; 
+  position: absolute;
+  left: 584px;
+  top: 1082px;
+`;
+
+const RightTitleImg = styled.img`
+  width: 8px;
+  height: 14px; 
+  position: absolute;
+  left: 709px;
+  top: 1082px;
+`;
+
+const StyledTitleText = styled.div`
+  left: 22px;
+  top: 0;
+  position: absolute;
+  color: black;
+  font-size: 18px;
+  font-family: 'Gowun Dodum';
+  font-weight: 400;
+  line-height: 18px;
+  word-wrap: break-word;
+`;
+
+const StyledContent = styled.div`
+  width: 368px;
+  height: 298px;
+  left: 4px;
+  top: 91px;
+  position: absolute;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 12px;
+`;
+
+const StyledRow = styled.div`
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 3px;
+`;
+
+const StyledItem = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 8px;
+`;
+
+const StyledCircle = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 9999px;
+  position: relative;
+`;
+
+const StyledText = styled.div`
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  text-align: center;
+  color: ${props => props.isGray ? '#9F9F9F' : '#212121'};
+  font-size: 18px;
+  font-family: 'Gowun Dodum';
+  font-weight: 400;
+  line-height: 18px;
+  word-wrap: break-word;
+`;
+
+const StyledBorder = styled.div`
+  width: 369px;
+  height: 0;
+  left: 4px;
+  top: 73px;
+  position: absolute;
+  border: 1px #9F9F9F solid;
+`;
+
+const StyledWeekdays = styled.div`
+  width: 335px;
+  height: 26px;
+  padding: 12px 20px;
+  left: 0;
+  top: 26px;
+  position: absolute;
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 36px;
+`;
+
+const Weekday = styled.div`
+  color: black;
+  font-size: 18px;
+  font-family: 'Gowun Dodum';
+  font-weight: 400;
+  word-wrap: break-word;
+`;
+
 function TextLines({ text }) {
   const lines = text.split('\n');  // 텍스트를 줄바꿈 문자를 기준으로 분리합니다.
 
@@ -104,6 +237,201 @@ export default function SlowLetterboxToday() {
       </SlowLetterboxContainer>
 
       <TextLines text={text} />
+
+      <FootprintImg src={Footprint} alt='발자국' />
+
+      <StyledContainer>
+
+        <StyledTitle>
+          <LeftTitleImg src={LeftTitle} alt='왼쪽제목' />
+          <StyledTitleText>2024년 1월</StyledTitleText>
+          <RightTitleImg src={RightTitle} alt='오른쪽제목' />
+        </StyledTitle>
+
+        <StyledContent>
+          <StyledRow>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>1</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>2</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>3</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>4</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>5</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText isGray={true}>6</StyledText>
+              </StyledCircle>
+            </StyledItem>
+          </StyledRow>
+
+          <StyledRow>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText isGray={true}>7</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>8</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>9</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>10</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>11</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>12</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText isGray={true}>13</StyledText>
+              </StyledCircle>
+            </StyledItem>
+          </StyledRow>
+
+          <StyledRow>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText isGray={true}>14</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>15</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>16</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>17</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>18</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>19</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText isGray={true}>20</StyledText>
+              </StyledCircle>
+            </StyledItem>
+          </StyledRow>
+
+          <StyledRow>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText isGray={true}>21</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle style={{background: 'rgba(243, 231, 231, 0.70)'}}>
+                <StyledText>22</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>23</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>24</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>25</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>26</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText isGray={true}>27</StyledText>
+              </StyledCircle>
+            </StyledItem>
+          </StyledRow>
+
+          <StyledRow>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText isGray={true}>28</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>29</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>30</StyledText>
+              </StyledCircle>
+            </StyledItem>
+            <StyledItem>
+              <StyledCircle>
+                <StyledText>31</StyledText>
+              </StyledCircle>
+            </StyledItem>
+          </StyledRow>
+        </StyledContent>
+
+        <StyledBorder />
+
+        <StyledWeekdays>
+          <Weekday>일</Weekday>
+          <Weekday>월</Weekday>
+          <Weekday>화</Weekday>
+          <Weekday>수</Weekday>
+          <Weekday>목</Weekday>
+          <Weekday>금</Weekday>
+          <Weekday>토</Weekday>
+        </StyledWeekdays>
+      </StyledContainer>
     </div>
   )
 }
