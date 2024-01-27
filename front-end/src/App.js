@@ -17,6 +17,8 @@ import Answer4 from './components/MyLetterbox/Answer4';
 import OpenLetter1 from './components/MyLetterbox/OpenLetter1';
 import OpenLetter2 from './components/MyLetterbox/OpenLetter2';
 import SlowLetterboxToday from './components/MyLetterbox/SlowLetterboxToday';
+import MissionMain from './components/Store/MissionMain';
+import CollectionBoxMain from './components/Store/CollectionBoxMain';
 
 const Background = styled.div`
   background-color: #FFFEF8;
@@ -45,6 +47,8 @@ function App() {
           <Route path="/OpenLetter1" element={<OpenLetter1 />} />
           <Route path="/OpenLetter2" element={<OpenLetter2 />} />
           <Route path="/SlowLetterboxToday" element={<SlowLetterboxToday />} />
+          <Route path="/MissionMain" element={<MissionMain />} />
+          <Route path="/CollectionBoxMain" element={<CollectionBoxMain />} />
         </Routes>
       </BrowserRouter>
     </Background>

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Header from '../Header/Header';
-import { useNavigate } from 'react-router-dom';
 import '../../index.css';
-import 수집함 from '../../assets/img/수집함.svg';
+import 상점 from '../../assets/img/상점.svg';
 import 발바닥 from '../../assets/img/발바닥.svg';
 import Coin from '../../assets/img/코인.svg';
 
-//상점 
+//수집함
 const StoreMainDiv = styled.div`
   width: 1194px;
   height: 68px;
@@ -81,7 +80,7 @@ const CoinCountDiv = styled.div`
 `;
 
 const StoreTitleText = styled.div`
-  width: 70px;
+  width: 104px;
   height: 40px;
   position: relative;
   left: 0;
@@ -107,7 +106,7 @@ const TitleDetailText = styled.div`
 
 //탭 메뉴
 const TabContainer = styled.div`
-  width: 142px; 
+  width: 285px; 
   height: 44px;
   position: absolute;
   left: 363px;
@@ -137,20 +136,19 @@ const TabText = styled.div`
   word-wrap: break-word;
 `;
 
-export default function StoreMain() {
-  const navigate = useNavigate();
+export default function MissionMain() {
   const [currentTab, setCurrentTab] = useState('tab1');
 
   return (
     <div>
-      <Header />
-      <StoreMainDiv>
+        <Header />
+        <StoreMainDiv>
         <StoreInnerDiv>
-          <ItemDiv onClick={() => navigate('/CollectionBoxMain')}>
-            <CollectionBoxImg src={수집함} alt='수집함'/>
-            <TextDiv>수집함</TextDiv>
+          <ItemDiv>
+            <CollectionBoxImg src={상점} alt='상점'/>
+            <TextDiv>상점</TextDiv>
           </ItemDiv>
-          <ItemDiv onClick={() => navigate('/MissionMain')}>
+          <ItemDiv>
             <CatPadImg src={발바닥} alt='발바닥' />
             <TextDiv>미션</TextDiv>
           </ItemDiv>
@@ -159,8 +157,8 @@ export default function StoreMain() {
             <CoinCountDiv>30</CoinCountDiv>
           </CoinDiv>
         </StoreInnerDiv>
-        <StoreTitleText>상점</StoreTitleText>
-        <TitleDetailText>미션으로 코인을 획득해 편지지와 우표를 구입해 보세요!</TitleDetailText>
+        <StoreTitleText>수집함</StoreTitleText>
+        <TitleDetailText>편지지와 우표를 수집하고 직접 만들어보세요!</TitleDetailText>
       </StoreMainDiv>
 
       <TabContainer>
@@ -170,6 +168,9 @@ export default function StoreMain() {
         <Tab isActive={currentTab === 'tab2'} onClick={() => setCurrentTab('tab2')}>
           <TabText style={{width: 42}} isActive={currentTab === 'tab2'}>우표</TabText>
         </Tab>
+        <Tab isActive={currentTab === 'tab3'} onClick={() => setCurrentTab('tab3')}>
+          <TabText style={{width: 104}} isActive={currentTab === 'tab3'}>마이디자인</TabText>
+        </Tab>
       </TabContainer>
 
       {currentTab === 'tab1' && (
@@ -178,6 +179,10 @@ export default function StoreMain() {
 
       {currentTab === 'tab2' && (
         <div>탭 2의 내용입니다.</div>
+      )}
+
+      {currentTab === 'tab3' && (
+        <div>탭 3의 내용입니다.</div>
       )}
     </div>
   )
