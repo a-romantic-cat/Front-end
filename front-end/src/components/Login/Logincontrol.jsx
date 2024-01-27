@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Cat from '../../assets/Cat.png';
+import Cat from '../../assets/img/낭만고양이.svg';
 import Loginstart from './Loginstart';
-import { useNavigate } from "react-router-dom";
 
 
 const CatImg = styled.img`
     width:112.83px;
     height:125.65px;
-    margin-top:210px;
-    margin-left:800px;
+    margin-top:260px;
+    margin-left:1045px;
 `;  
 
 export default function Login() {
-
-    const navigate = useNavigate();
 
     return(
         <div>
