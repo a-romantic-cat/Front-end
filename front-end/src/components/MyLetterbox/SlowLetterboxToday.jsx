@@ -106,20 +106,20 @@ const LeftTitleImg = styled.img`
   width: 8px;
   height: 14px; 
   position: absolute;
-  left: 584px;
-  top: 1082px;
+  left: 0px;
+  top: 2px;
 `;
 
 const RightTitleImg = styled.img`
   width: 8px;
   height: 14px; 
   position: absolute;
-  left: 709px;
-  top: 1082px;
+  right: 0px;
+  top: 2px;
 `;
 
 const StyledTitleText = styled.div`
-  left: 22px;
+  left: 24px;
   top: 0;
   position: absolute;
   color: black;
@@ -165,9 +165,11 @@ const StyledCircle = styled.div`
 `;
 
 const StyledText = styled.div`
+  width: 20px;
+  height: 20px;
   position: absolute;
   top: 15px;
-  left: 20px;
+  left: 15px;
   text-align: center;
   color: ${props => props.isGray ? '#9F9F9F' : '#212121'};
   font-size: 18px;
@@ -175,6 +177,14 @@ const StyledText = styled.div`
   font-weight: 400;
   line-height: 18px;
   word-wrap: break-word;
+`;
+
+const StyledForLastLine = styled.div`
+  flex-direction: column;
+  justify-content: flex-start
+  align-items: flex-start;
+  gap: 12px;
+  display: flex;
 `;
 
 const StyledBorder = styled.div`
@@ -282,142 +292,144 @@ export default function SlowLetterboxToday() {
             </StyledItem>
           </StyledRow>
 
-          <StyledRow>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText isGray={true}>7</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText>8</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText>9</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText>10</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText>11</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText>12</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText isGray={true}>13</StyledText>
-              </StyledCircle>
-            </StyledItem>
-          </StyledRow>
+          <StyledForLastLine>
+            <StyledRow>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText isGray={true}>7</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText>8</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText>9</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText>10</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText>11</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText>12</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText isGray={true}>13</StyledText>
+                </StyledCircle>
+              </StyledItem>
+            </StyledRow>
 
-          <StyledRow>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText isGray={true}>14</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText>15</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText>16</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText>17</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText>18</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText>19</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText isGray={true}>20</StyledText>
-              </StyledCircle>
-            </StyledItem>
-          </StyledRow>
+            <StyledRow>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText isGray={true}>14</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText>15</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText>16</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText>17</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText>18</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText>19</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText isGray={true}>20</StyledText>
+                </StyledCircle>
+              </StyledItem>
+            </StyledRow>
 
-          <StyledRow>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText isGray={true}>21</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle style={{background: 'rgba(243, 231, 231, 0.70)'}}>
-                <StyledText>22</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText>23</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText>24</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText>25</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText>26</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText isGray={true}>27</StyledText>
-              </StyledCircle>
-            </StyledItem>
-          </StyledRow>
+            <StyledRow>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText isGray={true}>21</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle style={{background: 'rgba(243, 231, 231, 0.70)'}}>
+                  <StyledText>22</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText>23</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText>24</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText>25</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText>26</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText isGray={true}>27</StyledText>
+                </StyledCircle>
+              </StyledItem>
+            </StyledRow>
 
-          <StyledRow>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText isGray={true}>28</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText>29</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText>30</StyledText>
-              </StyledCircle>
-            </StyledItem>
-            <StyledItem>
-              <StyledCircle>
-                <StyledText>31</StyledText>
-              </StyledCircle>
-            </StyledItem>
-          </StyledRow>
+            <StyledRow>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText isGray={true}>28</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText>29</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText>30</StyledText>
+                </StyledCircle>
+              </StyledItem>
+              <StyledItem>
+                <StyledCircle>
+                  <StyledText>31</StyledText>
+                </StyledCircle>
+              </StyledItem>
+            </StyledRow>
+          </StyledForLastLine>
         </StyledContent>
 
         <StyledBorder />
