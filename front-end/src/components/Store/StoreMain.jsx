@@ -11,7 +11,7 @@ import CoinRed from '../../assets/img/CoinRed.svg';
 import 다음버튼 from '../../assets/img/다음버튼.svg';
 
 //편지지 데이터
-const dummyFriend = [
+const dummyLetter = [
   {id: 1, NickName: "편지지 이름", Price: "30"},
   {id: 2, NickName: "편지지 이름", Price: "30"},
   {id: 3, NickName: "편지지 이름", Price: "30"},
@@ -390,7 +390,7 @@ export default function StoreMain() {
   };
 
   const itemsPerPage = 12; // 한 페이지에 표시할 아이템 개수
-  const totalPages = Math.ceil(dummyFriend.length / itemsPerPage); // 전체 페이지 수
+  const totalPages = Math.ceil(dummyLetter.length / itemsPerPage); // 전체 페이지 수
 
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
 
@@ -481,7 +481,7 @@ export default function StoreMain() {
             </SortingContainer>
 
             <LetterContainer>
-              {dummyFriend.slice(startIndex, endIndex).map((friend, index) => (
+              {dummyLetter.slice(startIndex, endIndex).map((friend, index) => (
                 <LetterBox key={friend.id}>
                   <LetterInnerBox style={{ top: `${Math.floor(index / 3) * 394}px`, left: `${(index % 3) * 408}px` }}>
                     <LetterBackground />
