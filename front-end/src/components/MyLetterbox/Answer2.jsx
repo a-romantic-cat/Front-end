@@ -117,6 +117,7 @@ const Stamp = styled.div`
   margin-left: 30px; //임시
 `;
 
+//내용
 const Content = styled.div`
   color: #000;
   font-family: "Gowun Dodum";
@@ -127,6 +128,19 @@ const Content = styled.div`
   letter-spacing: -0.113px;
   word-break: break-all;
   margin-top: 33px; //임시
+  position: relative; // (0/300)이랑 겹치게
+`;
+
+// (0/300)
+const NumberCount = styled.div`
+  color: var(--Grey-, #C5C5C5);
+  font-family: Pretendard;
+  font-size: 9.697px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  position: absolute; //겹치게
+  margin: 171.75px 0 0 401px;
 `;
 
 //닉네임이
@@ -311,6 +325,10 @@ const Answer2 = () => {
                 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명 으로 작성 돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼 요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익 명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.
               </Content>
             </Wrap>
+
+            <NumberCount>
+              (0/300)
+            </NumberCount>
           
             <FromContainer>
               <FromNickname>

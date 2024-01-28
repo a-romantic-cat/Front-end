@@ -91,7 +91,7 @@ const To = styled.div`
 `;
 
 const Wrap = styled.div`
-  width: 770px;
+  width: 772px;
   height: 401.09px;
   position: absolute;
   left: 37px;
@@ -107,6 +107,7 @@ const Stamp = styled.div`
   margin-left: 32px;//임시
 `;
 
+//내용
 const Content = styled.div`
   color: #000;
   font-family: "Gowun Dodum";
@@ -116,18 +117,31 @@ const Content = styled.div`
   line-height: 200%; /* 40px */
   letter-spacing: -0.2px;
   margin-top: 59px; //임시
+  position: relative; // (0/300)이랑 겹치게
+`;
+
+// (0/300)
+const NumberCount = styled.div`
+  color: var(--Grey-, #C5C5C5);
+  font-family: 'Pretendard';
+  font-size: 17.091px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  position: absolute; //겹치게
+  margin: 302px 0 0 710px;
 `;
 
 //익명하고 닉네임이 컨테이너
 const AnonyAndFrom = styled.div`
   width: 152px;
   height: 20px;
-  margin: 390px 0 0px 607.41px;
+  margin: 381.9px 0 0px 607.41px;
   display: flex;
   justify-content: space-between;
 `;
 
-//익명(박스+익명글자) 컨테이너
+//익명(박스, 익명글자) 컨테이너
 const AnonyContainer = styled.div`
   width: 51px;
   height: 16px;
@@ -357,6 +371,10 @@ const Answer1 = () => {
               편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명 으로 작 성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼 요. 편지는 익명 으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지 는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.
             </Content>
           </Wrap>
+
+          <NumberCount>
+            (0/300)
+          </NumberCount>
 
           <AnonyAndFrom>
             <AnonyContainer>
