@@ -9,7 +9,6 @@ import '../../index.css';
 const Container = styled.div`
   width: 1486px;
   height: 100px;
-  background: '#FFFEF8';
   justify-content: center;
   align-items: center;
   display: inline-flex;

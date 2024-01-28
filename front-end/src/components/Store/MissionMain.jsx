@@ -105,6 +105,7 @@ const TitleDetailText = styled.div`
 `;
 
 export default function MissionMain() {
+
   return (
     <div>
         <Header />
