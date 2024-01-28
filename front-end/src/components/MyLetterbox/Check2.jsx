@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const RightContainer = styled.div`
   width: 578px;
   height: 420px;
-  margin: 149px 0 0 28px;
+  margin: 149px 0 0 60px;
 `;
 
 //흰 편지지

@@ -69,11 +69,33 @@ const XButton = styled.div`
 `;
 
 //스크롤 하는 영역
-const LeftContainer = styled.div`
-  width: 560px;
-  height: 1080px;
+const ScrollContainer = styled.div`
+  //background-color: black;
+  width: 528px;
+  height: 669px;
+  //height: 1080px;
+  //height: 1500px;
   margin: 63px 0 0 0;
   display: inline-flex; //컨테이너랑 스크롤바 가로배치
+  overflow-y: scroll;
+  overflow-x: clip; //오버플로 잘리고 나머지 콘텐츠 표시x
+
+  &::-webkit-scrollbar { //스크롤바 전체
+    width: 8px;
+    height: 608px;
+  }
+
+  &::-webkit-scrollbar-thumb { //스크롤 움직이는 작은 막대
+    background: #79110E;
+    //height: 84.592px;
+    height: 20%;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track { //스크롤바 배경색
+    background: #B3B3B3;
+    border-radius: 10px;
+  }
 `;
 
 //핀들이랑 닉네임들 넓은 컨테이너
@@ -141,27 +163,6 @@ const UserNickname = styled.div`
   line-height: 100%; /* 18px */
   margin: 16px 0 16px 0;
 `;
-
-const ScrollBar = styled.div`
-  
- /* &::-webkit-scrollbar { //스크롤바 전체 
-    height: 611px;
-    width: 8px;
-    position: absolute;
-  }
-
-  &::-webkit-scrollbar-track { //스크롤바 배경색
-    background: #B3B3B3;
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-thumb { //스크롤 움직이는 작은 막대
-    background: #79110E;
-    width: 8px;
-    height: 84.592px;
-    position: absolute;
-  }*/
-`;
  
 const Check1 = () => {
 
@@ -211,6 +212,11 @@ const Check1 = () => {
     setPin8(!pin8);
   }
 
+  const [pin9, setPin9] = useState(false); //고정핀
+  const handlePin9 = () => { 
+    setPin9(!pin9);
+  }
+
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
 
   return (
@@ -229,8 +235,8 @@ const Check1 = () => {
       </TextContainer>
 
       <WrapLetterContainer>
-        <LetterContainer >
-          <LeftContainer>
+        <LetterContainer>
+          <ScrollContainer>
             <PinsAndUsersContainer>
               {/*1번째 */}
               <PinAndUserContainer>
@@ -384,10 +390,27 @@ const Check1 = () => {
                 </WrapUserNickname>
               </PinAndUserContainer>
 
+              {/*9번째 */}
+              <PinAndUserContainer>
+                <div onClick={handlePin9}>
+                    {pin9 ? (
+                    <RedPin />
+                  ) :
+                  (
+                    <Pin />
+                  )}
+                </div>
+                <WrapUserNickname onClick={() => {setIsModalOpen(true)}}>
+                  <Envelope>
+                  </Envelope>
+                  <UserNickname>
+                    닉네임
+                  </UserNickname>
+                </WrapUserNickname>
+              </PinAndUserContainer>
+
             </PinsAndUsersContainer>
-            <ScrollBar>
-            </ScrollBar>
-          </LeftContainer>
+          </ScrollContainer>
 
           <Check2 isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </LetterContainer>
