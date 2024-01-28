@@ -8,6 +8,7 @@ import 발바닥 from '../../assets/img/발바닥.svg';
 import Coin from '../../assets/img/코인.svg';
 import Under from '../../assets/img/Under.svg';
 import CoinRed from '../../assets/img/CoinRed.svg';
+import 다음버튼 from '../../assets/img/다음버튼.svg';
 
 //편지지 데이터
 const dummyFriend = [
@@ -36,6 +37,8 @@ const dummyFriend = [
   {id: 22, NickName: "편지지 이름", Price: "30"},
   {id: 23, NickName: "편지지 이름", Price: "30"},
   {id: 24, NickName: "편지지 이름", Price: "30"},
+
+  {id: 25, NickName: "편지지 이름", Price: "30"},
 ];
 
 //상점 
@@ -325,6 +328,51 @@ const LetterCoinCount = styled.div`
   word-wrap: break-word;
 `;
 
+//페이징
+const PaginationContainer = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 120px;
+`;
+
+const PageNumberContainer = styled.div`
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 17px;
+  display: flex;
+`;
+
+const PageButton = styled.div`
+  width: 20px;
+  height: 24px;
+  padding: 10px;
+  border: ${({ active }) => (active ? '1px #C90000 solid' : 'none')};
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: inline-flex;
+  cursor: pointer;
+`;
+
+const PageNumberText = styled.div`
+  color: ${({ active }) => (active ? '#C90000' : 'black')};
+  font-size: 24px;
+  font-family: 'Pretendard';
+  font-weight: 500;
+  line-height: 24px;
+  word-wrap: break-word;
+`;
+
+const NextButtonImg = styled.img`
+  width: 9px;
+  height: 15px;
+  position: relative;
+  left: 54px;
+  cursor: pointer;
+`;
+
 export default function StoreMain() {
   const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState('tab1');
@@ -340,6 +388,23 @@ export default function StoreMain() {
     setSelectedOption(option); // 선택한 옵션 업데이트
     setDropdownOpen(false); // 드롭다운 닫기
   };
+
+  const itemsPerPage = 12; // 한 페이지에 표시할 아이템 개수
+  const totalPages = Math.ceil(dummyFriend.length / itemsPerPage); // 전체 페이지 수
+
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page); // 페이지 변경
+  };
+
+  const handleNextPage = () => {
+    const lastPage = totalPages; // 마지막 페이지 번호
+    handlePageChange(lastPage); // 마지막 페이지로 이동
+  };
+
+  const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지에서 첫 번째 아이템의 인덱스
+  const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
 
   return (
     <div>
@@ -416,7 +481,7 @@ export default function StoreMain() {
             </SortingContainer>
 
             <LetterContainer>
-              {dummyFriend.map((friend, index) => (
+              {dummyFriend.slice(startIndex, endIndex).map((friend, index) => (
                 <LetterBox key={friend.id}>
                   <LetterInnerBox style={{ top: `${Math.floor(index / 3) * 394}px`, left: `${(index % 3) * 408}px` }}>
                     <LetterBackground />
@@ -431,6 +496,23 @@ export default function StoreMain() {
                 </LetterBox>
               ))}
             </LetterContainer>
+
+            {/* 페이징 네비게이션 */}
+            <PaginationContainer>
+              <PageNumberContainer>
+                  {Array.from({ length: totalPages }, (_, index) => (
+                    <PageButton active={currentPage === index + 1} key={index + 1}>
+                      <PageNumberText
+                        active={currentPage === index + 1}
+                        onClick={() => handlePageChange(index + 1)}
+                      >
+                        {index + 1}
+                      </PageNumberText>
+                    </PageButton>
+                  ))}
+              </PageNumberContainer>
+              <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage} />
+            </PaginationContainer>
           </TabContentContainer>
 
         </div>
