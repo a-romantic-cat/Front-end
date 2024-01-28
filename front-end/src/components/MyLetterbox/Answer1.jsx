@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from 'styled-components';
 import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header';
@@ -118,11 +118,55 @@ const Content = styled.div`
   margin-top: 59px; //임시
 `;
 
+//익명하고 닉네임이 컨테이너
+const AnonyAndFrom = styled.div`
+  width: 152px;
+  height: 20px;
+  margin: 390px 0 0px 607.41px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+//익명(박스+익명글자) 컨테이너
+const AnonyContainer = styled.div`
+  width: 51px;
+  height: 16px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3px;
+`;
+
+//체크 안 된 박스 컨테이너
+const UnCheckbox = styled.div`
+  background-image: url("/images/uncheckbox.svg");
+  background-size: cover;
+  width: 16px;
+  height: 16px;
+`;
+
+//체크된 박스 컨테이너
+const Checkbox = styled.div`
+  background-image: url("/images/checkbox.svg");
+  background-size: cover;
+  width: 16px;
+  height: 16px;
+`;
+
+//익명글자 컨테이너
+const AnonyText = styled.div`
+  color: #000;
+  font-family: 'Pretendard';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  white-space: nowrap;
+`;
+
 //닉네임이
 const FromContainer = styled.div`
   width: 71px;
   height: 20px;
-  margin: 390px 0 0px 688.41px;
   display: flex;
 `;
 
@@ -275,6 +319,11 @@ const Answer1 = () => {
     navigate("/Answer2");
   };
 
+  const [check, setCheck] = useState(false); //고정핀
+  const handleCheck = () => { 
+    setCheck(!check);
+  }
+
   return (
     <div>
       <Header />
@@ -309,14 +358,31 @@ const Answer1 = () => {
             </Content>
           </Wrap>
 
-          <FromContainer>
-            <FromNickname>
-              닉네임
-            </FromNickname>
-            <From>
-              이
-            </From>
-          </FromContainer>
+          <AnonyAndFrom>
+            <AnonyContainer>
+              <UnCheckbox>
+                <div onClick={handleCheck}> {/*고정핀 핸들*/}
+                    {check ? (
+                    <Checkbox />
+                  ) :
+                  (
+                    <UnCheckbox />
+                  )}
+                </div>
+              </UnCheckbox>
+              <AnonyText>
+                익명
+              </AnonyText>
+            </AnonyContainer>
+            <FromContainer>
+              <FromNickname>
+                닉네임
+              </FromNickname>
+              <From>
+                이
+              </From>
+            </FromContainer>
+          </AnonyAndFrom>
         
         </ContentContainer>
       </WhiteLetterContainer>
