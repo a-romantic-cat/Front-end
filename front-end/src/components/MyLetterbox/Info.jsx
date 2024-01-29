@@ -79,6 +79,7 @@ const CloseButtonImg = styled.img`
   left: 254.59px;
   top: 0;
   position: absolute;
+  cursor: pointer;
 `;
 
 //내용 중 '우편함 닫기'
@@ -109,6 +110,7 @@ const Toggle = styled.div`
   position: absolute;
   background-color: ${({ isActive }) => (isActive ? '#C90000' : 'black')};
   border-radius: 20px;
+  cursor: pointer;
 `;
 
 // isActive 상태에 따라 원의 위치가 변경
@@ -353,6 +355,7 @@ const NameIconImg = styled.img`
   width: 14.23px;
   height: 16.24px;
   top: 1px;
+  cursor: pointer;
 `;
 
 //편집모드
@@ -408,6 +411,7 @@ const EditCompleteButtonImg = styled.img`
   position: absolute;
   left: 278px;
   top: 0;
+  cursor: pointer;
 `;
 
 

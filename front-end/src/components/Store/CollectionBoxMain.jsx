@@ -476,15 +476,15 @@ export default function MissionMain() {
             </MyDesignContainer>
 
             <LetterContainer>
-                {dummyCollectionLetter.slice(startIndex, endIndex).map((friend, index) => (
-                  <LetterBox key={friend.id}>
+                {dummyCollectionLetter.slice(startIndex, endIndex).map((letter, index) => (
+                  <LetterBox key={letter.id}>
                     <LetterInnerBox style={{ top: `${Math.floor(index / 3) * 394}px`, left: `${(index % 3) * 408}px` }}>
                       <LetterBackground />
                       <LetterTextWrapper>
-                        <LetterText>{friend.NickName}</LetterText> {/* 편지지 이름 */}
+                        <LetterText>{letter.NickName}</LetterText> {/* 편지지 이름 */}
                         <LetterCoinWrapper>
                           <RedCoinImg src={CoinRed} alt='CoinRed' />
-                          <LetterCoinCount>{friend.Price}</LetterCoinCount> {/* Price */}
+                          <LetterCoinCount>{letter.Price}</LetterCoinCount> {/* Price */}
                         </LetterCoinWrapper>
                       </LetterTextWrapper>
                     </LetterInnerBox>
@@ -521,12 +521,12 @@ export default function MissionMain() {
             </MyDesignContainer>
 
             <StampContainer>
-                {dummyCollectionStamp.slice(startIndex, endIndex).map((friend, index) => (
-                  <StampBox key={friend.id}>
+                {dummyCollectionStamp.slice(startIndex, endIndex).map((stamp, index) => (
+                  <StampBox key={stamp.id}>
                     <StampInnerBox style={{ top: `${Math.floor(index / 4) * 482}px`, left: `${(index % 4) * 306}px` }}>
                       <StampBackground />
                       <StampTextWrapper>
-                        <StampText>{friend.NickName}</StampText> {/* 편지지 이름 */}
+                        <StampText>{stamp.NickName}</StampText> {/* 편지지 이름 */}
                       </StampTextWrapper>
                     </StampInnerBox>
                   </StampBox>

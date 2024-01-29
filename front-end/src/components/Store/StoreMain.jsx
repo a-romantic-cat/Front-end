@@ -41,6 +41,36 @@ const dummyLetter = [
   {id: 25, NickName: "편지지 이름", Price: "30"},
 ];
 
+const dummyCollectionStamp = [
+  {id: 1, NickName: "우표 이름"},
+  {id: 2, NickName: "우표 이름"},
+  {id: 3, NickName: "우표 이름"},
+  {id: 4, NickName: "우표 이름"},
+  {id: 5, NickName: "우표 이름"},
+  {id: 6, NickName: "우표 이름"},
+  {id: 7, NickName: "우표 이름"},
+  {id: 8, NickName: "우표 이름"},
+  {id: 9, NickName: "우표 이름"},
+  {id: 10, NickName: "우표 이름"},
+  {id: 11, NickName: "우표 이름"},
+  {id: 12, NickName: "우표 이름"},
+  {id: 13, NickName: "우표 이름"},
+
+  {id: 14, NickName: "우표 이름"},
+  {id: 15, NickName: "우표 이름"},
+  {id: 16, NickName: "우표 이름"},
+  {id: 17, NickName: "우표 이름"},
+  {id: 18, NickName: "우표 이름"},
+  {id: 19, NickName: "우표 이름"},
+  {id: 20, NickName: "우표 이름"},
+  {id: 21, NickName: "우표 이름"},
+  {id: 22, NickName: "우표 이름"},
+  {id: 23, NickName: "우표 이름"},
+  {id: 24, NickName: "우표 이름"},
+
+  {id: 25, NickName: "우표 이름"},
+];
+
 //상점 
 const StoreMainDiv = styled.div`
   width: 1194px;
@@ -268,6 +298,7 @@ const LetterInnerBox = styled.div`
   width: 378.20px;
   height: 294px;
   position: absolute;
+  cursor: pointer;
 `;
 
 const LetterBackground = styled.div`
@@ -325,6 +356,152 @@ const LetterCoinCount = styled.div`
   font-family: 'Pretendard';
   font-weight: 600;
   line-height: 24px;
+  word-wrap: break-word;
+`;
+
+//편지지 클릭시 구매 버튼 생성
+const SelectedLetterBackground = styled.div`
+  width: 378px;
+  height: 226.67px;
+  left: 0.20px;
+  top: 0;
+  position: absolute;
+  background: #CECECE;
+  background: rgba(46.99, 40.54, 38.50, 0.80);
+  backdrop-filter: blur(4px);
+`;
+
+const PurchaseContainer = styled.div`
+  display: ${({ isActive }) => (isActive ? 'flex' : 'none')};
+  justify-content: space-between;
+  align-items: center;
+  width: 228px;
+  height: 113px;
+  position: relative;
+  left: 75px;
+  top: 62px;
+`;
+
+const QuestionText = styled.div`
+  width: 164px;
+  height: 22px;
+  left: 33px;
+  top: 0;
+  position: absolute;
+  color: white;
+  font-size: 22px;
+  font-family: 'Pretendard';
+  font-weight: 500; 
+  line-height: 22px;
+  word-wrap: break-word;
+`;
+
+const ButtonContainer = styled.div`
+  width: 228px;
+  height: 49px;
+  position: absolute;
+  left: 0;
+  top: 64px;
+`;
+
+const CancelButton = styled.button`
+  width: 102px;
+  height: 49px;
+  padding-left: 35px;
+  padding-right: 35px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  background: white;
+  left: 0;
+  top: 0;
+  position: absolute;
+  border-radius: 10px;
+  border: 1px #757575 solid;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: inline-flex;
+  cursor: pointer;
+`;
+
+const PurchaseButton = styled.button`
+  width: 102px;
+  height: 49px;
+  padding-left: 35px;
+  padding-right: 35px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  background: #C90000;
+  left: 126px;
+  top: 0;
+  position: absolute;
+  border-radius: 10px;
+  border: 1px #757575 solid;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: inline-flex;
+  cursor: pointer;
+`;
+
+const PurchaseText = styled.div`
+  width: 32px;
+  height: 21px;
+  position: absolute;
+  color: #757575;
+  font-size: 18px;
+  font-family: 'Pretendard';
+  font-weight: 500;
+  word-wrap: break-word;
+`;
+
+//탭 속 우표 내용
+const StampContainer = styled.div`
+  width: 1194px;
+  height: 1344px;
+  position: relative;
+`;
+
+const StampBox = styled.div`
+  width: 1194px;
+  height: 380px;
+  position: absolute;
+  margin-bottom: 102px;
+`;
+
+const StampInnerBox = styled.div`
+  width: 276x;
+  height: 380px;
+  position: absolute;
+`;
+
+const StampBackground = styled.div`
+  width: 276px;
+  height: 348px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  background: #CECECE;
+`;
+
+const StampTextWrapper = styled.div`
+  width: 82px;
+  height: 22px;
+  left: 0;
+  top: 358px;
+  position: absolute;
+`;
+
+const StampText = styled.div`
+  width: 82px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  color: black;
+  font-size: 22px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  line-height: 22px;
   word-wrap: break-word;
 `;
 
@@ -406,6 +583,18 @@ export default function StoreMain() {
   const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지에서 첫 번째 아이템의 인덱스
   const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
 
+  const [selectedLetterIndex, setSelectedLetterIndex] = useState(null);
+
+  const handleLetterInnerBoxClick = (index) => {
+    setSelectedLetterIndex(index === selectedLetterIndex ? null : index);
+    // 클릭된 편지지의 인덱스를 설정하기 위해 setSelectedLetterIndex를 호출합니다.
+    // index는 클릭된 편지지의 인덱스입니다.
+  };
+
+  const handleLetterBackgroundClick = (index) => {
+    setSelectedLetterIndex(index); // 선택된 편지지 인덱스를 설정합니다
+  };
+
   return (
     <div>
       <Header />
@@ -481,16 +670,47 @@ export default function StoreMain() {
             </SortingContainer>
 
             <LetterContainer>
-              {dummyLetter.slice(startIndex, endIndex).map((friend, index) => (
-                <LetterBox key={friend.id}>
-                  <LetterInnerBox style={{ top: `${Math.floor(index / 3) * 394}px`, left: `${(index % 3) * 408}px` }}>
-                    <LetterBackground />
+              {dummyLetter.slice(startIndex, endIndex).map((letter, index) => (
+                <LetterBox key={letter.id}>
+                  <LetterInnerBox
+                    style={{ top: `${Math.floor(index / 3) * 394}px`, left: `${(index % 3) * 408}px` }}
+                  >
+                    <LetterBackground 
+                        onClick={() => handleLetterInnerBoxClick(index)}
+                        isActive={index === selectedLetterIndex}
+                      />
+                    {index === selectedLetterIndex ? (
+                      <LetterBackground 
+                        onClick={() => handleLetterBackgroundClick(index)} isActive={true} 
+                        style={{background: 'rgba(46.99, 40.54, 38.50, 0.80)', backdropFilter: 'blur(4px)'}}
+                      >
+                        <PurchaseContainer isActive={true}>
+                          <QuestionText>구매하시겠습니까?</QuestionText>
+                          <ButtonContainer>
+                            <CancelButton>
+                              <PurchaseText style={{color:'#757575'}}>취소</PurchaseText>
+                            </CancelButton>
+                            <PurchaseButton>
+                              <PurchaseText style={{color:'white'}}>구매</PurchaseText>
+                            </PurchaseButton>
+                          </ButtonContainer>
+                        </PurchaseContainer>
+                      </LetterBackground>
+                    ) : (
+                      <LetterBackground 
+                        onClick={() => handleLetterBackgroundClick(index)}
+                        isActive={index === selectedLetterIndex}
+                      />
+                    )}
                     <LetterTextWrapper>
-                      <LetterText>{friend.NickName}</LetterText> {/* 편지지 이름 */}
+                      <LetterText>{letter.NickName}</LetterText> {/* 편지지 이름 */}
                       <LetterCoinWrapper>
                         <RedCoinImg src={CoinRed} alt='CoinRed' />
-                        <LetterCoinCount>{friend.Price}</LetterCoinCount> {/* Price */}
+                        <LetterCoinCount>{letter.Price}</LetterCoinCount> {/* Price */}
                       </LetterCoinWrapper>
+
+                      
+
                     </LetterTextWrapper>
                   </LetterInnerBox>
                 </LetterBox>
@@ -521,7 +741,76 @@ export default function StoreMain() {
       {currentTab === 'tab2' && (
         <div>
           <TabContentContainer>
+            <SortingContainer>
+              <div>
+                <SelectedOptionContainer onClick={handleDropdownToggle}>
+                  <Option style={{border: 'none', background: 'white'}}>
+                    <OptionText>{selectedOption}</OptionText> {/* 선택한 옵션 표시 */}
+                    <UnderImg src={Under} alt='Under' />
+                  </Option>
+                </SelectedOptionContainer>
+                {isDropdownOpen && (
+                  <OptionsContainer>
+                    <Option style={{border: '1px black solid'}} onClick={() => handleOptionSelect('인기순')} selectedOption={selectedOption === '인기순'}>
+                      <OptionText>
+                        인기순
+                      </OptionText>
+                    </Option>
+                    <Option onClick={() => handleOptionSelect('최신순')} selectedOption={selectedOption === '최신순'}>
+                      <OptionText>
+                        최신순
+                      </OptionText>
+                    </Option>
+                    <Option onClick={() => handleOptionSelect('낮은 가격순')} selectedOption={selectedOption === '낮은 가격순'}>
+                      <OptionText>
+                        낮은 가격순
+                      </OptionText>
+                    </Option>
+                    <Option onClick={() => handleOptionSelect('높은 가격순')} selectedOption={selectedOption === '높은 가격순'}>
+                      <OptionText>
+                        높은 가격순
+                      </OptionText>
+                    </Option>
+                    <Option onClick={() => handleOptionSelect('가나다순')} selectedOption={selectedOption === '가나다순'}>
+                      <OptionText>
+                        가나다순
+                      </OptionText>
+                    </Option>
+                  </OptionsContainer>
+                )}
+              </div>
+            </SortingContainer>
 
+            <StampContainer>
+                {dummyCollectionStamp.slice(startIndex, endIndex).map((stamp, index) => (
+                  <StampBox key={stamp.id}>
+                    <StampInnerBox style={{ top: `${Math.floor(index / 4) * 482}px`, left: `${(index % 4) * 306}px` }}>
+                      <StampBackground />
+                      <StampTextWrapper>
+                        <StampText>{stamp.NickName}</StampText> {/* 편지지 이름 */}
+                      </StampTextWrapper>
+                    </StampInnerBox>
+                  </StampBox>
+                ))}
+            </StampContainer>
+
+            {/* 페이징 네비게이션 */}
+            <PaginationContainer>
+              <PageNumberContainer>
+                  {Array.from({ length: totalPages }, (_, index) => (
+                    <PageButton active={currentPage === index + 1} key={index + 1}>
+                      <PageNumberText
+                        active={currentPage === index + 1}
+                        onClick={() => handleLetterInnerBoxClick(index)}
+                        isActive={index === selectedLetterIndex}
+                      >
+                        {index + 1}
+                      </PageNumberText>
+                    </PageButton>
+                  ))}
+              </PageNumberContainer>
+              <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage} />
+            </PaginationContainer>
           </TabContentContainer>
         </div>
       )}
