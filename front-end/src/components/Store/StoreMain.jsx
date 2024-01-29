@@ -297,8 +297,7 @@ const LetterBox = styled.div`
 const LetterInnerBox = styled.div`
   width: 378.20px;
   height: 294px;
-  position: absolute;
-  cursor: pointer;
+  position: relative;
 `;
 
 const LetterBackground = styled.div`
@@ -307,7 +306,9 @@ const LetterBackground = styled.div`
   left: 0.20px;
   top: 0;
   position: absolute;
-  background: #CECECE;
+  background: ${({ isActive }) => (isActive ? 'rgba(46.99, 40.54, 38.50, 0.80)' : '#CECECE')};
+  cursor: pointer;
+  z-index: 1;
 `;
 
 const LetterTextWrapper = styled.div`
@@ -360,17 +361,6 @@ const LetterCoinCount = styled.div`
 `;
 
 //편지지 클릭시 구매 버튼 생성
-const SelectedLetterBackground = styled.div`
-  width: 378px;
-  height: 226.67px;
-  left: 0.20px;
-  top: 0;
-  position: absolute;
-  background: #CECECE;
-  background: rgba(46.99, 40.54, 38.50, 0.80);
-  backdrop-filter: blur(4px);
-`;
-
 const PurchaseContainer = styled.div`
   display: ${({ isActive }) => (isActive ? 'flex' : 'none')};
   justify-content: space-between;
@@ -380,6 +370,7 @@ const PurchaseContainer = styled.div`
   position: relative;
   left: 75px;
   top: 62px;
+  z-index: 2;
 `;
 
 const QuestionText = styled.div`
@@ -573,11 +564,13 @@ export default function StoreMain() {
 
   const handlePageChange = (page) => {
     setCurrentPage(page); // 페이지 변경
+    setSelectedLetterIndex(null); // 페이지 변경 시 selectedLetterIndex 초기화
   };
 
   const handleNextPage = () => {
     const lastPage = totalPages; // 마지막 페이지 번호
     handlePageChange(lastPage); // 마지막 페이지로 이동
+    setSelectedLetterIndex(null); // 페이지 변경 시 selectedLetterIndex 초기화
   };
 
   const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지에서 첫 번째 아이템의 인덱스
@@ -586,13 +579,14 @@ export default function StoreMain() {
   const [selectedLetterIndex, setSelectedLetterIndex] = useState(null);
 
   const handleLetterInnerBoxClick = (index) => {
-    setSelectedLetterIndex(index === selectedLetterIndex ? null : index);
+    setSelectedLetterIndex(index === selectedLetterIndex ? null : index); // 페이징 기능 함수
     // 클릭된 편지지의 인덱스를 설정하기 위해 setSelectedLetterIndex를 호출합니다.
     // index는 클릭된 편지지의 인덱스입니다.
   };
 
   const handleLetterBackgroundClick = (index) => {
-    setSelectedLetterIndex(index); // 선택된 편지지 인덱스를 설정합니다
+    setSelectedLetterIndex(index); // LetterBackground를 클릭했을 때 호출되는 함수
+    //해당 편지지의 인덱스를 selectedLetterIndex로 설정하고 선택된 편지지에 구매 관련 컴포넌트가 나타납니다.
   };
 
   return (
@@ -672,35 +666,28 @@ export default function StoreMain() {
             <LetterContainer>
               {dummyLetter.slice(startIndex, endIndex).map((letter, index) => (
                 <LetterBox key={letter.id}>
-                  <LetterInnerBox
-                    style={{ top: `${Math.floor(index / 3) * 394}px`, left: `${(index % 3) * 408}px` }}
+                  <LetterInnerBox 
+                    style={{
+                      top: `${Math.floor(index / 3) * 394}px`,
+                      left: `${(index % 3) * 408}px`,
+                    }}
                   >
-                    <LetterBackground 
-                        onClick={() => handleLetterInnerBoxClick(index)}
-                        isActive={index === selectedLetterIndex}
-                      />
-                    {index === selectedLetterIndex ? (
-                      <LetterBackground 
-                        onClick={() => handleLetterBackgroundClick(index)} isActive={true} 
-                        style={{background: 'rgba(46.99, 40.54, 38.50, 0.80)', backdropFilter: 'blur(4px)'}}
-                      >
-                        <PurchaseContainer isActive={true}>
-                          <QuestionText>구매하시겠습니까?</QuestionText>
-                          <ButtonContainer>
-                            <CancelButton>
-                              <PurchaseText style={{color:'#757575'}}>취소</PurchaseText>
-                            </CancelButton>
-                            <PurchaseButton>
-                              <PurchaseText style={{color:'white'}}>구매</PurchaseText>
-                            </PurchaseButton>
-                          </ButtonContainer>
-                        </PurchaseContainer>
-                      </LetterBackground>
-                    ) : (
-                      <LetterBackground 
-                        onClick={() => handleLetterBackgroundClick(index)}
-                        isActive={index === selectedLetterIndex}
-                      />
+                    <LetterBackground
+                      onClick={() => handleLetterBackgroundClick(index)}
+                      isActive={index === selectedLetterIndex}
+                    />
+                    {index === selectedLetterIndex && (
+                      <PurchaseContainer isActive={true}>
+                        <QuestionText>구매하시겠습니까?</QuestionText>
+                        <ButtonContainer>
+                          <CancelButton>
+                            <PurchaseText style={{ color: '#757575' }}>취소</PurchaseText>
+                          </CancelButton>
+                          <PurchaseButton>
+                            <PurchaseText style={{ color: 'white' }}>구매</PurchaseText>
+                          </PurchaseButton>
+                        </ButtonContainer>
+                      </PurchaseContainer>
                     )}
                     <LetterTextWrapper>
                       <LetterText>{letter.NickName}</LetterText> {/* 편지지 이름 */}
@@ -708,9 +695,6 @@ export default function StoreMain() {
                         <RedCoinImg src={CoinRed} alt='CoinRed' />
                         <LetterCoinCount>{letter.Price}</LetterCoinCount> {/* Price */}
                       </LetterCoinWrapper>
-
-                      
-
                     </LetterTextWrapper>
                   </LetterInnerBox>
                 </LetterBox>
