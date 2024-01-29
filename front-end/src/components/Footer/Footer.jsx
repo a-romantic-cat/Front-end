@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
     background-image: url("/images/푸터.svg");
@@ -67,6 +68,7 @@ const BoldText = styled.div`
     font-weight: 600;
     line-height: normal;
     letter-spacing: 0.2px;
+    cursor: pointer;
 `;
 
 const SmallText = styled.div`
@@ -79,18 +81,42 @@ const SmallText = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    cursor: pointer;
 `;
 
 
 export default function Header() {
+
+  const navigate = useNavigate();
+
+  const navigateToMyBoxMain = () => {
+    navigate("/MyLetterbox");
+  };
+
+  const navigateToAddress = () => {
+    navigate("/AddressBook");
+  };
+
+  const navigateToRomantic = () => {
+    navigate("/RomanticLetterbox");
+  };
+
+  const navigateToStore = () => {
+    navigate("/Store");
+  };
+
+  const navigateToMyInfo = () => {
+    navigate("/MyPage");
+  };
+
     return (
       <Container>
         <LinkContainer>
             <Inner1>
-                <BoldText>
+                <BoldText onClick={navigateToMyBoxMain}>
                     내 우편함
                 </BoldText>
-                <SmallText>
+                <SmallText onClick={navigateToMyBoxMain}>
                     내 우편함
                 </SmallText>
                 <SmallText>
@@ -102,16 +128,16 @@ export default function Header() {
             </Inner1>
 
             <Inner2>
-                <BoldText>
+                <BoldText onClick={navigateToAddress}>
                     주소록
                 </BoldText>
             </Inner2>
 
             <Inner3>
-                <BoldText>
+                <BoldText onClick={navigateToRomantic}>
                     낭만 우편함
                 </BoldText>
-                <SmallText>
+                <SmallText onClick={navigateToRomantic}>
                     낭만 우편함
                 </SmallText>
                 <SmallText>
@@ -126,10 +152,10 @@ export default function Header() {
             </Inner3>
 
             <Inner4>
-                <BoldText>
+                <BoldText onClick={navigateToStore}>
                     상점
                 </BoldText>
-                <SmallText>
+                <SmallText onClick={navigateToStore}>
                     상점
                 </SmallText>
                 <SmallText>
@@ -141,7 +167,7 @@ export default function Header() {
             </Inner4>
 
             <Inner5>
-                <BoldText>
+                <BoldText onClick={navigateToMyInfo}>
                     내 정보
                 </BoldText>
             </Inner5>
