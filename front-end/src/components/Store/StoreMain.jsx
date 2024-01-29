@@ -577,6 +577,7 @@ export default function StoreMain() {
   const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
 
   const [selectedLetterIndex, setSelectedLetterIndex] = useState(null);
+  const [showCoinWrapper, setShowCoinWrapper] = useState(Array(dummyLetter.length).fill(true));
 
   const handleLetterInnerBoxClick = (index) => {
     setSelectedLetterIndex(index === selectedLetterIndex ? null : index); // 페이징 기능 함수
@@ -587,6 +588,19 @@ export default function StoreMain() {
   const handleLetterBackgroundClick = (index) => {
     setSelectedLetterIndex(index); // LetterBackground를 클릭했을 때 호출되는 함수
     //해당 편지지의 인덱스를 selectedLetterIndex로 설정하고 선택된 편지지에 구매 관련 컴포넌트가 나타납니다.
+  };
+
+  const handleCancelButtonClick = () => {
+    setSelectedLetterIndex(null); // 선택된 편지지 인덱스 초기화
+  };
+
+  const handlePurchaseButtonClick = (index) => {
+    setSelectedLetterIndex(index); // 선택된 편지지 인덱스 
+    setShowCoinWrapper((prev) => {
+      const updatedShowCoinWrapper = [...prev];
+      updatedShowCoinWrapper[index] = false;
+      return updatedShowCoinWrapper;
+    });
   };
 
   return (
@@ -680,10 +694,10 @@ export default function StoreMain() {
                       <PurchaseContainer isActive={true}>
                         <QuestionText>구매하시겠습니까?</QuestionText>
                         <ButtonContainer>
-                          <CancelButton>
+                          <CancelButton onClick={handleCancelButtonClick}>
                             <PurchaseText style={{ color: '#757575' }}>취소</PurchaseText>
                           </CancelButton>
-                          <PurchaseButton>
+                          <PurchaseButton onClick={() => handlePurchaseButtonClick(index)}>
                             <PurchaseText style={{ color: 'white' }}>구매</PurchaseText>
                           </PurchaseButton>
                         </ButtonContainer>
@@ -691,10 +705,12 @@ export default function StoreMain() {
                     )}
                     <LetterTextWrapper>
                       <LetterText>{letter.NickName}</LetterText> {/* 편지지 이름 */}
-                      <LetterCoinWrapper>
-                        <RedCoinImg src={CoinRed} alt='CoinRed' />
-                        <LetterCoinCount>{letter.Price}</LetterCoinCount> {/* Price */}
-                      </LetterCoinWrapper>
+                      {showCoinWrapper[index] && (
+                        <LetterCoinWrapper>
+                          <RedCoinImg src={CoinRed} alt="CoinRed" />
+                          <LetterCoinCount>{letter.Price}</LetterCoinCount>
+                        </LetterCoinWrapper>
+                      )}
                     </LetterTextWrapper>
                   </LetterInnerBox>
                 </LetterBox>
