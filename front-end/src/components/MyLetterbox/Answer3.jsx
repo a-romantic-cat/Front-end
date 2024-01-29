@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from 'styled-components';
 import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header';
@@ -100,19 +100,14 @@ const To = styled.div`
   white-space: nowrap;
 `;
 
-const Content = styled.div`
-  width: 438.01419px;
-  height: 161px;
-  color: #000;
-  font-family: "Gowun Dodum";
-  font-size: 11.348px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 200%; /* 22.695px */
-  letter-spacing: -0.113px;
-  word-break: break-all;
 
-  margin-top: 28.76px;
+
+const Wrap = styled.div`
+  width: 438.01419px;
+  height: 200.77px;
+  position: absolute; //흰편지지컨테이너랑 연결
+  left: 23px;
+  top: 28.77px;
 `;
 
 const Stamp = styled.div`
@@ -121,16 +116,40 @@ const Stamp = styled.div`
   float: right;
   width: 78.03125px;
   height: 104.03989px;
-  position: absolute; //우표가 내용위로 겹치게
-  right: 24.7px;
-  top: 20.86px;
+  margin-left: 30px; //임시
+`;
+
+//내용
+const Content = styled.div`
+  color: #000;
+  font-family: "Gowun Dodum";
+  font-size: 11.348px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 200%; /* 22.695px */
+  letter-spacing: -0.113px;
+  word-break: break-all;
+  margin-top: 33px; //임시
+  position: relative; // (0/300)이랑 겹치게
+`;
+
+// (0/300)
+const NumberCount = styled.div`
+  color: var(--Grey-, #C5C5C5);
+  font-family: Pretendard;
+  font-size: 9.697px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  position: absolute; //겹치게
+  margin: 171.75px 0 0 401px;
 `;
 
 //닉네임이
 const FromContainer = styled.div`
   width: 40px;
   height: 11px;
-  margin: 26.78px 0 0 388.25px;
+  margin: 215px 0 0 388.25px;
   display: flex;
 `;
 
@@ -159,9 +178,91 @@ const From = styled.div`
 `;
 
 const ScrollBoxContainer = styled.div`
-  width: 638px;
+  width: 607px;
   height: 464px;
   margin: 46px 0 0 38px;
+  overflow-y: scroll;
+  overflow-x: clip; //오버플로 잘리고 나머지 콘텐츠 표시x
+
+  &::-webkit-scrollbar { //스크롤바 전체
+    width: 8px;
+    height: 456.132px;
+  }
+
+  &::-webkit-scrollbar-thumb { //스크롤 움직이는 작은 막대
+    background: #79110E;
+    //height: 64.019px;
+    height: 10%;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track { //스크롤바 배경색
+    background: #B3B3B3;
+    border-radius: 10px;
+  }
+`;
+
+//체크박스, 마이디자인 컨테이너
+const CheckboxAndText = styled.div`
+  width: 138px;
+  height: 16px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-left: 52px;
+`;
+
+//체크 안 된 박스
+const UnCheckbox = styled.div`
+  background-image: url("/images/uncheckbox.svg");
+  background-size: cover;
+  width: 16px;
+  height: 16px;
+`;
+
+//체크 된 박스
+const Checkbox = styled.div`
+  background-image: url("/images/checkbox.svg");
+  background-size: cover;
+  width: 16px;
+  height: 16px;
+`;
+
+//마이디자인만 보기
+const MydesignText = styled.div`
+  color: #000;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%; /* 16px */
+  white-space: nowrap;
+`;
+
+//우표 6개 묶는 컨테이너
+const SixStampContainer = styled.div`
+  width: 481.303px;
+  height: 372.33666px;
+  margin-left: 70px;
+  margin-top: 33px;
+`;
+
+//우표 3개 묶는 가로 컨테이너
+const ThreeStampContainer = styled.div`
+  width: 481.303px;
+  height: 153.33333px;
+  margin-bottom: 65.67px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+//작고 많은 우표 하나 하나
+const StampDesign = styled.div`
+  background-image: url("/images/우표3.svg");
+  background-size: cover;
+  width: 115px;
+  height: 153.33333px;
 `;
 
 //버튼 3개 컨테이너
@@ -273,6 +374,11 @@ const Answer3 = () => {
     navigate("/Answer4");
   };
 
+  const [check, setCheck] = useState(false); //고정핀
+  const handleCheck = () => { 
+    setCheck(!check);
+  }
+
   return (
     <div>
       <Header />
@@ -300,11 +406,17 @@ const Answer3 = () => {
               </To>
             </ToContainer>
             
-            <Content>
-              편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명 으로 작성 돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼 요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익 명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.
-            </Content>
-            <Stamp>
-            </Stamp>
+            <Wrap>
+              <Stamp>
+              </Stamp>
+              <Content>
+                편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명 으로 작성 돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼 요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익 명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.
+              </Content>
+            </Wrap>
+
+            <NumberCount>
+              (0/300)
+            </NumberCount>
 
             <FromContainer>
               <FromNickname>
@@ -317,8 +429,79 @@ const Answer3 = () => {
             
           </ContentContainer>
         </WhiteLetterContainer>
-        <ScrollBoxContainer>
 
+        <ScrollBoxContainer>
+          <CheckboxAndText>
+            <UnCheckbox>
+              <div onClick={handleCheck}> {/*고정핀 핸들*/}
+                  {check ? (
+                  <Checkbox />
+                ) :
+                (
+                  <UnCheckbox />
+                )}
+              </div>
+            </UnCheckbox>
+            <MydesignText>
+              마이디자인만 보기
+            </MydesignText>
+          </CheckboxAndText>
+
+          <SixStampContainer>
+            <ThreeStampContainer>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+            </ThreeStampContainer>
+
+            <ThreeStampContainer>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+            </ThreeStampContainer>
+
+            <ThreeStampContainer>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+            </ThreeStampContainer>
+
+            <ThreeStampContainer>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+            </ThreeStampContainer>
+
+            <ThreeStampContainer>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+            </ThreeStampContainer>
+
+            <ThreeStampContainer>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+            </ThreeStampContainer>
+          </SixStampContainer>
         </ScrollBoxContainer>
       </LetterConatiner>      
 

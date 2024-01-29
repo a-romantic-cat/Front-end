@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,8 +9,49 @@ const Namebox=styled.div`
     top: 200px;
     position: absolute;
 `
-//네임박스 글자수 옵션 추가하기
-//한글,영어,숫자로 제한시키기
+const Input=styled.input`
+    width: 582px;
+    height: 56px;
+    left: 0px;
+    top:35px;
+    border-radius:12px;
+    border:1px solid #727272;
+    position: absolute;
+
+    &::placeholder{
+        padding-left:12px;
+        color:#AEAEAE;
+        weight:400;
+        font-family:Pretendard;
+        font-size:16px;
+        letter-spacing: -0.2px;
+    }
+    &:focus {
+        padding-left:12px;
+        color:#000;
+        weight:400;
+        font-family:Pretendard;
+        font-size:18px;
+        letter-spacing: -0.2px;
+    }
+    &:valid {
+        padding-left:12px;
+        color:#000;
+        weight:400;
+        font-family:Pretendard;
+        font-size:18px;
+        letter-spacing: -0.2px;
+    }
+`
+const Count=styled.span`
+    position:relative;
+    color:#727272;
+    weight:400;
+    font-family:Pretendard;
+    font-size:18px;
+    margin-left:528px;
+    top:55px;
+`
 const Emailbox=styled.div`
     width: 582px;
     height: 91px;
@@ -39,32 +80,35 @@ const Inputsub=styled.div`
     font-weight: 300;
     position: absolute;
 `
-const Input=styled.input`
-    width: 582px;
-    height: 56px;
-    left: 0px;
-    top:35px;
-    border-radius:12px;
-    border:1px solid #727272;
-    position: absolute;
-`
 const CheckAll=styled.input`
+    appearance:none;
+    background-color:#FFFFFF;
+    border-radius:0px;
+    border: 1px solid #000000;
     cursor:pointer;
     width:24px;
     height:24px;
     top:600px;
     left:650px;
     position: absolute;
+
+    &:checked {
+        border:0px;
+        background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0.5' y='0.5' width='23' height='23' fill='black' stroke='black'/%3E%3Cpath d='M7 12.5L10.5 15.5L17.5 9' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-position: 50%;
+        background-repeat: no-repeat;
+      }
 `
 const Alltxt=styled.div`
     width: 80px;
     height: 24px;
-    left: 688px;
-    top:600px;
+    left: 687px;
+    top:602px;
     color: #000000;
     font-size: 20px;
-    font-family: 'NanumGothic';
-    font-weight: 700;
+    font-family: Pretendard;
+    font-weight: 400;
     position: absolute;
     letter-spacing:-0.2px;
 `
@@ -73,49 +117,54 @@ const SingleCheck=styled.div`
     width: 582px;
     left:650px;
     height:300px;
-    top:650px;
-    padding-top:50px;
+    top:655px;
+    padding-top:18px;
     border-top:1px solid #727272;
 `
 const Text = styled.span`
     color: ${props => props.color};
     font-size: 20px;
     font-family: 'Pretendard';
-    font-weight: 500;
+    font-weight: 400;
     word-wrap: break-word;
-    height: 24px;
-`; 
-
-/*
-appearance:none;
-    background: ${props => props.checked ? 'black' : 'white'};
-*/
+`
 const CheckOne=styled.input`
+    appearance:none;
+    background-color:#FFFFFF;
+    border-radius:0px;
+    border: 1px solid #000000;
     cursor:pointer;
+    position:relative;
     width:24px;
     height:24px;
-    top:0px;
+    top:35px;
     left:0px;
     margin-bottom:30px;
-    border:1px solid #000000;
-`
 
+    &:checked {
+        border:0px;
+        background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0.5' y='0.5' width='23' height='23' fill='black' stroke='black'/%3E%3Cpath d='M7 12.5L10.5 15.5L17.5 9' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        background-position: 50%;
+        background-repeat: no-repeat;
+      }
+`
 const SubTxt=styled.span`
     position:absolute;
     color:#727272;
     display:inline-block;
-    width: 46px;
+    width: 39px;
     height: 18px;
-    margin-left: 10px;
-    margin-top: 2.6px;
-    padding-bottom: 2.5px;
+    margin-left: 6px;
+    margin-top: 42px;
+    padding-bottom: 0px;
     font-size: 15px;
-    font-family: NanumGothic;
-    font-weight: 700;
-    letter-spacing:-0.2px;
-    border-bottom:1px solid #727272;
+    font-family: Pretendard;
+    font-weight: 300;
+    border-bottom:0.8px solid #727272;
     cursor:pointer;
-`//자세히 누르고 돌아갔을때 초기화 안시키기
+`
+//자세히 누르고 돌아갔을때 초기화 안시키기
 const Button=styled.button`
     cursor:pointer;
     position:absolute;
@@ -129,18 +178,40 @@ const Button=styled.button`
     background-color:#000000;
 `
 const ButtonTxt=styled.div`
-    color:white;
+    color:#FFFFFF;
     font-size:22px;
-    font-family:NanumGothic;
+    font-family:Pretendard;
     position:absolute;
     top:8px;
-    left:130px;
+    left:135px;
+    weight:500;
 `
+
 export default function Signin(){
 
     const [name, setName]=useState("");
     const [email, setEmail]=useState("");
+    const [length, setLength]=useState(0); 
     const data = [ {id: 0},{id: 1}];
+    //const authorInput=useRef();
+    
+    useEffect(()=>{
+        const storedName=localStorage.getItem('Name');
+        const storedEmail=localStorage.getItem('Email');
+        if(storedName){
+            setName(storedName);
+        }
+        if(storedEmail){
+            setEmail(storedEmail);
+        }
+        localStorage.setItem("Name", name);
+        localStorage.setItem("Email", email);
+    },[]);
+
+
+    const onInputHandler = (e) => {
+        setLength(e.target.value.length);
+      };
     
     const [checkItems, setCheckItems] = useState([]);
 
@@ -166,6 +237,8 @@ export default function Signin(){
   const navigate = useNavigate();
 
     const navigateToTerms = () => {
+        localStorage.setItem("Name",name);
+        localStorage.setItem("Email",email);
         navigate("/Terms");
     };
 
@@ -175,6 +248,13 @@ export default function Signin(){
 
     const onSubmit=(e)=>{
         e.preventDefault();
+        /*
+        const regExp=/^[A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{1,20}$/;
+        if(!regExp.test(name)){
+            alert("닉네임을 다시 작성해 주세요.");
+            authorInput.current.focus();
+            return;
+        }*/
         if(checkItems.length === data.length){
             navigateToMakeLetterbox(name);
         } else{
@@ -182,6 +262,8 @@ export default function Signin(){
         }
     }
 
+    //const storedName=localStorage.getItem('Name');
+    
     return(
         <div>
             <form onSubmit={onSubmit}>
@@ -190,19 +272,26 @@ export default function Signin(){
                 <Inputsub>{'('}내 정보에서 바꿀 수 있어요.{')'}</Inputsub>
                 <Input 
                     required
+                    placeholder="한글, 영어, 숫자만 사용할 수 있어요."
                     type="text"
-                    placeholder=" 한글, 영어, 숫자만 사용할 수 있어요"
                     value={name}
                     onChange={(event)=>{
                         setName((event.target.value));
+                        onInputHandler(event);
+                        //characterCheck(event);
                     }}
+                    pattern="^[A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{1,20}$"
+                    minlength="1"
+                    maxlength="20"
+                    //ref={authorInput}
                 />
+                <Count>{`(`}{length}/20{`)`}</Count>
             </Namebox>
             <Emailbox>
                 <InputLogo>이메일{'('}선택{')'}</InputLogo>
                 <Input 
                     type="text"
-                    placeholder=" xxxx@xxx.com"
+                    placeholder="xxxx@xxx.com"
                     value={email}
                     onChange={(event)=>{
                         setEmail((event.target.value));
@@ -219,7 +308,7 @@ export default function Signin(){
                         <CheckOne type='checkbox' name={`select-${data.id}`}
                         onChange={(e) => handleSingleCheck(e.target.checked, data.id)}
                         checked={checkItems.includes(data.id) ? true : false} />
-                        <Text color="#C90000">{`(`}필수{`)`}</Text>
+                        <Text color="#C90000">{` (`}필수{`)`}</Text>
                         {data.id === 0 ? <Text color="#000000"> 만 14세 이상이에요.</Text> 
                                 : <Text color="#000000"> 이용약관 및 개인정보수집이용 동의</Text>}
                         {data.id === 1 ? <SubTxt onClick={navigateToTerms}>자세히</SubTxt> :<></>}

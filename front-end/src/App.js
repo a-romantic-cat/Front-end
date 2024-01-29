@@ -20,6 +20,15 @@ import Terms from './components/Login/Terms';
 import MakeLetterbox from './components/Login/MakeLetterbox';
 import MissionMain from './components/Store/MissionMain';
 import CollectionBoxMain from './components/Store/CollectionBoxMain';
+import WritingLetter  from './components/RomanticLetterbox/WritingLetter/WritingLetter';
+import CompletedLetterWriting from './components/RomanticLetterbox/WritingLetter/CompletedLetterWriting';
+import CompletedLetterReplying from './components/RomanticLetterbox/ReplyingLetter/CompletedLetterReplying';
+import ReplyingLetterMain from './components/RomanticLetterbox/ReplyingLetter/ReplyingLetterMain';
+import ReplyingLetter from './components/RomanticLetterbox/ReplyingLetter/ReplyingLetter';
+import BoxSetting1 from './components/Login/BoxSetting1';
+import BoxSetting2 from './components/Login/BoxSetting2';
+import BoxSetting3 from './components/Login/BoxSetting3';
+import SettingEnd from './components/Login/SettingEnd';
 
 const Background = styled.div`
   background-color: #FFFEF8;
@@ -38,6 +47,11 @@ function App() {
           <Route path="/MyLetterbox" element={<MyLetterbox />} />
           <Route path="/AddressBook" element={<AddressBook />} />
           <Route path="/RomanticLetterbox" element={<RomanticLetterbox />} />
+          <Route path="/WritingLetter" element={<WritingLetter />} />
+          <Route path="/CompletedLetterWriting" element={<CompletedLetterWriting />} />
+          <Route path="/CompletedLetterReplying" element={<CompletedLetterReplying />} />
+          <Route path="/ReplyingLetterMain" element={<ReplyingLetterMain />} />
+          <Route path="/ReplyingLetter" element={<ReplyingLetter />} />
           <Route path="/Store" element={<Store />} />
           <Route path="/MyPage" element={<MyPage />} />
           <Route path="/Check1" element={<Check1 />} />
@@ -51,6 +65,10 @@ function App() {
           <Route path="/MakeLetterbox" element={<MakeLetterbox />} />
           <Route path="/MissionMain" element={<MissionMain />} />
           <Route path="/CollectionBoxMain" element={<CollectionBoxMain />} />
+          <Route path="/BoxSetting1" element={<BoxSetting1 />} />
+          <Route path="/BoxSetting2" element={<BoxSetting2 />} />
+          <Route path="/BoxSetting3" element={<BoxSetting3 />} />
+          <Route path="/SettingEnd" element={<SettingEnd />} />
         </Routes>
       </BrowserRouter>
     </Background>

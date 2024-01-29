@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import { GiCircle } from 'react-icons/gi';
-import { CiStar } from 'react-icons/ci';
+import ShiningImage from '../../../assets/img/SS.svg';
+import UnshiningImage from '../../../assets/img/S.svg';
 
 const ItemContainer = styled.div`
   display: flex;
@@ -41,20 +42,31 @@ const CircleImg = styled(GiCircle)`
   margin-right: 12.5px;
 `;
 
-const StarImg = styled(CiStar)`
+const StarImage = styled.img`
   position: absolute;
+  width: 16.34px;
+  height: 16.34px;
   left: 5px;
   cursor: pointer;
 `;
-
 const FriendsList = ({ postInfo }) => {
+  const [isStarred, setIsStarred] = useState(false);
+
+  const handleStarClick = () => {
+    setIsStarred((prevIsStarred) => !prevIsStarred);
+    
+  };
   return (
 
     <div>
       <ItemContainer>
         <Item>
           <CircleImg />
-          <StarImg />
+          {isStarred ? (
+            <StarImage src={UnshiningImage} alt="빛나는 별" onClick={handleStarClick} />
+          ) : (
+            <StarImage src={ShiningImage} alt="별" onClick={handleStarClick} />
+          )}
           <Name>
             {postInfo.NickName}
           </Name>
