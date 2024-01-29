@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from 'styled-components';
 import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header';
@@ -46,7 +46,6 @@ const Message = styled.div`
 const WhiteLetterContainer = styled.div`
   background-image: url("/images/더흰편지지.svg");
   background-size: cover;
-  //background-size: contain;
   width: 846px;
   height: 506.42908px;
   margin: 70px 537px 0 537px;
@@ -91,15 +90,12 @@ const To = styled.div`
   white-space: nowrap;
 `;
 
-const Content = styled.div`
-  color: #000;
-  font-family: "Gowun Dodum";
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 200%; /* 40px */
-  letter-spacing: -0.2px;
-  margin-top: 50.08px;
+const Wrap = styled.div`
+  width: 772px;
+  height: 401.09px;
+  position: absolute;
+  left: 37px;
+  top: 50.09px;
 `;
 
 const Stamp = styled.div`
@@ -108,17 +104,83 @@ const Stamp = styled.div`
   float: right;
   width: 137.40875px;
   height: 183.21165px;
+  margin-left: 32px;//임시
+`;
 
-  position: absolute; //우표가 내용위로 겹치게
-  right: 37px;
-  top: 43.91px;
+//내용
+const Content = styled.div`
+  color: #000;
+  font-family: "Gowun Dodum";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 200%; /* 40px */
+  letter-spacing: -0.2px;
+  margin-top: 59px; //임시
+  position: relative; // (0/300)이랑 겹치게
+`;
+
+// (0/300)
+const NumberCount = styled.div`
+  color: var(--Grey-, #C5C5C5);
+  font-family: 'Pretendard';
+  font-size: 17.091px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  position: absolute; //겹치게
+  margin: 302px 0 0 710px;
+`;
+
+//익명하고 닉네임이 컨테이너
+const AnonyAndFrom = styled.div`
+  width: 152px;
+  height: 20px;
+  margin: 381.9px 0 0px 607.41px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+//익명(박스, 익명글자) 컨테이너
+const AnonyContainer = styled.div`
+  width: 51px;
+  height: 16px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3px;
+`;
+
+//체크 안 된 박스 컨테이너
+const UnCheckbox = styled.div`
+  background-image: url("/images/uncheckbox.svg");
+  background-size: cover;
+  width: 16px;
+  height: 16px;
+`;
+
+//체크된 박스 컨테이너
+const Checkbox = styled.div`
+  background-image: url("/images/checkbox.svg");
+  background-size: cover;
+  width: 16px;
+  height: 16px;
+`;
+
+//익명글자 컨테이너
+const AnonyText = styled.div`
+  color: #000;
+  font-family: 'Pretendard';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  white-space: nowrap;
 `;
 
 //닉네임이
 const FromContainer = styled.div`
   width: 71px;
   height: 20px;
-  margin: 50.96px 0 0 688.41px;
   display: flex;
 `;
 
@@ -271,6 +333,11 @@ const Answer1 = () => {
     navigate("/Answer2");
   };
 
+  const [check, setCheck] = useState(false); //고정핀
+  const handleCheck = () => { 
+    setCheck(!check);
+  }
+
   return (
     <div>
       <Header />
@@ -297,20 +364,43 @@ const Answer1 = () => {
               </To>
           </ToContainer>
           
-          <Content>
-            편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명 으로 작 성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼 요. 편지는 익명 으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지 는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.
-          </Content>
-          <Stamp>
-          </Stamp>
+          <Wrap>
+            <Stamp>
+            </Stamp>
+            <Content>
+              편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명 으로 작 성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼 요. 편지는 익명 으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지 는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.
+            </Content>
+          </Wrap>
 
-          <FromContainer>
-            <FromNickname>
-              닉네임
-            </FromNickname>
-            <From>
-              이
-            </From>
-          </FromContainer>
+          <NumberCount>
+            (0/300)
+          </NumberCount>
+
+          <AnonyAndFrom>
+            <AnonyContainer>
+              <UnCheckbox>
+                <div onClick={handleCheck}> {/*고정핀 핸들*/}
+                    {check ? (
+                    <Checkbox />
+                  ) :
+                  (
+                    <UnCheckbox />
+                  )}
+                </div>
+              </UnCheckbox>
+              <AnonyText>
+                익명
+              </AnonyText>
+            </AnonyContainer>
+            <FromContainer>
+              <FromNickname>
+                닉네임
+              </FromNickname>
+              <From>
+                이
+              </From>
+            </FromContainer>
+          </AnonyAndFrom>
         
         </ContentContainer>
       </WhiteLetterContainer>
