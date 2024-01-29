@@ -42,33 +42,33 @@ const dummyLetter = [
 ];
 
 const dummyCollectionStamp = [
-  {id: 1, NickName: "우표 이름"},
-  {id: 2, NickName: "우표 이름"},
-  {id: 3, NickName: "우표 이름"},
-  {id: 4, NickName: "우표 이름"},
-  {id: 5, NickName: "우표 이름"},
-  {id: 6, NickName: "우표 이름"},
-  {id: 7, NickName: "우표 이름"},
-  {id: 8, NickName: "우표 이름"},
-  {id: 9, NickName: "우표 이름"},
-  {id: 10, NickName: "우표 이름"},
-  {id: 11, NickName: "우표 이름"},
-  {id: 12, NickName: "우표 이름"},
-  {id: 13, NickName: "우표 이름"},
+  {id: 1, NickName: "우표 이름", Price: "30"},
+  {id: 2, NickName: "우표 이름", Price: "30"},
+  {id: 3, NickName: "우표 이름", Price: "30"},
+  {id: 4, NickName: "우표 이름", Price: "30"},
+  {id: 5, NickName: "우표 이름", Price: "30"},
+  {id: 6, NickName: "우표 이름", Price: "30"},
+  {id: 7, NickName: "우표 이름", Price: "30"},
+  {id: 8, NickName: "우표 이름", Price: "30"},
+  {id: 9, NickName: "우표 이름", Price: "30"},
+  {id: 10, NickName: "우표 이름", Price: "30"},
+  {id: 11, NickName: "우표 이름", Price: "30"},
+  {id: 12, NickName: "우표 이름", Price: "30"},
+  {id: 13, NickName: "우표 이름", Price: "30"},
 
-  {id: 14, NickName: "우표 이름"},
-  {id: 15, NickName: "우표 이름"},
-  {id: 16, NickName: "우표 이름"},
-  {id: 17, NickName: "우표 이름"},
-  {id: 18, NickName: "우표 이름"},
-  {id: 19, NickName: "우표 이름"},
-  {id: 20, NickName: "우표 이름"},
-  {id: 21, NickName: "우표 이름"},
-  {id: 22, NickName: "우표 이름"},
-  {id: 23, NickName: "우표 이름"},
-  {id: 24, NickName: "우표 이름"},
+  {id: 14, NickName: "우표 이름", Price: "30"},
+  {id: 15, NickName: "우표 이름", Price: "30"},
+  {id: 16, NickName: "우표 이름", Price: "30"},
+  {id: 17, NickName: "우표 이름", Price: "30"},
+  {id: 18, NickName: "우표 이름", Price: "30"},
+  {id: 19, NickName: "우표 이름", Price: "30"},
+  {id: 20, NickName: "우표 이름", Price: "30"},
+  {id: 21, NickName: "우표 이름", Price: "30"},
+  {id: 22, NickName: "우표 이름", Price: "30"},
+  {id: 23, NickName: "우표 이름", Price: "30"},
+  {id: 24, NickName: "우표 이름", Price: "30"},
 
-  {id: 25, NickName: "우표 이름"},
+  {id: 25, NickName: "우표 이름", Price: "30"},
 ];
 
 //상점 
@@ -361,7 +361,7 @@ const LetterCoinCount = styled.div`
 `;
 
 //편지지 클릭시 구매 버튼 생성
-const PurchaseContainer = styled.div`
+const LetterPurchaseContainer = styled.div`
   display: ${({ isActive }) => (isActive ? 'flex' : 'none')};
   justify-content: space-between;
   align-items: center;
@@ -373,7 +373,7 @@ const PurchaseContainer = styled.div`
   z-index: 2;
 `;
 
-const QuestionText = styled.div`
+const LetterQuestionText = styled.div`
   width: 164px;
   height: 22px;
   left: 33px;
@@ -387,7 +387,7 @@ const QuestionText = styled.div`
   word-wrap: break-word;
 `;
 
-const ButtonContainer = styled.div`
+const LetterButtonContainer = styled.div`
   width: 228px;
   height: 49px;
   position: absolute;
@@ -395,7 +395,7 @@ const ButtonContainer = styled.div`
   top: 64px;
 `;
 
-const CancelButton = styled.button`
+const LetterCancelButton = styled.button`
   width: 102px;
   height: 49px;
   padding-left: 35px;
@@ -415,7 +415,7 @@ const CancelButton = styled.button`
   cursor: pointer;
 `;
 
-const PurchaseButton = styled.button`
+const LetterPurchaseButton = styled.button`
   width: 102px;
   height: 49px;
   padding-left: 35px;
@@ -435,7 +435,7 @@ const PurchaseButton = styled.button`
   cursor: pointer;
 `;
 
-const PurchaseText = styled.div`
+const LetterPurchaseText = styled.div`
   width: 32px;
   height: 21px;
   position: absolute;
@@ -472,7 +472,9 @@ const StampBackground = styled.div`
   left: 0;
   top: 0;
   position: absolute;
-  background: #CECECE;
+  background: ${({ isActive }) => (isActive ? 'rgba(46.99, 40.54, 38.50, 0.80)' : '#CECECE')};
+  cursor: pointer;
+  z-index: 1;
 `;
 
 const StampTextWrapper = styled.div`
@@ -493,6 +495,86 @@ const StampText = styled.div`
   font-family: 'Pretendard';
   font-weight: 400;
   line-height: 22px;
+  word-wrap: break-word;
+`;
+
+//우표 클릭시 구매 버튼 생성
+const StampPurchaseContainer = styled.div`
+  display: ${({ isActive }) => (isActive ? 'flex' : 'none')};
+  justify-content: space-between;
+  align-items: center;
+  width: 164px;
+  height: 128px;
+  position: relative;
+  left: 55.8px;
+  top: 120px;
+  z-index: 2;
+`;
+
+const StampQuestionText = styled.div`
+  width: 164px;
+  height: 22px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  color: white;
+  font-size: 22px;
+  font-family: 'Pretendard';
+  font-weight: 500; 
+  line-height: 22px;
+  word-wrap: break-word;
+`;
+
+const StampButtonContainer = styled.div`
+  width: 164px;
+  height: 41px;
+  position: absolute;
+  left: 0;
+  top: 87px;
+`;
+
+const StampCancelButton = styled.button`
+  width: 72px;
+  height: 41px;
+  padding: 10px 20px;
+  background: white;
+  left: 0;
+  top: 0;
+  position: absolute;
+  border-radius: 10px;
+  border: 1px #757575 solid;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: inline-flex;
+  cursor: pointer;
+`;
+
+const StampPurchaseButton = styled.button`
+  width: 72px;
+  height: 41px;
+  padding: 10px 20px;
+  background: #C90000;
+  left: 92px;
+  top: 0;
+  position: absolute;
+  border-radius: 10px;
+  border: 1px #757575 solid;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: inline-flex;
+  cursor: pointer;
+`;
+
+const StampPurchaseText = styled.div`
+  width: 32px;
+  height: 21px;
+  position: absolute;
+  color: #757575;
+  font-size: 18px;
+  font-family: 'Pretendard';
+  font-weight: 500;
   word-wrap: break-word;
 `;
 
@@ -601,6 +683,7 @@ export default function StoreMain() {
       updatedShowCoinWrapper[index] = false;
       return updatedShowCoinWrapper;
     });
+    setSelectedLetterIndex(null); // 선택된 편지지 인덱스 초기화로 구매 버튼 후 창 닫기
   };
 
   return (
@@ -691,17 +774,17 @@ export default function StoreMain() {
                       isActive={index === selectedLetterIndex}
                     />
                     {index === selectedLetterIndex && (
-                      <PurchaseContainer isActive={true}>
-                        <QuestionText>구매하시겠습니까?</QuestionText>
-                        <ButtonContainer>
-                          <CancelButton onClick={handleCancelButtonClick}>
-                            <PurchaseText style={{ color: '#757575' }}>취소</PurchaseText>
-                          </CancelButton>
-                          <PurchaseButton onClick={() => handlePurchaseButtonClick(index)}>
-                            <PurchaseText style={{ color: 'white' }}>구매</PurchaseText>
-                          </PurchaseButton>
-                        </ButtonContainer>
-                      </PurchaseContainer>
+                      <LetterPurchaseContainer isActive={true}>
+                        <LetterQuestionText>구매하시겠습니까?</LetterQuestionText>
+                        <LetterButtonContainer>
+                          <LetterCancelButton onClick={handleCancelButtonClick}>
+                            <LetterPurchaseText style={{ color: '#757575' }}>취소</LetterPurchaseText>
+                          </LetterCancelButton>
+                          <LetterPurchaseButton onClick={() => handlePurchaseButtonClick(index)}>
+                            <LetterPurchaseText style={{ color: 'white' }}>구매</LetterPurchaseText>
+                          </LetterPurchaseButton>
+                        </LetterButtonContainer>
+                      </LetterPurchaseContainer>
                     )}
                     <LetterTextWrapper>
                       <LetterText>{letter.NickName}</LetterText> {/* 편지지 이름 */}
@@ -785,9 +868,31 @@ export default function StoreMain() {
                 {dummyCollectionStamp.slice(startIndex, endIndex).map((stamp, index) => (
                   <StampBox key={stamp.id}>
                     <StampInnerBox style={{ top: `${Math.floor(index / 4) * 482}px`, left: `${(index % 4) * 306}px` }}>
-                      <StampBackground />
+                      <StampBackground 
+                        onClick={() => handleLetterBackgroundClick(index)}
+                        isActive={index === selectedLetterIndex}
+                      />
+                      {index === selectedLetterIndex && (
+                        <StampPurchaseContainer isActive={true}>
+                          <StampQuestionText>구매하시겠습니까?</StampQuestionText>
+                          <StampButtonContainer>
+                            <StampCancelButton onClick={handleCancelButtonClick}>
+                              <StampPurchaseText style={{ color: '#757575' }}>취소</StampPurchaseText>
+                            </StampCancelButton>
+                            <StampPurchaseButton onClick={() => handlePurchaseButtonClick(index)}>
+                              <StampPurchaseText style={{ color: 'white' }}>구매</StampPurchaseText>
+                            </StampPurchaseButton>
+                          </StampButtonContainer>
+                        </StampPurchaseContainer>
+                      )}
                       <StampTextWrapper>
                         <StampText>{stamp.NickName}</StampText> {/* 편지지 이름 */}
+                        {showCoinWrapper[index] && (
+                          <LetterCoinWrapper>
+                            <RedCoinImg src={CoinRed} alt="CoinRed" />
+                            <LetterCoinCount>{stamp.Price}</LetterCoinCount>
+                          </LetterCoinWrapper>
+                        )}
                       </StampTextWrapper>
                     </StampInnerBox>
                   </StampBox>
