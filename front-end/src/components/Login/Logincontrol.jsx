@@ -17,7 +17,6 @@ export default function Login() {
         <div>
             <CatImg src={Cat} alt='cat'/>
             <Loginstart />
-        
         </div>
     )
 }   

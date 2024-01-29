@@ -23,6 +23,11 @@ import CompletedLetterWriting from './components/RomanticLetterbox/WritingLetter
 import CompletedLetterReplying from './components/RomanticLetterbox/ReplyingLetter/CompletedLetterReplying';
 import ReplyingLetterMain from './components/RomanticLetterbox/ReplyingLetter/ReplyingLetterMain';
 import ReplyingLetter from './components/RomanticLetterbox/ReplyingLetter/ReplyingLetter';
+import BoxSetting1 from './components/Login/BoxSetting1';
+import BoxSetting2 from './components/Login/BoxSetting2';
+import BoxSetting3 from './components/Login/BoxSetting3';
+import SettingEnd from './components/Login/SettingEnd';
+
 const Background = styled.div`
   background-color: #FFFEF8;
   width: 1920px;
@@ -56,6 +61,10 @@ function App() {
           <Route path="/OpenLetter1" element={<OpenLetter1 />} />
           <Route path="/Terms" element={<Terms />} />
           <Route path="/MakeLetterbox" element={<MakeLetterbox />} />
+          <Route path="/BoxSetting1" element={<BoxSetting1 />} />
+          <Route path="/BoxSetting2" element={<BoxSetting2 />} />
+          <Route path="/BoxSetting3" element={<BoxSetting3 />} />
+          <Route path="/SettingEnd" element={<SettingEnd />} />
         </Routes>
       </BrowserRouter>
     </Background>
