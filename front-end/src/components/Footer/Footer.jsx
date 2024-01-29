@@ -84,6 +84,34 @@ const SmallText = styled.div`
     cursor: pointer;
 `;
 
+const PrivacyAndUse = styled.div`
+    width: 198px;
+    height: 17px;
+    margin: 112px 0 0 363px;
+    display: flex;
+    justify-content: space-between;
+`;
+
+const Privacy = styled.div`
+    color: #000;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+`;
+const Use = styled.div`
+    color: #000;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+`;
 
 export default function Header() {
 
@@ -172,6 +200,15 @@ export default function Header() {
                 </BoldText>
             </Inner5>
         </LinkContainer>
+
+        <PrivacyAndUse>
+            <Privacy>
+                개인정보처리방침
+            </Privacy>
+            <Use>
+                이용약관
+            </Use>
+        </PrivacyAndUse>
       </Container>
     );
   }
