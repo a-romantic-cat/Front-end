@@ -623,6 +623,9 @@ const NextButtonImg = styled.img`
   cursor: pointer;
 `;
 
+
+
+
 export default function StoreMain() {
   const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState('tab1');
