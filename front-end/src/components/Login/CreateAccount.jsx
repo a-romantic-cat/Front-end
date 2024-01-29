@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import logo from '../../assets/img/낭만고양이.svg'
+import logo from '../../assets/img/SignCat.svg'
 import Back from '../../assets/img/back.svg'
 import Signin from './Signin';
 
@@ -31,7 +31,7 @@ const Logo = styled.div`
 `;
 
 const TextLogo = styled.div`
-  right:0px;
+  right:-5px;
   top: 1px;
   position: absolute;
   color: black;

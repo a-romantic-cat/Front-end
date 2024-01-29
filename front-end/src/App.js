@@ -18,6 +18,10 @@ import OpenLetter1 from './components/MyLetterbox/OpenLetter1';
 import CreateAccount from './components/Login/CreateAccount';
 import Terms from './components/Login/Terms';
 import MakeLetterbox from './components/Login/MakeLetterbox';
+import BoxSetting1 from './components/Login/BoxSetting1';
+import BoxSetting2 from './components/Login/BoxSetting2';
+import BoxSetting3 from './components/Login/BoxSetting3';
+import SettingEnd from './components/Login/SettingEnd';
 
 const Background = styled.div`
   background-color: #FFFEF8;
@@ -47,6 +51,10 @@ function App() {
           <Route path="/OpenLetter1" element={<OpenLetter1 />} />
           <Route path="/Terms" element={<Terms />} />
           <Route path="/MakeLetterbox" element={<MakeLetterbox />} />
+          <Route path="/BoxSetting1" element={<BoxSetting1 />} />
+          <Route path="/BoxSetting2" element={<BoxSetting2 />} />
+          <Route path="/BoxSetting3" element={<BoxSetting3 />} />
+          <Route path="/SettingEnd" element={<SettingEnd />} />
         </Routes>
       </BrowserRouter>
     </Background>
