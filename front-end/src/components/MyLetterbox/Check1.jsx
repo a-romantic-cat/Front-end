@@ -70,13 +70,11 @@ const XButton = styled.div`
 
 //스크롤 하는 영역
 const ScrollContainer = styled.div`
-  //background-color: black;
   width: 528px;
   height: 669px;
   //height: 1080px;
   //height: 1500px;
   margin: 63px 0 0 0;
-  display: inline-flex; //컨테이너랑 스크롤바 가로배치
   overflow-y: scroll;
   overflow-x: clip; //오버플로 잘리고 나머지 콘텐츠 표시x
 
@@ -88,7 +86,7 @@ const ScrollContainer = styled.div`
   &::-webkit-scrollbar-thumb { //스크롤 움직이는 작은 막대
     background: #79110E;
     //height: 84.592px;
-    height: 20%;
+    height: 10%;
     border-radius: 10px;
   }
 

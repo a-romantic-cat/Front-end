@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from 'styled-components';
 import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header';
@@ -177,9 +177,91 @@ const From = styled.div`
 
 //오른쪽 컨테이너 스크롤 되는 전체 영역
 const ScrollBoxContainer = styled.div`
-  width: 638px;
+  //background-color: black;
+  width: 607px;
   height: 464px;
   margin: 46px 0 0 38px;
+  overflow-y: scroll;
+  overflow-x: clip; //오버플로 잘리고 나머지 콘텐츠 표시x
+
+  &::-webkit-scrollbar { //스크롤바 전체
+    width: 8px;
+    height: 456.132px;
+  }
+
+  &::-webkit-scrollbar-thumb { //스크롤 움직이는 작은 막대
+    background: #79110E;
+    //height: 64.019px;
+    height: 10%;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track { //스크롤바 배경색
+    background: #B3B3B3;
+    border-radius: 10px;
+  }
+`;
+
+//체크박스, 마이디자인 컨테이너
+const CheckboxAndText = styled.div`
+  width: 138px;
+  height: 16px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-left: 52px;
+`;
+
+//체크 안 된 박스
+const UnCheckbox = styled.div`
+  background-image: url("/images/uncheckbox.svg");
+  background-size: cover;
+  width: 16px;
+  height: 16px;
+`;
+
+//체크 된 박스
+const Checkbox = styled.div`
+  background-image: url("/images/checkbox.svg");
+  background-size: cover;
+  width: 16px;
+  height: 16px;
+`;
+
+//마이디자인만 보기
+const MydesignText = styled.div`
+  color: #000;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%; /* 16px */
+  white-space: nowrap;
+`;
+
+//편지지 9개 묶는 컨테이너
+const NineLetterContainer = styled.div`
+  width: 520px;
+  height: 379.84928px;
+  margin-left: 52px;
+  margin-top: 33px;
+`;
+
+//편지지 3개 묶는 가로 컨테이너
+const ThreeLetterContainer = styled.div`
+  width: 520px;
+  height: 89.94976px;
+  margin-bottom: 55px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+//작고 많은 편지지 하나 하나
+const Letter = styled.div`
+  background-color: #FFF;
+  width: 150px;
+  height: 89.94976px;
 `;
 
 //버튼 3개 컨테이너
@@ -291,6 +373,11 @@ const Answer2 = () => {
     navigate("/Answer3");
   };
 
+  const [check, setCheck] = useState(false); //고정핀
+  const handleCheck = () => { 
+    setCheck(!check);
+  }
+
   return (
     <div>
       <Header />
@@ -343,6 +430,131 @@ const Answer2 = () => {
         </WhiteLetterContainer>
         
         <ScrollBoxContainer>
+          <CheckboxAndText>
+            <UnCheckbox>
+              <div onClick={handleCheck}> {/*고정핀 핸들*/}
+                  {check ? (
+                  <Checkbox />
+                ) :
+                (
+                  <UnCheckbox />
+                )}
+              </div>
+            </UnCheckbox>
+            <MydesignText>
+              마이디자인만 보기
+            </MydesignText>
+          </CheckboxAndText>
+
+          <NineLetterContainer>
+            <ThreeLetterContainer>
+              <Letter>
+                편지지
+              </Letter>
+              <Letter>
+                편지지
+              </Letter>
+              <Letter>
+                편지지
+              </Letter>
+            </ThreeLetterContainer>
+
+            <ThreeLetterContainer>
+              <Letter>
+                편지지
+              </Letter>
+              <Letter>
+                편지지
+              </Letter>
+              <Letter>
+                편지지
+              </Letter>
+            </ThreeLetterContainer>
+
+            <ThreeLetterContainer>
+              <Letter>
+                편지지
+              </Letter>
+              <Letter>
+                편지지
+              </Letter>
+              <Letter>
+                편지지
+              </Letter>
+            </ThreeLetterContainer>
+
+            <ThreeLetterContainer>
+              <Letter>
+                편지지
+              </Letter>
+              <Letter>
+                편지지
+              </Letter>
+              <Letter>
+                편지지
+              </Letter>
+            </ThreeLetterContainer>
+
+            <ThreeLetterContainer>
+              <Letter>
+                편지지
+              </Letter>
+              <Letter>
+                편지지
+              </Letter>
+              <Letter>
+                편지지
+              </Letter>
+            </ThreeLetterContainer>
+
+            <ThreeLetterContainer>
+              <Letter>
+                편지지
+              </Letter>
+              <Letter>
+                편지지
+              </Letter>
+              <Letter>
+                편지지
+              </Letter>
+            </ThreeLetterContainer>
+
+            <ThreeLetterContainer>
+              <Letter>
+                편지지
+              </Letter>
+              <Letter>
+                편지지
+              </Letter>
+              <Letter>
+                편지지
+              </Letter>
+            </ThreeLetterContainer>
+
+            <ThreeLetterContainer>
+              <Letter>
+                편지지
+              </Letter>
+              <Letter>
+                편지지
+              </Letter>
+              <Letter>
+                편지지
+              </Letter>
+            </ThreeLetterContainer>
+
+            <ThreeLetterContainer>
+              <Letter>
+                편지지
+              </Letter>
+              <Letter>
+                편지지
+              </Letter>
+              <Letter>
+                편지지
+              </Letter>
+            </ThreeLetterContainer>
+          </NineLetterContainer>
         </ScrollBoxContainer>
       </LetterConatiner>      
 

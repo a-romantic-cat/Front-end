@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from 'styled-components';
 import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header';
@@ -178,9 +178,91 @@ const From = styled.div`
 `;
 
 const ScrollBoxContainer = styled.div`
-  width: 638px;
+  width: 607px;
   height: 464px;
   margin: 46px 0 0 38px;
+  overflow-y: scroll;
+  overflow-x: clip; //오버플로 잘리고 나머지 콘텐츠 표시x
+
+  &::-webkit-scrollbar { //스크롤바 전체
+    width: 8px;
+    height: 456.132px;
+  }
+
+  &::-webkit-scrollbar-thumb { //스크롤 움직이는 작은 막대
+    background: #79110E;
+    //height: 64.019px;
+    height: 10%;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track { //스크롤바 배경색
+    background: #B3B3B3;
+    border-radius: 10px;
+  }
+`;
+
+//체크박스, 마이디자인 컨테이너
+const CheckboxAndText = styled.div`
+  width: 138px;
+  height: 16px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-left: 52px;
+`;
+
+//체크 안 된 박스
+const UnCheckbox = styled.div`
+  background-image: url("/images/uncheckbox.svg");
+  background-size: cover;
+  width: 16px;
+  height: 16px;
+`;
+
+//체크 된 박스
+const Checkbox = styled.div`
+  background-image: url("/images/checkbox.svg");
+  background-size: cover;
+  width: 16px;
+  height: 16px;
+`;
+
+//마이디자인만 보기
+const MydesignText = styled.div`
+  color: #000;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%; /* 16px */
+  white-space: nowrap;
+`;
+
+//우표 6개 묶는 컨테이너
+const SixStampContainer = styled.div`
+  width: 481.303px;
+  height: 372.33666px;
+  margin-left: 70px;
+  margin-top: 33px;
+`;
+
+//우표 3개 묶는 가로 컨테이너
+const ThreeStampContainer = styled.div`
+  width: 481.303px;
+  height: 153.33333px;
+  margin-bottom: 65.67px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+//작고 많은 우표 하나 하나
+const StampDesign = styled.div`
+  background-image: url("/images/우표3.svg");
+  background-size: cover;
+  width: 115px;
+  height: 153.33333px;
 `;
 
 //버튼 3개 컨테이너
@@ -292,6 +374,11 @@ const Answer3 = () => {
     navigate("/Answer4");
   };
 
+  const [check, setCheck] = useState(false); //고정핀
+  const handleCheck = () => { 
+    setCheck(!check);
+  }
+
   return (
     <div>
       <Header />
@@ -342,8 +429,79 @@ const Answer3 = () => {
             
           </ContentContainer>
         </WhiteLetterContainer>
-        <ScrollBoxContainer>
 
+        <ScrollBoxContainer>
+          <CheckboxAndText>
+            <UnCheckbox>
+              <div onClick={handleCheck}> {/*고정핀 핸들*/}
+                  {check ? (
+                  <Checkbox />
+                ) :
+                (
+                  <UnCheckbox />
+                )}
+              </div>
+            </UnCheckbox>
+            <MydesignText>
+              마이디자인만 보기
+            </MydesignText>
+          </CheckboxAndText>
+
+          <SixStampContainer>
+            <ThreeStampContainer>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+            </ThreeStampContainer>
+
+            <ThreeStampContainer>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+            </ThreeStampContainer>
+
+            <ThreeStampContainer>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+            </ThreeStampContainer>
+
+            <ThreeStampContainer>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+            </ThreeStampContainer>
+
+            <ThreeStampContainer>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+            </ThreeStampContainer>
+
+            <ThreeStampContainer>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+              <StampDesign>
+              </StampDesign>
+            </ThreeStampContainer>
+          </SixStampContainer>
         </ScrollBoxContainer>
       </LetterConatiner>      
 
