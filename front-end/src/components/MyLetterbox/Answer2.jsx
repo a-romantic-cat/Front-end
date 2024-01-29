@@ -571,9 +571,11 @@ const Answer2 = () => {
             </Prev>
           </ArrowAndText>
         </PrevButton>
+
         <StoreButton onClick={navigateToStore}>
           상점
         </StoreButton>
+
         <NextButton onClick={navigateToAnswer3}>
           <ArrowAndText>
             <Next>
@@ -586,6 +588,7 @@ const Answer2 = () => {
             </Arrow2>
           </ArrowAndText>
         </NextButton>
+        
       </ButtonsContainer>
     </div>
   );

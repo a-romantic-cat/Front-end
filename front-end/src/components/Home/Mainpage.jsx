@@ -30,6 +30,7 @@ const Container4 = styled.div`
   background-image: url("/images/홈4.svg");
   width: 1920px;
   height: 1080px;
+  overflow: auto; //내 우편함 가기 버튼 margin-top오류
 `;
 
 const LinkContainer = styled.div`
@@ -104,6 +105,46 @@ const MyInfo = styled.div`
   cursor: pointer;
 `;
 
+//내 우편함 가기 버튼
+const Button = styled.div`
+  display: flex;
+  width: 234px;
+  height: 60px;
+  //padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 883px 0 0 837px;  
+  //margin: 0 0 0 837px;
+  border-radius: 10px;
+  background: var(--Red-Light, #C90000);
+  cursor: pointer;
+`;
+
+const ArrowAndText = styled.div`
+  width: 156px;
+  height: 24px;
+  display: flex; // 글씨랑 화살표 가로배치
+  justify-content: space-between;
+`;
+
+//내 우편함 가기
+const GotoMyLetter = styled.div`
+  color: #FFF;
+  text-align: center;
+  font-family: 'Pretendard';
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 100%; /* 24px */
+`;
+
+//화살표
+const Arrow = styled.div`
+  width: 10px;
+  height: 20px;
+`;
+
 export default function Mainpage() {
 
   const navigate = useNavigate();
@@ -161,7 +202,18 @@ export default function Mainpage() {
         </Container3>
 
         <Container4>
-
+          <Button onClick={navigateToMyBoxMain}>
+            <ArrowAndText>
+              <GotoMyLetter>
+                내 우편함 가기
+              </GotoMyLetter>
+              <Arrow>
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="22" viewBox="0 0 13 22" fill="none">
+                  <path d="M1 1L11 10.5238L1 21" stroke="white" stroke-width="2.5"/>
+                </svg>
+              </Arrow>
+            </ArrowAndText>
+          </Button>
         </Container4>
       </div>
     );
