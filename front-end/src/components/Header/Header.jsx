@@ -9,11 +9,14 @@ import '../../index.css';
 const Container = styled.div`
   width: 1486px;
   height: 100px;
-  background: '#FFFEF8';
+  background : #FFFEF8;
   justify-content: center;
   align-items: center;
   display: inline-flex;
   padding: 0 217px;
+  // 낭만 우편함 배치때문에 추가한 코드
+  position: relative;
+  z-index: 3;
 `;
 
 const InnerContainer = styled.div`

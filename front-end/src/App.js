@@ -18,7 +18,11 @@ import OpenLetter1 from './components/MyLetterbox/OpenLetter1';
 import CreateAccount from './components/Login/CreateAccount';
 import Terms from './components/Login/Terms';
 import MakeLetterbox from './components/Login/MakeLetterbox';
-
+import WritingLetter  from './components/RomanticLetterbox/WritingLetter/WritingLetter';
+import CompletedLetterWriting from './components/RomanticLetterbox/WritingLetter/CompletedLetterWriting';
+import CompletedLetterReplying from './components/RomanticLetterbox/ReplyingLetter/CompletedLetterReplying';
+import ReplyingLetterMain from './components/RomanticLetterbox/ReplyingLetter/ReplyingLetterMain';
+import ReplyingLetter from './components/RomanticLetterbox/ReplyingLetter/ReplyingLetter';
 const Background = styled.div`
   background-color: #FFFEF8;
   width: 1920px;
@@ -36,6 +40,11 @@ function App() {
           <Route path="/MyLetterbox" element={<MyLetterbox />} />
           <Route path="/AddressBook" element={<AddressBook />} />
           <Route path="/RomanticLetterbox" element={<RomanticLetterbox />} />
+          <Route path="/WritingLetter" element={<WritingLetter />} />
+          <Route path="/CompletedLetterWriting" element={<CompletedLetterWriting />} />
+          <Route path="/CompletedLetterReplying" element={<CompletedLetterReplying />} />
+          <Route path="/ReplyingLetterMain" element={<ReplyingLetterMain />} />
+          <Route path="/ReplyingLetter" element={<ReplyingLetter />} />
           <Route path="/Store" element={<Store />} />
           <Route path="/MyPage" element={<MyPage />} />
           <Route path="/Check1" element={<Check1 />} />
