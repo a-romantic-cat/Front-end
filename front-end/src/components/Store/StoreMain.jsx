@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from '../Header/Header';
 import { useNavigate } from 'react-router-dom';
@@ -624,14 +624,16 @@ const NextButtonImg = styled.img`
 `;
 
 
-
-
-export default function StoreMain() {
-  const navigate = useNavigate();
-  const [currentTab, setCurrentTab] = useState('tab1');
-
+function LetterPage() {
   const [isDropdownOpen, setDropdownOpen] = useState(false); // 드롭다운의 열림/닫힘 상태를 관리하는 상태 변수
   const [selectedOption, setSelectedOption] = useState('인기순'); // 선택한 옵션을 관리하는 상태 변수
+  const itemsPerPage = 12; // 한 페이지에 표시할 아이템 개수
+  const totalPages = Math.ceil(dummyLetter.length / itemsPerPage); // 전체 페이지 수
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
+  const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지에서 첫 번째 아이템의 인덱스
+  const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
+  const [selectedLetterIndex, setSelectedLetterIndex] = useState(null);
+  const [showCoinWrapper, setShowCoinWrapper] = useState(Array(dummyLetter.length).fill(true));
 
   const handleDropdownToggle = () => {
     setDropdownOpen(!isDropdownOpen); // 드롭다운의 열림/닫힘 상태를 토글
@@ -642,14 +644,10 @@ export default function StoreMain() {
     setDropdownOpen(false); // 드롭다운 닫기
   };
 
-  const itemsPerPage = 12; // 한 페이지에 표시할 아이템 개수
-  const totalPages = Math.ceil(dummyLetter.length / itemsPerPage); // 전체 페이지 수
-
-  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
-
   const handlePageChange = (page) => {
     setCurrentPage(page); // 페이지 변경
     setSelectedLetterIndex(null); // 페이지 변경 시 selectedLetterIndex 초기화
+    setShowCoinWrapper(Array(dummyCollectionStamp.length).fill(true)); // 페이지 이동 시 showCoinWrapper 초기화
   };
 
   const handleNextPage = () => {
@@ -657,12 +655,6 @@ export default function StoreMain() {
     handlePageChange(lastPage); // 마지막 페이지로 이동
     setSelectedLetterIndex(null); // 페이지 변경 시 selectedLetterIndex 초기화
   };
-
-  const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지에서 첫 번째 아이템의 인덱스
-  const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
-
-  const [selectedLetterIndex, setSelectedLetterIndex] = useState(null);
-  const [showCoinWrapper, setShowCoinWrapper] = useState(Array(dummyLetter.length).fill(true));
 
   const handleLetterInnerBoxClick = (index) => {
     setSelectedLetterIndex(index === selectedLetterIndex ? null : index); // 페이징 기능 함수
@@ -688,6 +680,255 @@ export default function StoreMain() {
     });
     setSelectedLetterIndex(null); // 선택된 편지지 인덱스 초기화로 구매 버튼 후 창 닫기
   };
+
+  useEffect(() => {
+    setSelectedLetterIndex(null);
+    setShowCoinWrapper(Array(dummyCollectionStamp.length).fill(true)); // 페이지 이동 시 showCoinWrapper 초기화
+  }, [currentPage]);
+
+  return (
+    <div>
+      <TabContentContainer>
+      <SortingContainer>
+        <div>
+          <SelectedOptionContainer onClick={handleDropdownToggle}>
+            <Option style={{border: 'none', background: 'white'}}>
+              <OptionText>{selectedOption}</OptionText>
+              <UnderImg src={Under} alt='Under' />
+            </Option>
+          </SelectedOptionContainer>
+          {isDropdownOpen && (
+            <OptionsContainer>
+              <Option style={{border: '1px black solid'}} onClick={() => handleOptionSelect('인기순')} selectedOption={selectedOption === '인기순'}>
+                <OptionText>인기순</OptionText>
+              </Option>
+              <Option onClick={() => handleOptionSelect('최신순')} selectedOption={selectedOption === '최신순'}>
+                <OptionText>최신순</OptionText>
+              </Option>
+              <Option onClick={() => handleOptionSelect('낮은 가격순')} selectedOption={selectedOption === '낮은 가격순'}>
+                <OptionText>낮은 가격순</OptionText>
+              </Option>
+              <Option onClick={() => handleOptionSelect('높은 가격순')} selectedOption={selectedOption === '높은 가격순'}>
+                <OptionText>높은 가격순</OptionText>
+              </Option>
+              <Option onClick={() => handleOptionSelect('가나다순')} selectedOption={selectedOption === '가나다순'}>
+                <OptionText>가나다순</OptionText>
+              </Option>
+            </OptionsContainer>
+          )}
+        </div>
+      </SortingContainer>
+
+      <LetterContainer>
+        {dummyLetter.slice(startIndex, endIndex).map((letter, index) => (
+          <LetterBox key={letter.id}>
+            <LetterInnerBox
+              style={{
+                top: `${Math.floor(index / 3) * 394}px`,
+                left: `${(index % 3) * 408}px`,
+              }}
+            >
+              <LetterBackground
+                onClick={() => handleLetterBackgroundClick(index)}
+                isActive={index === selectedLetterIndex}
+              />
+              {index === selectedLetterIndex && (
+                <LetterPurchaseContainer isActive={true}>
+                  <LetterQuestionText>구매하시겠습니까?</LetterQuestionText>
+                  <LetterButtonContainer>
+                    <LetterCancelButton onClick={handleCancelButtonClick}>
+                      <LetterPurchaseText style={{ color: '#757575' }}>취소</LetterPurchaseText>
+                    </LetterCancelButton>
+                    <LetterPurchaseButton onClick={() => handlePurchaseButtonClick(index)}>
+                      <LetterPurchaseText style={{ color: 'white' }}>구매</LetterPurchaseText>
+                    </LetterPurchaseButton>
+                  </LetterButtonContainer>
+                </LetterPurchaseContainer>
+              )}
+              <LetterTextWrapper>
+                <LetterText>{letter.NickName}</LetterText>
+                {showCoinWrapper[index] && (
+                  <LetterCoinWrapper>
+                    <RedCoinImg src={CoinRed} alt="CoinRed" />
+                    <LetterCoinCount>{letter.Price}</LetterCoinCount>
+                  </LetterCoinWrapper>
+                )}
+              </LetterTextWrapper>
+            </LetterInnerBox>
+          </LetterBox>
+        ))}
+      </LetterContainer>
+
+      <PaginationContainer>
+        <PageNumberContainer>
+          {Array.from({ length: totalPages }, (_, index) => (
+            <PageButton active={currentPage === index + 1} key={index + 1}>
+              <PageNumberText
+                active={currentPage === index + 1}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </PageNumberText>
+            </PageButton>
+          ))}
+        </PageNumberContainer>
+        <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage} />
+      </PaginationContainer>
+      </TabContentContainer>
+    </div>
+  );
+}
+
+function StampPage() {
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('인기순');
+  const itemsPerPage = 12;
+  const totalPages = Math.ceil(dummyCollectionStamp.length / itemsPerPage);
+  const [currentPage, setCurrentPage] = useState(1);
+  const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지에서 첫 번째 아이템의 인덱스
+  const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
+  const [selectedStampIndex, setSelectedStampIndex] = useState(null);
+  const [showCoinWrapper, setShowCoinWrapper] = useState(Array(dummyCollectionStamp.length).fill(true));
+
+  const handleDropdownToggle = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleOptionSelect = (option) => {
+    setSelectedOption(option);
+    setDropdownOpen(false);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    setSelectedStampIndex(null); // 페이지 이동 시 selectedStampIndex 초기화
+    setShowCoinWrapper(Array(dummyCollectionStamp.length).fill(true)); // 페이지 이동 시 showCoinWrapper 초기화
+  };
+
+  const handleNextPage = () => {
+    const lastPage = totalPages;
+    handlePageChange(lastPage);
+    setSelectedStampIndex(null); // 페이지 이동 시 selectedStampIndex 초기화
+  };
+
+  const handleStampInnerBoxClick = (index) => {
+    setSelectedStampIndex(index === selectedStampIndex ? null : index);
+  };
+
+  const handleStampBackgroundClick = (index) => {
+    setSelectedStampIndex(index);
+  };
+
+  const handleCancelButtonClick = () => {
+    setSelectedStampIndex(null);
+  };
+
+  const handlePurchaseButtonClick = (index) => {
+    setSelectedStampIndex(index);
+    setShowCoinWrapper((prev) => {
+      const updatedShowCoinWrapper = [...prev];
+      updatedShowCoinWrapper[index] = false;
+      return updatedShowCoinWrapper;
+    });
+    setSelectedStampIndex(null);
+  };
+
+  useEffect(() => {
+    setSelectedStampIndex(null);
+    setShowCoinWrapper(Array(dummyCollectionStamp.length).fill(true)); // 페이지 이동 시 showCoinWrapper 초기화
+  }, [currentPage]);
+
+  return (
+    <div>
+      <TabContentContainer>
+      <SortingContainer>
+        <div>
+          <SelectedOptionContainer onClick={handleDropdownToggle}>
+            <Option style={{border: 'none', background: 'white'}}>
+              <OptionText>{selectedOption}</OptionText>
+              <UnderImg src={Under} alt='Under' />
+            </Option>
+          </SelectedOptionContainer>
+          {isDropdownOpen && (
+            <OptionsContainer>
+              <Option style={{border: '1px black solid'}} onClick={() => handleOptionSelect('인기순')} selectedOption={selectedOption === '인기순'}>
+                <OptionText>인기순</OptionText>
+              </Option>
+              <Option onClick={() => handleOptionSelect('최신순')} selectedOption={selectedOption === '최신순'}>
+                <OptionText>최신순</OptionText>
+              </Option>
+              <Option onClick={() => handleOptionSelect('낮은 가격순')} selectedOption={selectedOption === '낮은 가격순'}>
+                <OptionText>낮은 가격순</OptionText>
+              </Option>
+              <Option onClick={() => handleOptionSelect('높은 가격순')} selectedOption={selectedOption === '높은 가격순'}>
+                <OptionText>높은 가격순</OptionText>
+              </Option>
+              <Option onClick={() => handleOptionSelect('가나다순')} selectedOption={selectedOption === '가나다순'}>
+                <OptionText>가나다순</OptionText>
+              </Option>
+            </OptionsContainer>
+          )}
+        </div>
+      </SortingContainer>
+
+      <StampContainer>
+        {dummyCollectionStamp.slice(startIndex, endIndex).map((stamp, index) => (
+          <StampBox key={stamp.id}>
+            <StampInnerBox style={{ top: `${Math.floor(index / 4) * 482}px`, left: `${(index % 4) * 306}px` }}>
+              <StampBackground 
+                onClick={() => handleStampBackgroundClick(index)}
+                isActive={index === selectedStampIndex}
+              />
+              {index === selectedStampIndex && (
+                <StampPurchaseContainer isActive={true}>
+                  <StampQuestionText>구매하시겠습니까?</StampQuestionText>
+                  <StampButtonContainer>
+                    <StampCancelButton onClick={handleCancelButtonClick}>
+                      <StampPurchaseText style={{ color: '#757575' }}>취소</StampPurchaseText>
+                    </StampCancelButton>
+                    <StampPurchaseButton onClick={() => handlePurchaseButtonClick(index)}>
+                      <StampPurchaseText style={{ color: 'white' }}>구매</StampPurchaseText>
+                    </StampPurchaseButton>
+                  </StampButtonContainer>
+                </StampPurchaseContainer>
+              )}
+              <StampTextWrapper>
+                <StampText>{stamp.NickName}</StampText>
+                {showCoinWrapper[index] && (
+                  <LetterCoinWrapper>
+                    <RedCoinImg src={CoinRed} alt="CoinRed" />
+                    <LetterCoinCount>{stamp.Price}</LetterCoinCount>
+                  </LetterCoinWrapper>
+                )}
+              </StampTextWrapper>
+            </StampInnerBox>
+          </StampBox>
+        ))}
+      </StampContainer>
+
+      <PaginationContainer>
+        <PageNumberContainer>
+          {Array.from({ length: totalPages }, (_, index) => (
+            <PageButton active={currentPage === index + 1} key={index + 1}>
+              <PageNumberText
+                active={currentPage === index + 1}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </PageNumberText>
+            </PageButton>
+          ))}
+        </PageNumberContainer>
+        <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage} />
+      </PaginationContainer>
+      </TabContentContainer>
+    </div>
+  );
+}
+
+export default function StoreMain() {
+  const navigate = useNavigate();
+  const [currentTab, setCurrentTab] = useState('tab1');
 
   return (
     <div>
@@ -720,208 +961,8 @@ export default function StoreMain() {
         </Tab>
       </TabContainer>
 
-      {currentTab === 'tab1' && (
-        <div>
-          <TabContentContainer>
-            <SortingContainer>
-              <div>
-                <SelectedOptionContainer onClick={handleDropdownToggle}>
-                  <Option style={{border: 'none', background: 'white'}}>
-                    <OptionText>{selectedOption}</OptionText> {/* 선택한 옵션 표시 */}
-                    <UnderImg src={Under} alt='Under' />
-                  </Option>
-                </SelectedOptionContainer>
-                {isDropdownOpen && (
-                  <OptionsContainer>
-                    <Option style={{border: '1px black solid'}} onClick={() => handleOptionSelect('인기순')} selectedOption={selectedOption === '인기순'}>
-                      <OptionText>
-                        인기순
-                      </OptionText>
-                    </Option>
-                    <Option onClick={() => handleOptionSelect('최신순')} selectedOption={selectedOption === '최신순'}>
-                      <OptionText>
-                        최신순
-                      </OptionText>
-                    </Option>
-                    <Option onClick={() => handleOptionSelect('낮은 가격순')} selectedOption={selectedOption === '낮은 가격순'}>
-                      <OptionText>
-                        낮은 가격순
-                      </OptionText>
-                    </Option>
-                    <Option onClick={() => handleOptionSelect('높은 가격순')} selectedOption={selectedOption === '높은 가격순'}>
-                      <OptionText>
-                        높은 가격순
-                      </OptionText>
-                    </Option>
-                    <Option onClick={() => handleOptionSelect('가나다순')} selectedOption={selectedOption === '가나다순'}>
-                      <OptionText>
-                        가나다순
-                      </OptionText>
-                    </Option>
-                  </OptionsContainer>
-                )}
-              </div>
-            </SortingContainer>
-
-            <LetterContainer>
-              {dummyLetter.slice(startIndex, endIndex).map((letter, index) => (
-                <LetterBox key={letter.id}>
-                  <LetterInnerBox 
-                    style={{
-                      top: `${Math.floor(index / 3) * 394}px`,
-                      left: `${(index % 3) * 408}px`,
-                    }}
-                  >
-                    <LetterBackground
-                      onClick={() => handleLetterBackgroundClick(index)}
-                      isActive={index === selectedLetterIndex}
-                    />
-                    {index === selectedLetterIndex && (
-                      <LetterPurchaseContainer isActive={true}>
-                        <LetterQuestionText>구매하시겠습니까?</LetterQuestionText>
-                        <LetterButtonContainer>
-                          <LetterCancelButton onClick={handleCancelButtonClick}>
-                            <LetterPurchaseText style={{ color: '#757575' }}>취소</LetterPurchaseText>
-                          </LetterCancelButton>
-                          <LetterPurchaseButton onClick={() => handlePurchaseButtonClick(index)}>
-                            <LetterPurchaseText style={{ color: 'white' }}>구매</LetterPurchaseText>
-                          </LetterPurchaseButton>
-                        </LetterButtonContainer>
-                      </LetterPurchaseContainer>
-                    )}
-                    <LetterTextWrapper>
-                      <LetterText>{letter.NickName}</LetterText> {/* 편지지 이름 */}
-                      {showCoinWrapper[index] && (
-                        <LetterCoinWrapper>
-                          <RedCoinImg src={CoinRed} alt="CoinRed" />
-                          <LetterCoinCount>{letter.Price}</LetterCoinCount>
-                        </LetterCoinWrapper>
-                      )}
-                    </LetterTextWrapper>
-                  </LetterInnerBox>
-                </LetterBox>
-              ))}
-            </LetterContainer>
-
-            {/* 페이징 네비게이션 */}
-            <PaginationContainer>
-              <PageNumberContainer>
-                  {Array.from({ length: totalPages }, (_, index) => (
-                    <PageButton active={currentPage === index + 1} key={index + 1}>
-                      <PageNumberText
-                        active={currentPage === index + 1}
-                        onClick={() => handlePageChange(index + 1)}
-                      >
-                        {index + 1}
-                      </PageNumberText>
-                    </PageButton>
-                  ))}
-              </PageNumberContainer>
-              <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage} />
-            </PaginationContainer>
-          </TabContentContainer>
-
-        </div>
-      )}
-
-      {currentTab === 'tab2' && (
-        <div>
-          <TabContentContainer>
-            <SortingContainer>
-              <div>
-                <SelectedOptionContainer onClick={handleDropdownToggle}>
-                  <Option style={{border: 'none', background: 'white'}}>
-                    <OptionText>{selectedOption}</OptionText> {/* 선택한 옵션 표시 */}
-                    <UnderImg src={Under} alt='Under' />
-                  </Option>
-                </SelectedOptionContainer>
-                {isDropdownOpen && (
-                  <OptionsContainer>
-                    <Option style={{border: '1px black solid'}} onClick={() => handleOptionSelect('인기순')} selectedOption={selectedOption === '인기순'}>
-                      <OptionText>
-                        인기순
-                      </OptionText>
-                    </Option>
-                    <Option onClick={() => handleOptionSelect('최신순')} selectedOption={selectedOption === '최신순'}>
-                      <OptionText>
-                        최신순
-                      </OptionText>
-                    </Option>
-                    <Option onClick={() => handleOptionSelect('낮은 가격순')} selectedOption={selectedOption === '낮은 가격순'}>
-                      <OptionText>
-                        낮은 가격순
-                      </OptionText>
-                    </Option>
-                    <Option onClick={() => handleOptionSelect('높은 가격순')} selectedOption={selectedOption === '높은 가격순'}>
-                      <OptionText>
-                        높은 가격순
-                      </OptionText>
-                    </Option>
-                    <Option onClick={() => handleOptionSelect('가나다순')} selectedOption={selectedOption === '가나다순'}>
-                      <OptionText>
-                        가나다순
-                      </OptionText>
-                    </Option>
-                  </OptionsContainer>
-                )}
-              </div>
-            </SortingContainer>
-
-            <StampContainer>
-                {dummyCollectionStamp.slice(startIndex, endIndex).map((stamp, index) => (
-                  <StampBox key={stamp.id}>
-                    <StampInnerBox style={{ top: `${Math.floor(index / 4) * 482}px`, left: `${(index % 4) * 306}px` }}>
-                      <StampBackground 
-                        onClick={() => handleLetterBackgroundClick(index)}
-                        isActive={index === selectedLetterIndex}
-                      />
-                      {index === selectedLetterIndex && (
-                        <StampPurchaseContainer isActive={true}>
-                          <StampQuestionText>구매하시겠습니까?</StampQuestionText>
-                          <StampButtonContainer>
-                            <StampCancelButton onClick={handleCancelButtonClick}>
-                              <StampPurchaseText style={{ color: '#757575' }}>취소</StampPurchaseText>
-                            </StampCancelButton>
-                            <StampPurchaseButton onClick={() => handlePurchaseButtonClick(index)}>
-                              <StampPurchaseText style={{ color: 'white' }}>구매</StampPurchaseText>
-                            </StampPurchaseButton>
-                          </StampButtonContainer>
-                        </StampPurchaseContainer>
-                      )}
-                      <StampTextWrapper>
-                        <StampText>{stamp.NickName}</StampText> {/* 편지지 이름 */}
-                        {showCoinWrapper[index] && (
-                          <LetterCoinWrapper>
-                            <RedCoinImg src={CoinRed} alt="CoinRed" />
-                            <LetterCoinCount>{stamp.Price}</LetterCoinCount>
-                          </LetterCoinWrapper>
-                        )}
-                      </StampTextWrapper>
-                    </StampInnerBox>
-                  </StampBox>
-                ))}
-            </StampContainer>
-
-            {/* 페이징 네비게이션 */}
-            <PaginationContainer>
-              <PageNumberContainer>
-                  {Array.from({ length: totalPages }, (_, index) => (
-                    <PageButton active={currentPage === index + 1} key={index + 1}>
-                      <PageNumberText
-                        active={currentPage === index + 1}
-                        onClick={() => handleLetterInnerBoxClick(index)}
-                        isActive={index === selectedLetterIndex}
-                      >
-                        {index + 1}
-                      </PageNumberText>
-                    </PageButton>
-                  ))}
-              </PageNumberContainer>
-              <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage} />
-            </PaginationContainer>
-          </TabContentContainer>
-        </div>
-      )}
+      {currentTab === 'tab1' && <LetterPage />}
+      {currentTab === 'tab2' && <StampPage />}
     </div>
   )
 }
