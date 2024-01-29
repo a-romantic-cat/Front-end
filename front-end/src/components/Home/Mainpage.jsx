@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 
 //화면1
@@ -215,6 +216,8 @@ export default function Mainpage() {
             </ArrowAndText>
           </Button>
         </Container4>
+
+        <Footer />
       </div>
     );
   }
