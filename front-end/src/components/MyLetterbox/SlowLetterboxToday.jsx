@@ -335,7 +335,7 @@ const GlobalStyles = createGlobalStyle`
 
 
 //react-datepicker
-const DatepickerComponent = () => {
+const DatepickerComponent = ({ selected, onChange }) => {
   const [startDate, setStartDate] = useState(new Date());
 
   const Header = styled.div`
@@ -386,8 +386,8 @@ const DatepickerComponent = () => {
     <div>
       <GlobalStyles />
         <DatePicker
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
+          selected={selected}
+          onChange={onChange} // SlowLetterboxToday에서 전달받은 onChange 함수를 사용
           inline
           locale={ko}
           renderCustomHeader={({
@@ -417,6 +417,8 @@ export default function SlowLetterboxToday() {
   const [textBoxValue, setTextBoxValue] = useState(""); // TextBox의 값 상태값
   const [isOldWrapperVisible, setOldWrapperVisible] = React.useState(true);
   const [isNewWrapperVisible, setNewWrapperVisible] = React.useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [isBlurBackgroundVisible, setBlurBackgroundVisible] = useState(false);
 
   const today = new Date(); // 오늘의 날짜를 가져옴
   const year = today.getFullYear(); // 연도
@@ -437,11 +439,21 @@ export default function SlowLetterboxToday() {
   const handleTextBoxChange = (e) => {
     setTextBoxValue(e.target.value); // TextBox의 값 변경
   };
+  
+  const handleDateChange = (date) => {
+    setStartDate(date);
+    if (date < today) {
+      // 오늘 날짜 이전을 선택한 경우
+      setBlurBackgroundVisible(true);
+    } else {
+      // 오늘 날짜 이후를 선택한 경우
+      setBlurBackgroundVisible(false);
+    }
+  };
 
   return (
     <div>
       <Header />
-      <DatepickerComponent />
 
       <SlowLetterboxContainer>
         <Slow1Img src={Slow1} alt='Slow1' />
@@ -492,6 +504,13 @@ export default function SlowLetterboxToday() {
         <Wrapper>
           <BlurBackground />
           <MaskingTapeImg src={MaskingTape} alt='MaskingTape' />
+        </Wrapper>
+      )}
+      <DatepickerComponent selected={startDate} onChange={handleDateChange} />
+
+      {isBlurBackgroundVisible && (
+        <Wrapper>
+          <BlurBackground />
         </Wrapper>
       )}
     </div>
