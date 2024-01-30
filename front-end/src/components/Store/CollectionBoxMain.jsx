@@ -6,9 +6,9 @@ import '../../index.css';
 import 상점 from '../../assets/img/상점.svg';
 import 발바닥 from '../../assets/img/발바닥.svg';
 import Coin from '../../assets/img/코인.svg';
-import CoinRed from '../../assets/img/CoinRed.svg';
 import 다음버튼 from '../../assets/img/다음버튼.svg';
 import Checkbox from '../../assets/img/Checkbox.svg';
+import CheckedCheckbox from '../../assets/img/CheckedCheckbox.svg';
 
 //수집함 편지지 데이터
 const dummyCollectionLetter = [
@@ -217,6 +217,7 @@ const MyDesignContainer = styled.div`
   position: relative;
   left: 1039px;
   top: 0;
+  cursor: pointer;
 `;
 
 const CheckboxImg = styled.img`
@@ -242,6 +243,7 @@ const LetterContainer = styled.div`
   width: 1194px;
   height: 1476px;
   position: relative;
+  top: 72px;
 `;
 
 const LetterBox = styled.div`
@@ -287,39 +289,12 @@ const LetterText = styled.div`
   word-wrap: break-word;
 `;
 
-const LetterCoinWrapper = styled.div`
-  width: 62.31px;
-  height: 24px;
-  left: 0;
-  top: 33px;
-  position: absolute;
-`;
-
-const RedCoinImg = styled.img`
-  width: 26.03px;
-  height: 24px;
-  left: 0;
-  top: 0;
-  position: absolute;
-`;
-
-const LetterCoinCount = styled.div`
-  left: 31.31px;
-  top: 0;
-  position: absolute;
-  color: #C90000;
-  font-size: 24px;
-  font-family: 'Pretendard';
-  font-weight: 600;
-  line-height: 24px;
-  word-wrap: break-word;
-`;
-
 //탭 속 우표 내용
 const StampContainer = styled.div`
   width: 1194px;
   height: 1344px;
   position: relative;
+  top: 72px;
 `;
 
 const StampBox = styled.div`
@@ -430,6 +405,14 @@ export default function MissionMain() {
   const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지에서 첫 번째 아이템의 인덱스
   const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
 
+  const [isChecked, setIsChecked] = useState(false); // 체크 여부를 나타내는 상태
+
+  // 클릭 이벤트 처리 함수
+  const handleCheckboxClick = () => {
+    setIsChecked(!isChecked); // 상태를 반전시킴
+  };
+
+
   return (
     <div>
         <Header />
@@ -468,8 +451,12 @@ export default function MissionMain() {
         <div>
           <TabContentContainer>
 
-            <MyDesignContainer>
-              <CheckboxImg src={Checkbox} alt="Checkbox" />
+            <MyDesignContainer onClick={handleCheckboxClick}>
+            {isChecked ? (
+              <CheckboxImg src={CheckedCheckbox} alt="Checked Checkbox" />
+            ) : (
+              <CheckboxImg src={Checkbox} alt="Unchecked Checkbox" />
+            )}
               <MyDesignText>마이디자인만 보기</MyDesignText>
             </MyDesignContainer>
 
@@ -480,10 +467,6 @@ export default function MissionMain() {
                     <LetterBackground />
                     <LetterTextWrapper>
                       <LetterText>{letter.NickName}</LetterText> {/* 편지지 이름 */}
-                      <LetterCoinWrapper>
-                        <RedCoinImg src={CoinRed} alt='CoinRed' />
-                        <LetterCoinCount>{letter.Price}</LetterCoinCount> {/* Price */}
-                      </LetterCoinWrapper>
                     </LetterTextWrapper>
                   </LetterInnerBox>
                 </LetterBox>
