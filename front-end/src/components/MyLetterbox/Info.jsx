@@ -4,6 +4,7 @@ import InfoImage from '../../assets/img/Info.svg';
 import Vector from '../../assets/img/Vector.svg';
 import Under from '../../assets/img/Under.svg';
 import X from '../../assets/img/X.svg';
+import EditCompleteButton from '../../assets/img/편집완료버튼.svg';
 
 //모달창 열릴 때 백그라운드 블러 처리
 const BackgroundBlur = styled.div`
@@ -18,7 +19,7 @@ const BackgroundBlur = styled.div`
   background: rgba(0, 0, 0, 0.36); 
   backdrop-filter: blur(7.10px);
   z-index: 1000;
-`
+`;
 
 //전체 모달 컨테이너
 const ModalContainer = styled.div`
@@ -67,10 +68,10 @@ const InfoTitle = styled.div`
 const InfoImg = styled.img`
   width: 20px;
   height: 20px;
-  left: 0;
   top: 3px;
+  left: 0;
   position: absolute;
-`
+`;
 
 const CloseButtonImg = styled.img`
   width: 18px;
@@ -78,7 +79,9 @@ const CloseButtonImg = styled.img`
   left: 254.59px;
   top: 0;
   position: absolute;
-`
+  cursor: pointer;
+`;
+
 //내용 중 '우편함 닫기'
 const Container1 = styled.div`
   left: 44px;
@@ -107,7 +110,8 @@ const Toggle = styled.div`
   position: absolute;
   background-color: ${({ isActive }) => (isActive ? '#C90000' : 'black')};
   border-radius: 20px;
-`
+  cursor: pointer;
+`;
 
 // isActive 상태에 따라 원의 위치가 변경
 const ToggleCircle = styled.div`
@@ -118,7 +122,7 @@ const ToggleCircle = styled.div`
   position: absolute;
   background: white;
   border-radius: 9999px;
-`
+`;
 
 // Tooltip 컴포넌트 생성
 const Tooltip = styled.div`
@@ -138,7 +142,8 @@ const Placeholder = styled.div`
   position: relative;
   background: black;
   border-radius: 50px;
-`
+`;
+
 const Triangle = styled.div`
   width: 0;
   height: 0;
@@ -147,7 +152,7 @@ const Triangle = styled.div`
   border-bottom: 10px solid black;  // 세로 길이
   position: relative;
   left: 19.91px;
-`
+`;
 
 const TooltipText = styled.div`
   width: 185px;
@@ -219,7 +224,7 @@ const UnderImg = styled.img`
   right: 6.14px;
   bottom: 5px;
   left: 114px;
-`
+`;
 
 //드롭다운 내용
 const OptionContainer = styled.div`
@@ -276,7 +281,7 @@ const Container3 = styled.div`
   left: 44px;
   top: 178px;
   position: absolute;
-`
+`;
 
 const PeriodText = styled.div`
   width: 28px;
@@ -289,7 +294,7 @@ const PeriodText = styled.div`
   font-family: Pretendard;
   font-weight: 500;
   word-wrap: break-word;
-`
+`;
 
 const DateRange = styled.div`
   width: 181px;
@@ -303,14 +308,14 @@ const DateRange = styled.div`
   font-weight: 400;
   line-height: 15px;
   word-wrap: break-word;
-`
+`;
 
 //내용 중 '이름'
 const Container4 = styled.div`
   left: 44px;
   top: 121px;
   position: absolute;
-`
+`;
 
 const NameText = styled.div`
   width: 28px;
@@ -323,34 +328,91 @@ const NameText = styled.div`
   font-family: Pretendard;
   font-weight: 500;
   word-wrap: break-word;
-`
-const NameContainer = styled.div`
-  width: 138px;
-  height: 16.24px;
-  left: 237px;
-  top: 0;
-  position: absolute;
-`
+`;
+
+//편집 후 이름
+const NameWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  position: relative;
+`;
 
 const RealNameText = styled.div`
-  left: 21px;
+  right: 0;
   top: 1px;
-  position: absolute;
   color: black;
   font-size: 15px;
   font-family: Pretendard;
   font-weight: 400;
   line-height: 15px;
   word-wrap: break-word;
-`
+  margin-left: 6.77px;
+`;
 
+//이름 편집 아이콘
 const NameIconImg = styled.img`
   width: 14.23px;
   height: 16.24px;
-  left: 0;
+  top: 1px;
+  cursor: pointer;
+`;
+
+//편집모드
+const NameContainer = styled.div`
+  width: 298px;
+  height: 24px;
+  left: 79px;
   top: 0;
   position: absolute;
-`
+`;
+
+const EditContainer = styled.div`
+  width: 273px;
+  height: 24px;
+  background: #E5E5E5;
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: inline-flex;
+  position: relative;
+  top: -2px;
+`;
+
+const EditInput = styled.input`
+  width: 224px;
+  height: 14px;
+  margin: 5px;
+  padding: 0;
+  color: #757575;
+  font-size: 14px;
+  font-family: Pretendard;
+  font-weight: 400;
+  word-wrap: break-word;
+  outline: none;
+  border: none;
+  background: #E5E5E5;
+`;
+
+const AbsoluteText = styled.div`
+  left: 0;
+  top: 6px;
+  position: relative;
+  color: #757575;
+  font-size: 12px;
+  font-family: Pretendard;
+  font-weight: 400;
+  line-height: 12px;
+  word-wrap: break-word;
+`;
+
+const EditCompleteButtonImg = styled.img`
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 278px;
+  top: 0;
+  cursor: pointer;
+`;
 
 
 export default function Info({ isOpen, onClose }) {
@@ -359,8 +421,9 @@ export default function Info({ isOpen, onClose }) {
   const [isDropdownOpen, setDropdownOpen] = useState(false); // 드롭다운의 열림/닫힘 상태를 관리하는 상태 변수
   const [selectedOption, setSelectedOption] = useState('누구나'); // 선택한 옵션을 관리하는 상태 변수
 
-  const [mailboxName, setMailboxName] = useState('23번째 생일 우편함'); // mailboxName은 우편함 이름을 관리하는 상태 변수
-  const [isEditing, setIsEditing] = useState(false); // isEditing은 편집 모드 여부를 관리하는 상태 변수
+  const [mailboxName, setMailboxName] = useState('23번째 생일 우편함'); // 우편함 이름을 관리하는 상태 변수
+  const [isEditing, setIsEditing] = useState(false); // 편집 모드 여부를 관리하는 상태 변수
+  const [errorMessage, setErrorMessage] = useState(''); // 에러 메시지를 관리하는 상태 변수
 
   const handleDropdownToggle = () => {
     setDropdownOpen(!isDropdownOpen); // 드롭다운의 열림/닫힘 상태를 토글
@@ -375,16 +438,32 @@ export default function Info({ isOpen, onClose }) {
     setIsActive(!isActive); // 토글 버튼 클릭 시 isActive 상태를 변환하는 핸들러 함수
   };
 
+  // 아이콘을 클릭하면 편집 모드로 전환
   const handleIconClick = () => {
-    setIsEditing(true); // 아이콘을 클릭하면 편집 모드로 전환
+    setIsEditing(true);
   };
 
+  // 텍스트 입력 필드에서 이름을 변경하면 mailboxName 상태를 업데이트
+  // 이때, 입력된 값의 길이가 32자를 초과하면 에러 메시지를 설정
   const handleNameChange = (event) => {
-    setMailboxName(event.target.value); //텍스트 입력 필드에서 이름을 변경하면 mailboxName 상태를 업데이트
+    const value = event.target.value;
+
+    if (value.length > 32) {
+      setErrorMessage('최대 32자까지 적을 수 있습니다.');
+    } else {
+      setErrorMessage('');
+      setMailboxName(value);
+    }
   };
 
-  const handleBlur = () => {
-    setIsEditing(false); // 입력 필드에서 포커스가 사라지면 편집 모드를 종료
+  // 변경 버튼 클릭 시 편집 모드를 종료하고, 입력된 값이 빈 문자열이면 에러 메시지를 설정
+  const handleSaveClick = () => {
+    if (mailboxName === '') {
+      setErrorMessage('필수 정보입니다.');
+    } else {
+      setErrorMessage('');
+      setIsEditing(false);
+    }
   };
 
   if (!isOpen) {
@@ -443,27 +522,33 @@ export default function Info({ isOpen, onClose }) {
           <DateRange>2024-01-04 ~ 2024-01-07</DateRange>
         </Container3>
 
-        {/*
-        <Container4>
-          <NameText>이름</NameText>
-          <NameContainer>
-            <RealNameText>23번째 생일 우편함</RealNameText>
-            <NameIconImg src={Vector} alt='NameIcon'/>
-          </NameContainer>
-        </Container4>
-        */}
-
         <Container4>
           <NameText>이름</NameText>
           <NameContainer>
             {/* 편집 모드일 때는 텍스트 입력 필드를, 그렇지 않을 때는 일반 텍스트를 렌더링합니다. */}
             {isEditing ? (
-              <input type="text" value={mailboxName} onChange={handleNameChange} onBlur={handleBlur} autoFocus />
+              <div>
+                <EditContainer>
+                  <EditInput
+                    type="text" 
+                    value={mailboxName} 
+                    onChange={handleNameChange} 
+                    placeholder="우편함 이름을 입력하세요."
+                    autoFocus 
+                  />
+                  <AbsoluteText>(0/32)</AbsoluteText>
+                </EditContainer>
+                <EditCompleteButtonImg src={EditCompleteButton} alt='편집완료버튼' onClick={handleSaveClick} />
+              </div>
             ) : (
-              <RealNameText>{mailboxName}</RealNameText>
+              <NameWrapper>
+                {/* 아이콘을 클릭하면 편집 모드로 전환합니다. isEditing이 false일 때만 아이콘을 렌더링합니다. */}
+                {!isEditing && <NameIconImg src={Vector} alt='NameIcon' onClick={handleIconClick}/>}
+                <RealNameText>{mailboxName}</RealNameText>
+              </NameWrapper>
             )}
-            {/* 아이콘을 클릭하면 편집 모드로 전환합니다. */}
-            <NameIconImg src={Vector} alt='NameIcon' onClick={handleIconClick}/>
+            {/* 에러 메시지가 있으면 이를 화면에 표시합니다. */}
+            {errorMessage && <div>{errorMessage}</div>}
           </NameContainer>
         </Container4>
 
