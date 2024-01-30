@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Header from '../Header/Header';
 import '../../index.css';
+import DatePicker from "react-datepicker"; //달력 기능 위해 react-datepicker 라이브러리 설치
+import "react-datepicker/dist/react-datepicker.css";
 import Slow1 from '../../assets/img/Slow1.svg';
 import Slow2 from '../../assets/img/Slow2.svg';
 import Footprint from '../../assets/img/발자국.svg';
@@ -302,6 +304,7 @@ const MaskingTapeImg = styled.img`
   height: 53px;
   position: absolute;
   top: -27px;
+  left: 106px;
 `;
 
 const TextBoxWrapper = styled.div`
@@ -342,12 +345,23 @@ const DateText = styled.div`
   word-wrap: break-word;
 `;
 
+const BlurBackground = styled.div`
+  width: 389px;
+  height: 389px;
+  background: rgba(89, 83, 81, 0.90);
+  backdrop-filter: blur(10px);
+  left: 0;
+  top: 0;
+  position: absolute;
+`;
 
 export default function SlowLetterboxToday() {
   const text = "오늘 하루 행복했나요?\n\n길을 걷다 내 취향인 카페를 발견한 것, \n눈물 날 만큼 재밌는 영화를 본 것, \n사랑하는 사람과 시간을 보낸 것,\n.\n.\n.\n당신의 행복한 순간을 기록해 주세요.\n낭만고양이가\n매일의 행복을 모아 올해의 마지막 주에 전달해 드릴게요.\n소소한 행복들이 쌓여 큰 행복으로 돌아올 거예요."
   const placeholderText = "오늘 하루 행복했던 순간을 적어보세요.";
   const [isEditMode, setIsEditMode] = useState(false); // 편집 모드 상태를 관리하는 상태값
   const [textBoxValue, setTextBoxValue] = useState(""); // TextBox의 값 상태값
+  const [isOldWrapperVisible, setOldWrapperVisible] = React.useState(true);
+  const [isNewWrapperVisible, setNewWrapperVisible] = React.useState(false);
 
   const today = new Date(); // 오늘의 날짜를 가져옴
   const year = today.getFullYear(); // 연도
@@ -360,6 +374,9 @@ export default function SlowLetterboxToday() {
 
   const handleRedBoxClick = () => {
     setIsEditMode(false); // 편집 모드 종료
+    // 기존 Wrapper를 숨기고 새로운 Wrapper를 보이게 합니다.
+    setOldWrapperVisible(false);
+    setNewWrapperVisible(true);
   };
 
   const handleTextBoxChange = (e) => {
@@ -579,35 +596,43 @@ export default function SlowLetterboxToday() {
         </StyledWeekdays>
       </StyledContainer>
 
-      <Wrapper>
-        <RedBox onClick={handleRedBoxClick}>
-          <RedBoxText>등록하기</RedBoxText>
-        </RedBox>
-        <Description>등록 후에는 수정할 수 없어요.</Description>
-        <GrayBox>
+      {isOldWrapperVisible && (
+        <Wrapper>
+          <RedBox onClick={handleRedBoxClick}>
+            <RedBoxText>등록하기</RedBoxText>
+          </RedBox>
+          <Description>등록 후에는 수정할 수 없어요.</Description>
+          <GrayBox>
+            <MaskingTapeImg src={MaskingTape} alt='MaskingTape' />
+            <TextBoxWrapper>
+              {isEditMode ? (
+                <TextBox
+                  type="text"
+                  placeholder={placeholderText}
+                  value={textBoxValue}
+                  onClick={handleTextBoxClick}
+                  onChange={handleTextBoxChange}
+                />
+              ) : (
+                <TextBox
+                  type="text"
+                  placeholder={placeholderText}
+                  value={textBoxValue || placeholderText}
+                  onClick={handleTextBoxClick}
+                  readOnly
+                />
+              )}
+              <DateText>{`${year}년 ${month}월 ${date}일`}</DateText>
+            </TextBoxWrapper>
+          </GrayBox>
+        </Wrapper>
+      )}
+      {isNewWrapperVisible && (
+        <Wrapper>
+          <BlurBackground />
           <MaskingTapeImg src={MaskingTape} alt='MaskingTape' />
-          <TextBoxWrapper>
-            {isEditMode ? (
-              <TextBox
-                type="text"
-                placeholder={placeholderText}
-                value={textBoxValue}
-                onClick={handleTextBoxClick}
-                onChange={handleTextBoxChange}
-              />
-            ) : (
-              <TextBox
-                type="text"
-                placeholder={placeholderText}
-                value={textBoxValue || placeholderText}
-                onClick={handleTextBoxClick}
-                readOnly
-              />
-            )}
-            <DateText>{`${year}년 ${month}월 ${date}일`}</DateText>
-          </TextBoxWrapper>
-        </GrayBox>
-      </Wrapper>
+        </Wrapper>
+      )}
     </div>
   )
 }
