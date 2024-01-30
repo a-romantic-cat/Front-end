@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { NavLink, useLocation } from 'react-router-dom';
 import logo from '../../assets/img/낭만고양이로고.svg';
@@ -142,10 +142,72 @@ const Feather = ({ to, alt }) => {
   );
 };
 
+//마우스 오버시 나타나는 메뉴
+const DetailMenuContainer = styled.div`
+  width: 1920px;
+  height: 200px;
+  position: absolute;
+  left: 0;
+  top: 100px;
+  background: #FFFEF8;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: inline-flex;
+`;
+
+const ColumnContainer = styled.div`
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  display: inline-flex;
+`;
+
+const DetailMenuItem = styled.div`
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: flex;
+  cursor: pointer;
+`;
+
+const DetailMenuText = styled.div`
+  width: 100%;
+  height: 100%;
+  color: black;
+  font-size: 14px;
+  font-family: Pretendard;
+  font-weight: 400;
+  word-wrap: break-word;
+
+  .active & {
+    color: #C90000;
+    font-weight: 500;
+  }
+`;
+
 export default function Header() {
+  const [menuVisible, setMenuVisible] = useState(false);
+
+  const showMenu = () => {
+    setMenuVisible(true);
+  };
+
+  const hideMenu = () => {
+    setMenuVisible(false);
+  };
+
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const handleClick = (index) => {
+    setActiveIndex(index);
+  };
+
   return (
     <Container>
-      <InnerContainer>
+      <InnerContainer onMouseEnter={showMenu} onMouseLeave={hideMenu}>
         <StyledNavLink to="/">
         <LogoContainer>
           <LogoImg src={logo} alt='logo' />
@@ -172,6 +234,87 @@ export default function Header() {
           </StyledNavLink>
         </FeatherContainer>
       </InnerContainer>
+
+      {menuVisible && (
+        <DetailMenuContainer onMouseEnter={showMenu} onMouseLeave={hideMenu}>
+          <ColumnContainer style={{left: 1179, top: 22, position: 'absolute'}}>
+            <DetailMenuItem>
+              <StyledNavLink to="/MyLetterbox">
+                <DetailMenuText active={activeIndex === 0} onClick={() => handleClick(0)}>
+                  내 우편함
+                </DetailMenuText>
+              </StyledNavLink>
+            </DetailMenuItem>
+            <DetailMenuItem>
+              <StyledNavLink to="/SlowLetterboxToday">
+                <DetailMenuText active={activeIndex === 1} onClick={() => handleClick(1)}>
+                  느린 우편함
+                </DetailMenuText>
+              </StyledNavLink>
+            </DetailMenuItem>
+            <DetailMenuItem>
+              <StyledNavLink to="/RomanticLetterbox">
+                <DetailMenuText active={activeIndex === 2} onClick={() => handleClick(2)}>
+                  지난 우편함
+                </DetailMenuText>
+              </StyledNavLink>
+            </DetailMenuItem>
+          </ColumnContainer>
+          <ColumnContainer style={{left: 1395, top: 22, position: 'absolute'}}>
+            <DetailMenuItem>
+              <StyledNavLink to="/RomanticLetterbox">
+                <DetailMenuText active={activeIndex === 3} onClick={() => handleClick(3)}>
+                  낭만 우편함
+                </DetailMenuText>
+              </StyledNavLink>
+            </DetailMenuItem>
+            <DetailMenuItem>
+              <StyledNavLink to="/WritingLetter">
+                <DetailMenuText active={activeIndex === 4} onClick={() => handleClick(4)}>
+                  편지 쓰기
+                </DetailMenuText>
+              </StyledNavLink>
+            </DetailMenuItem>
+            <DetailMenuItem>
+              <StyledNavLink to="/ReplyingLetter">
+                <DetailMenuText active={activeIndex === 5} onClick={() => handleClick(5)}>
+                  편지 답장하기
+                </DetailMenuText>
+              </StyledNavLink>
+            </DetailMenuItem>
+            <DetailMenuItem>
+              <StyledNavLink to="/ReplyingLetter">
+                <DetailMenuText active={activeIndex === 6} onClick={() => handleClick(6)}>
+                  낭만 모음집
+                </DetailMenuText>
+              </StyledNavLink>
+            </DetailMenuItem>
+          </ColumnContainer>
+          <ColumnContainer style={{left: 1522, top: 22, position: 'absolute'}}>
+            <DetailMenuItem>
+              <StyledNavLink to="/Store">
+                <DetailMenuText active={activeIndex === 7} onClick={() => handleClick(7)}>
+                  상점
+                </DetailMenuText>
+              </StyledNavLink>
+            </DetailMenuItem>
+            <DetailMenuItem>
+              <StyledNavLink to="/CollectionBoxMain">
+                <DetailMenuText active={activeIndex === 8} onClick={() => handleClick(8)}>
+                  수집함
+                </DetailMenuText>
+              </StyledNavLink>
+            </DetailMenuItem>
+            <DetailMenuItem>
+            <StyledNavLink to="/MissionMain">
+              <DetailMenuText active={activeIndex === 9} onClick={() => handleClick(9)}>
+                미션
+              </DetailMenuText>
+            </StyledNavLink>
+            </DetailMenuItem>
+          </ColumnContainer>
+        </DetailMenuContainer>
+      )}
     </Container>
   );
 }
