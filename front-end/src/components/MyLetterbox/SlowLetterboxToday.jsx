@@ -6,11 +6,13 @@ import Slow1 from '../../assets/img/Slow1.svg';
 import Slow2 from '../../assets/img/Slow2.svg';
 import Footprint from '../../assets/img/발자국.svg';
 import MaskingTape from '../../assets/img/MaskingTape.svg';
+import 달력제목오른쪽 from '../../assets/img/달력제목오른쪽.svg';
+import 달력제목왼쪽 from '../../assets/img/달력제목왼쪽.svg';
 import DatePicker, { registerLocale } from 'react-datepicker'; //달력 기능 위해 react-datepicker 라이브러리 설치
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from 'date-fns/locale'; // 한국어 변경 위해 설치
 import { createGlobalStyle } from 'styled-components';
-import { format } from 'date-fns';
+import { format } from "date-fns";
 
 const SlowLetterboxContainer = styled.div`
   width: 60px;
@@ -105,9 +107,9 @@ function TextLines({ text }) {
 const Wrapper = styled.div`
   width: 389px;
   height: 487px;
-  position: relative;
+  position: absolute;
   left: 1066px;
-  top: 980px;
+  top: 1080px;
 `;
 
 const RedBox = styled.div`
@@ -238,29 +240,14 @@ const GlobalStyles = createGlobalStyle`
     border: none !important;
     box-shadow: none !important;
     background-color: transparent !important;
+    position: relative;
+    left: 465px;
+    top: 980px;
   }
 
   .react-datepicker__header {
-    background-color: transparent !important;
-    width: 375px;
-    height: 76px;
     border: none;
-  }
-
-  .react-datepicker__navigation-icon::before {
-    position: absolute;
-    top: 2px;
-    border-color: black;
-    border-width: 2px 2px 0 0;
-  }
-
-  .react-datepicker__current-month {
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 18px;
-    color: black;
-    word-wrap: break-word;
-    margin-bottom: 8px;
+    background: none;
   }
 
   .react-datepicker__day-names {
@@ -325,6 +312,7 @@ const GlobalStyles = createGlobalStyle`
     word-wrap: break-word;
     width: 50px;
     height: 50px;
+    margin: 0;
   }
 
   .react-datepicker__day--selected {
@@ -335,25 +323,65 @@ const GlobalStyles = createGlobalStyle`
   .react-datepicker__day:hover {
     background-color: transparent !important;
   }
+
+  .react-datepicker__day--outside-month {
+    visibility: hidden;
+  }
+
+  .react-datepicker__day--weekend {
+    color: #9F9F9F !important;
+  }
 `;
 
-// 기존의 한국어 로케일 설정을 복사해서 새로운 로케일 설정을 생성
-const customKoLocale = {
-  ...ko,
-  formatLong: {
-    ...ko.formatLong,
-    date: ({ date, width }) => {
-      const formatDate = width === 'abbreviated' ? 'MM월' : 'yyyy년 MM월';
-      return format(date, formatDate);
-    },
-  },
-};
-
-registerLocale({ko}, customKoLocale);
 
 //react-datepicker
 const DatepickerComponent = () => {
   const [startDate, setStartDate] = useState(new Date());
+
+  const Header = styled.div`
+    width: 133px;
+    height: 18px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative
+    left: 119px;
+    top: 0;
+  `;
+
+  const Month = styled.div`
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 18px;
+    color: black;
+    word-wrap: break-word;
+    margin-bottom: 8px;
+    font-family: 'Gowun Dodum';
+    position: absolute;
+    left: 141px;
+    top: 2px;
+  `;
+
+  const LeftImg = styled.img`
+    width: 8px;
+    height: 14px;
+    position: absolute;
+    left: 119px;
+    top: 2px;
+    cursor: pointer;
+  `;
+
+  const RightImg = styled.img`
+    width: 8px;
+    height: 14px;
+    position: absolute;
+    left: 244px;
+    top: 2px;
+    cursor: pointer;
+  `;
+
+
   return (
     <div>
       <GlobalStyles />
@@ -362,6 +390,21 @@ const DatepickerComponent = () => {
           onChange={(date) => setStartDate(date)}
           inline
           locale={ko}
+          renderCustomHeader={({
+            date,
+            decreaseMonth,
+            increaseMonth,
+            prevMonthButtonDisabled,
+            nextMonthButtonDisabled
+          }) => (
+            <Header> 
+              <LeftImg src={달력제목왼쪽} alt="달력제목왼쪽" onClick={decreaseMonth} disabled={prevMonthButtonDisabled} />
+              <Month>
+                {date.getFullYear()}년 {date.getMonth() + 1}월
+              </Month>
+              <RightImg src={달력제목오른쪽} alt="달력제목오른쪽" onClick={increaseMonth} disabled={nextMonthButtonDisabled} />
+            </Header>
+          )}
         />
     </div>
   );
