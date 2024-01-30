@@ -24,8 +24,8 @@ const dummyCollectionLetter = [
   {id: 10, NickName: "편지지 이름", Price: "30"},
   {id: 11, NickName: "편지지 이름", Price: "30"},
   {id: 12, NickName: "편지지 이름", Price: "30"},
-  {id: 13, NickName: "편지지 이름", Price: "30"},
 
+  {id: 13, NickName: "편지지 이름", Price: "30"},
   {id: 14, NickName: "편지지 이름", Price: "30"},
   {id: 15, NickName: "편지지 이름", Price: "30"},
   {id: 16, NickName: "편지지 이름", Price: "30"},
@@ -54,8 +54,8 @@ const dummyCollectionStamp = [
   {id: 10, NickName: "우표 이름"},
   {id: 11, NickName: "우표 이름"},
   {id: 12, NickName: "우표 이름"},
-  {id: 13, NickName: "우표 이름"},
 
+  {id: 13, NickName: "우표 이름"},
   {id: 14, NickName: "우표 이름"},
   {id: 15, NickName: "우표 이름"},
   {id: 16, NickName: "우표 이름"},
@@ -71,7 +71,7 @@ const dummyCollectionStamp = [
   {id: 25, NickName: "우표 이름"},
 ];
 
-//수집함
+//수집함 제목
 const StoreMainDiv = styled.div`
   width: 1194px;
   height: 68px;
@@ -217,7 +217,6 @@ const MyDesignContainer = styled.div`
   position: relative;
   left: 1039px;
   top: 0;
-  margin-bottom: 72px;
 `;
 
 const CheckboxImg = styled.img`
@@ -327,7 +326,6 @@ const StampBox = styled.div`
   width: 1194px;
   height: 380px;
   position: absolute;
-  margin-bottom: 102px;
 `;
 
 const StampInnerBox = styled.div`
@@ -476,20 +474,20 @@ export default function MissionMain() {
             </MyDesignContainer>
 
             <LetterContainer>
-                {dummyCollectionLetter.slice(startIndex, endIndex).map((letter, index) => (
-                  <LetterBox key={letter.id}>
-                    <LetterInnerBox style={{ top: `${Math.floor(index / 3) * 394}px`, left: `${(index % 3) * 408}px` }}>
-                      <LetterBackground />
-                      <LetterTextWrapper>
-                        <LetterText>{letter.NickName}</LetterText> {/* 편지지 이름 */}
-                        <LetterCoinWrapper>
-                          <RedCoinImg src={CoinRed} alt='CoinRed' />
-                          <LetterCoinCount>{letter.Price}</LetterCoinCount> {/* Price */}
-                        </LetterCoinWrapper>
-                      </LetterTextWrapper>
-                    </LetterInnerBox>
-                  </LetterBox>
-                ))}
+              {dummyCollectionLetter.slice(startIndex, endIndex).map((letter, index) => (
+                <LetterBox key={letter.id}>
+                  <LetterInnerBox style={{ top: `${Math.floor(index / 3) * 394}px`, left: `${(index % 3) * 408}px` }}>
+                    <LetterBackground />
+                    <LetterTextWrapper>
+                      <LetterText>{letter.NickName}</LetterText> {/* 편지지 이름 */}
+                      <LetterCoinWrapper>
+                        <RedCoinImg src={CoinRed} alt='CoinRed' />
+                        <LetterCoinCount>{letter.Price}</LetterCoinCount> {/* Price */}
+                      </LetterCoinWrapper>
+                    </LetterTextWrapper>
+                  </LetterInnerBox>
+                </LetterBox>
+              ))}
             </LetterContainer>
 
             {/* 페이징 네비게이션 */}

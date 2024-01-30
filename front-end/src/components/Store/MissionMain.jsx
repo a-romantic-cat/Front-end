@@ -7,39 +7,27 @@ import 수집함 from '../../assets/img/수집함.svg';
 import 상점 from '../../assets/img/상점.svg';
 import Coin from '../../assets/img/코인.svg';
 import 다음버튼 from '../../assets/img/다음버튼.svg';
+import BigCircle from '../../assets/img/BigCircle.svg';
+import ZeroStamp from '../../assets/img/ZeroStamp.svg';
+
 
 //미션 데이터
 const dummyMission = [
-  {id: 1, NickName: "편지지 이름", Price: "30"},
-  {id: 2, NickName: "편지지 이름", Price: "30"},
-  {id: 3, NickName: "편지지 이름", Price: "30"},
-  {id: 4, NickName: "편지지 이름", Price: "30"},
-  {id: 5, NickName: "편지지 이름", Price: "30"},
-  {id: 6, NickName: "편지지 이름", Price: "30"},
-  {id: 7, NickName: "편지지 이름", Price: "30"},
-  {id: 8, NickName: "편지지 이름", Price: "30"},
-  {id: 9, NickName: "편지지 이름", Price: "30"},
-  {id: 10, NickName: "편지지 이름", Price: "30"},
-  {id: 11, NickName: "편지지 이름", Price: "30"},
-  {id: 12, NickName: "편지지 이름", Price: "30"},
-  {id: 13, NickName: "편지지 이름", Price: "30"},
-
-  {id: 14, NickName: "편지지 이름", Price: "30"},
-  {id: 15, NickName: "편지지 이름", Price: "30"},
-  {id: 16, NickName: "편지지 이름", Price: "30"},
-  {id: 17, NickName: "편지지 이름", Price: "30"},
-  {id: 18, NickName: "편지지 이름", Price: "30"},
-  {id: 19, NickName: "편지지 이름", Price: "30"},
-  {id: 20, NickName: "편지지 이름", Price: "30"},
-  {id: 21, NickName: "편지지 이름", Price: "30"},
-  {id: 22, NickName: "편지지 이름", Price: "30"},
-  {id: 23, NickName: "편지지 이름", Price: "30"},
-  {id: 24, NickName: "편지지 이름", Price: "30"},
-
-  {id: 25, NickName: "편지지 이름", Price: "30"},
+  {id: 1, NickName: "출석 체크"},
+  {id: 2, NickName: "기본은 인사부터!"},
+  {id: 3, NickName: "고민 해결!"},
+  {id: 4, NickName: "친구를 찾아보자"},
+  {id: 5, NickName: "행복한 순간을 기록하자"},
+  {id: 6, NickName: "상점 첫구매 이벤트!"},
+  {id: 7, NickName: "내가 만든 편지지"},
+  {id: 8, NickName: "나만의 우표"},
+  {id: 9, NickName: "고민이 생겼다면?"},
+  {id: 10, NickName: "도전! 친구찾기"},
+  {id: 11, NickName: "코인 쓰고 코인 받자"},
+  {id: 12, NickName: "내 우편함을 소개합니다"},
 ];
 
-//미션 
+//미션 제목
 const StoreMainDiv = styled.div`
   width: 1194px;
   height: 68px;
@@ -137,6 +125,73 @@ const TitleDetailText = styled.div`
   color: #757575;
 `;
 
+//탭1 내용 컨테이너
+const TabContentContainer = styled.div`
+  width: 1194px;
+  height: 1535px;
+  position: absolute;
+  left: 363px;
+  top: 320px;
+`;
+
+//미션 내용
+const MissionContainer = styled.div`
+  width: 1194px;
+  height: 1200px;
+  position: relative;
+`;
+
+const MissionBox = styled.div`
+  width: 1194px;
+  height: 255px;
+  position: absolute;
+`;
+
+const MissionInnerBox = styled.div`
+  width: 378px;
+  height: 255px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+`;
+
+const MissionBackground = styled.div`
+  width: 378px;
+  height: 255px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  background: #F6ECCF;
+`;
+
+const MissionText = styled.div`
+  width: 100%
+  height: 100%;
+  color: black;
+  font-size: 30px;
+  font-family: 'Pretendard';
+  font-weight: 500;
+  line-height: 30px; 
+  position: absolute;
+  top: 30px;
+`;
+
+const BigCircleImg = styled.img`
+  width: 120px;
+  height: 120px;
+  left: 129px;
+  top: 105px;
+  position: absolute;
+`;
+
+const ZeroStampImg= styled.img`
+  width: 275px;
+  height: 142px;
+  left: 52px;
+  top: 83px;
+  position: absolute;
+`;
+
 //페이징
 const PaginationContainer = styled.div`
   align-items: center;
@@ -185,7 +240,7 @@ const NextButtonImg = styled.img`
 export default function MissionMain() {
   const navigate = useNavigate();
 
-  const itemsPerPage = 9; // 한 페이지에 표시할 아이템 개수
+  const itemsPerPage = 12; // 한 페이지에 표시할 아이템 개수
   const totalPages = Math.ceil(dummyMission.length / itemsPerPage); // 전체 페이지 수
 
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
@@ -224,23 +279,38 @@ export default function MissionMain() {
         <TitleDetailText>미션을 통해 코인을 얻을 수 있어요!</TitleDetailText>
       </StoreMainDiv>
 
-
-      {/* 페이징 네비게이션 */}
-      <PaginationContainer>
-        <PageNumberContainer>
-          {Array.from({ length: totalPages }, (_, index) => (
-            <PageButton active={currentPage === index + 1} key={index + 1}>
-              <PageNumberText
-                active={currentPage === index + 1}
-                onClick={() => handlePageChange(index + 1)}
-              >
-              {index + 1}
-              </PageNumberText>
-            </PageButton>
+      <TabContentContainer>
+        <MissionContainer>
+          {dummyMission.slice(startIndex, endIndex).map((mission, index) => (
+            <MissionBox key={mission.id}>
+              <MissionInnerBox style={{ top: `${Math.floor(index / 3) * 314}px`, left: `${(index % 3) * 408}px` }}>
+                <MissionBackground />
+                <MissionText>
+                  {mission.NickName}
+                </MissionText>
+                <ZeroStampImg src={ZeroStamp} alt="0개 찍힌 스템프" />
+              </MissionInnerBox>
+            </MissionBox>
           ))}
-        </PageNumberContainer>
-        <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage} />
-      </PaginationContainer>
+        </MissionContainer>
+
+        {/* 페이징 네비게이션 */}
+        <PaginationContainer>
+          <PageNumberContainer>
+            {Array.from({ length: totalPages }, (_, index) => (
+              <PageButton active={currentPage === index + 1} key={index + 1}>
+                <PageNumberText
+                  active={currentPage === index + 1}
+                  onClick={() => handlePageChange(index + 1)}
+                >
+                {index + 1}
+                </PageNumberText>
+              </PageButton>
+            ))}
+          </PageNumberContainer>
+          <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage} />
+        </PaginationContainer>
+      </TabContentContainer>
     </div>
   )
 }
