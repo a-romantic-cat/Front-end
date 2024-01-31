@@ -8,11 +8,10 @@ import Footprint from '../../assets/img/발자국.svg';
 import MaskingTape from '../../assets/img/MaskingTape.svg';
 import 달력제목오른쪽 from '../../assets/img/달력제목오른쪽.svg';
 import 달력제목왼쪽 from '../../assets/img/달력제목왼쪽.svg';
-import DatePicker, { registerLocale } from 'react-datepicker'; //달력 기능 위해 react-datepicker 라이브러리 설치
+import DatePicker from 'react-datepicker'; //달력 기능 위해 react-datepicker 라이브러리 설치
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from 'date-fns/locale'; // 한국어 변경 위해 설치
 import { createGlobalStyle } from 'styled-components';
-import { format } from "date-fns";
 
 const SlowLetterboxContainer = styled.div`
   width: 60px;
@@ -176,6 +175,7 @@ const MaskingTapeImg = styled.img`
   position: absolute;
   top: -27px;
   left: 106px;
+  z-index: 1;
 `;
 
 const TextBoxWrapper = styled.div`
@@ -336,7 +336,6 @@ const GlobalStyles = createGlobalStyle`
 
 //react-datepicker
 const DatepickerComponent = ({ selected, onChange }) => {
-  const [startDate, setStartDate] = useState(new Date());
 
   const Header = styled.div`
     width: 133px;
@@ -390,6 +389,7 @@ const DatepickerComponent = ({ selected, onChange }) => {
           onChange={onChange} // SlowLetterboxToday에서 전달받은 onChange 함수를 사용
           inline
           locale={ko}
+          maxDate={new Date()}
           renderCustomHeader={({
             date,
             decreaseMonth,
@@ -418,7 +418,6 @@ export default function SlowLetterboxToday() {
   const [isOldWrapperVisible, setOldWrapperVisible] = React.useState(true);
   const [isNewWrapperVisible, setNewWrapperVisible] = React.useState(false);
   const [startDate, setStartDate] = useState(new Date());
-  const [isBlurBackgroundVisible, setBlurBackgroundVisible] = useState(false);
 
   const today = new Date(); // 오늘의 날짜를 가져옴
   const year = today.getFullYear(); // 연도
@@ -441,15 +440,22 @@ export default function SlowLetterboxToday() {
   };
   
   const handleDateChange = (date) => {
-    setStartDate(date);
-    if (date < today) {
-      // 오늘 날짜 이전을 선택한 경우
-      setBlurBackgroundVisible(true);
-    } else {
-      // 오늘 날짜 이후를 선택한 경우
-      setBlurBackgroundVisible(false);
-    }
-  };
+  setStartDate(date);
+
+  const selectedYear = date.getFullYear();
+  const selectedMonth = date.getMonth();
+  const selectedDate = date.getDate();
+
+  if (selectedYear < today.getFullYear() || 
+      (selectedYear === today.getFullYear() && selectedMonth < today.getMonth()) ||
+      (selectedYear === today.getFullYear() && selectedMonth === today.getMonth() && selectedDate < today.getDate())) {
+    // 오늘 날짜 이전을 선택한 경우
+    setNewWrapperVisible(true);
+  } else {
+    // 오늘 날짜 이후를 선택한 경우
+    setNewWrapperVisible(false);
+  }
+};
 
   return (
     <div>
@@ -507,12 +513,6 @@ export default function SlowLetterboxToday() {
         </Wrapper>
       )}
       <DatepickerComponent selected={startDate} onChange={handleDateChange} />
-
-      {isBlurBackgroundVisible && (
-        <Wrapper>
-          <BlurBackground />
-        </Wrapper>
-      )}
     </div>
   )
 }
