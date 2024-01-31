@@ -8,6 +8,7 @@ import Footprint from '../../assets/img/발자국.svg';
 import MaskingTape from '../../assets/img/MaskingTape.svg';
 import 달력제목오른쪽 from '../../assets/img/달력제목오른쪽.svg';
 import 달력제목왼쪽 from '../../assets/img/달력제목왼쪽.svg';
+import 달력발자국도장 from '../../assets/img/달력발자국도장.svg';
 import DatePicker from 'react-datepicker'; //달력 기능 위해 react-datepicker 라이브러리 설치
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from 'date-fns/locale'; // 한국어 변경 위해 설치
@@ -226,6 +227,20 @@ const BlurBackground = styled.div`
   position: absolute;
 `;
 
+const BlurText = styled.div`
+  width: 228px;
+  height: 134px;
+  position: absolute;
+  left: 81px;
+  top: 155px;
+  text-align: center;
+  color: white;
+  font-size: 22px;
+  font-family: 'Gowun Dodum';
+  font-weight: 400; 
+  word-wrap: break-word;
+`;
+
 //달력 관련 스타일
 const GlobalStyles = createGlobalStyle`
   & .react-datepicker__current-month,
@@ -335,7 +350,7 @@ const GlobalStyles = createGlobalStyle`
 
 
 //react-datepicker
-const DatepickerComponent = ({ selected, onChange }) => {
+const DatepickerComponent = ({ selected, onChange, markedDates }) => {
 
   const Header = styled.div`
     width: 133px;
@@ -380,6 +395,10 @@ const DatepickerComponent = ({ selected, onChange }) => {
     cursor: pointer;
   `;
 
+  const CalendarStampImg = styled.img`
+    width: 48px;
+    height: 48px;
+  `;
 
   return (
     <div>
@@ -390,6 +409,20 @@ const DatepickerComponent = ({ selected, onChange }) => {
           inline
           locale={ko}
           maxDate={new Date()}
+
+          renderDayContents={(day, date) => {
+            // markedDates 배열에서 년, 월, 일 모두 비교
+            if (markedDates.some(markDate => 
+              markDate.getFullYear() === date.getFullYear() &&
+              markDate.getMonth() === date.getMonth() &&
+              markDate.getDate() === date.getDate()
+            )) {
+              return (<CalendarStampImg src={달력발자국도장} alt="mark" />);
+            } else {
+              return day;
+            }
+          }}
+
           renderCustomHeader={({
             date,
             decreaseMonth,
@@ -428,34 +461,56 @@ export default function SlowLetterboxToday() {
     setIsEditMode(true); // 편집 모드 활성화
   };
 
-  const handleRedBoxClick = () => {
-    setIsEditMode(false); // 편집 모드 종료
-    // 기존 Wrapper를 숨기고 새로운 Wrapper를 보이게 합니다.
-    setOldWrapperVisible(false);
-    setNewWrapperVisible(true);
-  };
+  // 등록된 날짜를 저장하는 상태
+const [markedDates, setMarkedDates] = useState([]);
+
+// '등록하기' 버튼을 클릭했을 때 호출되는 함수
+const handleRedBoxClick = () => {
+  setIsEditMode(false); // 편집 모드를 종료
+
+  // 기존 Wrapper를 숨기고 새로운 Wrapper를 보이게 합니다.
+  setOldWrapperVisible(false);
+  setNewWrapperVisible(true);
+
+  // 현재 선택된 날짜를 markedDates 상태에 추가합니다.
+  // spread 연산자(...)를 사용하여 기존 배열에 새로운 요소를 추가
+  setMarkedDates([...markedDates, startDate]);
+};
 
   const handleTextBoxChange = (e) => {
     setTextBoxValue(e.target.value); // TextBox의 값 변경
   };
   
+  // DatePicker에서 날짜를 선택했을 때 호출되는 함수
   const handleDateChange = (date) => {
-  setStartDate(date);
+    setStartDate(date);
+    // 단순히 startDate 상태만 업데이트하고, 선택된 날짜는 업데이트하지 않음
 
-  const selectedYear = date.getFullYear();
-  const selectedMonth = date.getMonth();
-  const selectedDate = date.getDate();
+    const selectedYear = date.getFullYear();
+    const selectedMonth = date.getMonth();
+    const selectedDate = date.getDate();
 
-  if (selectedYear < today.getFullYear() || 
-      (selectedYear === today.getFullYear() && selectedMonth < today.getMonth()) ||
-      (selectedYear === today.getFullYear() && selectedMonth === today.getMonth() && selectedDate < today.getDate())) {
-    // 오늘 날짜 이전을 선택한 경우
-    setNewWrapperVisible(true);
-  } else {
-    // 오늘 날짜 이후를 선택한 경우
-    setNewWrapperVisible(false);
-  }
+    if (selectedYear < today.getFullYear() || 
+        (selectedYear === today.getFullYear() && selectedMonth < today.getMonth()) ||
+        (selectedYear === today.getFullYear() && selectedMonth === today.getMonth() && selectedDate < today.getDate())) {
+      // 오늘 날짜 이전을 선택한 경우
+      setNewWrapperVisible(true);
+    } else {
+      // 오늘 날짜 이후를 선택한 경우
+      setNewWrapperVisible(false);
+    }
 };
+
+const getLastWeekStartDate = (year) => {
+  // 해당 연도의 마지막 날짜를 구합니다.
+  let lastDayOfYear = new Date(year, 11, 31);
+
+  // 해당 연도의 마지막 날짜가 속한 주의 첫 번째 날짜를 구합니다.
+  let dayOfWeek = lastDayOfYear.getDay();
+  let lastWeekStartDate = new Date(lastDayOfYear.setDate(31 - dayOfWeek));
+
+  return lastWeekStartDate;
+}
 
   return (
     <div>
@@ -508,11 +563,15 @@ export default function SlowLetterboxToday() {
       )}
       {isNewWrapperVisible && (
         <Wrapper>
-          <BlurBackground />
+          <BlurBackground>
+            <BlurText>
+              {`${getLastWeekStartDate(2024).getFullYear()}년 ${getLastWeekStartDate(2024).getMonth() + 1}월 ${getLastWeekStartDate(2024).getDate()}일부터 확인할 수 있어요.`}
+            </BlurText>
+          </BlurBackground>
           <MaskingTapeImg src={MaskingTape} alt='MaskingTape' />
         </Wrapper>
       )}
-      <DatepickerComponent selected={startDate} onChange={handleDateChange} />
+      <DatepickerComponent selected={startDate} onChange={handleDateChange} markedDates={markedDates} setMarkedDates={setMarkedDates}/>
     </div>
   )
 }
