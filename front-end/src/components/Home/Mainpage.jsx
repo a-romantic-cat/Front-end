@@ -29,6 +29,7 @@ const Container3 = styled.div`
   background: #0D131B;
   width: 1920px;
   height: 1080px;
+  display: flex; //글씨 그림 가로배치
 `;
 
 //화면4
@@ -259,6 +260,94 @@ const TextRight = styled.div`
 
 /////////////// 화면3 요소들 ///////////////
 
+// /낭만 /익명 /응원
+const Slash = styled.div`
+  width: 223px;
+  height: 219px;
+  margin: 160px 0 0 363px;
+  display: flex;
+  flex-direction: column;
+`;
+
+// /낭만_우편함
+const Slash1 = styled.div`
+  width: 223px;
+  height: 119.333333px;
+  color: #FFF;
+  font-family: 'Pretendard';
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
+// 익명응원컨테이너
+const Slash2 = styled.div`
+  width: 223px;
+  height: 99.666667px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+// 익명응원 각각
+const Slash3 = styled.div`
+  width: 223px;
+  height: 40px;
+  color: #FFF;
+  font-family: 'Pretendard';
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
+// 사진이랑 글자들 컨테이너
+const PicAndText = styled.div`
+  width: 786px;
+  height: 614px;
+  margin: 269px 0 0 185px;
+`;
+
+// 밤하늘 사진
+const DarkSky = styled.div`
+  background-image: url("/images/밤하늘.svg");
+  width: 786px;
+  height: 315px;
+`;
+
+// -잠 -머 -나 컨테이너
+const Text1 = styled.div`
+  width: 205px;
+  height: 72px;
+  margin: 140px 0 0 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+// -다 -힘 -그 컨테이너
+const Text2 = styled.div`
+  width: 307px;
+  height: 72px;
+  margin: 51px 0 0 407px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+// 글씨 한 줄
+const Text3 = styled.div`
+  height: 18px;
+  color: #FFF;
+  font-family: "Gowun Dodum";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%; /* 18px */
+  letter-spacing: -0.2px;
+`;
+
 /////////////// 화면4 요소들 ///////////////
 
 //내 우편함 가기 버튼
@@ -365,7 +454,6 @@ export default function Mainpage() {
             <TwoArrow>
             </TwoArrow>
           </Centercontainer>
-          
         </Container1>
 
         <Container2>
@@ -383,11 +471,49 @@ export default function Mainpage() {
               낭만고양이에 손편지의 감성을 그대로 담았어요. 다양한 편지지와 우표로 개성있는 편지를 꾸며보세요.
             </TextRight>
           </Right>
-          
         </Container2>
 
         <Container3>
+          <Slash>
+            <Slash1>
+              /낭만_우편함
+            </Slash1>
+            <Slash2>
+              <Slash3>
+                /익명의누군가
+              </Slash3>
+              <Slash3>
+                /응원위로공감
+              </Slash3>
+            </Slash2>
+          </Slash>
 
+          <PicAndText>
+            <DarkSky>
+            </DarkSky>
+            <Text1>
+              <Text3>
+                - 잠이 오지 않아.
+              </Text3>
+              <Text3>
+                - 머릿속이 걱정으로 가득해.
+              </Text3>
+              <Text3>
+                - 나 정말 괜찮은 걸까?
+              </Text3>
+            </Text1>
+            <Text2>
+              <Text3>
+                - 다 괜찮아.
+              </Text3>
+              <Text3>
+                - 힘들었던 일 다 잊고 평안한 밤을 보내길.
+              </Text3>
+              <Text3>
+                - 그럼, 안녕히!
+              </Text3>
+            </Text2>
+          </PicAndText>
         </Container3>
 
         <Container4>
