@@ -7,7 +7,6 @@ import Footer from '../Footer/Footer';
 
 //화면1
 const Container1 = styled.div`
-  //background-image: url("/images/홈1.svg");
   background: #FFFEF8;
   width: 1920px;
   height: 1754px;
@@ -15,7 +14,6 @@ const Container1 = styled.div`
 
 //화면2
 const Container2 = styled.div`
-  //background-image: url("/images/홈2.svg");
   background: #FFFEF8;
   width: 1920px;
   height: 1080px;
@@ -25,7 +23,6 @@ const Container2 = styled.div`
 
 //화면3
 const Container3 = styled.div`
-  //background-image: url("/images/홈3.svg");
   background: #0D131B;
   width: 1920px;
   height: 1080px;
@@ -34,13 +31,11 @@ const Container3 = styled.div`
 
 //화면4
 const Container4 = styled.div`
-  //background-image: url("/images/홈4.svg");
   background: #FFFEF8;
   width: 1920px;
   height: 1080px;
   overflow: auto; //내 우편함 가기 버튼 margin-top오류
 `;
-
 
 
 /////////////// 화면1 요소들 ///////////////
@@ -148,9 +143,6 @@ const Centercontainer = styled.div`
   width: 472px;
   height: 1215.03208px;
   margin: 0 0 0 724px;
-  //display: flex;
-  //flex-direction: column;
-  //justify-content: center;
 `;
 
 //낭만고양이 글씨
@@ -258,6 +250,7 @@ const TextRight = styled.div`
   margin-top: 290px;
 `;
 
+
 /////////////// 화면3 요소들 ///////////////
 
 // /낭만 /익명 /응원
@@ -350,6 +343,68 @@ const Text3 = styled.div`
 
 /////////////// 화면4 요소들 ///////////////
 
+//행복한 순간을 글로 잇 - 다
+const TextCoatainer = styled.div`
+  width: 738px;
+  height: 97px;
+  display: flex;
+  margin: 136px 0 0 591px;
+`;
+
+//행복한 순간을 글로 잇
+const HappyMoment = styled.div`
+  width: 382px;
+  height: 97px;
+
+  color: #000;
+  font-family: Pretendard;
+  font-size: 45px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%; /* 45px */
+`;
+
+// -
+const RedLine = styled.div`
+  background: #C90000;
+  width: 244px;
+  height: 3px;
+  margin-left: 30px;
+  //margin-top: 27px; //임시
+  margin-top: 19.5px; //임시
+`;
+
+// 다.
+const Da = styled.div`
+  width: 52px;
+  height: 45px;
+  margin-left: 30px;
+  margin-top: 52px;
+
+  color: #000;
+  font-family: Pretendard;
+  font-size: 45px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%; /* 45px */
+`;
+
+// 천천히 온 것은 ~
+const SmallTextContainer = styled.div`
+  width: 782px;
+  height: 337px;
+  margin: 140px 0 0 569px;
+
+  color: #000;
+  font-family: "Gowun Dodum";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%; /* 18px */
+  letter-spacing: -0.2px;
+  line-height: 29px; //11(간격) + 18(폰트 크기)
+`;
+
 //내 우편함 가기 버튼
 const Button = styled.div`
   display: flex;
@@ -358,7 +413,7 @@ const Button = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin: 883px 0 0 837px;
+  margin: 173px 0 0 837px;
   border-radius: 10px;
   background: var(--Red-Light, #C90000);
   cursor: pointer;
@@ -491,6 +546,7 @@ export default function Mainpage() {
           <PicAndText>
             <DarkSky>
             </DarkSky>
+
             <Text1>
               <Text3>
                 - 잠이 오지 않아.
@@ -502,6 +558,7 @@ export default function Mainpage() {
                 - 나 정말 괜찮은 걸까?
               </Text3>
             </Text1>
+
             <Text2>
               <Text3>
                 - 다 괜찮아.
@@ -517,6 +574,34 @@ export default function Mainpage() {
         </Container3>
 
         <Container4>
+          <TextCoatainer>
+            <HappyMoment>
+              행복한 순간을 글로 잇
+            </HappyMoment>
+
+            <RedLine>
+            </RedLine>
+
+            <Da>
+              다.
+            </Da>
+          </TextCoatainer>
+
+          <SmallTextContainer>
+            천천히 온 것은 마음에 더 오래 남습니다.<br />
+            느린 우편함에 매일 나를 위한 편지를 적어보세요.<br />
+            모든 편지는 올해의 마지막 주에 확인할 수 있어요.<br />
+            일 년 동안 다양한 감정을 느끼고 발견하며, 어린 나로부터 무한한 응원, 위로와 공감을 얻을 수 있을 거예요.<br />
+            ﾠ<br />
+            "하나의 세계와 그 안에서 개인이 한 역할을 이렇듯 직접적이고, 이렇듯 강렬하고, 이렇듯 솔직하게 그리고<br />
+            이렇듯 매력적으로 되살릴 방법이 달리 무엇일까? 오직 편지만이 할 수 있는 일이다."<br />
+            - Simon Garfield<br />
+            ﾠ<br />
+            ﾠ<br />
+            ﾠ<br />
+            자 이제, 편지를 쓰러 가볼까요?
+          </SmallTextContainer>
+
           <Button onClick={navigateToMyBoxMain}>
             <ArrowAndText>
               <GotoMyLetter>
