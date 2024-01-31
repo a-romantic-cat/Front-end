@@ -333,6 +333,12 @@ const GlobalStyles = createGlobalStyle`
   .react-datepicker__day--selected {
     background-color: rgba(243, 231, 231, 0.70) !important;
     border-radius: 9999px;
+}
+
+  .react-datepicker__day--keyboard-selected{
+    background-color: transparent !important;
+    color: inherit !important;
+    border: none !important;
   }
 
   .react-datepicker__day:hover {
