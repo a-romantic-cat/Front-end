@@ -9,22 +9,23 @@ import Coin from '../../assets/img/코인.svg';
 import 다음버튼 from '../../assets/img/다음버튼.svg';
 import SingleStamp from '../../assets/img/SingleStamp.svg';
 import MultiStamp from '../../assets/img/MultiStamp.svg';
+import WhiteCoin from '../../assets/img/WhiteCoin.svg';
 
 
 //미션 데이터
 const dummyMission = [
-  {id: 1, NickName: "출석 체크", stampLimit: 1, isEveryday: true},
-  {id: 2, NickName: "기본은 인사부터!", stampLimit: 5, isEveryday: true},
-  {id: 3, NickName: "고민 해결!", stampLimit: 5, isEveryday: true},
-  {id: 4, NickName: "친구를 찾아보자", stampLimit: 1, isEveryday: false},
-  {id: 5, NickName: "행복한 순간을 기록하자", stampLimit: 5, isEveryday: false},
-  {id: 6, NickName: "상점 첫구매 이벤트!", stampLimit: 1, isEveryday: false},
-  {id: 7, NickName: "내가 만든 편지지", stampLimit: 5, isEveryday: false},
-  {id: 8, NickName: "나만의 우표", stampLimit: 5, isEveryday: false},
-  {id: 9, NickName: "고민이 생겼다면?", stampLimit: 5, isEveryday: false},
-  {id: 10, NickName: "도전! 친구찾기", stampLimit: 5, isEveryday: false},
-  {id: 11, NickName: "코인 쓰고 코인 받자", stampLimit: 5, isEveryday: false},
-  {id: 12, NickName: "내 우편함을 소개합니다", stampLimit: 1, isEveryday: false},
+  {id: 1, NickName: "출석 체크", stampLimit: 1, isEveryday: true, detail: "오늘의 로그인 코인을 획득하세요.", price: 5},
+  {id: 2, NickName: "기본은 인사부터!", stampLimit: 5, isEveryday: true, detail: "친구의 우편함에 방문해 편지를 작성하세요.", price: 5},
+  {id: 3, NickName: "고민 해결!", stampLimit: 5, isEveryday: true, detail: "낭만 우편함에서 답장을 적어주세요.", price: 5},
+  {id: 4, NickName: "친구를 찾아보자", stampLimit: 1, isEveryday: false, detail: "친구를 1명 이상 추가해보세요.", price: 5},
+  {id: 5, NickName: "행복한 순간을 기록하자", stampLimit: 5, isEveryday: false, detail: "느린 우편함에서 나를 위한 편지를 적어보세요.", price: 5},
+  {id: 6, NickName: "상점 첫구매 이벤트!", stampLimit: 1, isEveryday: false, detail: "상점에서 무엇이든 구매하세요.", price: 5},
+  {id: 7, NickName: "내가 만든 편지지", stampLimit: 5, isEveryday: false, detail: "마이디자인에서 편지지를 등록해보세요.", price: 5},
+  {id: 8, NickName: "나만의 우표", stampLimit: 5, isEveryday: false, detail: "마이디자인에서 우표를 등록해보세요.", price: 5},
+  {id: 9, NickName: "고민이 생겼다면?", stampLimit: 5, isEveryday: false, detail: "낭만 우편함에서 편지를 작성하세요.", price: 5},
+  {id: 10, NickName: "도전! 친구찾기", stampLimit: 5, isEveryday: false, detail: "친구를 찾아 주소록을 채워보세요.", price: 5},
+  {id: 11, NickName: "코인 쓰고 코인 받자", stampLimit: 5, isEveryday: false, detail: "상점에서 무엇이든 구매하세요.", price: 5},
+  {id: 12, NickName: "내 우편함을 소개합니다", stampLimit: 1, isEveryday: false, detail: "내 우편함 링크를 공유해보세요.", price: 5},
 ];
 
 //미션 제목
@@ -150,9 +151,7 @@ const MissionBox = styled.div`
 const MissionInnerBox = styled.div`
   width: 378px;
   height: 255px;
-  position: absolute;
-  display: flex;
-  justify-content: center;
+  position: relative;
 `;
 
 const MissionBackground = styled.div`
@@ -162,8 +161,12 @@ const MissionBackground = styled.div`
   top: 0;
   position: absolute;
   background: #F6ECCF;
+  cursor: pointer;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15); 
   border-radius: 10px;
+  backface-visibility: hidden;
+  cursor: pointer;
+  z-index: 2;
 `;
 
 const MissionText = styled.div`
@@ -203,7 +206,6 @@ const EverydayContainer = styled.div`
   position: absolute;
   left: 320px;
   top: 10px;
-  z-index: 1;
 `;
 
 const EverydayText = styled.div`
@@ -212,6 +214,79 @@ const EverydayText = styled.div`
   font-family: 'Pretendard';
   font-weight: 500;
   line-height: 14px; 
+  word-wrap: break-word;
+`;
+
+//미션 상세 페이지
+const MissionFlipContainer = styled.div`
+  width: 378px;
+  height: 255px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+  z-index: 3;
+
+  &:hover {
+    transform: rotateY(180deg);
+  }
+`;
+
+const DetailBackground = styled.div`
+  width: 316px;
+  height: 195px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  border-radius: 10px;
+  padding: 30px 31px;
+  background: #4F4A48;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end';
+  gap: 87px;
+  display: inline-flex;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+  z-index: 1;
+`;
+
+const MissionDetailText = styled.div`
+  width: 316px;
+  color: white;
+  font-size: 30px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  line-height: 42px;
+  word-wrap: break-word;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+const DetailPriceContainer = styled.div`
+  align-self: stretch;
+  justify-content: flex-start;
+  align-items: flex-start; 
+  gap: 8px;
+  display: inline-flex;
+`;
+
+const WhiteCoinImg = styled.img`
+  width: 26.24px;
+  height: 24px;
+`;
+
+const DetailPriceText = styled.div`
+  color: white;
+  font-size: 24px;
+  font-family: 'Pretendard';
+  font-weight: 600;
+  line-height: 24px;
   word-wrap: break-word;
 `;
 
@@ -289,7 +364,7 @@ export default function MissionMain() {
             <CollectionBoxImg src={수집함} alt='수집함' />
             <TextDiv>수집함</TextDiv>
           </ItemDiv>
-          <ItemDiv>
+          <ItemDiv onClick={() => navigate('/Store')}>
             <StoreImg src={상점} alt='상점' />
             <TextDiv>상점</TextDiv>
           </ItemDiv>
@@ -319,16 +394,26 @@ export default function MissionMain() {
             return (
               <MissionBox key={mission.id}>
                 <MissionInnerBox style={{ top: `${Math.floor(index / 3) * 314}px`, left: `${(index % 3) * 408}px` }}>
-                  <MissionBackground />
-                  <MissionText>
-                    {mission.NickName}
-                  </MissionText>
-                  {mission.isEveryday && 
-                    <EverydayContainer>
-                      <EverydayText>매일+</EverydayText>
-                    </EverydayContainer>
-                  }
-                  <StampComponent src={stampImgSrc} alt={stampImgAlt} />
+                  <MissionFlipContainer>
+                    <MissionBackground>
+                      <MissionText>
+                        {mission.NickName}
+                      </MissionText>
+                      {mission.isEveryday && 
+                        <EverydayContainer>
+                          <EverydayText>매일+</EverydayText>
+                        </EverydayContainer>
+                      }
+                      <StampComponent src={stampImgSrc} alt={stampImgAlt} />
+                    </MissionBackground>
+                    <DetailBackground>
+                      <MissionDetailText>{mission.detail}</MissionDetailText>
+                      <DetailPriceContainer>
+                        <WhiteCoinImg src={WhiteCoin} alt='미션 상세정보에서의 코인이미지' />
+                        <DetailPriceText>{mission.price}</DetailPriceText>
+                      </DetailPriceContainer>
+                    </DetailBackground>
+                  </MissionFlipContainer>
                 </MissionInnerBox>
               </MissionBox>
             );

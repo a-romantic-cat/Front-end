@@ -266,6 +266,8 @@ const LetterBackground = styled.div`
   top: 0;
   position: absolute;
   background: #CECECE;
+  cursor: pointer;
+  z-index: 1;
 `;
 
 const LetterTextWrapper = styled.div`
@@ -316,6 +318,8 @@ const StampBackground = styled.div`
   top: 0;
   position: absolute;
   background: #CECECE;
+  cursor: pointer;
+  z-index: 1;
 `;
 
 const StampTextWrapper = styled.div`
