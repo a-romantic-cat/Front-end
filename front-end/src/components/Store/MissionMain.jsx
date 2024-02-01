@@ -7,24 +7,24 @@ import 수집함 from '../../assets/img/수집함.svg';
 import 상점 from '../../assets/img/상점.svg';
 import Coin from '../../assets/img/코인.svg';
 import 다음버튼 from '../../assets/img/다음버튼.svg';
-import BigCircle from '../../assets/img/BigCircle.svg';
-import ZeroStamp from '../../assets/img/ZeroStamp.svg';
+import SingleStamp from '../../assets/img/SingleStamp.svg';
+import MultiStamp from '../../assets/img/MultiStamp.svg';
 
 
 //미션 데이터
 const dummyMission = [
-  {id: 1, NickName: "출석 체크"},
-  {id: 2, NickName: "기본은 인사부터!"},
-  {id: 3, NickName: "고민 해결!"},
-  {id: 4, NickName: "친구를 찾아보자"},
-  {id: 5, NickName: "행복한 순간을 기록하자"},
-  {id: 6, NickName: "상점 첫구매 이벤트!"},
-  {id: 7, NickName: "내가 만든 편지지"},
-  {id: 8, NickName: "나만의 우표"},
-  {id: 9, NickName: "고민이 생겼다면?"},
-  {id: 10, NickName: "도전! 친구찾기"},
-  {id: 11, NickName: "코인 쓰고 코인 받자"},
-  {id: 12, NickName: "내 우편함을 소개합니다"},
+  {id: 1, NickName: "출석 체크", stampLimit: 1, isEveryday: true},
+  {id: 2, NickName: "기본은 인사부터!", stampLimit: 5, isEveryday: true},
+  {id: 3, NickName: "고민 해결!", stampLimit: 5, isEveryday: true},
+  {id: 4, NickName: "친구를 찾아보자", stampLimit: 1, isEveryday: false},
+  {id: 5, NickName: "행복한 순간을 기록하자", stampLimit: 5, isEveryday: false},
+  {id: 6, NickName: "상점 첫구매 이벤트!", stampLimit: 1, isEveryday: false},
+  {id: 7, NickName: "내가 만든 편지지", stampLimit: 5, isEveryday: false},
+  {id: 8, NickName: "나만의 우표", stampLimit: 5, isEveryday: false},
+  {id: 9, NickName: "고민이 생겼다면?", stampLimit: 5, isEveryday: false},
+  {id: 10, NickName: "도전! 친구찾기", stampLimit: 5, isEveryday: false},
+  {id: 11, NickName: "코인 쓰고 코인 받자", stampLimit: 5, isEveryday: false},
+  {id: 12, NickName: "내 우편함을 소개합니다", stampLimit: 1, isEveryday: false},
 ];
 
 //미션 제목
@@ -125,7 +125,7 @@ const TitleDetailText = styled.div`
   color: #757575;
 `;
 
-//탭1 내용 컨테이너
+//탭 내용 컨테이너
 const TabContentContainer = styled.div`
   width: 1194px;
   height: 1535px;
@@ -162,6 +162,8 @@ const MissionBackground = styled.div`
   top: 0;
   position: absolute;
   background: #F6ECCF;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15); 
+  border-radius: 10px;
 `;
 
 const MissionText = styled.div`
@@ -176,7 +178,7 @@ const MissionText = styled.div`
   top: 30px;
 `;
 
-const BigCircleImg = styled.img`
+const SingleStampImg = styled.img`
   width: 120px;
   height: 120px;
   left: 129px;
@@ -184,12 +186,33 @@ const BigCircleImg = styled.img`
   position: absolute;
 `;
 
-const ZeroStampImg= styled.img`
+const MultiStampImg= styled.img`
   width: 275px;
   height: 142px;
   left: 52px;
   top: 83px;
   position: absolute;
+`;
+
+const EverydayContainer = styled.div`
+  width: 34px;
+  height: 14px;
+  padding: 5px 7px; 
+  background: #C3E0F5;
+  border-radius: 10px;
+  position: absolute;
+  left: 320px;
+  top: 10px;
+  z-index: 1;
+`;
+
+const EverydayText = styled.div`
+  color: black;
+  font-size: 14px;
+  font-family: 'Pretendard';
+  font-weight: 500;
+  line-height: 14px; 
+  word-wrap: break-word;
 `;
 
 //페이징
@@ -281,17 +304,35 @@ export default function MissionMain() {
 
       <TabContentContainer>
         <MissionContainer>
-          {dummyMission.slice(startIndex, endIndex).map((mission, index) => (
-            <MissionBox key={mission.id}>
-              <MissionInnerBox style={{ top: `${Math.floor(index / 3) * 314}px`, left: `${(index % 3) * 408}px` }}>
-                <MissionBackground />
-                <MissionText>
-                  {mission.NickName}
-                </MissionText>
-                <ZeroStampImg src={ZeroStamp} alt="0개 찍힌 스템프" />
-              </MissionInnerBox>
-            </MissionBox>
-          ))}
+          {dummyMission.slice(startIndex, endIndex).map((mission, index) => {
+            let StampComponent, stampImgSrc, stampImgAlt;
+            if (mission.stampLimit === 1) {
+              StampComponent = SingleStampImg; // 도장이 하나만 찍히는 이미지 컴포넌트
+              stampImgSrc = SingleStamp; // 도장이 하나만 찍히는 이미지의 경로
+              stampImgAlt = "하나의 도장";
+            } else if (mission.stampLimit === 5) {
+              StampComponent = MultiStampImg; // 도장이 최대 5개까지 찍히는 이미지 컴포넌트
+              stampImgSrc = MultiStamp; // 도장이 최대 5개까지 찍히는 이미지의 경로
+              stampImgAlt = "최대 5개의 도장";
+            }
+
+            return (
+              <MissionBox key={mission.id}>
+                <MissionInnerBox style={{ top: `${Math.floor(index / 3) * 314}px`, left: `${(index % 3) * 408}px` }}>
+                  <MissionBackground />
+                  <MissionText>
+                    {mission.NickName}
+                  </MissionText>
+                  {mission.isEveryday && 
+                    <EverydayContainer>
+                      <EverydayText>매일+</EverydayText>
+                    </EverydayContainer>
+                  }
+                  <StampComponent src={stampImgSrc} alt={stampImgAlt} />
+                </MissionInnerBox>
+              </MissionBox>
+            );
+          })}
         </MissionContainer>
 
         {/* 페이징 네비게이션 */}
