@@ -180,7 +180,6 @@ const MissionText = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
   top: 30px;
 `;
 
@@ -230,6 +229,7 @@ const MissionFlipContainer = styled.div`
   perspective: 1000px;
   transform-style: preserve-3d;
   transition: transform 0.5s;
+  cursor: pointer;
   z-index: 3;
 
   &:hover {
@@ -247,28 +247,21 @@ const DetailBackground = styled.div`
   padding: 30px 31px;
   background: #4F4A48;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
-  overflow: hidden;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-end';
-  gap: 87px;
-  display: inline-flex;
+  display: flex;
   backface-visibility: hidden;
   transform: rotateY(180deg);
   z-index: 1;
 `;
 
 const MissionDetailText = styled.div`
-  width: 316px;
+  width: 100%;
   color: white;
   font-size: 30px;
   font-family: 'Pretendard';
   font-weight: 400;
   line-height: 42px;
   word-wrap: break-word;
-  position: absolute;
-  top: 0;
-  left: 0;
 `;
 
 const DetailPriceContainer = styled.div`
@@ -277,6 +270,9 @@ const DetailPriceContainer = styled.div`
   align-items: flex-start; 
   gap: 8px;
   display: inline-flex;
+  position: absolute;
+  bottom: 30px;
+  right: 31px;
 `;
 
 const WhiteCoinImg = styled.img`
