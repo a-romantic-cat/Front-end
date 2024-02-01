@@ -151,7 +151,7 @@ const MissionBox = styled.div`
 const MissionInnerBox = styled.div`
   width: 378px;
   height: 255px;
-  position: relative;
+  position: absolute;
 `;
 
 const MissionBackground = styled.div`
@@ -177,7 +177,10 @@ const MissionText = styled.div`
   font-family: 'Pretendard';
   font-weight: 500;
   line-height: 30px; 
-  position: absolute;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 30px;
 `;
 
