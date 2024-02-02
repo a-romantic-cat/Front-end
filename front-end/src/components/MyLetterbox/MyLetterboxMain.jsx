@@ -341,60 +341,71 @@ export default function MyLetterboxMain() {
     );
   }
   */}
+  
+  const DdayTimer = () => {
+    const setDate = new Date('2024-05-04T15:00:00Z');
+    const now = new Date();
 
-  const RemainingTime = () => {
-    const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0 });
-    const targetTime = new Date('2024-05-04T15:00:00Z'); // 'YYYY-MM-DDTHH:mm:ssZ' 형식으로 날짜 입력
+    const dis = setDate.getTime() - now.getTime();
+    const min1 = 1000 * 60;
+
+    const [day, setDay] = useState(Math.floor(dis / (min1 * 60 * 24)));
+    const [hour, setHour] = useState(Math.floor((dis % (min1 * 60 * 24)) / (min1 * 60)));
+    const [minutes, setMinutes] = useState(Math.floor((dis % (min1 * 60)) / min1));
 
     useEffect(() => {
-      const intervalId = setInterval(() => {
-        const currentTime = new Date();
-        const remainingTime = targetTime - currentTime;
+      const countdown = setInterval(() => {
+        if (parseInt(minutes) === 0) {
+          if (parseInt(hour) === 0) {
+            if (parseInt(day) === 0) {
+              clearInterval(countdown)
+            } else {
+              setDay(parseInt(day) - 1)
+              setHour(23)
+              setMinutes(59)
+            } 
+          } else {
+            setHour(parseInt(hour) - 1)
+            setMinutes(59)
+          }
+        }
+      }, 1000)
+      return() => clearInterval(countdown)
+    }, [day, hour, minutes])
 
-        const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+    const formattedDays = String(day).padStart(2, '0');
+    const formattedHours = String(hour).padStart(2, '0');
+    const formattedMinutes = String(minutes).padStart(2, '0');
 
-        setTime({ days, hours, minutes });
-      }, 1000);
-
-      return () => clearInterval(intervalId); // 컴포넌트가 언마운트될 때 인터벌을 정리
-    }, [targetTime]);
-
-    const formattedDays = String(time.days).padStart(2, '0');
-    const formattedHours = String(time.hours).padStart(2, '0');
-    const formattedMinutes = String(time.minutes).padStart(2, '0');
-  
     return (
       <Wrapper>
-        <DaysContainer>
-          <DaysLabel>Days</DaysLabel>
-          <DaysValueContainer>
-            <StyledValue left={0}>{formattedDays[0]}</StyledValue>
-            <StyledValue left={31}>{formattedDays[1]}</StyledValue>
-          </DaysValueContainer>
-        </DaysContainer>
-        <HoursSeparator>:</HoursSeparator>
-        <HoursContainer>
-          <HoursLabel>Hours</HoursLabel>
-          <TimeValueContainer>
-            <StyledValue left={0}>{formattedHours[0]}</StyledValue>
-            <StyledValue left={31}>{formattedHours[1]}</StyledValue>
-          </TimeValueContainer>
-        </HoursContainer>
-        <MinutesSeparator>:</MinutesSeparator>
-        <MinutesContainer>
-          <MinutesLabel>Minutes</MinutesLabel>
-          <TimeValueContainer>
-            <StyledValue left={0}>{formattedMinutes[0]}</StyledValue>
-            <StyledValue left={30}>{formattedMinutes[1]}</StyledValue>
-          </TimeValueContainer>
-        </MinutesContainer>
+      <DaysContainer>
+        <DaysLabel>Days</DaysLabel>
+        <DaysValueContainer>
+          <StyledValue left={0}>{formattedDays[0]}</StyledValue>
+          <StyledValue left={31}>{formattedDays[1]}</StyledValue>
+        </DaysValueContainer>
+      </DaysContainer>
+      <HoursSeparator>:</HoursSeparator>
+      <HoursContainer>
+        <HoursLabel>Hours</HoursLabel>
+        <TimeValueContainer>
+          <StyledValue left={0}>{formattedHours[0]}</StyledValue>
+          <StyledValue left={31}>{formattedHours[1]}</StyledValue>
+        </TimeValueContainer>
+      </HoursContainer>
+      <MinutesSeparator>:</MinutesSeparator>
+      <MinutesContainer>
+        <MinutesLabel>Minutes</MinutesLabel>
+        <TimeValueContainer>
+          <StyledValue left={0}>{formattedMinutes[0]}</StyledValue>
+          <StyledValue left={30}>{formattedMinutes[1]}</StyledValue>
+        </TimeValueContainer>
+      </MinutesContainer>
       </Wrapper>
     );
-  };
+  } 
   
-
   return (
     <div>
       <Header />
@@ -411,7 +422,7 @@ export default function MyLetterboxMain() {
 
       <Notice>편지가 도착했어요. 우편함을 확인해보세요!</Notice>
 
-      <RemainingTime />
+      <DdayTimer />
 
       <LetterboxImg src={Letterbox} alt='letterbox' />
       <CatImg src={Cat} alt='cat' onClick={navigateToOpenLetter1} />
