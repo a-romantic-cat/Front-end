@@ -295,6 +295,31 @@ const DetailPriceText = styled.div`
   word-wrap: break-word;
 `;
 
+//미션 완료시 뜨는 background
+const CompletedBackground = styled.div`
+  width: 249px;
+  height: 128px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  border-radius: 10px;
+  padding: 30px 31px;
+  background: #4F4A48;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
+  flex-direction: column;
+  z-index: 1;
+  backface-visibility: hidden;
+
+  padding-top: 64px; 
+  padding-bottom: 63px; 
+  padding-left: 65px; 
+  padding-right: 64px;
+  justify-content: center;
+  align-items: center; 
+  gap: 30px;
+  display: inline-flex
+`
+
 //페이징
 const PaginationContainer = styled.div`
   align-items: center;
@@ -363,6 +388,11 @@ export default function MissionMain() {
   const [clickedMissions, setClickedMissions] = useState({}); // 각 미션에 대한 개별적 클릭 관리
 
   const handleFlipClick = (id) => {
+    const mission = dummyMission.find(mission => mission.id === id);
+    const isCompleted = (mission.totalSteps === 1 && mission.completedSteps === 1) || (mission.totalSteps === 5 && mission.completedSteps === 5);
+    
+    if (!isCompleted) return;
+  
     setClickedMissions({
       ...clickedMissions,
       [id]: true
@@ -393,56 +423,44 @@ export default function MissionMain() {
 
       <TabContentContainer>
         <MissionContainer>
-          {dummyMission.slice(startIndex, endIndex).map((mission, index) => {
-            let StampComponent, stampImgSrc, stampImgAlt;
-            const isFlipClicked = clickedMissions[mission.id];
-            if (!isFlipClicked) {
-              if (mission.totalSteps === 1) {
-                StampComponent = SingleStampImg;
-                stampImgSrc = SingleStamp0;
-                stampImgAlt = "하나의 도장";
-              } else if (mission.totalSteps === 5) {
-                StampComponent = MultiStampImg;
+        {dummyMission.slice(startIndex, endIndex).map((mission, index) => {
+          let StampComponent, stampImgSrc, stampImgAlt;
+
+          if (mission.totalSteps === 1) {
+            StampComponent = SingleStampImg; // 도장이 하나만 찍히는 이미지 컴포넌트
+            stampImgSrc = mission.completedSteps === 0 ? SingleStamp0 : SingleStamp1;
+            stampImgAlt = "하나의 도장";
+          } else if (mission.totalSteps === 5) {
+            StampComponent = MultiStampImg; // 도장이 최대 5개까지 찍히는 이미지 컴포넌트
+            switch (mission.completedSteps) {
+              case 0:
                 stampImgSrc = MultiStamp0;
-                stampImgAlt = "최대 5개의 도장";
-              }
-            } else {
-              if (mission.totalSteps === 1) {
-                StampComponent = SingleStampImg;
-                stampImgSrc = mission.completedSteps === 0 ? SingleStamp0 : SingleStamp1;
-                stampImgAlt = "하나의 도장";
-              } else if (mission.totalSteps === 5) {
-                StampComponent = MultiStampImg;
-                switch (mission.completedSteps) {
-                  case 0:
-                    stampImgSrc = MultiStamp0;
-                    break;
-                  case 1:
-                    stampImgSrc = MultiStamp1;
-                    break;
-                  case 2:
-                    stampImgSrc = MultiStamp2;
-                    break;
-                  case 3:
-                    stampImgSrc = MultiStamp3;
-                    break;
-                  case 4:
-                    stampImgSrc = MultiStamp4;
-                    break;
-                  case 5:
-                    stampImgSrc = MultiStamp5;
-                    break;
-                  default:
-                    stampImgSrc = MultiStamp0;
-                }
-                stampImgAlt = "최대 5개의 도장";
-              }
+                break;
+              case 1:
+                stampImgSrc = MultiStamp1;
+                break;
+              case 2:
+                stampImgSrc = MultiStamp2;
+                break;
+              case 3:
+                stampImgSrc = MultiStamp3;
+                break;
+              case 4:
+                stampImgSrc = MultiStamp4;
+                break;
+              case 5:
+                stampImgSrc = MultiStamp5;
+                break;
+              default:
+                stampImgSrc = MultiStamp0;
             }
+            stampImgAlt = "최대 5개의 도장";
+          }
 
             return (
               <MissionBox key={mission.id}>
                 <MissionInnerBox style={{ top: `${Math.floor(index / 3) * 314}px`, left: `${(index % 3) * 408}px` }}>
-                  <MissionFlipContainer onClick={() => handleFlipClick(mission.id)}>
+                  <MissionFlipContainer>
                     <MissionBackground>
                       <MissionText>
                         {mission.NickName}
@@ -488,3 +506,5 @@ export default function MissionMain() {
     </div>
   )
 }
+
+
