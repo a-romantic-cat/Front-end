@@ -7,25 +7,31 @@ import 수집함 from '../../assets/img/수집함.svg';
 import 상점 from '../../assets/img/상점.svg';
 import Coin from '../../assets/img/코인.svg';
 import 다음버튼 from '../../assets/img/다음버튼.svg';
-import SingleStamp from '../../assets/img/SingleStamp.svg';
-import MultiStamp from '../../assets/img/MultiStamp.svg';
+import SingleStamp0 from '../../assets/img/SingleStamp0.svg';
+import SingleStamp1 from '../../assets/img/SingleStamp1.svg';
+import MultiStamp0 from '../../assets/img/MultiStamp0.svg';
+import MultiStamp1 from '../../assets/img/MultiStamp1.svg';
+import MultiStamp2 from '../../assets/img/MultiStamp2.svg';
+import MultiStamp3 from '../../assets/img/MultiStamp3.svg';
+import MultiStamp4 from '../../assets/img/MultiStamp4.svg';
+import MultiStamp5 from '../../assets/img/MultiStamp5.svg';
 import WhiteCoin from '../../assets/img/WhiteCoin.svg';
 
 
 //미션 데이터
 const dummyMission = [
-  {id: 1, NickName: "출석 체크", stampLimit: 1, isEveryday: true, detail: "오늘의 로그인 코인을 획득하세요.", price: 5},
-  {id: 2, NickName: "기본은 인사부터!", stampLimit: 5, isEveryday: true, detail: "친구의 우편함에 방문해 편지를 작성하세요.", price: 5},
-  {id: 3, NickName: "고민 해결!", stampLimit: 5, isEveryday: true, detail: "낭만 우편함에서 답장을 적어주세요.", price: 5},
-  {id: 4, NickName: "친구를 찾아보자", stampLimit: 1, isEveryday: false, detail: "친구를 1명 이상 추가해보세요.", price: 5},
-  {id: 5, NickName: "행복한 순간을 기록하자", stampLimit: 5, isEveryday: false, detail: "느린 우편함에서 나를 위한 편지를 적어보세요.", price: 5},
-  {id: 6, NickName: "상점 첫구매 이벤트!", stampLimit: 1, isEveryday: false, detail: "상점에서 무엇이든 구매하세요.", price: 5},
-  {id: 7, NickName: "내가 만든 편지지", stampLimit: 5, isEveryday: false, detail: "마이디자인에서 편지지를 등록해보세요.", price: 5},
-  {id: 8, NickName: "나만의 우표", stampLimit: 5, isEveryday: false, detail: "마이디자인에서 우표를 등록해보세요.", price: 5},
-  {id: 9, NickName: "고민이 생겼다면?", stampLimit: 5, isEveryday: false, detail: "낭만 우편함에서 편지를 작성하세요.", price: 5},
-  {id: 10, NickName: "도전! 친구찾기", stampLimit: 5, isEveryday: false, detail: "친구를 찾아 주소록을 채워보세요.", price: 5},
-  {id: 11, NickName: "코인 쓰고 코인 받자", stampLimit: 5, isEveryday: false, detail: "상점에서 무엇이든 구매하세요.", price: 5},
-  {id: 12, NickName: "내 우편함을 소개합니다", stampLimit: 1, isEveryday: false, detail: "내 우편함 링크를 공유해보세요.", price: 5},
+  {id: 1, NickName: "출석 체크", totalSteps: 1, isEveryday: true, detail: "오늘의 로그인 코인을 획득하세요.", price: 5, completedSteps: 0},
+  {id: 2, NickName: "기본은 인사부터!", totalSteps: 5, isEveryday: true, detail: "친구의 우편함에 방문해 편지를 작성하세요.", price: 5, completedSteps: 1},
+  {id: 3, NickName: "고민 해결!", totalSteps: 5, isEveryday: true, detail: "낭만 우편함에서 답장을 적어주세요.", price: 5, completedSteps:2},
+  {id: 4, NickName: "친구를 찾아보자", totalSteps: 1, isEveryday: false, detail: "친구를 1명 이상 추가해보세요.", price: 5, completedSteps: 1},
+  {id: 5, NickName: "행복한 순간을 기록하자", totalSteps: 5, isEveryday: false, detail: "느린 우편함에서 나를 위한 편지를 적어보세요.", price: 5, completedSteps: 3},
+  {id: 6, NickName: "상점 첫구매 이벤트!", totalSteps: 1, isEveryday: false, detail: "상점에서 무엇이든 구매하세요.", price: 5, completedSteps: 0},
+  {id: 7, NickName: "내가 만든 편지지", totalSteps: 5, isEveryday: false, detail: "마이디자인에서 편지지를 등록해보세요.", price: 5, completedSteps: 4},
+  {id: 8, NickName: "나만의 우표", totalSteps: 5, isEveryday: false, detail: "마이디자인에서 우표를 등록해보세요.", price: 5, completedSteps: 5},
+  {id: 9, NickName: "고민이 생겼다면?", totalSteps: 5, isEveryday: false, detail: "낭만 우편함에서 편지를 작성하세요.", price: 5, completedSteps: 0},
+  {id: 10, NickName: "도전! 친구찾기", totalSteps: 5, isEveryday: false, detail: "친구를 찾아 주소록을 채워보세요.", price: 5, completedSteps: 0},
+  {id: 11, NickName: "코인 쓰고 코인 받자", totalSteps: 5, isEveryday: false, detail: "상점에서 무엇이든 구매하세요.", price: 5, completedSteps: 0},
+  {id: 12, NickName: "내 우편함을 소개합니다", totalSteps: 1, isEveryday: false, detail: "내 우편함 링크를 공유해보세요.", price: 5, completedSteps: 0},
 ];
 
 //미션 제목
@@ -354,6 +360,15 @@ export default function MissionMain() {
   const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지에서 첫 번째 아이템의 인덱스
   const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
 
+  const [clickedMissions, setClickedMissions] = useState({}); // 각 미션에 대한 개별적 클릭 관리
+
+  const handleFlipClick = (id) => {
+    setClickedMissions({
+      ...clickedMissions,
+      [id]: true
+    });
+  }
+
   return (
     <div>
         <Header />
@@ -380,20 +395,54 @@ export default function MissionMain() {
         <MissionContainer>
           {dummyMission.slice(startIndex, endIndex).map((mission, index) => {
             let StampComponent, stampImgSrc, stampImgAlt;
-            if (mission.stampLimit === 1) {
-              StampComponent = SingleStampImg; // 도장이 하나만 찍히는 이미지 컴포넌트
-              stampImgSrc = SingleStamp; // 도장이 하나만 찍히는 이미지의 경로
-              stampImgAlt = "하나의 도장";
-            } else if (mission.stampLimit === 5) {
-              StampComponent = MultiStampImg; // 도장이 최대 5개까지 찍히는 이미지 컴포넌트
-              stampImgSrc = MultiStamp; // 도장이 최대 5개까지 찍히는 이미지의 경로
-              stampImgAlt = "최대 5개의 도장";
+            const isFlipClicked = clickedMissions[mission.id];
+            if (!isFlipClicked) {
+              if (mission.totalSteps === 1) {
+                StampComponent = SingleStampImg;
+                stampImgSrc = SingleStamp0;
+                stampImgAlt = "하나의 도장";
+              } else if (mission.totalSteps === 5) {
+                StampComponent = MultiStampImg;
+                stampImgSrc = MultiStamp0;
+                stampImgAlt = "최대 5개의 도장";
+              }
+            } else {
+              if (mission.totalSteps === 1) {
+                StampComponent = SingleStampImg;
+                stampImgSrc = mission.completedSteps === 0 ? SingleStamp0 : SingleStamp1;
+                stampImgAlt = "하나의 도장";
+              } else if (mission.totalSteps === 5) {
+                StampComponent = MultiStampImg;
+                switch (mission.completedSteps) {
+                  case 0:
+                    stampImgSrc = MultiStamp0;
+                    break;
+                  case 1:
+                    stampImgSrc = MultiStamp1;
+                    break;
+                  case 2:
+                    stampImgSrc = MultiStamp2;
+                    break;
+                  case 3:
+                    stampImgSrc = MultiStamp3;
+                    break;
+                  case 4:
+                    stampImgSrc = MultiStamp4;
+                    break;
+                  case 5:
+                    stampImgSrc = MultiStamp5;
+                    break;
+                  default:
+                    stampImgSrc = MultiStamp0;
+                }
+                stampImgAlt = "최대 5개의 도장";
+              }
             }
 
             return (
               <MissionBox key={mission.id}>
                 <MissionInnerBox style={{ top: `${Math.floor(index / 3) * 314}px`, left: `${(index % 3) * 408}px` }}>
-                  <MissionFlipContainer>
+                  <MissionFlipContainer onClick={() => handleFlipClick(mission.id)}>
                     <MissionBackground>
                       <MissionText>
                         {mission.NickName}
