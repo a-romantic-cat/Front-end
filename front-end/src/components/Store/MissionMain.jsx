@@ -309,16 +309,41 @@ const CompletedBackground = styled.div`
   flex-direction: column;
   z-index: 1;
   backface-visibility: hidden;
-
   padding-top: 64px; 
   padding-bottom: 63px; 
   padding-left: 65px; 
   padding-right: 64px;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center; 
   gap: 30px;
   display: inline-flex
-`
+`;
+
+const CompletedPriceContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 7px;
+`;
+
+const CompletedText = styled.div`
+  color: white;
+  font-size: 30px; 
+  font-family: 'Pretendard';
+  font-weight: 500;
+  line-height: 42px; 
+  word-wrap: break-word;
+`;
+
+const CompletedPriceText = styled.div`
+  color: white;
+  font-size: 40px; 
+  font-family: 'Pretendard';
+  font-weight: 500;
+  line-height: 56px; 
+  word-wrap: break-word;
+`;
 
 //페이징
 const PaginationContainer = styled.div`
@@ -425,6 +450,8 @@ export default function MissionMain() {
         <MissionContainer>
         {dummyMission.slice(startIndex, endIndex).map((mission, index) => {
           let StampComponent, stampImgSrc, stampImgAlt;
+          const isCompleted = (mission.totalSteps === 1 && mission.completedSteps === 1) || (mission.totalSteps === 5 && mission.completedSteps === 5);
+          const isClicked = clickedMissions[mission.id];
 
           if (mission.totalSteps === 1) {
             StampComponent = SingleStampImg; // 도장이 하나만 찍히는 이미지 컴포넌트
@@ -460,7 +487,16 @@ export default function MissionMain() {
             return (
               <MissionBox key={mission.id}>
                 <MissionInnerBox style={{ top: `${Math.floor(index / 3) * 314}px`, left: `${(index % 3) * 408}px` }}>
-                  <MissionFlipContainer>
+                  {isCompleted && isClicked ? (
+                    <CompletedBackground>
+                      <CompletedText>코인을 획득했습니다!</CompletedText>
+                      <CompletedPriceContainer>
+                        <CompletedPriceText>+5</CompletedPriceText>
+                        <WhiteCoinImg style={{width: 34.16, height: 31.5}}src={WhiteCoin} alt="WhiteCoin" />
+                      </CompletedPriceContainer>
+                    </CompletedBackground>
+                  ) : (
+                  <MissionFlipContainer onClick={() => handleFlipClick(mission.id)}>
                     <MissionBackground>
                       <MissionText>
                         {mission.NickName}
@@ -480,6 +516,7 @@ export default function MissionMain() {
                       </DetailPriceContainer>
                     </DetailBackground>
                   </MissionFlipContainer>
+                  )}
                 </MissionInnerBox>
               </MissionBox>
             );
