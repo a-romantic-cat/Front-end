@@ -344,7 +344,7 @@ export default function MyLetterboxMain() {
 
   const RemainingTime = () => {
     const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0 });
-    const targetTime = new Date('2024-12-31'); // 여기에 설정한 시간을 입력
+    const targetTime = new Date('2024-05-04T15:00:00Z'); // 'YYYY-MM-DDTHH:mm:ssZ' 형식으로 날짜 입력
 
     useEffect(() => {
       const intervalId = setInterval(() => {
