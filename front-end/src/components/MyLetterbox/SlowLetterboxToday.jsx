@@ -454,8 +454,8 @@ export default function SlowLetterboxToday() {
   const placeholderText = "오늘 하루 행복했던 순간을 적어보세요.";
   const [isEditMode, setIsEditMode] = useState(false); // 편집 모드 상태를 관리하는 상태값
   const [textBoxValue, setTextBoxValue] = useState(""); // TextBox의 값 상태값
-  const [isOldWrapperVisible, setOldWrapperVisible] = React.useState(true);
-  const [isNewWrapperVisible, setNewWrapperVisible] = React.useState(false);
+  const [isOldWrapperVisible, setOldWrapperVisible] = React.useState(true); // 편집 모드로 글쓰는 기능 wrapper
+  const [isNewWrapperVisible, setNewWrapperVisible] = React.useState(false); // 블러 백그라운드 wrapper
   const [startDate, setStartDate] = useState(new Date());
 
   const today = new Date(); // 오늘의 날짜를 가져옴
@@ -504,6 +504,21 @@ const handleRedBoxClick = () => {
     } else {
       // 오늘 날짜 이후를 선택한 경우
       setNewWrapperVisible(false);
+    }
+
+    // 선택한 날짜가 이미 스탬프가 찍힌 날짜인지 확인
+    const isMarked = markedDates.some(
+      (markedDate) =>
+        markedDate.getFullYear() === selectedYear &&
+        markedDate.getMonth() === selectedMonth &&
+        markedDate.getDate() === selectedDate
+    );
+
+    // 만약 이미 스탬프가 찍힌 날짜를 다시 선택했다면
+    // newWrapper를 유지하고 함수를 종료
+    if (isMarked) {
+      setNewWrapperVisible(true);
+      return;
     }
 };
 
