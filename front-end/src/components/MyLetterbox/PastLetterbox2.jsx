@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import styled from 'styled-components';
-import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import Check2 from './Check2';
+import { useNavigate } from "react-router-dom";
+import PastLetterbox3 from './PastLetterbox3';
 
 const TextContainer = styled.div`
   width: 100%;
@@ -51,7 +51,7 @@ const WrapLetterContainer = styled.div`
 
 //우편함 전체 모달창
 const LetterContainer = styled.div`
-  background-image: url("/images/bg_letter.svg");
+  background-image: url("/images/red_letter.svg");
   background-size: cover;
   width: 1194px;
   height: 732px;
@@ -82,11 +82,11 @@ const ScrollContainer = styled.div`
 
   &::-webkit-scrollbar { //스크롤바 전체
     width: 8px;
-    height: 602.715px;
+    height: 608px;
   }
 
   &::-webkit-scrollbar-thumb { //스크롤 움직이는 작은 막대
-    background: #79110E;
+    background: #DCBC64;
     //height: 84.592px;
     height: 10%;
     border-radius: 10px;
@@ -113,9 +113,9 @@ const PinAndUserContainer = styled.div`
   margin-bottom: 40px;
 `;
 
-//빨간 고정 핀
-const RedPin = styled.div`
-  background-image: url("/images/레드핀.svg");
+//노란 고정 핀
+const YellowPin = styled.div`
+  background-image: url("/images/옐로핀.svg");
   background-size: cover;
   width: 30px;
   height: 30px;
@@ -123,9 +123,9 @@ const RedPin = styled.div`
   cursor: pointer;
 `;
 
-//투명 핀
+//투명 핀 (흰테두리)
 const Pin = styled.div`
-  background-image: url("/images/핀.svg");
+  background-image: url("/images/흰테두리핀.svg");
   background-size: cover;
   width: 30px;
   height: 30px;
@@ -164,12 +164,12 @@ const UserNickname = styled.div`
   margin: 16px 0 16px 0;
 `;
  
-const Check1 = () => {
+const PastLetterbox2 = () => {
 
-  const navigate = useNavigate();
+const navigate = useNavigate();
 
-  const navigateToMyBoxMain = () => {
-    navigate("/MyLetterbox");
+  const navigateToPastLetterbox1 = () => {
+    navigate("/PastLetterbox1");
   };
 
   const [pin, setPin] = useState(false); //고정핀
@@ -242,7 +242,7 @@ const Check1 = () => {
               <PinAndUserContainer>
                 <div onClick={handlePin}> {/*고정핀 핸들*/}
                     {pin ? (
-                    <RedPin />
+                    <YellowPin />
                   ) :
                   (
                     <Pin />
@@ -261,7 +261,7 @@ const Check1 = () => {
               <PinAndUserContainer>
                 <div onClick={handlePin2}>
                     {pin2 ? (
-                    <RedPin />
+                    <YellowPin />
                   ) :
                   (
                     <Pin />
@@ -280,7 +280,7 @@ const Check1 = () => {
               <PinAndUserContainer>
                 <div onClick={handlePin3}>
                     {pin3 ? (
-                    <RedPin />
+                    <YellowPin />
                   ) :
                   (
                     <Pin />
@@ -299,7 +299,7 @@ const Check1 = () => {
               <PinAndUserContainer>
                 <div onClick={handlePin4}>
                     {pin4 ? (
-                    <RedPin />
+                    <YellowPin />
                   ) :
                   (
                     <Pin />
@@ -318,7 +318,7 @@ const Check1 = () => {
               <PinAndUserContainer>
                 <div onClick={handlePin5}>
                     {pin5 ? (
-                    <RedPin />
+                    <YellowPin />
                   ) :
                   (
                     <Pin />
@@ -337,7 +337,7 @@ const Check1 = () => {
               <PinAndUserContainer>
                 <div onClick={handlePin6}>
                     {pin6 ? (
-                    <RedPin />
+                    <YellowPin />
                   ) :
                   (
                     <Pin />
@@ -356,7 +356,7 @@ const Check1 = () => {
               <PinAndUserContainer>
                 <div onClick={handlePin7}>
                     {pin7 ? (
-                    <RedPin />
+                    <YellowPin />
                   ) :
                   (
                     <Pin />
@@ -375,7 +375,7 @@ const Check1 = () => {
               <PinAndUserContainer>
                 <div onClick={handlePin8}>
                     {pin8 ? (
-                    <RedPin />
+                    <YellowPin />
                   ) :
                   (
                     <Pin />
@@ -394,7 +394,7 @@ const Check1 = () => {
               <PinAndUserContainer>
                 <div onClick={handlePin9}>
                     {pin9 ? (
-                    <RedPin />
+                    <YellowPin />
                   ) :
                   (
                     <Pin />
@@ -412,10 +412,10 @@ const Check1 = () => {
             </PinsAndUsersContainer>
           </ScrollContainer>
 
-          <Check2 isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+          <PastLetterbox3 isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </LetterContainer>
 
-        <XButton onClick={navigateToMyBoxMain}>
+        <XButton onClick={navigateToPastLetterbox1}>
           <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
             <path d="M50 25C50 38.8071 38.8071 50 25 50C11.1929 50 0 38.8071 0 25C0 11.1929 11.1929 0 25 0C38.8071 0 50 11.1929 50 25Z" fill="#C90000"/>
             <path fill-rule="evenodd" clip-rule="evenodd" d="M25 47.5C37.4264 47.5 47.5 37.4264 47.5 25C47.5 12.5736 37.4264 2.5 25 2.5C12.5736 2.5 2.5 12.5736 2.5 25C2.5 37.4264 12.5736 47.5 25 47.5ZM25 50C38.8071 50 50 38.8071 50 25C50 11.1929 38.8071 0 25 0C11.1929 0 0 11.1929 0 25C0 38.8071 11.1929 50 25 50Z" fill="#C90000"/>
@@ -423,12 +423,11 @@ const Check1 = () => {
           </svg>
         </XButton>
       </WrapLetterContainer>
-
-      <Footer />
       
+      <Footer />
     </div>
   );
     
 };
  
-export default Check1;
+export default PastLetterbox2;
