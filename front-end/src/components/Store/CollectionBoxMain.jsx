@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -375,10 +375,28 @@ const UploadContainer = styled.div`
   gap: 76px;
 `;
 
+const UploadedContainer = styled.div`
+  width: 582px;
+  height: 582px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  border: 1px black dotted;
+  justify-content: center;
+  align-items: center; 
+  display: flex;
+`;
+
 const UploadPlusButtonImg = styled.img`
   width: 76px;
   height: 76px;
   cursor: pointer;
+`;
+
+// 선택된 컨테이너에 따라 비율을 조절합니다.
+const PreviewImage = styled.img`
+  width: ${({ container }) => container === 'letter' ? '378px' : '276px'};
+  height: ${({ container }) => container === 'letter' ? '226px' : '347px'};
 `;
 
 const UploadText = styled.div`
@@ -576,10 +594,48 @@ export default function MissionMain() {
 
   // 이미지 상태를 관리하는 state를 만듭니다.
   const [image, setImage] = useState(UploadPlusButton);
+  const [preview, setPreview] = useState(null);  // 미리보기 이미지 상태를 추가합니다.
+  const [checkedContainer, setCheckedContainer] = useState(null); // 체크 상태를 관리하는 상태 변수를 추가합니다.
+  const fileInputRef = useRef(null);  // 파일 입력 창을 참조하는 ref를 생성합니다.
+  const [isImageUploaded, setIsImageUploaded] = useState(false); // 이미지 업로드 상태를 관리하는 상태 변수를 추가합니다.
 
   // 마우스가 올라갔을 때와 나갔을 때 이미지를 변경하는 이벤트 핸들러를 만듭니다.
   const handleMouseOver = () => setImage(UploadPlusButtonHover);
   const handleMouseOut = () => setImage(UploadPlusButton);
+
+  // 클릭 이벤트 핸들러
+  const handlePlusButtonClick = () => {
+    // 파일 입력 창을 엽니다.
+    fileInputRef.current.click();
+  };
+
+  // 파일 변경 이벤트 핸들러
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    // 파일을 선택했다면 이곳에서 파일을 처리합니다.
+    if (file) {
+      setIsImageUploaded(true);  // 이미지 업로드 상태를 true로 설정합니다.
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        // 파일 읽기가 완료되면, 결과를 미리보기 이미지 상태에 저장합니다.
+        setPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // 컨테이너 클릭 이벤트 핸들러
+  const handleContainerClick = (container) => {
+    // 클릭한 컨테이너를 체크 상태로 설정합니다.
+    setCheckedContainer(container);
+
+    // 이미 체크된 컨테이너를 클릭하면 체크를 해제합니다.
+    if (checkedContainer === container) {
+      setCheckedContainer(null);
+    } else {
+      setCheckedContainer(container);
+    }
+  };
 
   return (
     <div>
@@ -710,25 +766,38 @@ export default function MissionMain() {
       {currentTab === 'tab3' && (
         <div>
           <MyDesignContainer>
-            <UploadContainer>
-            <UploadPlusButtonImg
-              src={image}
-              onMouseOver={handleMouseOver}
-              onMouseOut={handleMouseOut}
-            />
-              <UploadText>- jpg 형식만 등록할 수 있어요.<br/>- 편지지 5:3, 우표 3:4 비율로 등록돼요.<br/>- 파일을 마우스로 끌어올 수 있어요.</UploadText>
-            </UploadContainer>
+              {isImageUploaded ? (
+                <UploadedContainer>
+                  <PreviewImage container={checkedContainer} src={preview} alt="Preview" />
+                </UploadedContainer>
+              ) : (
+                <UploadContainer>
+                  <UploadPlusButtonImg
+                    src={image}
+                    onMouseOver={handleMouseOver}
+                    onMouseOut={handleMouseOut}
+                    onClick={handlePlusButtonClick}
+                  />
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    style={{ display: 'none' }}  // 파일 입력 창을 숨깁니다.
+                    onChange={handleFileChange}
+                  />
+                  <UploadText>- jpg 형식만 등록할 수 있어요.<br/>- 편지지 5:3, 우표 3:4 비율로 등록돼요.<br/>- 파일을 마우스로 끌어올 수 있어요.</UploadText>
+                </UploadContainer>
+              )}
 
             <FileDetailContainer>
               <FileTypeContainer>
                 <TypeText>종류</TypeText>
                 <TypeChooseContainer>
-                  <ChooseLetterContainer>
-                    <FileTypeCheckboxImg style={{left: 0, top: 0}} src={FileTypeCheckbox} alt="파일 종류 체크 박스" />
+                  <ChooseLetterContainer onClick={() => handleContainerClick('letter')}>
+                    <FileTypeCheckboxImg style={{left: 0, top: 0}} src={checkedContainer === 'letter' ? FileTypeCheckedCheckbox : FileTypeCheckbox} alt="파일 종류 체크 박스" />
                     <ChooseLetterText>편지지</ChooseLetterText>
                   </ChooseLetterContainer>
-                  <ChooseStampContainer>
-                    <FileTypeCheckboxImg style={{left: 0, top: 0}} src={FileTypeCheckbox} alt="파일 종류 체크 박스" />
+                  <ChooseStampContainer onClick={() => handleContainerClick('stamp')}>
+                    <FileTypeCheckboxImg style={{left: 0, top: 0}} src={checkedContainer === 'stamp' ? FileTypeCheckedCheckbox : FileTypeCheckbox} alt="파일 종류 체크 박스" />
                     <ChooseLetterText>우표</ChooseLetterText>
                   </ChooseStampContainer>
 
