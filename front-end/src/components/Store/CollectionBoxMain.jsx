@@ -378,6 +378,7 @@ const UploadContainer = styled.div`
 const UploadPlusButtonImg = styled.img`
   width: 76px;
   height: 76px;
+  cursor: pointer;
 `;
 
 const UploadText = styled.div`
@@ -560,13 +561,25 @@ export default function MissionMain() {
   const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지에서 첫 번째 아이템의 인덱스
   const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
 
-  const [isChecked, setIsChecked] = useState(false); // 체크 여부를 나타내는 상태
+  // 각 탭별 체크박스 상태를 관리하는 상태를 추가합니다.
+  const [isCheckedTab1, setIsCheckedTab1] = useState(false);
+  const [isCheckedTab2, setIsCheckedTab2] = useState(false);
 
-  // 클릭 이벤트 처리 함수
-  const handleCheckboxClick = () => {
-    setIsChecked(!isChecked); // 상태를 반전시킴
+  // 클릭 이벤트 처리 함수를 각각 만듭니다.
+  const handleCheckboxClickTab1 = () => {
+    setIsCheckedTab1(!isCheckedTab1);
   };
 
+  const handleCheckboxClickTab2 = () => {
+    setIsCheckedTab2(!isCheckedTab2);
+  };
+
+  // 이미지 상태를 관리하는 state를 만듭니다.
+  const [image, setImage] = useState(UploadPlusButton);
+
+  // 마우스가 올라갔을 때와 나갔을 때 이미지를 변경하는 이벤트 핸들러를 만듭니다.
+  const handleMouseOver = () => setImage(UploadPlusButtonHover);
+  const handleMouseOut = () => setImage(UploadPlusButton);
 
   return (
     <div>
@@ -606,8 +619,8 @@ export default function MissionMain() {
         <div>
           <TabContentContainer>
 
-            <MyDesignButtonContainer onClick={handleCheckboxClick}>
-            {isChecked ? (
+            <MyDesignButtonContainer onClick={handleCheckboxClickTab1}>
+            {isCheckedTab1 ? (
               <CheckboxImg src={CheckedCheckbox} alt="Checked Checkbox" />
             ) : (
               <CheckboxImg src={Checkbox} alt="Unchecked Checkbox" />
@@ -651,8 +664,13 @@ export default function MissionMain() {
       {currentTab === 'tab2' && (
         <div>
           <TabContentContainer>
-            <MyDesignButtonContainer>
-              <CheckboxImg src={Checkbox} alt="Checkbox" />
+
+            <MyDesignButtonContainer onClick={handleCheckboxClickTab2}>
+              {isCheckedTab2 ? (
+                <CheckboxImg src={CheckedCheckbox} alt="Checked Checkbox" />
+              ) : (
+                <CheckboxImg src={Checkbox} alt="Unchecked Checkbox" />
+              )}
               <MyDesignText>마이디자인만 보기</MyDesignText>
             </MyDesignButtonContainer>
 
@@ -693,7 +711,11 @@ export default function MissionMain() {
         <div>
           <MyDesignContainer>
             <UploadContainer>
-              <UploadPlusButtonImg src={UploadPlusButton} alt="업로드 전 내용" />
+            <UploadPlusButtonImg
+              src={image}
+              onMouseOver={handleMouseOver}
+              onMouseOut={handleMouseOut}
+            />
               <UploadText>- jpg 형식만 등록할 수 있어요.<br/>- 편지지 5:3, 우표 3:4 비율로 등록돼요.<br/>- 파일을 마우스로 끌어올 수 있어요.</UploadText>
             </UploadContainer>
 
