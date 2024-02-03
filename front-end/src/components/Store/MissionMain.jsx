@@ -20,18 +20,18 @@ import WhiteCoin from '../../assets/img/WhiteCoin.svg';
 
 //미션 데이터
 const dummyMission = [
-  {id: 1, NickName: "출석 체크", totalSteps: 1, isEveryday: true, detail: "오늘의 로그인 코인을 획득하세요.", price: 5, completedSteps: 0},
-  {id: 2, NickName: "기본은 인사부터!", totalSteps: 5, isEveryday: true, detail: "친구의 우편함에 방문해 편지를 작성하세요.", price: 5, completedSteps: 1},
-  {id: 3, NickName: "고민 해결!", totalSteps: 5, isEveryday: true, detail: "낭만 우편함에서 답장을 적어주세요.", price: 5, completedSteps:2},
-  {id: 4, NickName: "친구를 찾아보자", totalSteps: 1, isEveryday: false, detail: "친구를 1명 이상 추가해보세요.", price: 5, completedSteps: 1},
-  {id: 5, NickName: "행복한 순간을 기록하자", totalSteps: 5, isEveryday: false, detail: "느린 우편함에서 나를 위한 편지를 적어보세요.", price: 5, completedSteps: 3},
-  {id: 6, NickName: "상점 첫구매 이벤트!", totalSteps: 1, isEveryday: false, detail: "상점에서 무엇이든 구매하세요.", price: 5, completedSteps: 0},
-  {id: 7, NickName: "내가 만든 편지지", totalSteps: 5, isEveryday: false, detail: "마이디자인에서 편지지를 등록해보세요.", price: 5, completedSteps: 4},
-  {id: 8, NickName: "나만의 우표", totalSteps: 5, isEveryday: false, detail: "마이디자인에서 우표를 등록해보세요.", price: 5, completedSteps: 5},
-  {id: 9, NickName: "고민이 생겼다면?", totalSteps: 5, isEveryday: false, detail: "낭만 우편함에서 편지를 작성하세요.", price: 5, completedSteps: 0},
-  {id: 10, NickName: "도전! 친구찾기", totalSteps: 5, isEveryday: false, detail: "친구를 찾아 주소록을 채워보세요.", price: 5, completedSteps: 0},
-  {id: 11, NickName: "코인 쓰고 코인 받자", totalSteps: 5, isEveryday: false, detail: "상점에서 무엇이든 구매하세요.", price: 5, completedSteps: 0},
-  {id: 12, NickName: "내 우편함을 소개합니다", totalSteps: 1, isEveryday: false, detail: "내 우편함 링크를 공유해보세요.", price: 5, completedSteps: 0},
+  {missionID: 1, missionName: "출석 체크", totalSteps: 1, isEveryday: true, description: "오늘의 로그인 코인을 획득하세요.", price: 5, completedSteps: 0, isCompleted: false},
+  {missionID: 2, missionName: "기본은 인사부터!", totalSteps: 5, isEveryday: true, description: "친구의 우편함에 방문해 편지를 작성하세요.", price: 5, completedSteps: 1, isCompleted: false},
+  {missionID: 3, missionName: "고민 해결!", totalSteps: 5, isEveryday: true, description: "낭만 우편함에서 답장을 적어주세요.", price: 5, completedSteps:2, isCompleted: false},
+  {missionID: 4, missionName: "친구를 찾아보자", totalSteps: 1, isEveryday: false, description: "친구를 1명 이상 추가해보세요.", price: 5, completedSteps: 1, isCompleted: true},
+  {missionID: 5, missionName: "행복한 순간을 기록하자", totalSteps: 5, isEveryday: false, description: "느린 우편함에서 나를 위한 편지를 적어보세요.", price: 5, completedSteps: 3, isCompleted: false},
+  {missionID: 6, missionName: "상점 첫구매 이벤트!", totalSteps: 1, isEveryday: false, description: "상점에서 무엇이든 구매하세요.", price: 5, completedSteps: 0, isCompleted: false},
+  {missionID: 7, missionName: "내가 만든 편지지", totalSteps: 5, isEveryday: false, description: "마이디자인에서 편지지를 등록해보세요.", price: 5, completedSteps: 4, isCompleted: false},
+  {missionID: 8, missionName: "나만의 우표", totalSteps: 5, isEveryday: false, description: "마이디자인에서 우표를 등록해보세요.", price: 5, completedSteps: 5, isCompleted: true},
+  {missionID: 9, missionName: "고민이 생겼다면?", totalSteps: 5, isEveryday: false, description: "낭만 우편함에서 편지를 작성하세요.", price: 5, completedSteps: 0, isCompleted: false},
+  {missionID: 10, missionName: "도전! 친구찾기", totalSteps: 5, isEveryday: false, description: "친구를 찾아 주소록을 채워보세요.", price: 5, completedSteps: 0, isCompleted: false},
+  {missionID: 11, missionName: "코인 쓰고 코인 받자", totalSteps: 5, isEveryday: false, description: "상점에서 무엇이든 구매하세요.", price: 5, completedSteps: 0, isCompleted: false},
+  {missionID: 12, missionName: "내 우편함을 소개합니다", totalSteps: 1, isEveryday: false, description: "내 우편함 링크를 공유해보세요.", price: 5, completedSteps: 0, isCompleted: false},
 ];
 
 //미션 제목
@@ -413,7 +413,7 @@ export default function MissionMain() {
   const [clickedMissions, setClickedMissions] = useState({}); // 각 미션에 대한 개별적 클릭 관리
 
   const handleFlipClick = (id) => {
-    const mission = dummyMission.find(mission => mission.id === id);
+    const mission = dummyMission.find(mission => mission.missionID === id);
     const isCompleted = (mission.totalSteps === 1 && mission.completedSteps === 1) || (mission.totalSteps === 5 && mission.completedSteps === 5);
     
     if (!isCompleted) return;
@@ -451,7 +451,7 @@ export default function MissionMain() {
         {dummyMission.slice(startIndex, endIndex).map((mission, index) => {
           let StampComponent, stampImgSrc, stampImgAlt;
           const isCompleted = (mission.totalSteps === 1 && mission.completedSteps === 1) || (mission.totalSteps === 5 && mission.completedSteps === 5);
-          const isClicked = clickedMissions[mission.id];
+          const isClicked = clickedMissions[mission.missionID];
 
           if (mission.totalSteps === 1) {
             StampComponent = SingleStampImg; // 도장이 하나만 찍히는 이미지 컴포넌트
@@ -485,7 +485,7 @@ export default function MissionMain() {
           }
 
             return (
-              <MissionBox key={mission.id}>
+              <MissionBox key={mission.missionID}>
                 <MissionInnerBox style={{ top: `${Math.floor(index / 3) * 314}px`, left: `${(index % 3) * 408}px` }}>
                   {isCompleted && isClicked ? (
                     <CompletedBackground>
@@ -496,10 +496,10 @@ export default function MissionMain() {
                       </CompletedPriceContainer>
                     </CompletedBackground>
                   ) : (
-                  <MissionFlipContainer onClick={() => handleFlipClick(mission.id)}>
+                  <MissionFlipContainer onClick={() => handleFlipClick(mission.missionID)}>
                     <MissionBackground>
                       <MissionText>
-                        {mission.NickName}
+                        {mission.missionName}
                       </MissionText>
                       {mission.isEveryday && 
                         <EverydayContainer>
@@ -509,7 +509,7 @@ export default function MissionMain() {
                       <StampComponent src={stampImgSrc} alt={stampImgAlt} />
                     </MissionBackground>
                     <DetailBackground>
-                      <MissionDetailText>{mission.detail}</MissionDetailText>
+                      <MissionDetailText>{mission.description}</MissionDetailText>
                       <DetailPriceContainer>
                         <WhiteCoinImg src={WhiteCoin} alt='미션 상세정보에서의 코인이미지' />
                         <DetailPriceText>{mission.price}</DetailPriceText>

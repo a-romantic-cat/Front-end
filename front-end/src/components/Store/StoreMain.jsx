@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Header from '../Header/Header';
 import { useNavigate } from 'react-router-dom';
 import '../../index.css';
 import 수집함 from '../../assets/img/수집함.svg';
@@ -12,63 +11,63 @@ import 다음버튼 from '../../assets/img/다음버튼.svg';
 
 //편지지 데이터
 const dummyLetter = [
-  {id: 1, NickName: "편지지 이름", Price: "30"},
-  {id: 2, NickName: "편지지 이름", Price: "30"},
-  {id: 3, NickName: "편지지 이름", Price: "30"},
-  {id: 4, NickName: "편지지 이름", Price: "30"},
-  {id: 5, NickName: "편지지 이름", Price: "30"},
-  {id: 6, NickName: "편지지 이름", Price: "30"},
-  {id: 7, NickName: "편지지 이름", Price: "30"},
-  {id: 8, NickName: "편지지 이름", Price: "30"},
-  {id: 9, NickName: "편지지 이름", Price: "30"},
-  {id: 10, NickName: "편지지 이름", Price: "30"},
-  {id: 11, NickName: "편지지 이름", Price: "30"},
-  {id: 12, NickName: "편지지 이름", Price: "30"},
+  {letterPaperId: 1, letterPaperName: "letter design 1", price: "30"},
+  {letterPaperId: 2, letterPaperName: "letter design 2", price: "30"},
+  {letterPaperId: 3, letterPaperName: "letter design 3", price: "30"},
+  {letterPaperId: 4, letterPaperName: "letter design 4", price: "30"},
+  {letterPaperId: 5, letterPaperName: "letter design 5", price: "30"},
+  {letterPaperId: 6, letterPaperName: "letter design 6", price: "30"},
+  {letterPaperId: 7, letterPaperName: "letter design 7", price: "30"},
+  {letterPaperId: 8, letterPaperName: "letter design 8", price: "30"},
+  {letterPaperId: 9, letterPaperName: "letter design 9", price: "30"},
+  {letterPaperId: 10, letterPaperName: "letter design 10", price: "30"},
+  {letterPaperId: 11, letterPaperName: "letter design 11", price: "30"},
+  {letterPaperId: 12, letterPaperName: "letter design 12", price: "30"},
 
-  {id: 13, NickName: "편지지 이름", Price: "30"},
-  {id: 14, NickName: "편지지 이름", Price: "30"},
-  {id: 15, NickName: "편지지 이름", Price: "30"},
-  {id: 16, NickName: "편지지 이름", Price: "30"},
-  {id: 17, NickName: "편지지 이름", Price: "30"},
-  {id: 18, NickName: "편지지 이름", Price: "30"},
-  {id: 19, NickName: "편지지 이름", Price: "30"},
-  {id: 20, NickName: "편지지 이름", Price: "30"},
-  {id: 21, NickName: "편지지 이름", Price: "30"},
-  {id: 22, NickName: "편지지 이름", Price: "30"},
-  {id: 23, NickName: "편지지 이름", Price: "30"},
-  {id: 24, NickName: "편지지 이름", Price: "30"},
+  {letterPaperId: 13, letterPaperName: "letter design 13", price: "30"},
+  {letterPaperId: 14, letterPaperName: "letter design 14", price: "30"},
+  {letterPaperId: 15, letterPaperName: "letter design 15", price: "30"},
+  {letterPaperId: 16, letterPaperName: "letter design 16", price: "30"},
+  {letterPaperId: 17, letterPaperName: "letter design 17", price: "30"},
+  {letterPaperId: 18, letterPaperName: "letter design 18", price: "30"},
+  {letterPaperId: 19, letterPaperName: "letter design 19", price: "30"},
+  {letterPaperId: 20, letterPaperName: "letter design 20", price: "30"},
+  {letterPaperId: 21, letterPaperName: "letter design 21", price: "30"},
+  {letterPaperId: 22, letterPaperName: "letter design 22", price: "30"},
+  {letterPaperId: 23, letterPaperName: "letter design 23", Price: "30"},
+  {letterPaperId: 24, letterPaperName: "letter design 24", price: "30"},
 
-  {id: 25, NickName: "편지지 이름", Price: "30"},
+  {letterPaperId: 25, letterPaperName: "letter design 25", price: "30"},
 ];
 
 const dummyCollectionStamp = [
-  {id: 1, NickName: "우표 이름", Price: "30"},
-  {id: 2, NickName: "우표 이름", Price: "30"},
-  {id: 3, NickName: "우표 이름", Price: "30"},
-  {id: 4, NickName: "우표 이름", Price: "30"},
-  {id: 5, NickName: "우표 이름", Price: "30"},
-  {id: 6, NickName: "우표 이름", Price: "30"},
-  {id: 7, NickName: "우표 이름", Price: "30"},
-  {id: 8, NickName: "우표 이름", Price: "30"},
-  {id: 9, NickName: "우표 이름", Price: "30"},
-  {id: 10, NickName: "우표 이름", Price: "30"},
-  {id: 11, NickName: "우표 이름", Price: "30"},
-  {id: 12, NickName: "우표 이름", Price: "30"},
+  {stampId: 1, stampName: "stamp design 1", price: "30"},
+  {stampId: 2, stampName: "stamp design 2", price: "30"},
+  {stampId: 3, stampName: "stamp design 3", price: "30"},
+  {stampId: 4, stampName: "stamp design 4", price: "30"},
+  {stampId: 5, stampName: "stamp design 5", price: "30"},
+  {stampId: 6, stampName: "stamp design 6", price: "30"},
+  {stampId: 7, stampName: "stamp design 7", price: "30"},
+  {stampId: 8, stampName: "stamp design 8", price: "30"},
+  {stampId: 9, stampName: "stamp design 9", price: "30"},
+  {stampId: 10, stampName: "stamp design 10", price: "30"},
+  {stampId: 11, stampName: "stamp design 11", price: "30"},
+  {stampId: 12, stampName: "stamp design 12", price: "30"},
 
-  {id: 13, NickName: "우표 이름", Price: "30"},
-  {id: 14, NickName: "우표 이름", Price: "30"},
-  {id: 15, NickName: "우표 이름", Price: "30"},
-  {id: 16, NickName: "우표 이름", Price: "30"},
-  {id: 17, NickName: "우표 이름", Price: "30"},
-  {id: 18, NickName: "우표 이름", Price: "30"},
-  {id: 19, NickName: "우표 이름", Price: "30"},
-  {id: 20, NickName: "우표 이름", Price: "30"},
-  {id: 21, NickName: "우표 이름", Price: "30"},
-  {id: 22, NickName: "우표 이름", Price: "30"},
-  {id: 23, NickName: "우표 이름", Price: "30"},
-  {id: 24, NickName: "우표 이름", Price: "30"},
+  {stampId: 13, stampName: "stamp design 13", price: "30"},
+  {stampId: 14, stampName: "stamp design 14", price: "30"},
+  {stampId: 15, stampName: "stamp design 15", price: "30"},
+  {stampId: 16, stampName: "stamp design 16", price: "30"},
+  {stampId: 17, stampName: "stamp design 17", price: "30"},
+  {stampId: 18, stampName: "stamp design 18", price: "30"},
+  {stampId: 19, stampName: "stamp design 19", price: "30"},
+  {stampId: 20, stampName: "stamp design 20", price: "30"},
+  {stampId: 21, stampName: "stamp design 21", price: "30"},
+  {stampId: 22, stampName: "stamp design 22", price: "30"},
+  {stampId: 23, stampName: "stamp design 23", price: "30"},
+  {stampId: 24, stampName: "stamp design 24", price: "30"},
 
-  {id: 25, NickName: "우표 이름", Price: "30"},
+  {stampId: 25, stampName: "stamp design 25", price: "30"},
 ];
 
 //상점 
@@ -311,15 +310,15 @@ const LetterBackground = styled.div`
 `;
 
 const LetterTextWrapper = styled.div`
-  width: 378px;
-  height: 57px;
+  width: 100%;
+  height: 100%;
   left: 0;
   top: 237px;
   position: absolute;
 `;
 
 const LetterText = styled.div`
-  width: 378px;
+  width: 100%;
   left: 0;
   top: 0;
   position: absolute;
@@ -328,7 +327,7 @@ const LetterText = styled.div`
   font-family: 'Pretendard';
   font-weight: 400;
   line-height: 22px;
-  word-wrap: break-word;
+  white-space: nowrap;
 `;
 
 const LetterCoinWrapper = styled.div`
@@ -476,15 +475,15 @@ const StampBackground = styled.div`
 `;
 
 const StampTextWrapper = styled.div`
-  width: 82px;
-  height: 22px;
+  width: 100%;
+  heightL 100%;
   left: 0;
   top: 358px;
   position: absolute;
 `;
 
 const StampText = styled.div`
-  width: 82px;
+  width: 100%;
   left: 0;
   top: 0;
   position: absolute;
@@ -493,7 +492,7 @@ const StampText = styled.div`
   font-family: 'Pretendard';
   font-weight: 400;
   line-height: 22px;
-  word-wrap: break-word;
+  white-space: nowrap;
 `;
 
 //우표 클릭시 구매 버튼 생성
@@ -719,7 +718,7 @@ function LetterPage() {
 
       <LetterContainer>
         {dummyLetter.slice(startIndex, endIndex).map((letter, index) => (
-          <LetterBox key={letter.id}>
+          <LetterBox key={letter.letterPaperId}>
             <LetterInnerBox
               style={{
                 top: `${Math.floor(index / 3) * 394}px`,
@@ -744,11 +743,11 @@ function LetterPage() {
                 </LetterPurchaseContainer>
               )}
               <LetterTextWrapper>
-                <LetterText>{letter.NickName}</LetterText>
+                <LetterText>{letter.letterPaperName}</LetterText>
                 {showCoinWrapper[index] && (
                   <LetterCoinWrapper>
                     <RedCoinImg src={CoinRed} alt="CoinRed" />
-                    <LetterCoinCount>{letter.Price}</LetterCoinCount>
+                    <LetterCoinCount>{letter.price}</LetterCoinCount>
                   </LetterCoinWrapper>
                 )}
               </LetterTextWrapper>
@@ -871,7 +870,7 @@ function StampPage() {
 
       <StampContainer>
         {dummyCollectionStamp.slice(startIndex, endIndex).map((stamp, index) => (
-          <StampBox key={stamp.id}>
+          <StampBox key={stamp.stampId}>
             <StampInnerBox style={{ top: `${Math.floor(index / 4) * 482}px`, left: `${(index % 4) * 306}px` }}>
               <StampBackground 
                 onClick={() => handleStampBackgroundClick(index)}
@@ -891,11 +890,11 @@ function StampPage() {
                 </StampPurchaseContainer>
               )}
               <StampTextWrapper>
-                <StampText>{stamp.NickName}</StampText>
+                <StampText>{stamp.stampName}</StampText>
                 {showCoinWrapper[index] && (
                   <LetterCoinWrapper>
                     <RedCoinImg src={CoinRed} alt="CoinRed" />
-                    <LetterCoinCount>{stamp.Price}</LetterCoinCount>
+                    <LetterCoinCount>{stamp.price}</LetterCoinCount>
                   </LetterCoinWrapper>
                 )}
               </StampTextWrapper>
@@ -930,7 +929,6 @@ export default function StoreMain() {
 
   return (
     <div>
-      <Header />
       <StoreMainDiv>
         <StoreInnerDiv>
           <ItemDiv onClick={() => navigate('/CollectionBoxMain')}>

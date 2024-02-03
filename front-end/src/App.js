@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import styled from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import MyLetterbox from "./pages/MyLetterbox";
@@ -30,16 +30,21 @@ import BoxSetting1 from './components/Login/BoxSetting1';
 import BoxSetting2 from './components/Login/BoxSetting2';
 import BoxSetting3 from './components/Login/BoxSetting3';
 import SettingEnd from './components/Login/SettingEnd';
+import styled from "styled-components";
 
-const Background = styled.div`
-  background-color: #FFFEF8;
-  width: 1920px;
-  height: 1080px;
-`
+const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: #FFFEF8;  //  전체 화면에 배경색 적용
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+`;
 
 function App() {
   return (
-    <Background>
+    <div>
+      <GlobalStyle />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -73,7 +78,7 @@ function App() {
           <Route path="/SettingEnd" element={<SettingEnd />} />
         </Routes>
       </BrowserRouter>
-    </Background>
+    </div>
   );
 }
 
