@@ -596,6 +596,7 @@ export default function MissionMain() {
   const [image, setImage] = useState(UploadPlusButton);
   const [preview, setPreview] = useState(null);  // 미리보기 이미지 상태를 추가합니다.
   const [checkedContainer, setCheckedContainer] = useState(null); // 체크 상태를 관리하는 상태 변수를 추가합니다.
+  const [isDragActive, setIsDragActive] = useState(false); // 드래그앤드랍
   const fileInputRef = useRef(null);  // 파일 입력 창을 참조하는 ref를 생성합니다.
   const [isImageUploaded, setIsImageUploaded] = useState(false); // 이미지 업로드 상태를 관리하는 상태 변수를 추가합니다.
 
@@ -636,6 +637,31 @@ export default function MissionMain() {
       setCheckedContainer(container);
     }
   };
+
+  // 드래그 앤 드롭 이벤트 핸들러
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragActive(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragActive(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragActive(false);
+
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      handleFileChange({
+        target: {
+          files: [...e.dataTransfer.files]
+        }
+      });
+      e.dataTransfer.clearData();
+    }
+  };
+
 
   return (
     <div>
@@ -766,27 +792,32 @@ export default function MissionMain() {
       {currentTab === 'tab3' && (
         <div>
           <MyDesignContainer>
-              {isImageUploaded ? (
-                <UploadedContainer>
-                  <PreviewImage container={checkedContainer} src={preview} alt="Preview" />
-                </UploadedContainer>
-              ) : (
-                <UploadContainer>
-                  <UploadPlusButtonImg
-                    src={image}
-                    onMouseOver={handleMouseOver}
-                    onMouseOut={handleMouseOut}
-                    onClick={handlePlusButtonClick}
-                  />
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    style={{ display: 'none' }}  // 파일 입력 창을 숨깁니다.
-                    onChange={handleFileChange}
-                  />
-                  <UploadText>- jpg 형식만 등록할 수 있어요.<br/>- 편지지 5:3, 우표 3:4 비율로 등록돼요.<br/>- 파일을 마우스로 끌어올 수 있어요.</UploadText>
-                </UploadContainer>
-              )}
+            {isImageUploaded ? (
+              <UploadedContainer>
+                <PreviewImage container={checkedContainer} src={preview} alt="Preview" />
+              </UploadedContainer>
+            ) : (
+              <UploadContainer
+                isDragActive={isDragActive}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+              >
+                <UploadPlusButtonImg
+                  src={image}
+                  onMouseOver={handleMouseOver}
+                  onMouseOut={handleMouseOut}
+                  onClick={handlePlusButtonClick}
+                />
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  style={{ display: 'none' }}  // 파일 입력 창을 숨깁니다.
+                  onChange={handleFileChange}
+                />
+                <UploadText>- jpg 형식만 등록할 수 있어요.<br/>- 편지지 5:3, 우표 3:4 비율로 등록돼요.<br/>- 파일을 마우스로 끌어올 수 있어요.</UploadText>
+              </UploadContainer>
+            )}
 
             <FileDetailContainer>
               <FileTypeContainer>
