@@ -351,7 +351,7 @@ const StampText = styled.div`
 //탭 속 마이디자인 내용
 const MyDesignContainer = styled.div`
   width: 1092px;
-  height: 634px;
+  height: 582px;
   position: relative;
   left: 363px;
   top: 324px;
@@ -533,7 +533,7 @@ const SaveButton = styled.div`
   gap: 12.38px;
   position: absolute;
   right: 60px;
-  top: 592px;
+  top: 540px;
   cursor: pointer;
 `;
 
