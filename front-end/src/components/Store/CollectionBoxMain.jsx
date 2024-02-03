@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 import { useNavigate } from 'react-router-dom';
 import '../../index.css';
 import 상점 from '../../assets/img/상점.svg';
 import 발바닥 from '../../assets/img/발바닥.svg';
 import Coin from '../../assets/img/코인.svg';
-import CoinRed from '../../assets/img/CoinRed.svg';
 import 다음버튼 from '../../assets/img/다음버튼.svg';
 import Checkbox from '../../assets/img/Checkbox.svg';
+import CheckedCheckbox from '../../assets/img/CheckedCheckbox.svg';
+import FileTypeCheckbox from '../../assets/img/FileTypeCheckbox.svg';
+import FileTypeCheckedCheckbox from '../../assets/img/FileTypeCheckedCheckbox.svg';
+import UploadPlusButton from '../../assets/img/UploadPlusButton.svg';
+import UploadPlusButtonHover from '../../assets/img/UploadPlusButtonHover.svg';
 
 //수집함 편지지 데이터
 const dummyCollectionLetter = [
@@ -24,8 +29,8 @@ const dummyCollectionLetter = [
   {id: 10, NickName: "편지지 이름", Price: "30"},
   {id: 11, NickName: "편지지 이름", Price: "30"},
   {id: 12, NickName: "편지지 이름", Price: "30"},
-  {id: 13, NickName: "편지지 이름", Price: "30"},
 
+  {id: 13, NickName: "편지지 이름", Price: "30"},
   {id: 14, NickName: "편지지 이름", Price: "30"},
   {id: 15, NickName: "편지지 이름", Price: "30"},
   {id: 16, NickName: "편지지 이름", Price: "30"},
@@ -54,8 +59,8 @@ const dummyCollectionStamp = [
   {id: 10, NickName: "우표 이름"},
   {id: 11, NickName: "우표 이름"},
   {id: 12, NickName: "우표 이름"},
-  {id: 13, NickName: "우표 이름"},
 
+  {id: 13, NickName: "우표 이름"},
   {id: 14, NickName: "우표 이름"},
   {id: 15, NickName: "우표 이름"},
   {id: 16, NickName: "우표 이름"},
@@ -71,7 +76,7 @@ const dummyCollectionStamp = [
   {id: 25, NickName: "우표 이름"},
 ];
 
-//수집함
+//수집함 제목
 const StoreMainDiv = styled.div`
   width: 1194px;
   height: 68px;
@@ -211,13 +216,13 @@ const TabContentContainer = styled.div`
 `;
 
 //마이디자인만 보기
-const MyDesignContainer = styled.div`
+const MyDesignButtonContainer = styled.div`
   width: 155px;
   height: 18px;
   position: relative;
   left: 1039px;
   top: 0;
-  margin-bottom: 72px;
+  cursor: pointer;
 `;
 
 const CheckboxImg = styled.img`
@@ -243,6 +248,7 @@ const LetterContainer = styled.div`
   width: 1194px;
   height: 1476px;
   position: relative;
+  top: 72px;
 `;
 
 const LetterBox = styled.div`
@@ -265,6 +271,8 @@ const LetterBackground = styled.div`
   top: 0;
   position: absolute;
   background: #CECECE;
+  cursor: pointer;
+  z-index: 1;
 `;
 
 const LetterTextWrapper = styled.div`
@@ -288,46 +296,18 @@ const LetterText = styled.div`
   word-wrap: break-word;
 `;
 
-const LetterCoinWrapper = styled.div`
-  width: 62.31px;
-  height: 24px;
-  left: 0;
-  top: 33px;
-  position: absolute;
-`;
-
-const RedCoinImg = styled.img`
-  width: 26.03px;
-  height: 24px;
-  left: 0;
-  top: 0;
-  position: absolute;
-`;
-
-const LetterCoinCount = styled.div`
-  left: 31.31px;
-  top: 0;
-  position: absolute;
-  color: #C90000;
-  font-size: 24px;
-  font-family: 'Pretendard';
-  font-weight: 600;
-  line-height: 24px;
-  word-wrap: break-word;
-`;
-
 //탭 속 우표 내용
 const StampContainer = styled.div`
   width: 1194px;
   height: 1344px;
   position: relative;
+  top: 72px;
 `;
 
 const StampBox = styled.div`
   width: 1194px;
   height: 380px;
   position: absolute;
-  margin-bottom: 102px;
 `;
 
 const StampInnerBox = styled.div`
@@ -343,6 +323,8 @@ const StampBackground = styled.div`
   top: 0;
   position: absolute;
   background: #CECECE;
+  cursor: pointer;
+  z-index: 1;
 `;
 
 const StampTextWrapper = styled.div`
@@ -363,6 +345,203 @@ const StampText = styled.div`
   font-family: 'Pretendard';
   font-weight: 400;
   line-height: 22px;
+  word-wrap: break-word;
+`;
+
+//탭 속 마이디자인 내용
+const MyDesignContainer = styled.div`
+  width: 1092px;
+  height: 634px;
+  position: relative;
+  left: 363px;
+  top: 324px;
+`;
+
+const UploadContainer = styled.div`
+  width: 316px;
+  height: 230px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  border: 1px black dotted;
+  padding-top: 226px;
+  padding-bottom: 126px;
+  padding-left: 133px;
+  padding-right: 133px;
+  justify-content: center;
+  align-items: center; 
+  display: inline-flex;
+  flex-direction: column;
+  gap: 76px;
+`;
+
+const UploadedContainer = styled.div`
+  width: 582px;
+  height: 582px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  border: 1px black dotted;
+  justify-content: center;
+  align-items: center; 
+  display: flex;
+`;
+
+const UploadPlusButtonImg = styled.img`
+  width: 76px;
+  height: 76px;
+  cursor: pointer;
+`;
+
+// 선택된 컨테이너에 따라 비율을 조절합니다.
+const PreviewImage = styled.img`
+  width: ${({ container }) => container === 'letter' ? '378px' : '276px'};
+  height: ${({ container }) => container === 'letter' ? '226px' : '347px'};
+`;
+
+const UploadText = styled.div`
+  color: #707070;
+  font-size: 20px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  word-wrap: break-word;
+`;
+
+const FileDetailContainer = styled.div`
+  width: 378px;
+  height: 428px;
+  position: absolute;
+  left: 714px;
+  top: 0;
+  gap: 110px;
+`;
+
+const FileTypeContainer = styled.div`
+  width: 187px;
+  height: 64px;
+  position: absolute;
+  left: 0;
+  top: 0
+`;
+
+const TypeText = styled.div`
+  left: 0;
+  top: 0;
+  position: absolute;
+  color: black;
+  font-size: 24px;
+  font-family: Pretendard;
+  font-weight: 500;
+  line-height: 24px;
+  word-wrap: break-word;
+`;
+
+const TypeChooseContainer = styled.div`
+  width: 187px;
+  height: 20px;
+  position: absolute;
+  left: 0;
+  top: 44px;
+`;
+
+const ChooseLetterContainer = styled.div`
+  width: 79px;
+  height: 20px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  gap: 7px;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+`;
+
+const ChooseStampContainer = styled.div`
+  width: 62px;
+  height: 20px;
+  left: 125px;
+  top: 0;
+  position: absolute;
+  gap: 7px;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+`;
+
+const FileTypeCheckboxImg = styled.img`
+  width: 20px;
+  height: 20px;
+`;
+
+const ChooseLetterText = styled.div`
+  color: black;
+  font-size: 20px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  line-height: 20px;
+  word-wrap: break-word;
+`;
+
+const FileNameContainer = styled.div`
+  width: 378px;
+  height: 83px;
+  position: absolute;
+  left: 0;
+  top: 174px;
+`;
+
+const FileNameEdit = styled.input`
+  width: 356px;
+  height: 20px;
+  padding: 10px 11px 9px 11px;
+  position: absolute;
+  left: 0;
+  top: 44px;
+  background: white;
+  border: 1px solid black;
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: #757575;   // 입력 필드의 기본 텍스트 색상을 지정합니다.
+  font-size: 20px;  // 입력 필드의 기본 텍스트 크기를 지정합니다.
+  font-family: Pretendard;  // 입력 필드의 기본 글꼴을 지정합니다.
+  font-weight: 400; // 입력 필드의 기본 글꼴 두께를 지정합니다.
+  line-height: 20px;  
+
+  &::placeholder {
+    color: #757575;
+    font-size: 20px;
+    font-family: Pretendard;
+    font-weight: 400;
+    line-height: 20px;
+  }
+
+  &:focus {
+    outline: none;  // 입력 필드에 포커스가 갔을 때 테두리를 없앱니다.
+  }
+`;
+
+const SaveButton = styled.div`
+  width: 233px;
+  height: 17.2px;
+  padding: 12.38px;
+  background: #C90000;
+  border-radius: 10px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12.38px;
+  position: absolute;
+  right: 60px;
+  top: 592px;
+  cursor: pointer;
+`;
+
+const SaveText = styled.div`
+  color: white;
+  font-size: 18px;
+  font-family: Pretendard;
+  font-weight: 500;
   word-wrap: break-word;
 `;
 
@@ -432,10 +611,99 @@ export default function MissionMain() {
   const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지에서 첫 번째 아이템의 인덱스
   const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
 
+  // 각 탭별 체크박스 상태를 관리하는 상태를 추가합니다.
+  const [isCheckedTab1, setIsCheckedTab1] = useState(false);
+  const [isCheckedTab2, setIsCheckedTab2] = useState(false);
+
+  // 클릭 이벤트 처리 함수를 각각 만듭니다.
+  const handleCheckboxClickTab1 = () => {
+    setIsCheckedTab1(!isCheckedTab1);
+  };
+
+  const handleCheckboxClickTab2 = () => {
+    setIsCheckedTab2(!isCheckedTab2);
+  };
+
+  // 이미지 상태를 관리하는 state를 만듭니다.
+  const [image, setImage] = useState(UploadPlusButton);
+  const [preview, setPreview] = useState(null);  // 미리보기 이미지 상태를 추가합니다.
+  const [checkedContainer, setCheckedContainer] = useState(null); // 체크 상태를 관리하는 상태 변수를 추가합니다.
+  const [isDragActive, setIsDragActive] = useState(false); // 드래그앤드랍
+  const fileInputRef = useRef(null);  // 파일 입력 창을 참조하는 ref를 생성합니다.
+  const [isImageUploaded, setIsImageUploaded] = useState(false); // 이미지 업로드 상태를 관리하는 상태 변수를 추가합니다.
+  const [fileName, setFileName] = useState('');  // 파일 이름을 관리하는 상태
+
+  // 마우스가 올라갔을 때와 나갔을 때 이미지를 변경하는 이벤트 핸들러를 만듭니다.
+  const handleMouseOver = () => setImage(UploadPlusButtonHover);
+  const handleMouseOut = () => setImage(UploadPlusButton);
+
+  // 클릭 이벤트 핸들러
+  const handlePlusButtonClick = () => {
+    // 파일 입력 창을 엽니다.
+    fileInputRef.current.click();
+  };
+
+  // 파일 변경 이벤트 핸들러
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    // 파일을 선택했다면 이곳에서 파일을 처리합니다.
+    if (file) {
+      setIsImageUploaded(true);  // 이미지 업로드 상태를 true로 설정합니다.
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        // 파일 읽기가 완료되면, 결과를 미리보기 이미지 상태에 저장합니다.
+        setPreview(reader.result);
+        // 파일 이름을 상태에 저장합니다.
+        setFileName(file.name.slice(0, 20));  // 파일 이름이 길 경우 최대 20자까지만 저장합니다.
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // 컨테이너 클릭 이벤트 핸들러
+  const handleContainerClick = (container) => {
+    // 클릭한 컨테이너를 체크 상태로 설정합니다.
+    setCheckedContainer(container);
+
+    // 이미 체크된 컨테이너를 클릭하면 체크를 해제합니다.
+    if (checkedContainer === container) {
+      setCheckedContainer(null);
+    } else {
+      setCheckedContainer(container);
+    }
+  };
+
+  // 드래그 앤 드롭 이벤트 핸들러
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragActive(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragActive(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragActive(false);
+
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      handleFileChange({
+        target: {
+          files: [...e.dataTransfer.files]
+        }
+      });
+      e.dataTransfer.clearData();
+    }
+  };
+
+
+
+
   return (
     <div>
-        <Header />
-        <StoreMainDiv>
+      <Header />
+      <StoreMainDiv>
         <StoreInnerDiv>
         <ItemDiv onClick={() => navigate('/Store')}>
             <CollectionBoxImg src={상점} alt='상점'/>
@@ -470,26 +738,26 @@ export default function MissionMain() {
         <div>
           <TabContentContainer>
 
-            <MyDesignContainer>
-              <CheckboxImg src={Checkbox} alt="Checkbox" />
+            <MyDesignButtonContainer onClick={handleCheckboxClickTab1}>
+            {isCheckedTab1 ? (
+              <CheckboxImg src={CheckedCheckbox} alt="Checked Checkbox" />
+            ) : (
+              <CheckboxImg src={Checkbox} alt="Unchecked Checkbox" />
+            )}
               <MyDesignText>마이디자인만 보기</MyDesignText>
-            </MyDesignContainer>
+            </MyDesignButtonContainer>
 
             <LetterContainer>
-                {dummyCollectionLetter.slice(startIndex, endIndex).map((letter, index) => (
-                  <LetterBox key={letter.id}>
-                    <LetterInnerBox style={{ top: `${Math.floor(index / 3) * 394}px`, left: `${(index % 3) * 408}px` }}>
-                      <LetterBackground />
-                      <LetterTextWrapper>
-                        <LetterText>{letter.NickName}</LetterText> {/* 편지지 이름 */}
-                        <LetterCoinWrapper>
-                          <RedCoinImg src={CoinRed} alt='CoinRed' />
-                          <LetterCoinCount>{letter.Price}</LetterCoinCount> {/* Price */}
-                        </LetterCoinWrapper>
-                      </LetterTextWrapper>
-                    </LetterInnerBox>
-                  </LetterBox>
-                ))}
+              {dummyCollectionLetter.slice(startIndex, endIndex).map((letter, index) => (
+                <LetterBox key={letter.id}>
+                  <LetterInnerBox style={{ top: `${Math.floor(index / 3) * 394}px`, left: `${(index % 3) * 408}px` }}>
+                    <LetterBackground />
+                    <LetterTextWrapper>
+                      <LetterText>{letter.NickName}</LetterText> {/* 편지지 이름 */}
+                    </LetterTextWrapper>
+                  </LetterInnerBox>
+                </LetterBox>
+              ))}
             </LetterContainer>
 
             {/* 페이징 네비게이션 */}
@@ -515,10 +783,15 @@ export default function MissionMain() {
       {currentTab === 'tab2' && (
         <div>
           <TabContentContainer>
-          <MyDesignContainer>
-              <CheckboxImg src={Checkbox} alt="Checkbox" />
+
+            <MyDesignButtonContainer onClick={handleCheckboxClickTab2}>
+              {isCheckedTab2 ? (
+                <CheckboxImg src={CheckedCheckbox} alt="Checked Checkbox" />
+              ) : (
+                <CheckboxImg src={Checkbox} alt="Unchecked Checkbox" />
+              )}
               <MyDesignText>마이디자인만 보기</MyDesignText>
-            </MyDesignContainer>
+            </MyDesignButtonContainer>
 
             <StampContainer>
                 {dummyCollectionStamp.slice(startIndex, endIndex).map((stamp, index) => (
@@ -554,7 +827,69 @@ export default function MissionMain() {
       )}
 
       {currentTab === 'tab3' && (
-        <div>탭 3의 내용입니다.</div>
+        <div>
+          <MyDesignContainer>
+            {isImageUploaded ? (
+              <UploadedContainer>
+                <PreviewImage container={checkedContainer} src={preview} alt="Preview" />
+              </UploadedContainer>
+            ) : (
+              <UploadContainer
+                isDragActive={isDragActive}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+              >
+                <UploadPlusButtonImg
+                  src={image}
+                  onMouseOver={handleMouseOver}
+                  onMouseOut={handleMouseOut}
+                  onClick={handlePlusButtonClick}
+                />
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  style={{ display: 'none' }}  // 파일 입력 창을 숨깁니다.
+                  onChange={handleFileChange}
+                />
+                <UploadText>- jpg 형식만 등록할 수 있어요.<br/>- 편지지 5:3, 우표 3:4 비율로 등록돼요.<br/>- 파일을 마우스로 끌어올 수 있어요.</UploadText>
+              </UploadContainer>
+            )}
+
+            <FileDetailContainer>
+
+              <FileTypeContainer>
+                <TypeText>종류</TypeText>
+                <TypeChooseContainer>
+                  <ChooseLetterContainer onClick={() => handleContainerClick('letter')}>
+                    <FileTypeCheckboxImg style={{left: 0, top: 0}} src={checkedContainer === 'letter' ? FileTypeCheckedCheckbox : FileTypeCheckbox} alt="파일 종류 체크 박스" />
+                    <ChooseLetterText>편지지</ChooseLetterText>
+                  </ChooseLetterContainer>
+                  <ChooseStampContainer onClick={() => handleContainerClick('stamp')}>
+                    <FileTypeCheckboxImg style={{left: 0, top: 0}} src={checkedContainer === 'stamp' ? FileTypeCheckedCheckbox : FileTypeCheckbox} alt="파일 종류 체크 박스" />
+                    <ChooseLetterText>우표</ChooseLetterText>
+                  </ChooseStampContainer>
+
+                  <FileNameContainer>
+                    <TypeText>편지지/우표 이름</TypeText>
+                    <FileNameEdit
+                      value={fileName}
+                      onChange={e => setFileName(e.target.value.slice(0, 20))}  // 입력값이 길 경우 최대 20자까지만 저장합니다.
+                      placeholder={'이름을 적어주세요.'}
+                    />
+                  </FileNameContainer>
+                </TypeChooseContainer>
+              </FileTypeContainer>
+
+              {isImageUploaded && (
+                <SaveButton>
+                  <SaveText>저장하기</SaveText>
+                </SaveButton>
+              )}
+
+            </FileDetailContainer>
+          </MyDesignContainer>
+        </div>
       )}
     </div>
   )

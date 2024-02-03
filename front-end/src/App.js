@@ -15,6 +15,7 @@ import Answer2 from './components/MyLetterbox/Answer2';
 import Answer3 from './components/MyLetterbox/Answer3';
 import Answer4 from './components/MyLetterbox/Answer4';
 import OpenLetter1 from './components/MyLetterbox/OpenLetter1';
+import SlowLetterboxToday from './components/MyLetterbox/SlowLetterboxToday';
 import CreateAccount from './components/Login/CreateAccount';
 import Terms from './components/Login/Terms';
 import MakeLetterbox from './components/Login/MakeLetterbox';
@@ -61,6 +62,7 @@ function App() {
           <Route path="/Answer3" element={<Answer3 />} />
           <Route path="/Answer4" element={<Answer4 />} />
           <Route path="/OpenLetter1" element={<OpenLetter1 />} />
+          <Route path="/SlowLetterboxToday" element={<SlowLetterboxToday />} />
           <Route path="/Terms" element={<Terms />} />
           <Route path="/MakeLetterbox" element={<MakeLetterbox />} />
           <Route path="/MissionMain" element={<MissionMain />} />
