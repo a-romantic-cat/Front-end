@@ -490,10 +490,10 @@ const FileNameContainer = styled.div`
   top: 174px;
 `;
 
-const FileNameEdit = styled.div`
-  width: 85px;
+const FileNameEdit = styled.input`
+  width: 356px;
   height: 20px;
-  padding: 10px 282px 9px 11px;
+  padding: 10px 11px 9px 11px;
   position: absolute;
   left: 0;
   top: 44px;
@@ -502,14 +502,46 @@ const FileNameEdit = styled.div`
   display: inline-flex;
   justify-content: flex-start;
   align-items: center;
+  color: #757575;   // 입력 필드의 기본 텍스트 색상을 지정합니다.
+  font-size: 20px;  // 입력 필드의 기본 텍스트 크기를 지정합니다.
+  font-family: Pretendard;  // 입력 필드의 기본 글꼴을 지정합니다.
+  font-weight: 400; // 입력 필드의 기본 글꼴 두께를 지정합니다.
+  line-height: 20px;  
+
+  &::placeholder {
+    color: #757575;
+    font-size: 20px;
+    font-family: Pretendard;
+    font-weight: 400;
+    line-height: 20px;
+  }
+
+  &:focus {
+    outline: none;  // 입력 필드에 포커스가 갔을 때 테두리를 없앱니다.
+  }
 `;
 
-const EditText = styled.div`
-  color: #757575;
-  font-size: 20px;
+const SaveButton = styled.div`
+  width: 233px;
+  height: 17.2px;
+  padding: 12.38px;
+  background: #C90000;
+  border-radius: 10px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12.38px;
+  position: absolute;
+  right: 60px;
+  top: 592px;
+  cursor: pointer;
+`;
+
+const SaveText = styled.div`
+  color: white;
+  font-size: 18px;
   font-family: Pretendard;
-  font-weight: 400;
-  line-height: 20px;
+  font-weight: 500;
   word-wrap: break-word;
 `;
 
@@ -599,6 +631,7 @@ export default function MissionMain() {
   const [isDragActive, setIsDragActive] = useState(false); // 드래그앤드랍
   const fileInputRef = useRef(null);  // 파일 입력 창을 참조하는 ref를 생성합니다.
   const [isImageUploaded, setIsImageUploaded] = useState(false); // 이미지 업로드 상태를 관리하는 상태 변수를 추가합니다.
+  const [fileName, setFileName] = useState('');  // 파일 이름을 관리하는 상태
 
   // 마우스가 올라갔을 때와 나갔을 때 이미지를 변경하는 이벤트 핸들러를 만듭니다.
   const handleMouseOver = () => setImage(UploadPlusButtonHover);
@@ -620,6 +653,8 @@ export default function MissionMain() {
       reader.onloadend = () => {
         // 파일 읽기가 완료되면, 결과를 미리보기 이미지 상태에 저장합니다.
         setPreview(reader.result);
+        // 파일 이름을 상태에 저장합니다.
+        setFileName(file.name.slice(0, 20));  // 파일 이름이 길 경우 최대 20자까지만 저장합니다.
       };
       reader.readAsDataURL(file);
     }
@@ -661,6 +696,8 @@ export default function MissionMain() {
       e.dataTransfer.clearData();
     }
   };
+
+
 
 
   return (
@@ -820,6 +857,7 @@ export default function MissionMain() {
             )}
 
             <FileDetailContainer>
+
               <FileTypeContainer>
                 <TypeText>종류</TypeText>
                 <TypeChooseContainer>
@@ -834,13 +872,20 @@ export default function MissionMain() {
 
                   <FileNameContainer>
                     <TypeText>편지지/우표 이름</TypeText>
-                    <FileNameEdit>
-                      <EditText>photo.jpg</EditText>
-                    </FileNameEdit>
-
+                    <FileNameEdit
+                      value={fileName}
+                      onChange={e => setFileName(e.target.value.slice(0, 20))}  // 입력값이 길 경우 최대 20자까지만 저장합니다.
+                      placeholder={'이름을 적어주세요.'}
+                    />
                   </FileNameContainer>
                 </TypeChooseContainer>
               </FileTypeContainer>
+
+              {isImageUploaded && (
+                <SaveButton>
+                  <SaveText>저장하기</SaveText>
+                </SaveButton>
+              )}
 
             </FileDetailContainer>
           </MyDesignContainer>
