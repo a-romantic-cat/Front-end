@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 import { useNavigate } from 'react-router-dom';
 import '../../index.css';
 import 상점 from '../../assets/img/상점.svg';
@@ -9,6 +10,10 @@ import Coin from '../../assets/img/코인.svg';
 import 다음버튼 from '../../assets/img/다음버튼.svg';
 import Checkbox from '../../assets/img/Checkbox.svg';
 import CheckedCheckbox from '../../assets/img/CheckedCheckbox.svg';
+import FileTypeCheckbox from '../../assets/img/FileTypeCheckbox.svg';
+import FileTypeCheckedCheckbox from '../../assets/img/FileTypeCheckedCheckbox.svg';
+import UploadPlusButton from '../../assets/img/UploadPlusButton.svg';
+import UploadPlusButtonHover from '../../assets/img/UploadPlusButtonHover.svg';
 
 //수집함 편지지 데이터
 const dummyCollectionLetter = [
@@ -211,7 +216,7 @@ const TabContentContainer = styled.div`
 `;
 
 //마이디자인만 보기
-const MyDesignContainer = styled.div`
+const MyDesignButtonContainer = styled.div`
   width: 155px;
   height: 18px;
   position: relative;
@@ -343,6 +348,152 @@ const StampText = styled.div`
   word-wrap: break-word;
 `;
 
+//탭 속 마이디자인 내용
+const MyDesignContainer = styled.div`
+  width: 1092px;
+  height: 634px;
+  position: relative;
+  left: 363px;
+  top: 324px;
+`;
+
+const UploadContainer = styled.div`
+  width: 316px;
+  height: 230px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  border: 1px black dotted;
+  padding-top: 226px;
+  padding-bottom: 126px;
+  padding-left: 133px;
+  padding-right: 133px;
+  justify-content: center;
+  align-items: center; 
+  display: inline-flex;
+  flex-direction: column;
+  gap: 76px;
+`;
+
+const UploadPlusButtonImg = styled.img`
+  width: 76px;
+  height: 76px;
+`;
+
+const UploadText = styled.div`
+  color: #707070;
+  font-size: 20px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  word-wrap: break-word;
+`;
+
+const FileDetailContainer = styled.div`
+  width: 378px;
+  height: 428px;
+  position: absolute;
+  left: 714px;
+  top: 0;
+  gap: 110px;
+`;
+
+const FileTypeContainer = styled.div`
+  width: 187px;
+  height: 64px;
+  position: absolute;
+  left: 0;
+  top: 0
+`;
+
+const TypeText = styled.div`
+  left: 0;
+  top: 0;
+  position: absolute;
+  color: black;
+  font-size: 24px;
+  font-family: Pretendard;
+  font-weight: 500;
+  line-height: 24px;
+  word-wrap: break-word;
+`;
+
+const TypeChooseContainer = styled.div`
+  width: 187px;
+  height: 20px;
+  position: absolute;
+  left: 0;
+  top: 44px;
+`;
+
+const ChooseLetterContainer = styled.div`
+  width: 79px;
+  height: 20px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  gap: 7px;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+`;
+
+const ChooseStampContainer = styled.div`
+  width: 62px;
+  height: 20px;
+  left: 125px;
+  top: 0;
+  position: absolute;
+  gap: 7px;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+`;
+
+const FileTypeCheckboxImg = styled.img`
+  width: 20px;
+  height: 20px;
+`;
+
+const ChooseLetterText = styled.div`
+  color: black;
+  font-size: 20px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  line-height: 20px;
+  word-wrap: break-word;
+`;
+
+const FileNameContainer = styled.div`
+  width: 378px;
+  height: 83px;
+  position: absolute;
+  left: 0;
+  top: 174px;
+`;
+
+const FileNameEdit = styled.div`
+  width: 85px;
+  height: 20px;
+  padding: 10px 282px 9px 11px;
+  position: absolute;
+  left: 0;
+  top: 44px;
+  background: white;
+  border: 1px solid black;
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+const EditText = styled.div`
+  color: #757575;
+  font-size: 20px;
+  font-family: Pretendard;
+  font-weight: 400;
+  line-height: 20px;
+  word-wrap: break-word;
+`;
+
 //페이징
 const PaginationContainer = styled.div`
   align-items: center;
@@ -419,8 +570,8 @@ export default function MissionMain() {
 
   return (
     <div>
-        <Header />
-        <StoreMainDiv>
+      <Header />
+      <StoreMainDiv>
         <StoreInnerDiv>
         <ItemDiv onClick={() => navigate('/Store')}>
             <CollectionBoxImg src={상점} alt='상점'/>
@@ -455,14 +606,14 @@ export default function MissionMain() {
         <div>
           <TabContentContainer>
 
-            <MyDesignContainer onClick={handleCheckboxClick}>
+            <MyDesignButtonContainer onClick={handleCheckboxClick}>
             {isChecked ? (
               <CheckboxImg src={CheckedCheckbox} alt="Checked Checkbox" />
             ) : (
               <CheckboxImg src={Checkbox} alt="Unchecked Checkbox" />
             )}
               <MyDesignText>마이디자인만 보기</MyDesignText>
-            </MyDesignContainer>
+            </MyDesignButtonContainer>
 
             <LetterContainer>
               {dummyCollectionLetter.slice(startIndex, endIndex).map((letter, index) => (
@@ -500,10 +651,10 @@ export default function MissionMain() {
       {currentTab === 'tab2' && (
         <div>
           <TabContentContainer>
-          <MyDesignContainer>
+            <MyDesignButtonContainer>
               <CheckboxImg src={Checkbox} alt="Checkbox" />
               <MyDesignText>마이디자인만 보기</MyDesignText>
-            </MyDesignContainer>
+            </MyDesignButtonContainer>
 
             <StampContainer>
                 {dummyCollectionStamp.slice(startIndex, endIndex).map((stamp, index) => (
@@ -539,7 +690,39 @@ export default function MissionMain() {
       )}
 
       {currentTab === 'tab3' && (
-        <div>탭 3의 내용입니다.</div>
+        <div>
+          <MyDesignContainer>
+            <UploadContainer>
+              <UploadPlusButtonImg src={UploadPlusButton} alt="업로드 전 내용" />
+              <UploadText>- jpg 형식만 등록할 수 있어요.<br/>- 편지지 5:3, 우표 3:4 비율로 등록돼요.<br/>- 파일을 마우스로 끌어올 수 있어요.</UploadText>
+            </UploadContainer>
+
+            <FileDetailContainer>
+              <FileTypeContainer>
+                <TypeText>종류</TypeText>
+                <TypeChooseContainer>
+                  <ChooseLetterContainer>
+                    <FileTypeCheckboxImg style={{left: 0, top: 0}} src={FileTypeCheckbox} alt="파일 종류 체크 박스" />
+                    <ChooseLetterText>편지지</ChooseLetterText>
+                  </ChooseLetterContainer>
+                  <ChooseStampContainer>
+                    <FileTypeCheckboxImg style={{left: 0, top: 0}} src={FileTypeCheckbox} alt="파일 종류 체크 박스" />
+                    <ChooseLetterText>우표</ChooseLetterText>
+                  </ChooseStampContainer>
+
+                  <FileNameContainer>
+                    <TypeText>편지지/우표 이름</TypeText>
+                    <FileNameEdit>
+                      <EditText>photo.jpg</EditText>
+                    </FileNameEdit>
+
+                  </FileNameContainer>
+                </TypeChooseContainer>
+              </FileTypeContainer>
+
+            </FileDetailContainer>
+          </MyDesignContainer>
+        </div>
       )}
     </div>
   )
