@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { NavLink, useLocation } from 'react-router-dom';
 import logo from '../../assets/img/낭만고양이로고.svg';
 import feather from '../../assets/img/Feather.svg';
 import featherRed from '../../assets/img/FeatherRed.svg';
 import '../../index.css';
+
 
 const Container = styled.div`
   width: 1486px;
@@ -67,7 +68,7 @@ const MenuContainer = styled.div`
 `;
 
 const MenuItem = styled.div`
-  height: 100px;
+  height: 21px;
   padding-top: 39px;
   padding-bottom: 39px;
   flex-direction: column;
@@ -75,6 +76,7 @@ const MenuItem = styled.div`
   align-items: flex-start;
   gap: 10px;
   display: inline-flex;
+  border-bottom: ${props => props.active ? '2px #C90000 solid' : 'none'};
 `;
 
 const Text = styled.div`
@@ -83,12 +85,7 @@ const Text = styled.div`
   font-family: Pretendard;
   font-weight: 400;
   word-wrap: break-word;
-
-  .active & {
-    color: #C90000;
-    border-bottom: 2px #C90000 solid;
-    padding-bottom: 39px;
-  }
+  color: ${props => props.active ? '#C90000' : 'black'};
 `;
 
 const FeatherContainer = styled.div`
@@ -226,6 +223,35 @@ export default function Header() {
     setActiveIndex(index);
   };
 
+  const location = useLocation();
+
+  useEffect(() => {
+    switch(location.pathname) {
+      case '/MyLetterbox':
+      case '/SlowLetterboxToday':
+      case '/RomanticLetterbox':
+        setActiveIndex(0);
+        break;
+      case '/AddressBook':
+        setActiveIndex(1);
+        break;
+      case '/RomanticLetterbox':
+      case '/WritingLetter':
+      case '/ReplyingLetter':
+        setActiveIndex(2);
+        break;
+      case '/Store':
+      case '/CollectionBoxMain':
+      case '/MissionMain':
+        setActiveIndex(3);
+        break;
+      default:
+        setActiveIndex(null);
+        break;
+    }
+  }, [location]);
+
+
   return (
     <Container>
       <InnerContainer>
@@ -236,17 +262,25 @@ export default function Header() {
         </LogoContainer>
         </StyledNavLink>
         <MenuContainer onMouseEnter={showMenu} onMouseLeave={hideMenu}>
-          <MenuItem>
-            <StyledNavLink to="/MyLetterbox"><Text>내 우편함</Text></StyledNavLink>
+          <MenuItem active={activeIndex === 0}>
+            <StyledNavLink to="/MyLetterbox">
+              <Text>내 우편함</Text>
+            </StyledNavLink>
           </MenuItem>
-          <MenuItem>
-            <StyledNavLink to="/AddressBook"><Text>주소록</Text></StyledNavLink>
+          <MenuItem active={activeIndex === 1}>
+            <StyledNavLink to="/AddressBook">
+              <Text>주소록</Text>
+            </StyledNavLink>
           </MenuItem>
-          <MenuItem>
-            <StyledNavLink to="/RomanticLetterbox"><Text>낭만 우편함</Text></StyledNavLink>
+          <MenuItem active={activeIndex === 2}>
+            <StyledNavLink to="/RomanticLetterbox">
+              <Text>낭만 우편함</Text>
+            </StyledNavLink>
           </MenuItem>
-          <MenuItem>
-            <StyledNavLink to="/Store"><Text>상점</Text></StyledNavLink>
+          <MenuItem active={activeIndex === 3}>
+            <StyledNavLink to="/Store">
+              <Text>상점</Text>
+            </StyledNavLink>
           </MenuItem>
         </MenuContainer>
         <FeatherContainer>
