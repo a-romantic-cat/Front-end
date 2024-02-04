@@ -142,6 +142,27 @@ const Feather = ({ to, alt }) => {
   );
 };
 
+  //로그인 버튼 
+  const LoginButton = styled.div`
+  width: 47px; 
+  height: 21px;
+  padding: 10.50px 20px;
+  background: #C90000;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: inline-flex;
+`;
+
+const LoginText = styled.div`
+  color: white; 
+  font-size: 18px;
+  font-family: 'Pretendard'; 
+  font-weight: 400;
+  word-wrap: break-word;
+`;
+
 //마우스 오버시 나타나는 메뉴
 const DetailMenuContainer = styled.div`
   width: 1920px;
@@ -207,14 +228,14 @@ export default function Header() {
 
   return (
     <Container>
-      <InnerContainer onMouseEnter={showMenu} onMouseLeave={hideMenu}>
+      <InnerContainer>
         <StyledNavLink to="/">
         <LogoContainer>
           <LogoImg src={logo} alt='logo' />
           <TextLogo>낭만고양이</TextLogo>
         </LogoContainer>
         </StyledNavLink>
-        <MenuContainer>
+        <MenuContainer onMouseEnter={showMenu} onMouseLeave={hideMenu}>
           <MenuItem>
             <StyledNavLink to="/MyLetterbox"><Text>내 우편함</Text></StyledNavLink>
           </MenuItem>
