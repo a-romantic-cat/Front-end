@@ -201,13 +201,22 @@ const TabText = styled.div`
 `;
 
 //탭1 내용 컨테이너
-const TabContentContainer = styled.div`
+const Tab1ContentContainer = styled.div`
   width: 1194px;
-  height: 1535px;
+  height: 1892px;
   position: absolute;
   left: 363px;
   top: 334px;
-`
+`;
+
+//탭2 내용 컨테이너
+const Tab2ContentContainer = styled.div`
+  width: 1194px;
+  height: 1921px;
+  position: absolute;
+  left: 363px;
+  top: 334px;
+`;
 
 //정렬 기준
 const SortingContainer = styled.div`
@@ -287,20 +296,20 @@ const LetterContainer = styled.div`
 `;
 
 const LetterBox = styled.div`
-  width: 1194.20px;
+  width: 1194px;
   height: 294px;
   position: absolute;
 `;
 
 const LetterInnerBox = styled.div`
-  width: 378.20px;
+  width: 378px;
   height: 294px;
-  position: relative;
+  position: absolute;
 `;
 
 const LetterBackground = styled.div`
   width: 378px;
-  height: 226.67px;
+  height: 227px;
   left: 0.20px;
   top: 0;
   position: absolute;
@@ -310,8 +319,8 @@ const LetterBackground = styled.div`
 `;
 
 const LetterTextWrapper = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 378px;
+  height: 57px;
   left: 0;
   top: 237px;
   position: absolute;
@@ -447,25 +456,25 @@ const LetterPurchaseText = styled.div`
 //탭 속 우표 내용
 const StampContainer = styled.div`
   width: 1194px;
-  height: 1344px;
+  height: 1505px;
   position: relative;
 `;
 
 const StampBox = styled.div`
   width: 1194px;
-  height: 380px;
+  height: 435px;
   position: absolute;
 `;
 
 const StampInnerBox = styled.div`
   width: 276x;
-  height: 380px;
+  height: 435px;
   position: absolute;
 `;
 
 const StampBackground = styled.div`
   width: 276px;
-  height: 348px;
+  height: 368px;
   left: 0;
   top: 0;
   position: absolute;
@@ -475,10 +484,10 @@ const StampBackground = styled.div`
 `;
 
 const StampTextWrapper = styled.div`
-  width: 100%;
-  heightL 100%;
+  width: 82.2px;
+  height: 57px;
   left: 0;
-  top: 358px;
+  top: 378px;
   position: absolute;
 `;
 
@@ -685,7 +694,7 @@ function LetterPage() {
 
   return (
     <div>
-      <TabContentContainer>
+      <Tab1ContentContainer>
       <SortingContainer>
         <div>
           <SelectedOptionContainer onClick={handleDropdownToggle}>
@@ -771,7 +780,7 @@ function LetterPage() {
         </PageNumberContainer>
         <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage} />
       </PaginationContainer>
-      </TabContentContainer>
+      </Tab1ContentContainer>
     </div>
   );
 }
@@ -837,7 +846,7 @@ function StampPage() {
 
   return (
     <div>
-      <TabContentContainer>
+      <Tab2ContentContainer>
       <SortingContainer>
         <div>
           <SelectedOptionContainer onClick={handleDropdownToggle}>
@@ -871,7 +880,7 @@ function StampPage() {
       <StampContainer>
         {dummyCollectionStamp.slice(startIndex, endIndex).map((stamp, index) => (
           <StampBox key={stamp.stampId}>
-            <StampInnerBox style={{ top: `${Math.floor(index / 4) * 482}px`, left: `${(index % 4) * 306}px` }}>
+            <StampInnerBox style={{ top: `${Math.floor(index / 4) * 535}px`, left: `${(index % 4) * 306}px` }}>
               <StampBackground 
                 onClick={() => handleStampBackgroundClick(index)}
                 isActive={index === selectedStampIndex}
@@ -918,7 +927,7 @@ function StampPage() {
         </PageNumberContainer>
         <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage} />
       </PaginationContainer>
-      </TabContentContainer>
+      </Tab2ContentContainer>
     </div>
   );
 }

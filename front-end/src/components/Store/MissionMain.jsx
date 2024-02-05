@@ -135,7 +135,7 @@ const TitleDetailText = styled.div`
 //탭 내용 컨테이너
 const TabContentContainer = styled.div`
   width: 1194px;
-  height: 1535px;
+  height: 1526px;
   position: absolute;
   left: 363px;
   top: 320px;

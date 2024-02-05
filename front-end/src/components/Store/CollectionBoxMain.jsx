@@ -177,7 +177,7 @@ const TabText = styled.div`
 //탭1 내용 컨테이너
 const Tab1ContentContainer = styled.div`
   width: 1194px;
-  height: 1598px;
+  height: 1760px;
   position: absolute;
   left: 363px;
   top: 334px;
@@ -186,7 +186,7 @@ const Tab1ContentContainer = styled.div`
 //탭2 내용 컨테이너
 const Tab2ContentContainer = styled.div`
   width: 1194px;
-  height: 1620px;
+  height: 1782px;
   position: absolute;
   left: 363px;
   top: 334px;
@@ -200,6 +200,7 @@ const MyDesignButtonContainer = styled.div`
   left: 1039px;
   top: 0;
   cursor: pointer;
+  margin-bottom: 72px;
 `;
 
 const CheckboxImg = styled.img`
@@ -225,7 +226,6 @@ const LetterContainer = styled.div`
   width: 1194px;
   height: 1342px;
   position: relative;
-  top: 90px;
 `;
 
 const LetterBox = styled.div`
@@ -277,7 +277,6 @@ const StampContainer = styled.div`
   width: 1194px;
   height: 1364px;
   position: relative;
-  top: 90px;
 `;
 
 const StampBox = styled.div`
@@ -326,7 +325,7 @@ const StampText = styled.div`
 //탭 속 마이디자인 내용
 const MyDesignContainer = styled.div`
   width: 1092px;
-  height: 582px;
+  height: 796px;
   position: relative;
   left: 363px;
   top: 324px;
