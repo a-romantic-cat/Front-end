@@ -175,9 +175,18 @@ const TabText = styled.div`
 `;
 
 //탭1 내용 컨테이너
-const TabContentContainer = styled.div`
+const Tab1ContentContainer = styled.div`
   width: 1194px;
-  height: 1535px;
+  height: 1598px;
+  position: absolute;
+  left: 363px;
+  top: 334px;
+`;
+
+//탭2 내용 컨테이너
+const Tab2ContentContainer = styled.div`
+  width: 1194px;
+  height: 1620px;
   position: absolute;
   left: 363px;
   top: 334px;
@@ -214,27 +223,27 @@ const MyDesignText = styled.div`
 //탭 속 편지지 내용
 const LetterContainer = styled.div`
   width: 1194px;
-  height: 1476px;
+  height: 1342px;
   position: relative;
-  top: 72px;
+  top: 90px;
 `;
 
 const LetterBox = styled.div`
-  width: 1194.20px;
-  height: 294px;
+  width: 1194px;
+  height: 259px;
   position: absolute;
-  margin-bottom: 100px;
+  margin-bottom: 102px;
 `;
 
 const LetterInnerBox = styled.div`
-  width: 378.20px;
-  height: 294px;
+  width: 378px;
+  height: 259px;
   position: absolute;
 `;
 
 const LetterBackground = styled.div`
   width: 378px;
-  height: 226.67px;
+  height: 227px;
   left: 0.20px;
   top: 0;
   position: absolute;
@@ -243,8 +252,8 @@ const LetterBackground = styled.div`
 `;
 
 const LetterTextWrapper = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 378px;
+  height: 22px;
   left: 0;
   top: 237px;
   position: absolute;
@@ -266,26 +275,26 @@ const LetterText = styled.div`
 //탭 속 우표 내용
 const StampContainer = styled.div`
   width: 1194px;
-  height: 1344px;
+  height: 1364px;
   position: relative;
-  top: 72px;
+  top: 90px;
 `;
 
 const StampBox = styled.div`
   width: 1194px;
-  height: 380px;
+  height: 400px;
   position: absolute;
 `;
 
 const StampInnerBox = styled.div`
   width: 276x;
-  height: 380px;
+  height: 400px;
   position: absolute;
 `;
 
 const StampBackground = styled.div`
   width: 276px;
-  height: 348px;
+  height: 368px;
   left: 0;
   top: 0;
   position: absolute;
@@ -294,10 +303,10 @@ const StampBackground = styled.div`
 `;
 
 const StampTextWrapper = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 276px;
+  height: 22px;
   left: 0;
-  top: 358px;
+  top: 378px;
   position: absolute;
 `;
 
@@ -362,7 +371,7 @@ const UploadPlusButtonImg = styled.img`
 // 선택된 컨테이너에 따라 비율을 조절합니다.
 const PreviewImage = styled.img`
   width: ${({ container }) => container === 'letter' ? '378px' : '276px'};
-  height: ${({ container }) => container === 'letter' ? '226px' : '347px'};
+  height: ${({ container }) => container === 'letter' ? '226px' : '368px'};
 `;
 
 const UploadText = styled.div`
@@ -712,7 +721,7 @@ export default function MissionMain() {
 
       {currentTab === 'Letter' && (
         <div>
-          <TabContentContainer>
+          <Tab1ContentContainer>
 
             <MyDesignButtonContainer onClick={handleCheckboxClickTab1}>
             {isCheckedTab1 ? (
@@ -726,7 +735,7 @@ export default function MissionMain() {
             <LetterContainer>
               {displayedItems.filter(item => item.itemType === 'Letter').slice(startIndex, endIndex).map((letter, index) => (
                 <LetterBox key={letter.itemID}>
-                  <LetterInnerBox style={{ top: `${Math.floor(index / 3) * 394}px`, left: `${(index % 3) * 408}px` }}>
+                  <LetterInnerBox style={{ top: `${Math.floor(index / 3) * 361}px`, left: `${(index % 3) * 408}px` }}>
                     <LetterBackground />
                     <LetterTextWrapper>
                       <LetterText>{letter.itemName}</LetterText> {/* 편지지 이름 */}
@@ -752,13 +761,13 @@ export default function MissionMain() {
               </PageNumberContainer>
               <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage} />
             </PaginationContainer>
-          </TabContentContainer>
+          </Tab1ContentContainer>
         </div>
       )}
 
       {currentTab === 'Stamp' && (
         <div>
-          <TabContentContainer>
+          <Tab2ContentContainer>
 
             <MyDesignButtonContainer onClick={handleCheckboxClickTab2}>
               {isCheckedTab2 ? (
@@ -798,7 +807,7 @@ export default function MissionMain() {
               </PageNumberContainer>
               <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage} />
             </PaginationContainer>
-          </TabContentContainer>
+          </Tab2ContentContainer>
         </div>
       )}
 
