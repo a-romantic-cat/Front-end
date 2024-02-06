@@ -394,7 +394,27 @@ export default function MyLetterboxMain() {
     );
   };
   
-  
+  const shareUrl = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: 'My Awesome App',
+        text: 'Check out this website:',
+        url: window.location.href, // 현재 페이지의 URL
+      })
+      .then(() => console.log('Successful share'))
+      .catch(error => console.log('Error sharing:', error));
+    } else {
+      // 웹 공유 API를 지원하지 않는 브라우저에서는 다른 방식으로 공유 기능을 구현합니다.
+      // 예를 들어, 클립보드에 URL을 복사하는 기능을 제공할 수 있습니다.
+      navigator.clipboard.writeText(window.location.href)
+        .then(() => {
+          console.log('URL copied to clipboard');
+        })
+        .catch(err => {
+          console.log('Could not copy text: ', err);
+        });
+    }
+  };
   
   return (
     <div>
@@ -426,7 +446,7 @@ export default function MyLetterboxMain() {
 
       <IButtonImg src={i_button} alt='i_button' onClick={() => {setIsModalOpen(true)}} /> {/* 이미지 클릭 시 모달 열림 */}
         <Info isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-      <ShareButtonImg src={share_button} alt='share_button' />
+      <ShareButtonImg src={share_button} alt='share_button' onClick={shareUrl} />
 
         <BoxCheckContainer onClick={navigateToCheck1}>
           <BoxCheckText>우편함 확인하기</BoxCheckText>
