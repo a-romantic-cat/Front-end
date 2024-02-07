@@ -15,65 +15,33 @@ import FileTypeCheckedCheckbox from '../../assets/img/FileTypeCheckedCheckbox.sv
 import UploadPlusButton from '../../assets/img/UploadPlusButton.svg';
 import UploadPlusButtonHover from '../../assets/img/UploadPlusButtonHover.svg';
 
-//수집함 편지지 데이터
-const dummyCollectionLetter = [
-  {id: 1, NickName: "편지지 이름", Price: "30"},
-  {id: 2, NickName: "편지지 이름", Price: "30"},
-  {id: 3, NickName: "편지지 이름", Price: "30"},
-  {id: 4, NickName: "편지지 이름", Price: "30"},
-  {id: 5, NickName: "편지지 이름", Price: "30"},
-  {id: 6, NickName: "편지지 이름", Price: "30"},
-  {id: 7, NickName: "편지지 이름", Price: "30"},
-  {id: 8, NickName: "편지지 이름", Price: "30"},
-  {id: 9, NickName: "편지지 이름", Price: "30"},
-  {id: 10, NickName: "편지지 이름", Price: "30"},
-  {id: 11, NickName: "편지지 이름", Price: "30"},
-  {id: 12, NickName: "편지지 이름", Price: "30"},
+//수집함 데이터
+const displayedItems = [
+  {itemID: 1, itemName: "새로운 편지지", itemType: "Letter"},
+  {itemID: 2, itemName: "동물 모양 우표", itemType: "Stamp"},
+  {itemID: 3, itemName: "새로운 편지지", itemType: "Letter"},
+  {itemID: 4, itemName: "새로운 편지지", itemType: "Letter"},
+  {itemID: 5, itemName: "새로운 편지지", itemType: "Letter"},
+  {itemID: 6, itemName: "새로운 편지지", itemType: "Letter"},
+  {itemID: 7, itemName: "새로운 편지지", itemType: "Letter"},
+  {itemID: 8, itemName: "새로운 편지지", itemType: "Letter"},
+  {itemID: 9, itemName: "새로운 편지지", itemType: "Letter"},
+  {itemID: 10, itemName: "새로운 편지지", itemType: "Letter"},
+  {itemID: 11, itemName: "새로운 편지지", itemType: "Letter"},
+  {itemID: 12, itemName: "새로운 편지지", itemType: "Letter"},
 
-  {id: 13, NickName: "편지지 이름", Price: "30"},
-  {id: 14, NickName: "편지지 이름", Price: "30"},
-  {id: 15, NickName: "편지지 이름", Price: "30"},
-  {id: 16, NickName: "편지지 이름", Price: "30"},
-  {id: 17, NickName: "편지지 이름", Price: "30"},
-  {id: 18, NickName: "편지지 이름", Price: "30"},
-  {id: 19, NickName: "편지지 이름", Price: "30"},
-  {id: 20, NickName: "편지지 이름", Price: "30"},
-  {id: 21, NickName: "편지지 이름", Price: "30"},
-  {id: 22, NickName: "편지지 이름", Price: "30"},
-  {id: 23, NickName: "편지지 이름", Price: "30"},
-  {id: 24, NickName: "편지지 이름", Price: "30"},
+  {itemID: 13, itemName: "동물 모양 우표", itemType: "Stamp"},
+  {itemID: 15, itemName: "동물 모양 우표", itemType: "Stamp"},
+  {itemID: 16, itemName: "동물 모양 우표", itemType: "Stamp"},
+  {itemID: 18, itemName: "동물 모양 우표", itemType: "Stamp"},
+  {itemID: 19, itemName: "동물 모양 우표", itemType: "Stamp"},
+  {itemID: 20, itemName: "동물 모양 우표", itemType: "Stamp"},
+  {itemID: 21, itemName: "동물 모양 우표", itemType: "Stamp"},
+  {itemID: 22, itemName: "동물 모양 우표", itemType: "Stamp"},
+  {itemID: 23, itemName: "동물 모양 우표", itemType: "Stamp"},
+  {itemID: 24, itemName: "동물 모양 우표", itemType: "Stamp"},
 
-  {id: 25, NickName: "편지지 이름", Price: "30"},
-];
-
-const dummyCollectionStamp = [
-  {id: 1, NickName: "우표 이름"},
-  {id: 2, NickName: "우표 이름"},
-  {id: 3, NickName: "우표 이름"},
-  {id: 4, NickName: "우표 이름"},
-  {id: 5, NickName: "우표 이름"},
-  {id: 6, NickName: "우표 이름"},
-  {id: 7, NickName: "우표 이름"},
-  {id: 8, NickName: "우표 이름"},
-  {id: 9, NickName: "우표 이름"},
-  {id: 10, NickName: "우표 이름"},
-  {id: 11, NickName: "우표 이름"},
-  {id: 12, NickName: "우표 이름"},
-
-  {id: 13, NickName: "우표 이름"},
-  {id: 14, NickName: "우표 이름"},
-  {id: 15, NickName: "우표 이름"},
-  {id: 16, NickName: "우표 이름"},
-  {id: 17, NickName: "우표 이름"},
-  {id: 18, NickName: "우표 이름"},
-  {id: 19, NickName: "우표 이름"},
-  {id: 20, NickName: "우표 이름"},
-  {id: 21, NickName: "우표 이름"},
-  {id: 22, NickName: "우표 이름"},
-  {id: 23, NickName: "우표 이름"},
-  {id: 24, NickName: "우표 이름"},
-
-  {id: 25, NickName: "우표 이름"},
+  {itemID: 25, itemName: "동물 모양 우표", itemType: "Stamp"},
 ];
 
 //수집함 제목
@@ -207,9 +175,18 @@ const TabText = styled.div`
 `;
 
 //탭1 내용 컨테이너
-const TabContentContainer = styled.div`
+const Tab1ContentContainer = styled.div`
   width: 1194px;
-  height: 1535px;
+  height: 1760px;
+  position: absolute;
+  left: 363px;
+  top: 334px;
+`;
+
+//탭2 내용 컨테이너
+const Tab2ContentContainer = styled.div`
+  width: 1194px;
+  height: 1782px;
   position: absolute;
   left: 363px;
   top: 334px;
@@ -223,6 +200,7 @@ const MyDesignButtonContainer = styled.div`
   left: 1039px;
   top: 0;
   cursor: pointer;
+  margin-bottom: 72px;
 `;
 
 const CheckboxImg = styled.img`
@@ -246,45 +224,43 @@ const MyDesignText = styled.div`
 //탭 속 편지지 내용
 const LetterContainer = styled.div`
   width: 1194px;
-  height: 1476px;
+  height: 1342px;
   position: relative;
-  top: 72px;
 `;
 
 const LetterBox = styled.div`
-  width: 1194.20px;
-  height: 294px;
+  width: 1194px;
+  height: 259px;
   position: absolute;
-  margin-bottom: 100px;
+  margin-bottom: 102px;
 `;
 
 const LetterInnerBox = styled.div`
-  width: 378.20px;
-  height: 294px;
+  width: 378px;
+  height: 259px;
   position: absolute;
 `;
 
 const LetterBackground = styled.div`
   width: 378px;
-  height: 226.67px;
+  height: 227px;
   left: 0.20px;
   top: 0;
   position: absolute;
   background: #CECECE;
-  cursor: pointer;
   z-index: 1;
 `;
 
 const LetterTextWrapper = styled.div`
   width: 378px;
-  height: 57px;
+  height: 22px;
   left: 0;
   top: 237px;
   position: absolute;
 `;
 
 const LetterText = styled.div`
-  width: 378px;
+  width: 100%;
   left: 0;
   top: 0;
   position: absolute;
@@ -293,50 +269,48 @@ const LetterText = styled.div`
   font-family: 'Pretendard';
   font-weight: 400;
   line-height: 22px;
-  word-wrap: break-word;
+  white-space: nowrap;
 `;
 
 //탭 속 우표 내용
 const StampContainer = styled.div`
   width: 1194px;
-  height: 1344px;
+  height: 1364px;
   position: relative;
-  top: 72px;
 `;
 
 const StampBox = styled.div`
   width: 1194px;
-  height: 380px;
+  height: 400px;
   position: absolute;
 `;
 
 const StampInnerBox = styled.div`
   width: 276x;
-  height: 380px;
+  height: 400px;
   position: absolute;
 `;
 
 const StampBackground = styled.div`
   width: 276px;
-  height: 348px;
+  height: 368px;
   left: 0;
   top: 0;
   position: absolute;
   background: #CECECE;
-  cursor: pointer;
   z-index: 1;
 `;
 
 const StampTextWrapper = styled.div`
-  width: 82px;
+  width: 276px;
   height: 22px;
   left: 0;
-  top: 358px;
+  top: 378px;
   position: absolute;
 `;
 
 const StampText = styled.div`
-  width: 82px;
+  width: 100%;
   left: 0;
   top: 0;
   position: absolute;
@@ -345,13 +319,13 @@ const StampText = styled.div`
   font-family: 'Pretendard';
   font-weight: 400;
   line-height: 22px;
-  word-wrap: break-word;
+  white-space: nowrap;
 `;
 
 //탭 속 마이디자인 내용
 const MyDesignContainer = styled.div`
   width: 1092px;
-  height: 634px;
+  height: 796px;
   position: relative;
   left: 363px;
   top: 324px;
@@ -396,7 +370,7 @@ const UploadPlusButtonImg = styled.img`
 // 선택된 컨테이너에 따라 비율을 조절합니다.
 const PreviewImage = styled.img`
   width: ${({ container }) => container === 'letter' ? '378px' : '276px'};
-  height: ${({ container }) => container === 'letter' ? '226px' : '347px'};
+  height: ${({ container }) => container === 'letter' ? '226px' : '368px'};
 `;
 
 const UploadText = styled.div`
@@ -533,7 +507,7 @@ const SaveButton = styled.div`
   gap: 12.38px;
   position: absolute;
   right: 60px;
-  top: 592px;
+  top: 540px;
   cursor: pointer;
 `;
 
@@ -592,10 +566,23 @@ const NextButtonImg = styled.img`
 
 export default function MissionMain() {
   const navigate = useNavigate();
-  const [currentTab, setCurrentTab] = useState('tab1');
+  const [currentTab, setCurrentTab] = useState('Letter'); // 초기 탭을 'Letter'로 설정
+
+  // 아이템 타입에 따라 아이템을 분류합니다.
+  const letters = displayedItems.filter(item => item.itemType === 'Letter');
+  const stamps = displayedItems.filter(item => item.itemType === 'Stamp');
+
+  // 현재 탭에 따라 표시할 아이템을 결정합니다.
+  const items = currentTab === 'Letter' ? letters : stamps;
 
   const itemsPerPage = 12; // 한 페이지에 표시할 아이템 개수
-  const totalPages = Math.ceil(dummyCollectionLetter.length / itemsPerPage); // 전체 페이지 수
+
+  // 각 아이템 타입에 대한 총 페이지 수를 계산합니다.
+  const totalPagesForLetters = Math.ceil(letters.length / itemsPerPage);
+  const totalPagesForStamps = Math.ceil(stamps.length / itemsPerPage);
+
+  // 현재 탭에 따라 총 페이지 수를 결정합니다.
+  const totalPages = currentTab === 'Letter' ? totalPagesForLetters : totalPagesForStamps;
 
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
 
@@ -697,9 +684,6 @@ export default function MissionMain() {
     }
   };
 
-
-
-
   return (
     <div>
       <Header />
@@ -723,20 +707,20 @@ export default function MissionMain() {
       </StoreMainDiv>
 
       <TabContainer>
-        <Tab isActive={currentTab === 'tab1'} onClick={() => setCurrentTab('tab1')}>
-          <TabText style={{width: 63}} isActive={currentTab === 'tab1'}>편지지</TabText>
+        <Tab isActive={currentTab === 'Letter'} onClick={() => setCurrentTab('Letter')}>
+          <TabText style={{width: 63}} isActive={currentTab === 'Letter'}>편지지</TabText>
         </Tab>
-        <Tab isActive={currentTab === 'tab2'} onClick={() => setCurrentTab('tab2')}>
-          <TabText style={{width: 42}} isActive={currentTab === 'tab2'}>우표</TabText>
+        <Tab isActive={currentTab === 'Stamp'} onClick={() => setCurrentTab('Stamp')}>
+          <TabText style={{width: 42}} isActive={currentTab === 'Stamp'}>우표</TabText>
         </Tab>
-        <Tab isActive={currentTab === 'tab3'} onClick={() => setCurrentTab('tab3')}>
-          <TabText style={{width: 104}} isActive={currentTab === 'tab3'}>마이디자인</TabText>
+        <Tab isActive={currentTab === 'MyDesign'} onClick={() => setCurrentTab('MyDesign')}>
+          <TabText style={{width: 104}} isActive={currentTab === 'MyDesign'}>마이디자인</TabText>
         </Tab>
       </TabContainer>
 
-      {currentTab === 'tab1' && (
+      {currentTab === 'Letter' && (
         <div>
-          <TabContentContainer>
+          <Tab1ContentContainer>
 
             <MyDesignButtonContainer onClick={handleCheckboxClickTab1}>
             {isCheckedTab1 ? (
@@ -748,12 +732,12 @@ export default function MissionMain() {
             </MyDesignButtonContainer>
 
             <LetterContainer>
-              {dummyCollectionLetter.slice(startIndex, endIndex).map((letter, index) => (
-                <LetterBox key={letter.id}>
-                  <LetterInnerBox style={{ top: `${Math.floor(index / 3) * 394}px`, left: `${(index % 3) * 408}px` }}>
+              {displayedItems.filter(item => item.itemType === 'Letter').slice(startIndex, endIndex).map((letter, index) => (
+                <LetterBox key={letter.itemID}>
+                  <LetterInnerBox style={{ top: `${Math.floor(index / 3) * 361}px`, left: `${(index % 3) * 408}px` }}>
                     <LetterBackground />
                     <LetterTextWrapper>
-                      <LetterText>{letter.NickName}</LetterText> {/* 편지지 이름 */}
+                      <LetterText>{letter.itemName}</LetterText> {/* 편지지 이름 */}
                     </LetterTextWrapper>
                   </LetterInnerBox>
                 </LetterBox>
@@ -776,13 +760,13 @@ export default function MissionMain() {
               </PageNumberContainer>
               <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage} />
             </PaginationContainer>
-          </TabContentContainer>
+          </Tab1ContentContainer>
         </div>
       )}
 
-      {currentTab === 'tab2' && (
+      {currentTab === 'Stamp' && (
         <div>
-          <TabContentContainer>
+          <Tab2ContentContainer>
 
             <MyDesignButtonContainer onClick={handleCheckboxClickTab2}>
               {isCheckedTab2 ? (
@@ -794,12 +778,12 @@ export default function MissionMain() {
             </MyDesignButtonContainer>
 
             <StampContainer>
-                {dummyCollectionStamp.slice(startIndex, endIndex).map((stamp, index) => (
-                  <StampBox key={stamp.id}>
+              {displayedItems.filter(item => item.itemType === 'Stamp').slice(startIndex, endIndex).map((stamp, index) => (
+                  <StampBox key={stamp.itemID}>
                     <StampInnerBox style={{ top: `${Math.floor(index / 4) * 482}px`, left: `${(index % 4) * 306}px` }}>
                       <StampBackground />
                       <StampTextWrapper>
-                        <StampText>{stamp.NickName}</StampText> {/* 편지지 이름 */}
+                        <StampText>{stamp.itemName}</StampText> {/* 편지지 이름 */}
                       </StampTextWrapper>
                     </StampInnerBox>
                   </StampBox>
@@ -822,11 +806,11 @@ export default function MissionMain() {
               </PageNumberContainer>
               <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage} />
             </PaginationContainer>
-          </TabContentContainer>
+          </Tab2ContentContainer>
         </div>
       )}
 
-      {currentTab === 'tab3' && (
+      {currentTab === 'MyDesign' && (
         <div>
           <MyDesignContainer>
             {isImageUploaded ? (

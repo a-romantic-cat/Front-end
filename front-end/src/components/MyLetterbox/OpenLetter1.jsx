@@ -208,62 +208,6 @@ export default function OpenLetter1() {
       <StampCollectionContainer>
         <XButtonImg src={XButton} alt='XButton' onClick={navigateToMyLetterbox}/>
         <StampCollectionInnerContainer>
-          {/*
-          <SubContainer style={{top: 28}}>
-            <StampContainer style={{left: 0}}>
-              <DropButtonImg src={DropButton} alt='DropButton' />
-              <StampText>우표</StampText>
-            </StampContainer>
-            <StampContainer style={{left: 227}}>
-              <DropButtonImg src={DropButton} alt='DropButton' />
-              <StampText>우표</StampText>
-            </StampContainer>
-            <StampContainer style={{left: 454}}>
-              <DropButtonImg src={DropButton} alt='DropButton' />
-              <StampText>우표</StampText>
-            </StampContainer>
-            <StampContainer style={{left: 681}}>
-              <DropButtonImg src={DropButton} alt='DropButton' />
-              <StampText>우표</StampText>
-            </StampContainer>
-          </SubContainer>
-          <SubContainer style={{top: 307}}>
-            <StampContainer style={{left: 0}}>
-              <DropButtonImg src={DropButton} alt='DropButton' />
-              <StampText>우표</StampText>
-            </StampContainer>
-            <StampContainer style={{left: 227}}>
-              <DropButtonImg src={DropButton} alt='DropButton' />
-              <StampText>우표</StampText>
-            </StampContainer>
-            <StampContainer style={{left: 454}}>
-              <DropButtonImg src={DropButton} alt='DropButton' />
-              <StampText>우표</StampText>
-            </StampContainer>
-            <StampContainer style={{left: 681}}>
-              <DropButtonImg src={DropButton} alt='DropButton' />
-              <StampText>우표</StampText>
-            </StampContainer>
-          </SubContainer>
-          <SubContainer style={{top: 586}}>
-            <StampContainer style={{left: 0}}>
-              <DropButtonImg src={DropButton} alt='DropButton' />
-              <StampText>우표</StampText>
-            </StampContainer>
-            <StampContainer style={{left: 227}}>
-              <DropButtonImg src={DropButton} alt='DropButton' />
-              <StampText>우표</StampText>
-            </StampContainer>
-            <StampContainer style={{left: 454}}>
-              <DropButtonImg src={DropButton} alt='DropButton' />
-              <StampText>우표</StampText>
-            </StampContainer>
-            <StampContainer style={{left: 681}}>
-              <DropButtonImg src={DropButton} alt='DropButton' />
-              <StampText>우표</StampText>
-            </StampContainer>
-          </SubContainer>
-          */}
           {
             // subContainerPositions 배열을 순회하면서 SubContainer 컴포넌트를 생성합니다.
             subContainerPositions.map((top) => (
