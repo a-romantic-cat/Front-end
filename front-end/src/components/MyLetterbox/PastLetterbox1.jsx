@@ -117,38 +117,31 @@ const Message = styled.div`
   word-wrap: break-word;
 `;
 
-//16개 우편함
 const Container = styled.div`
   width: 990px;
   height: 1067.7px;
   margin: 100px 0 120.83px 465px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: grid; /* 그리드 레이아웃을 사용하여 요소들을 적절하게 배치 */
+  grid-template-columns: repeat(4, 1fr); /* 4개의 열로 구성 */
+  gap: 98px; /* 요소들 간의 간격 설정 */
 `;
 
-//4개 우편함
 const LetterBox = styled.div`
-  width: 990px;
+  width: 100%;
   height: 176.54px;
-  position: absolute;
 `;
 
-//1개 우편함 간격 배치
 const LetterInnerBox = styled.div`
   width: 174px;
   height: 118px;
   position: relative;
 `;
 
-//1개 우편함 백그라운드 이미지랑 커서
 const LetterBackground = styled.div`
   background-image: url("/images/지난우표.svg");
   background-size: cover;
-  width: 174px;
-  height: 118px;
-  left: 0.20px;
-  top: 0;
+  width: 100%;
+  height: 100%;
   position: absolute;
   cursor: pointer;
 `;
@@ -284,14 +277,11 @@ export default function PastLetterbox1() {
         <Container>
           {dummyLetter.slice(startIndex, endIndex).map((letter, index) => (
             <LetterBox key={letter.id}>
-              <LetterInnerBox onClick={navigateToPastLetterbox2}
-                style={{
-                  top: `${Math.floor(index / 4) * 298}px`,
-                  left: `${(index % 4) * 272}px`,
-                }}
-              >
+              <LetterInnerBox onClick={navigateToPastLetterbox2}>
                 <LetterBackground
-                  onClick={() => handleLetterBackgroundClick(index)}
+                  onClick={() => {
+                    handleLetterBackgroundClick(index);
+                  }}
                   isActive={index === selectedLetterIndex}
                 />
                   
