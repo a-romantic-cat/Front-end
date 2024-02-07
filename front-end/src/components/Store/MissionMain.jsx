@@ -7,39 +7,34 @@ import 수집함 from '../../assets/img/수집함.svg';
 import 상점 from '../../assets/img/상점.svg';
 import Coin from '../../assets/img/코인.svg';
 import 다음버튼 from '../../assets/img/다음버튼.svg';
+import SingleStamp0 from '../../assets/img/SingleStamp0.svg';
+import SingleStamp1 from '../../assets/img/SingleStamp1.svg';
+import MultiStamp0 from '../../assets/img/MultiStamp0.svg';
+import MultiStamp1 from '../../assets/img/MultiStamp1.svg';
+import MultiStamp2 from '../../assets/img/MultiStamp2.svg';
+import MultiStamp3 from '../../assets/img/MultiStamp3.svg';
+import MultiStamp4 from '../../assets/img/MultiStamp4.svg';
+import MultiStamp5 from '../../assets/img/MultiStamp5.svg';
+import WhiteCoin from '../../assets/img/WhiteCoin.svg';
+
 
 //미션 데이터
 const dummyMission = [
-  {id: 1, NickName: "편지지 이름", Price: "30"},
-  {id: 2, NickName: "편지지 이름", Price: "30"},
-  {id: 3, NickName: "편지지 이름", Price: "30"},
-  {id: 4, NickName: "편지지 이름", Price: "30"},
-  {id: 5, NickName: "편지지 이름", Price: "30"},
-  {id: 6, NickName: "편지지 이름", Price: "30"},
-  {id: 7, NickName: "편지지 이름", Price: "30"},
-  {id: 8, NickName: "편지지 이름", Price: "30"},
-  {id: 9, NickName: "편지지 이름", Price: "30"},
-  {id: 10, NickName: "편지지 이름", Price: "30"},
-  {id: 11, NickName: "편지지 이름", Price: "30"},
-  {id: 12, NickName: "편지지 이름", Price: "30"},
-  {id: 13, NickName: "편지지 이름", Price: "30"},
-
-  {id: 14, NickName: "편지지 이름", Price: "30"},
-  {id: 15, NickName: "편지지 이름", Price: "30"},
-  {id: 16, NickName: "편지지 이름", Price: "30"},
-  {id: 17, NickName: "편지지 이름", Price: "30"},
-  {id: 18, NickName: "편지지 이름", Price: "30"},
-  {id: 19, NickName: "편지지 이름", Price: "30"},
-  {id: 20, NickName: "편지지 이름", Price: "30"},
-  {id: 21, NickName: "편지지 이름", Price: "30"},
-  {id: 22, NickName: "편지지 이름", Price: "30"},
-  {id: 23, NickName: "편지지 이름", Price: "30"},
-  {id: 24, NickName: "편지지 이름", Price: "30"},
-
-  {id: 25, NickName: "편지지 이름", Price: "30"},
+  {id: 1, NickName: "출석 체크", totalSteps: 1, isEveryday: true, detail: "오늘의 로그인 코인을 획득하세요.", price: 5, completedSteps: 0},
+  {id: 2, NickName: "기본은 인사부터!", totalSteps: 5, isEveryday: true, detail: "친구의 우편함에 방문해 편지를 작성하세요.", price: 5, completedSteps: 1},
+  {id: 3, NickName: "고민 해결!", totalSteps: 5, isEveryday: true, detail: "낭만 우편함에서 답장을 적어주세요.", price: 5, completedSteps:2},
+  {id: 4, NickName: "친구를 찾아보자", totalSteps: 1, isEveryday: false, detail: "친구를 1명 이상 추가해보세요.", price: 5, completedSteps: 1},
+  {id: 5, NickName: "행복한 순간을 기록하자", totalSteps: 5, isEveryday: false, detail: "느린 우편함에서 나를 위한 편지를 적어보세요.", price: 5, completedSteps: 3},
+  {id: 6, NickName: "상점 첫구매 이벤트!", totalSteps: 1, isEveryday: false, detail: "상점에서 무엇이든 구매하세요.", price: 5, completedSteps: 0},
+  {id: 7, NickName: "내가 만든 편지지", totalSteps: 5, isEveryday: false, detail: "마이디자인에서 편지지를 등록해보세요.", price: 5, completedSteps: 4},
+  {id: 8, NickName: "나만의 우표", totalSteps: 5, isEveryday: false, detail: "마이디자인에서 우표를 등록해보세요.", price: 5, completedSteps: 5},
+  {id: 9, NickName: "고민이 생겼다면?", totalSteps: 5, isEveryday: false, detail: "낭만 우편함에서 편지를 작성하세요.", price: 5, completedSteps: 0},
+  {id: 10, NickName: "도전! 친구찾기", totalSteps: 5, isEveryday: false, detail: "친구를 찾아 주소록을 채워보세요.", price: 5, completedSteps: 0},
+  {id: 11, NickName: "코인 쓰고 코인 받자", totalSteps: 5, isEveryday: false, detail: "상점에서 무엇이든 구매하세요.", price: 5, completedSteps: 0},
+  {id: 12, NickName: "내 우편함을 소개합니다", totalSteps: 1, isEveryday: false, detail: "내 우편함 링크를 공유해보세요.", price: 5, completedSteps: 0},
 ];
 
-//미션 
+//미션 제목
 const StoreMainDiv = styled.div`
   width: 1194px;
   height: 68px;
@@ -137,6 +132,219 @@ const TitleDetailText = styled.div`
   color: #757575;
 `;
 
+//탭 내용 컨테이너
+const TabContentContainer = styled.div`
+  width: 1194px;
+  height: 1535px;
+  position: absolute;
+  left: 363px;
+  top: 320px;
+`;
+
+//미션 내용
+const MissionContainer = styled.div`
+  width: 1194px;
+  height: 1200px;
+  position: relative;
+`;
+
+const MissionBox = styled.div`
+  width: 1194px;
+  height: 255px;
+  position: absolute;
+`;
+
+const MissionInnerBox = styled.div`
+  width: 378px;
+  height: 255px;
+  position: absolute;
+`;
+
+const MissionBackground = styled.div`
+  width: 378px;
+  height: 255px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  background: #F6ECCF;
+  cursor: pointer;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15); 
+  border-radius: 10px;
+  backface-visibility: hidden;
+  cursor: pointer;
+  z-index: 2;
+`;
+
+const MissionText = styled.div`
+  width: 100%
+  height: 100%;
+  color: black;
+  font-size: 30px;
+  font-family: 'Pretendard';
+  font-weight: 500;
+  line-height: 30px; 
+  position: relative;
+  display: flex;
+  justify-content: center;
+  top: 30px;
+`;
+
+const SingleStampImg = styled.img`
+  width: 120px;
+  height: 120px;
+  left: 129px;
+  top: 105px;
+  position: absolute;
+`;
+
+const MultiStampImg= styled.img`
+  width: 275px;
+  height: 142px;
+  left: 52px;
+  top: 83px;
+  position: absolute;
+`;
+
+const EverydayContainer = styled.div`
+  width: 34px;
+  height: 14px;
+  padding: 5px 7px; 
+  background: #C3E0F5;
+  border-radius: 10px;
+  position: absolute;
+  left: 320px;
+  top: 10px;
+`;
+
+const EverydayText = styled.div`
+  color: black;
+  font-size: 14px;
+  font-family: 'Pretendard';
+  font-weight: 500;
+  line-height: 14px; 
+  word-wrap: break-word;
+`;
+
+//미션 상세 페이지
+const MissionFlipContainer = styled.div`
+  width: 378px;
+  height: 255px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+  cursor: pointer;
+  z-index: 3;
+
+  &:hover {
+    transform: rotateY(180deg);
+  }
+`;
+
+const DetailBackground = styled.div`
+  width: 316px;
+  height: 195px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  border-radius: 10px;
+  padding: 30px 31px;
+  background: #4F4A48;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
+  flex-direction: column;
+  display: flex;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+  z-index: 1;
+`;
+
+const MissionDetailText = styled.div`
+  width: 100%;
+  color: white;
+  font-size: 30px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  line-height: 42px;
+  word-wrap: break-word;
+`;
+
+const DetailPriceContainer = styled.div`
+  align-self: stretch;
+  justify-content: flex-start;
+  align-items: flex-start; 
+  gap: 8px;
+  display: inline-flex;
+  position: absolute;
+  bottom: 30px;
+  right: 31px;
+`;
+
+const WhiteCoinImg = styled.img`
+  width: 26.24px;
+  height: 24px;
+`;
+
+const DetailPriceText = styled.div`
+  color: white;
+  font-size: 24px;
+  font-family: 'Pretendard';
+  font-weight: 600;
+  line-height: 24px;
+  word-wrap: break-word;
+`;
+
+//미션 완료시 뜨는 background
+const CompletedBackground = styled.div`
+  width: 249px;
+  height: 128px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  border-radius: 10px;
+  padding: 30px 31px;
+  background: #4F4A48;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
+  flex-direction: column;
+  z-index: 1;
+  backface-visibility: hidden;
+  padding-top: 64px; 
+  padding-bottom: 63px; 
+  padding-left: 65px; 
+  padding-right: 64px;
+  justify-content: flex-start;
+  align-items: center; 
+  gap: 30px;
+  display: inline-flex
+`;
+
+const CompletedPriceContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 7px;
+`;
+
+const CompletedText = styled.div`
+  color: white;
+  font-size: 30px; 
+  font-family: 'Pretendard';
+  font-weight: 500;
+  line-height: 42px; 
+  word-wrap: break-word;
+`;
+
+const CompletedPriceText = styled.div`
+  color: white;
+  font-size: 40px; 
+  font-family: 'Pretendard';
+  font-weight: 500;
+  line-height: 56px; 
+  word-wrap: break-word;
+`;
+
 //페이징
 const PaginationContainer = styled.div`
   align-items: center;
@@ -185,7 +393,7 @@ const NextButtonImg = styled.img`
 export default function MissionMain() {
   const navigate = useNavigate();
 
-  const itemsPerPage = 9; // 한 페이지에 표시할 아이템 개수
+  const itemsPerPage = 12; // 한 페이지에 표시할 아이템 개수
   const totalPages = Math.ceil(dummyMission.length / itemsPerPage); // 전체 페이지 수
 
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
@@ -202,6 +410,20 @@ export default function MissionMain() {
   const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지에서 첫 번째 아이템의 인덱스
   const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
 
+  const [clickedMissions, setClickedMissions] = useState({}); // 각 미션에 대한 개별적 클릭 관리
+
+  const handleFlipClick = (id) => {
+    const mission = dummyMission.find(mission => mission.id === id);
+    const isCompleted = (mission.totalSteps === 1 && mission.completedSteps === 1) || (mission.totalSteps === 5 && mission.completedSteps === 5);
+    
+    if (!isCompleted) return;
+  
+    setClickedMissions({
+      ...clickedMissions,
+      [id]: true
+    });
+  }
+
   return (
     <div>
         <Header />
@@ -211,7 +433,7 @@ export default function MissionMain() {
             <CollectionBoxImg src={수집함} alt='수집함' />
             <TextDiv>수집함</TextDiv>
           </ItemDiv>
-          <ItemDiv>
+          <ItemDiv onClick={() => navigate('/Store')}>
             <StoreImg src={상점} alt='상점' />
             <TextDiv>상점</TextDiv>
           </ItemDiv>
@@ -224,23 +446,102 @@ export default function MissionMain() {
         <TitleDetailText>미션을 통해 코인을 얻을 수 있어요!</TitleDetailText>
       </StoreMainDiv>
 
+      <TabContentContainer>
+        <MissionContainer>
+        {dummyMission.slice(startIndex, endIndex).map((mission, index) => {
+          let StampComponent, stampImgSrc, stampImgAlt;
+          const isCompleted = (mission.totalSteps === 1 && mission.completedSteps === 1) || (mission.totalSteps === 5 && mission.completedSteps === 5);
+          const isClicked = clickedMissions[mission.id];
 
-      {/* 페이징 네비게이션 */}
-      <PaginationContainer>
-        <PageNumberContainer>
-          {Array.from({ length: totalPages }, (_, index) => (
-            <PageButton active={currentPage === index + 1} key={index + 1}>
-              <PageNumberText
-                active={currentPage === index + 1}
-                onClick={() => handlePageChange(index + 1)}
-              >
-              {index + 1}
-              </PageNumberText>
-            </PageButton>
-          ))}
-        </PageNumberContainer>
-        <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage} />
-      </PaginationContainer>
+          if (mission.totalSteps === 1) {
+            StampComponent = SingleStampImg; // 도장이 하나만 찍히는 이미지 컴포넌트
+            stampImgSrc = mission.completedSteps === 0 ? SingleStamp0 : SingleStamp1;
+            stampImgAlt = "하나의 도장";
+          } else if (mission.totalSteps === 5) {
+            StampComponent = MultiStampImg; // 도장이 최대 5개까지 찍히는 이미지 컴포넌트
+            switch (mission.completedSteps) {
+              case 0:
+                stampImgSrc = MultiStamp0;
+                break;
+              case 1:
+                stampImgSrc = MultiStamp1;
+                break;
+              case 2:
+                stampImgSrc = MultiStamp2;
+                break;
+              case 3:
+                stampImgSrc = MultiStamp3;
+                break;
+              case 4:
+                stampImgSrc = MultiStamp4;
+                break;
+              case 5:
+                stampImgSrc = MultiStamp5;
+                break;
+              default:
+                stampImgSrc = MultiStamp0;
+            }
+            stampImgAlt = "최대 5개의 도장";
+          }
+
+            return (
+              <MissionBox key={mission.id}>
+                <MissionInnerBox style={{ top: `${Math.floor(index / 3) * 314}px`, left: `${(index % 3) * 408}px` }}>
+                  {isCompleted && isClicked ? (
+                    <CompletedBackground>
+                      <CompletedText>코인을 획득했습니다!</CompletedText>
+                      <CompletedPriceContainer>
+                        <CompletedPriceText>+5</CompletedPriceText>
+                        <WhiteCoinImg style={{width: 34.16, height: 31.5}}src={WhiteCoin} alt="WhiteCoin" />
+                      </CompletedPriceContainer>
+                    </CompletedBackground>
+                  ) : (
+                  <MissionFlipContainer onClick={() => handleFlipClick(mission.id)}>
+                    <MissionBackground>
+                      <MissionText>
+                        {mission.NickName}
+                      </MissionText>
+                      {mission.isEveryday && 
+                        <EverydayContainer>
+                          <EverydayText>매일+</EverydayText>
+                        </EverydayContainer>
+                      }
+                      <StampComponent src={stampImgSrc} alt={stampImgAlt} />
+                    </MissionBackground>
+                    <DetailBackground>
+                      <MissionDetailText>{mission.detail}</MissionDetailText>
+                      <DetailPriceContainer>
+                        <WhiteCoinImg src={WhiteCoin} alt='미션 상세정보에서의 코인이미지' />
+                        <DetailPriceText>{mission.price}</DetailPriceText>
+                      </DetailPriceContainer>
+                    </DetailBackground>
+                  </MissionFlipContainer>
+                  )}
+                </MissionInnerBox>
+              </MissionBox>
+            );
+          })}
+        </MissionContainer>
+
+        {/* 페이징 네비게이션 */}
+        <PaginationContainer>
+          <PageNumberContainer>
+            {Array.from({ length: totalPages }, (_, index) => (
+              <PageButton active={currentPage === index + 1} key={index + 1}>
+                <PageNumberText
+                  active={currentPage === index + 1}
+                  onClick={() => handlePageChange(index + 1)}
+                >
+                {index + 1}
+                </PageNumberText>
+              </PageButton>
+            ))}
+          </PageNumberContainer>
+          <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage} />
+        </PaginationContainer>
+      </TabContentContainer>
     </div>
   )
 }
+
+

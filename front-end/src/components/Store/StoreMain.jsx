@@ -24,8 +24,8 @@ const dummyLetter = [
   {id: 10, NickName: "편지지 이름", Price: "30"},
   {id: 11, NickName: "편지지 이름", Price: "30"},
   {id: 12, NickName: "편지지 이름", Price: "30"},
-  {id: 13, NickName: "편지지 이름", Price: "30"},
 
+  {id: 13, NickName: "편지지 이름", Price: "30"},
   {id: 14, NickName: "편지지 이름", Price: "30"},
   {id: 15, NickName: "편지지 이름", Price: "30"},
   {id: 16, NickName: "편지지 이름", Price: "30"},
@@ -54,8 +54,8 @@ const dummyCollectionStamp = [
   {id: 10, NickName: "우표 이름", Price: "30"},
   {id: 11, NickName: "우표 이름", Price: "30"},
   {id: 12, NickName: "우표 이름", Price: "30"},
-  {id: 13, NickName: "우표 이름", Price: "30"},
 
+  {id: 13, NickName: "우표 이름", Price: "30"},
   {id: 14, NickName: "우표 이름", Price: "30"},
   {id: 15, NickName: "우표 이름", Price: "30"},
   {id: 16, NickName: "우표 이름", Price: "30"},
@@ -291,7 +291,6 @@ const LetterBox = styled.div`
   width: 1194.20px;
   height: 294px;
   position: absolute;
-  margin-bottom: 100px;
 `;
 
 const LetterInnerBox = styled.div`
@@ -457,7 +456,6 @@ const StampBox = styled.div`
   width: 1194px;
   height: 380px;
   position: absolute;
-  margin-bottom: 102px;
 `;
 
 const StampInnerBox = styled.div`
