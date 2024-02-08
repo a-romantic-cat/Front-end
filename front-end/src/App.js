@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import styled from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import MyLetterbox from "./pages/MyLetterbox";
@@ -34,15 +34,19 @@ import CollectionMain  from './components/RomanticLetterbox/Collection/Collectio
 import MyCollection  from './components/RomanticLetterbox/Collection/MyCollection';
 import MyWriting  from './components/RomanticLetterbox/Collection/MyWriting';
 
-const Background = styled.div`
-  background-color: #FFFEF8;
-  width: 1920px;
-  height: 1080px;
-`
+const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: #FFFEF8;  //  전체 화면에 배경색 적용
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+`;
 
 function App() {
   return (
-    <Background>
+    <div>
+      <GlobalStyle />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -79,7 +83,7 @@ function App() {
           <Route path="/MyWriting" element={<MyWriting />} />
         </Routes>
       </BrowserRouter>
-    </Background>
+    </div>
   );
 }
 
