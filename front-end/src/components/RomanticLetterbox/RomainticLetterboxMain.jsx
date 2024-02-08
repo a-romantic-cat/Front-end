@@ -99,7 +99,8 @@ const Collection = styled.div`
   justify-content: center;
 `;
 const TextDeco = styled.div`
-  width: 145px;
+  cursor:pointer;
+  width: 160px;
   height: 20px;
   border-bottom: 1px solid #FFF;
 `;
@@ -111,6 +112,10 @@ export default function RomainticLetterboxMain() {
   const handleNavigateToReplyingLetterMain = () => {
     navigate('/ReplyingLetterMain');  
   };
+  const handleNavigateToCollectionMain = () => {
+    navigate('/CollectionMain');  
+  };
+
   return (
     <div>
       <Container>
@@ -151,7 +156,7 @@ export default function RomainticLetterboxMain() {
             </BtnCon>
 
             <Collection>
-              <TextDeco>
+              <TextDeco onClick={handleNavigateToCollectionMain}>
                 낭만 모음집 둘러보기
               </TextDeco>
               &nbsp;&gt;

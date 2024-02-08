@@ -8625,7 +8625,7 @@ react-calendar@^4.8.0:
     prop-types "^15.6.0"
     warning "^4.0.0"
 
-react-datepicker@^5.0.0:
+react-datepicker@^5.1.0:
   version "5.1.0"
   resolved "https://registry.npmjs.org/react-datepicker/-/react-datepicker-5.1.0.tgz"
   integrity sha512-elwEnHpd9dQ4U/u7f2vsFdK1CchrOkPPR6rRDQWIzOgqM+Dty43c0tK/IPumrcPSMpRcyDu1okHmbs5m3xlz7w==
