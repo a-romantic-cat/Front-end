@@ -7,6 +7,10 @@ import Letterbox from '../../assets/img/우체통.svg';
 import Cat from '../../assets/img/고양이.svg';
 import i_button from '../../assets/img/i_button.svg';
 import share_button from '../../assets/img/share_Button.svg';
+import 친구요청보내기버튼 from '../../assets/img/친구요청보내기버튼.svg';
+import 친구요청완료버튼 from '../../assets/img/친구요청완료버튼.svg';
+import 친구상태버튼 from '../../assets/img/친구상태버튼.svg';
+import 우편함만들기버튼 from '../../assets/img/우편함만들기버튼.svg';
 import Info from './Info';
 
 //닉네임님의 우편함이름
