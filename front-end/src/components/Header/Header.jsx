@@ -229,7 +229,7 @@ export default function Header() {
     switch(location.pathname) {
       case '/MyLetterbox':
       case '/SlowLetterboxToday':
-      case '/RomanticLetterbox':
+      case '/PastLetterbox1':
         setActiveIndex(0);
         break;
       case '/AddressBook':
@@ -238,6 +238,7 @@ export default function Header() {
       case '/RomanticLetterbox':
       case '/WritingLetter':
       case '/ReplyingLetter':
+      case '/CollectionMain':
         setActiveIndex(2);
         break;
       case '/Store':
@@ -308,7 +309,7 @@ export default function Header() {
               </StyledNavLink>
             </DetailMenuItem>
             <DetailMenuItem>
-              <StyledNavLink to="/RomanticLetterbox">
+              <StyledNavLink to="/PastLetterbox1">
                 <DetailMenuText active={activeIndex === 2} onClick={() => handleClick(2)}>
                   지난 우편함
                 </DetailMenuText>
@@ -338,7 +339,7 @@ export default function Header() {
               </StyledNavLink>
             </DetailMenuItem>
             <DetailMenuItem>
-              <StyledNavLink to="/ReplyingLetter">
+              <StyledNavLink to="/CollectionMain">
                 <DetailMenuText active={activeIndex === 6} onClick={() => handleClick(6)}>
                   낭만 모음집
                 </DetailMenuText>
