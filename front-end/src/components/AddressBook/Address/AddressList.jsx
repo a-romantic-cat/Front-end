@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import { GiCircle } from 'react-icons/gi';
-import { CiStar } from 'react-icons/ci';
+import ShiningImage from '../../../assets/img/SS.svg';
+import UnshiningImage from '../../../assets/img/S.svg';
+
 const ItemContainer = styled.div`
   display: flex;
 `;
@@ -43,22 +45,20 @@ const CircleImg = styled(GiCircle)`
   color: #081A2F;
   margin-right: 12.5px;
 `;
-const StarImg = styled(CiStar)`
+const StarImage = styled.img`
   position: absolute;
+  width: 16.34px;
+  height: 16.34px;
   left: 5px;
   cursor: pointer;
-  color: #000;
-  // color: ${({ isStarred }) => (isStarred ? '#FFD700' : '#000')};
-  transition: color 0.3s ease; /* Optional: Add a smooth transition effect */
 `;
-
 const AddressList = ({ postInfo }) => {
   // 즐겨찾기?인데 추후 서버랑 연동되고 Boolean값을 넣어서 작동하는 것을 봐야 주소록에서 눌렀을 때, 친한친구 데이터로 빠지는 걸 볼 수 있을 것 같음
-  // const [isStarred, setIsStarred] = useState(false);
+  const [isStarred, setIsStarred] = useState(false);
 
-  // const handleStarClick = () => {
-  //   setIsStarred((prevIsStarred) => !prevIsStarred);
-  // };
+  const handleStarClick = () => {
+    setIsStarred((prevIsStarred) => !prevIsStarred);
+  };
 
   return (
 
@@ -66,8 +66,11 @@ const AddressList = ({ postInfo }) => {
       <ItemContainer>
         <Item>
           <CircleImg />
-          {/* isStarred={isStarred} onClick={handleStarClick}  */}
-          <StarImg />
+          {isStarred ? (
+            <StarImage src={ShiningImage} alt="빛나는 별" onClick={handleStarClick} />
+          ) : (
+            <StarImage src={UnshiningImage} alt="별" onClick={handleStarClick} />
+          )}
           <Name>
             {postInfo.NickName}
           </Name>
