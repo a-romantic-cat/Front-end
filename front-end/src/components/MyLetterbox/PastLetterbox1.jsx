@@ -297,10 +297,10 @@ export default function PastLetterbox1() {
       <PaginationContainer>
         <PageNumberContainer>
           {Array.from({ length: totalPages }, (_, index) => (
-            <PageButton active={currentPage === index + 1} key={index + 1}>
+            <PageButton active={currentPage === index + 1} key={index + 1}
+            onClick={() => handlePageChange(index + 1)}>
               <PageNumberText
                 active={currentPage === index + 1}
-                onClick={() => handlePageChange(index + 1)}
               >
                 {index + 1}
               </PageNumberText>
