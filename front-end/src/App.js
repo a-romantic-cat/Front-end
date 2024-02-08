@@ -33,7 +33,9 @@ import BoxSetting1 from './components/Login/BoxSetting1';
 import BoxSetting2 from './components/Login/BoxSetting2';
 import BoxSetting3 from './components/Login/BoxSetting3';
 import SettingEnd from './components/Login/SettingEnd';
-import styled from "styled-components";
+import CollectionMain  from './components/RomanticLetterbox/Collection/CollectionMain';
+import MyCollection  from './components/RomanticLetterbox/Collection/MyCollection';
+import MyWriting  from './components/RomanticLetterbox/Collection/MyWriting';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -82,6 +84,9 @@ function App() {
           <Route path="/BoxSetting2" element={<BoxSetting2 />} />
           <Route path="/BoxSetting3" element={<BoxSetting3 />} />
           <Route path="/SettingEnd" element={<SettingEnd />} />
+          <Route path="/CollectionMain" element={<CollectionMain />} />
+          <Route path="/MyCOllection" element={<MyCollection />} />
+          <Route path="/MyWriting" element={<MyWriting />} />
         </Routes>
       </BrowserRouter>
     </div>
