@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import styled from 'styled-components';
 import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 const TextContainer = styled.div`
   width: 100%;
@@ -107,7 +108,8 @@ const Stamp = styled.div`
   margin-left: 32px;//임시
 `;
 
-//내용
+//내용 div말고 textarea로 바꿀 예정 
+// 현재까진 textarea로 하면 (글씨 감싸기는 오류남)
 const Content = styled.div`
   color: #000;
   font-family: "Gowun Dodum";
@@ -118,6 +120,14 @@ const Content = styled.div`
   letter-spacing: -0.2px;
   margin-top: 59px; //임시
   position: relative; // (0/300)이랑 겹치게
+  /*resize: none; // 사용자가 크기 조절 못하도록
+  word-wrap: break-word;
+  resize: none;
+  border: none;
+  outline: none;
+  //width: 772px;
+  width: 598px; //임시
+  height: 280px;*/
 `;
 
 // (0/300)
@@ -228,7 +238,7 @@ const ExplanationText = styled.div`
 const ButtonsContainer = styled.div`
   width: 846px;
   height: 52px;
-  margin: 84px 537px 0 537px;
+  margin: 84px 537px 80px 537px;
   display: flex; // 버튼들 가로배치
   justify-content: space-between; //양옆끝으로 떨어트리기
 `;
@@ -338,6 +348,15 @@ const Answer1 = () => {
     setCheck(!check);
   }
 
+  const [letterContent, setLetterContent] = useState('');
+  const handleLetterChange = (event) => {
+    const content = event.target.value;
+    // 300자까지만 입력 받음
+    if (content.length <= 300) {
+      setLetterContent(content);
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -367,13 +386,13 @@ const Answer1 = () => {
           <Wrap>
             <Stamp>
             </Stamp>
-            <Content>
-              편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명 으로 작 성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼 요. 편지는 익명 으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지 는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.
-            </Content>
+            <Content 
+              value={letterContent}
+              onChange={handleLetterChange} />
           </Wrap>
 
           <NumberCount>
-            (0/300)
+            ({letterContent.length}/300)
           </NumberCount>
 
           <AnonyAndFrom>
@@ -442,6 +461,8 @@ const Answer1 = () => {
           </ArrowAndText>
         </NextButton>
       </ButtonsContainer>
+
+      <Footer />
     </div>
   );
 };

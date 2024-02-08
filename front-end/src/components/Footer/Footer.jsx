@@ -137,6 +137,10 @@ export default function Header() {
     navigate("/MyPage");
   };
 
+  const navigateToPastLetterbox1 = () => {
+    navigate("/PastLetterbox1");
+  };
+
     return (
       <Container>
         <LinkContainer>
@@ -150,7 +154,7 @@ export default function Header() {
                 <SmallText>
                     느린 우편함
                 </SmallText>
-                <SmallText>
+                <SmallText onClick={navigateToPastLetterbox1}>
                     지난 우편함
                 </SmallText>
             </Inner1>

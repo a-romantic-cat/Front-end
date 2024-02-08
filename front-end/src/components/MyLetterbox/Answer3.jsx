@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import styled from 'styled-components';
 import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 const TextContainer = styled.div`
   width: 100%;
@@ -269,7 +270,7 @@ const StampDesign = styled.div`
 const ButtonsContainer = styled.div`
   width: 846px;
   height: 52px;
-  margin: 112px 537px 0 537px;
+  margin: 112px 537px 80px 537px;
   display: flex; // 버튼들 가로배치
   justify-content: space-between; //양옆끝으로 떨어트리기
 `;
@@ -534,6 +535,8 @@ const Answer3 = () => {
           </ArrowAndText>
         </NextButton>
       </ButtonsContainer>
+
+      <Footer />
     </div>
   );
 };

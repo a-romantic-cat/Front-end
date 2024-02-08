@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import styled from 'styled-components';
 import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 import Check2 from './Check2';
 
 const TextContainer = styled.div`
@@ -56,6 +57,7 @@ const LetterContainer = styled.div`
   height: 732px;
   margin-left: 363px;
   margin-top: 41px;
+  margin-bottom: 97px; //Footer랑 간격
   display: flex; //left랑 right가로배치
   border-radius: 20px;
   position: relative; //x버튼과 겹치게
@@ -80,7 +82,7 @@ const ScrollContainer = styled.div`
 
   &::-webkit-scrollbar { //스크롤바 전체
     width: 8px;
-    height: 608px;
+    height: 602.715px;
   }
 
   &::-webkit-scrollbar-thumb { //스크롤 움직이는 작은 막대
@@ -421,6 +423,8 @@ const Check1 = () => {
           </svg>
         </XButton>
       </WrapLetterContainer>
+
+      <Footer />
       
     </div>
   );

@@ -2,11 +2,12 @@ import React from "react";
 import styled from 'styled-components';
 import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 const Container = styled.div`
   width: 330px;
   height: 361.00085px;
-  margin: 254px 0 0 795px;
+  margin: 254px 0 363px 795px;
 `;
 
 const BlackCat = styled.div`
@@ -75,7 +76,8 @@ const Answer4 = () => {
             </ReturnText>
         </ReturnButton>
       </Container>
-        
+      
+      <Footer />
     </div>
   );
 };
