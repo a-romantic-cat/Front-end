@@ -427,3 +427,6 @@ export default function CollectionMain() {
         </div>
     )
 }
+
+//map함수로 별개의 요소 접근 방식
+//로그인 구현 수정
