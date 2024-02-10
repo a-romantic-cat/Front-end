@@ -1,9 +1,10 @@
 import React, {useState,useEffect} from "react";
 import styled from 'styled-components';
 import Header from '../../Header/Header';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import twinkle from '../../../assets/img/반짝.svg';
 import LetterPaper from '../../../assets/img/편지지.svg';
+import Heart from '../../../assets/img/heart.svg';
 
 const Container = styled.div`
   box-sizing: border-box;
@@ -27,7 +28,7 @@ const OverlapContainer = styled.div`
 
 const MainHeader = styled.div`
     position:absolute;
-    width:990px;
+    width:1000px;
     height:88px;
     left:460px;
     top:130px;
@@ -38,8 +39,8 @@ const ClickHeader=styled.span`
     width:450px;
     height:60px;
     padding-bottom:12px;
-    padding-left:186px;
-    padding-right:186px;
+    padding-left:225px;
+    padding-right:150px;
     border-bottom:3.8px solid red;
     font-weight:600;
     font-family:Pretendard;
@@ -47,15 +48,15 @@ const ClickHeader=styled.span`
     cursor:pointer;
 `
 const BasicHeader=styled.span`
-    color: #FFF;
+    color: #CECECE;
     position:relative;
     width:450px;
     height:60px;
     padding-bottom:12px;
-    padding-left:170px;
+    padding-left:172px;
     padding-right:170px;
-    border-bottom:0.95px solid #FFF;
-    font-weight:180;
+    border-bottom:0.95px solid #CECECE;
+    font-weight:200;
     font-family:Pretendard;
     font-size:25px;
     cursor:pointer;
@@ -63,7 +64,7 @@ const BasicHeader=styled.span`
 const SubText=styled.div`
     position:absolute;
     left:0px;
-    top:40px;
+    top:45px;
     font-family:Pretendard;
     font-size:14px;
     color:white;
@@ -108,16 +109,56 @@ const LetterBox=styled.div`
     display:inline-block;
     margin-right:80px;
     margin-bottom:100px;
-    width:276px;
-    height:276px;
-
-    &.Hover{
-        border:1px solid wi
-    }
+    width:275px;
+    height:275px;
+    cursor:pointer;
+`
+const ShowReply=styled.div`
+    position:absolute;
+    top:0px;
+    background-color: #000000;
+    opacity:75%;
+    width:99%;
+    height:99.5%;
+    border: 1px solid white;
+    border-radius:8px;
+`
+const Reply=styled.span`
+    color:#FFF;
+    top:40%;
+    left:8%;
+    right:8%;
+    font-family: 'Gowun Dodum';
+    font-weight:10;
+    position: absolute;
+    font-size: 16px;
+    line-height: 165%;
+`
+const LikeCnt=styled.div`
+    position: absolute;
+    background-color:white;
+    width:58px;
+    height:22px;
+    right:8%;
+    bottom:8%;
+    text-align:right;
+    padding-right:7px;
+    border-radius:10px;
+    color:#000000;
+    font-size:16px;
+    font-family:Pretendard;
+`
+const LikeImg=styled.img`
+    position: absolute;
+    width:16px;
+    height:16px;
+    right:22.5%;
+    bottom:9.7%;
+    
 `
 const LetterPad=styled.img`
-    width:100%;
-    height:100%;
+    width:275px;
+    height:275px;
 `
 const LetterTxt = styled.div`
   font-family: 'Gowun Dodum';
@@ -129,11 +170,11 @@ const LetterTxt = styled.div`
   top:15%;
   left:9%;
   right:9%;
-`;
+`
 const Page=styled.div`
     position:absolute;
     width: 270px;
-    left:850px;
+    left:800px;
     bottom:-900px;
 `
 const PageNumber=styled.span`
@@ -149,6 +190,7 @@ const PageNumber=styled.span`
 const BeforeBtn=styled.span`
     position:absolute;
     color: white;
+    top:-2px;
     left:-40px;  
     font-size:24px; 
     font-family:Pretendard;
@@ -159,7 +201,7 @@ const AfterBtn=styled.span`
     font-size:24px;
     position:absolute;
     color: white;
-    top:1.2px;
+    top:-2px;
     right:-80px;   
     font-family:Pretendard;
     font-weight:Medium;
@@ -327,23 +369,16 @@ export default function CollectionMain() {
         preview[54]=".";
         preview[55]=".";
 
-        return( preview )
+        return preview;
     }
+/*
+    const location = useLocation();
+    const userId = (location.state.UserId).toSt;
+    const likeCount = location.state.likeCounting;*/
 
-    const [order, setOrder] = useState("like");
     const [likebtn, setLikebtn]=useState(true);
     const [recentbtn, setRecentbtn]=useState(false);
     const [sortedArray, setSortedArray]=useState(array.sort((a, b) => b.like - a.like));
-  
-    useEffect(()=>{
-        if(likebtn===true){
-            setOrder("like");
-            setSortedArray(array.sort((a, b) => b.like - a.like));
-        }else{
-            setOrder("id");
-            setSortedArray(array.sort((a, b) => a.id - b.id));
-        } 
-    }, [recentbtn]); //sortedArray 비동기 오류
 
     const [nowPage, setNowPage]=useState(1);
     const [nowItem,setNowItem]=useState([...sortedArray.slice(0,12)]);
@@ -354,22 +389,21 @@ export default function CollectionMain() {
         setNowItem([...sortedArray.slice((nowPage-1)*12,(nowPage-1)*12+12)]);
     }, [nowPage, recentbtn]);
 
-    const [isHovering, setIsHovering] = useState(false);
-    
-    const handleMouseOver=(e)=>{
-        setIsHovering(true);
-        console.dir(e);
-    }
-    const handleMouseOut = () => {
-        setIsHovering(false);
-      };
-
     const navigate = useNavigate();
 
     const toMyCollection = () => {
         navigate("/MyCollection");
     };
 
+    const [hoveredCart, setHoveredCart] = useState(-1);
+
+    const showCartHandler = (i)=>{
+        setHoveredCart(i);
+    }
+
+    const hideCartHandler=()=>{
+       setHoveredCart(-1)
+    }
 
     return(
         <div>
@@ -381,25 +415,29 @@ export default function CollectionMain() {
                         <BasicHeader onClick={toMyCollection}>나의 낭만 모음집</BasicHeader>
                         <SubText>다른 이들의 낭만 편지와 답장을 둘러보세요.</SubText>
                         {likebtn==false?
-                            <ArrayBtn onClick={e=> {setLikebtn(true); setRecentbtn(false);}}>추천순</ArrayBtn>
+                            <ArrayBtn onClick={e=> {setLikebtn(true); setRecentbtn(false);setSortedArray(array.sort((a, b) => b.like - a.like));}}>추천순</ArrayBtn>
                             :<ClickedBtn>추천순</ClickedBtn>}
                         {recentbtn==false? 
-                            <ArrayBtn onClick={e=>{setLikebtn(false); setRecentbtn(true);}}>최신순</ArrayBtn>
+                            <ArrayBtn onClick={e=>{setLikebtn(false); setRecentbtn(true);setSortedArray(array.sort((a, b) => a.id - b.id));}}>최신순</ArrayBtn>
                             :<ClickedBtn>최신순</ClickedBtn>}
                     </MainHeader>
 
                     <MainBox >
-                        {nowItem.map(({text, id}) => (
-                            <LetterBox 
-                                key={id}
-                                className={isHovering ? `${id}"Hover"` : `${id}`}
-                                onMouseOver={e=>handleMouseOver(e,{id})}
-                                onMouseOut={e=>handleMouseOut(e)}
-                            > 
-                                <LetterPad src={LetterPaper} alt='letterpaper' />
+                        {nowItem.map(({text, id, like}) => (
+                            <LetterBox key={id}
+                            onMouseOver={()=>showCartHandler(id)}
+                            onMouseOut={hideCartHandler}
+                            onClick={e=>navigate("/CollectionLetter")}> 
+                                <LetterPad src={LetterPaper} alt='letterpaper'/>
                                 <LetterTxt >
                                     {handletextlength(text)}
                                 </LetterTxt>
+                                {id===hoveredCart?
+                                    <ShowReply>
+                                        <Reply>{handletextlength(text)}</Reply>
+                                        <LikeCnt>{like}</LikeCnt>
+                                        <LikeImg src={Heart} alt='heart' />
+                                    </ShowReply> :<></>}
                             </LetterBox>
                         ))}
                     </MainBox>
@@ -428,5 +466,4 @@ export default function CollectionMain() {
     )
 }
 
-//map함수로 별개의 요소 접근 방식
-//로그인 구현 수정
+//인자에 담아 내용 넘겨서 편지 클릭 후 내용 가져오기

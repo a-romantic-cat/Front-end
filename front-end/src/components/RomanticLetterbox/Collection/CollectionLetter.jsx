@@ -45,7 +45,7 @@ const ClickHeader=styled.span`
     width:450px;
     height:60px;
     padding-bottom:12px;
-    padding-left:186px;
+    padding-left:225px;
     padding-right:150px;
     border-bottom:3.8px solid red;
     font-weight:600;
@@ -59,7 +59,7 @@ const BasicHeader=styled.span`
     width:450px;
     height:60px;
     padding-bottom:12px;
-    padding-left:210px;
+    padding-left:172px;
     padding-right:170px;
     border-bottom:0.95px solid #CECECE;
     font-weight:200;
@@ -131,14 +131,20 @@ const Emoji=styled.img`
     margin-right:13.8px;
     cursor:pointer;
 `
+const SubText=styled.div`
+    position:absolute;
+    left:0px;
+    top:45px;
+    font-family:Pretendard;
+    font-size:14px;
+    color:white;
+    padding-top:15px;
+    font-weight:180;
+`
 
 export default function MyWriting() {
 
     const navigate=useNavigate();
-    const location = useLocation();
-    //const [open, setOpen]=useState(location.state.openstate)
-    const opening=(location.state.openstate).toString();
-    
     const [like, setLike]=useState(0); //공감수
 
     const toCollectionMain = () => {
@@ -152,11 +158,11 @@ export default function MyWriting() {
         <div>
             <Container>
                 <Header />
-                {console.log(opening)}
                 <OverlapContainer>
                     <MainHeader>
-                        <BasicHeader onClick={toCollectionMain}>낭만 모음집</BasicHeader>
-                        <ClickHeader onClick={toMyCollection}>나의 낭만 모음집</ClickHeader>
+                        <ClickHeader onClick={toCollectionMain}>낭만 모음집</ClickHeader>
+                        <BasicHeader onClick={toMyCollection}>나의 낭만 모음집</BasicHeader>
+                        <SubText>다른 이들의 낭만 편지와 답장을 둘러보세요.</SubText>
                     </MainHeader>
                     <MainContainer>
                         <Letter>
@@ -172,7 +178,6 @@ export default function MyWriting() {
                             요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. </LetterContent>
                             <From>케이크 만드는 고래가</From>
                         </Letter>
-                        { opening === "true" ?
                             <EmojiBox>
                                 <Emoji src={Heart} alt='heart' onClick={()=>setLike(like+1)}/>
                                 <Emoji src={Good} alt='good'onClick={()=>setLike(like+1)}/>
@@ -180,8 +185,7 @@ export default function MyWriting() {
                                 <Emoji src={Clober} alt='clober'onClick={()=>setLike(like+1)}/>
                                 <Emoji src={Clap} alt='clap'onClick={()=>setLike(like+1)}/>
                                 <Emoji src={Star} alt='start'onClick={()=>setLike(like+1)}/>
-                            </EmojiBox> : <></>
-                        }
+                            </EmojiBox> 
                     </MainContainer>  
                 </OverlapContainer>
             </Container>
