@@ -220,6 +220,7 @@ const UnCheckbox = styled.div`
   background-size: cover;
   width: 16px;
   height: 16px;
+  cursor: pointer;
 `;
 
 //체크 된 박스
@@ -228,6 +229,7 @@ const Checkbox = styled.div`
   background-size: cover;
   width: 16px;
   height: 16px;
+  cursor: pointer;
 `;
 
 //마이디자인만 보기

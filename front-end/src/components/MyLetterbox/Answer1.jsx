@@ -45,7 +45,8 @@ const Message = styled.div`
 
 //흰 편지지 컨테이너
 const WhiteLetterContainer = styled.div`
-  background-image: url("/images/더흰편지지.svg");
+  //background-image: url("/images/더흰편지지.svg");
+  background-image: url("/images/더흰편지지2.svg");
   background-size: cover;
   width: 846px;
   height: 506.42908px;
@@ -105,12 +106,13 @@ const Stamp = styled.div`
   float: right;
   width: 137.40875px;
   height: 183.21165px;
-  margin-left: 32px;//임시
+  //margin-left: 32px; //임시
+  margin-left: 630px; //임시 (position absoulte하면)
+  position: absolute;
 `;
 
-//내용 div말고 textarea로 바꿀 예정 
-// 현재까진 textarea로 하면 (글씨 감싸기는 오류남)
-const Content = styled.div`
+// 사용자가 편지쓰는 공간
+const Content = styled.textarea`
   color: #000;
   font-family: "Gowun Dodum";
   font-size: 20px;
@@ -119,15 +121,18 @@ const Content = styled.div`
   line-height: 200%; /* 40px */
   letter-spacing: -0.2px;
   margin-top: 59px; //임시
-  position: relative; // (0/300)이랑 겹치게
-  /*resize: none; // 사용자가 크기 조절 못하도록
+  //position: relative; // (0/300)이랑 겹치게
+  position: absolute;
+  background: transparent; // 글씨 뒤에 회색밑줄 보이게
+  resize: none; // 사용자가 크기 조절 못하도록
   word-wrap: break-word;
   resize: none;
   border: none;
   outline: none;
-  //width: 772px;
-  width: 598px; //임시
-  height: 280px;*/
+  width: 772px;
+  //width: 598px; //임시
+  height: 280px;
+  overflow: hidden;
 `;
 
 // (0/300)
@@ -139,7 +144,8 @@ const NumberCount = styled.div`
   font-weight: 400;
   line-height: normal;
   position: absolute; //겹치게
-  margin: 302px 0 0 710px;
+  top: 365px;
+  right: 40px; //글자수 자리수 변경되어도 오른쪽에 고정되게
 `;
 
 //익명하고 닉네임이 컨테이너
@@ -166,6 +172,7 @@ const UnCheckbox = styled.div`
   background-size: cover;
   width: 16px;
   height: 16px;
+  cursor: pointer;
 `;
 
 //체크된 박스 컨테이너
@@ -174,6 +181,7 @@ const Checkbox = styled.div`
   background-size: cover;
   width: 16px;
   height: 16px;
+  cursor: pointer;
 `;
 
 //익명글자 컨테이너
@@ -384,11 +392,13 @@ const Answer1 = () => {
           </ToContainer>
           
           <Wrap>
-            <Stamp>
-            </Stamp>
+            {/*<Stamp>
+            </Stamp>*/}
             <Content 
               value={letterContent}
-              onChange={handleLetterChange} />
+              onChange={handleLetterChange} 
+              placeholder="편지를 입력하세요..."
+            />
           </Wrap>
 
           <NumberCount>
