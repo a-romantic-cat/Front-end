@@ -364,7 +364,7 @@ const Answer2 = () => {
     navigate("/Answer3");
   };
 
-  const [check, setCheck] = useState(false); //고정핀
+  const [check, setCheck] = useState(false); //체크박스
   const handleCheck = () => { 
     setCheck(!check);
   }
@@ -419,7 +419,7 @@ const Answer2 = () => {
         <ScrollBoxContainer>
           <CheckboxAndText>
             <UnCheckbox>
-              <div onClick={handleCheck}> {/*고정핀 핸들*/}
+              <div onClick={handleCheck}> {/*체크박스 핸들*/}
                   {check ? (
                   <Checkbox />
                 ) :

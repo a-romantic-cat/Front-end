@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import styled from 'styled-components';
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Logout from './Logout';
@@ -36,6 +36,7 @@ const Nickname = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
+  white-space: nowrap; //확대했을 때 줄바꿈 안 되게
 `;
 
 //님
@@ -88,6 +89,7 @@ const BigText = styled.div`
   font-weight: 500;
   line-height: 100%; /* 24px */
   margin-bottom: 50px;
+  white-space: nowrap; //확대했을 때 줄바꿈 안 되게
 `;
 
 // 닉네임, 이메일 컨테이너
@@ -284,10 +286,17 @@ const Delete = styled.div`
   line-height: 100%; /* 15px */
   text-decoration-line: underline;
   margin-bottom: 160px;
+  white-space: nowrap; //확대했을 때 줄바꿈 안 되게
   cursor: pointer;
 `;
 
 export default function MyPageMain() {
+
+  const navigate = useNavigate();
+
+  const navigateToDelete = () => {
+      navigate("/Delete");
+  };
 
   const [NickContent, setNickContent] = useState('');
   const handleNickChange = (event) => {
@@ -437,7 +446,7 @@ export default function MyPageMain() {
           </LogoutButton>
           <Logout isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
-          <Delete>
+          <Delete onClick={navigateToDelete}>
             회원 탈퇴
           </Delete>
 
