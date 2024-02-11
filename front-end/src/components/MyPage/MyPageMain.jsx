@@ -3,6 +3,7 @@ import styled from 'styled-components';
 //import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import Logout from './Logout';
 
 const Container = styled.div`
   margin-left: 465px;
@@ -166,7 +167,7 @@ const NumberCount = styled.div`
   line-height: 100%; /* 16px */
   letter-spacing: -0.2px;
   position: absolute; //input이랑 겹치게
-  top: 15px;
+  top: 16px;
   right: 172px;
 `;
 
@@ -286,9 +287,8 @@ const Delete = styled.div`
   cursor: pointer;
 `;
 
-
-
 export default function MyPageMain() {
+
   const [NickContent, setNickContent] = useState('');
   const handleNickChange = (event) => {
     const content = event.target.value;
@@ -297,6 +297,8 @@ export default function MyPageMain() {
       setNickContent(content);
     }
   };
+
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
 
   return (
     <div>
@@ -430,9 +432,10 @@ export default function MyPageMain() {
             </svg>
           </GrayLine>
 
-          <LogoutButton>
+          <LogoutButton onClick={() => {setIsModalOpen(true)}}>
             로그아웃
           </LogoutButton>
+          <Logout isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
           <Delete>
             회원 탈퇴
@@ -441,6 +444,7 @@ export default function MyPageMain() {
         </Container>
 
         <Footer />
+
     </div>
   )
 }
