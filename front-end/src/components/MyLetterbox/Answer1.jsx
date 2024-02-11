@@ -126,7 +126,6 @@ const Content = styled.textarea`
   background: transparent; // 글씨 뒤에 회색밑줄 보이게
   resize: none; // 사용자가 크기 조절 못하도록
   word-wrap: break-word;
-  resize: none;
   border: none;
   outline: none;
   width: 772px;
@@ -384,10 +383,10 @@ const Answer1 = () => {
         <ContentContainer>
           <ToContainer>
               <ToMyNickname>
-              닉네임
+                닉네임
               </ToMyNickname>
               <To>
-              에게
+                에게
               </To>
           </ToContainer>
           
