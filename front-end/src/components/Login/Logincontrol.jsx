@@ -8,7 +8,7 @@ const CatImg = styled.img`
     width:112.83px;
     height:125.65px;
     margin-top:260px;
-    margin-left:1045px;
+    margin-left:845px;
 `;  
 
 export default function Login() {

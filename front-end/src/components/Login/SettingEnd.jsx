@@ -1,4 +1,6 @@
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const TextContainer=styled.div`
     dlsplay: flex;
@@ -18,6 +20,22 @@ const Text = styled.span`
 `
 
 export default function SettingEnd() {
+
+    const navigate = useNavigate(); 
+
+    const timeout = () => {
+        setTimeout(() => {
+          navigate('/MyLetterbox')}, 2000);
+    };
+    
+    useEffect(() => {
+        timeout();
+        return () => {
+          clearTimeout(timeout);
+        };
+      });
+
+
     return(
         <div style={{
             height: "100vh",

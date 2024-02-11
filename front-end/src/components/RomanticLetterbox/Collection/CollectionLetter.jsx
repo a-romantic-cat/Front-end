@@ -45,7 +45,7 @@ const ClickHeader=styled.span`
     width:450px;
     height:60px;
     padding-bottom:12px;
-    padding-left:186px;
+    padding-left:225px;
     padding-right:150px;
     border-bottom:3.8px solid red;
     font-weight:600;
@@ -59,7 +59,7 @@ const BasicHeader=styled.span`
     width:450px;
     height:60px;
     padding-bottom:12px;
-    padding-left:210px;
+    padding-left:172px;
     padding-right:170px;
     border-bottom:0.95px solid #CECECE;
     font-weight:200;
@@ -131,17 +131,29 @@ const Emoji=styled.img`
     margin-right:13.8px;
     cursor:pointer;
 `
+const SubText=styled.div`
+    position:absolute;
+    left:0px;
+    top:45px;
+    font-family:Pretendard;
+    font-size:14px;
+    color:white;
+    padding-top:15px;
+    font-weight:180;
+`
 
 export default function MyWriting() {
 
     const navigate=useNavigate();
-    const location = useLocation();
-    //const [open, setOpen]=useState(location.state.openstate)
-    const opening=(location.state.openstate).toString();
-    
     const [like, setLike]=useState(0); //공감수
 
+    const location = useLocation();
+    const lettertxt=(location.state.lettertext).toString();
+    const letterrep=(location.state.letterreply).toString();
+    const plusing=Number((location.state.likecounting).toString());
+
     const toCollectionMain = () => {
+        
         navigate("/CollectionMain");
     };
     const toMyCollection = () => {
@@ -152,27 +164,24 @@ export default function MyWriting() {
         <div>
             <Container>
                 <Header />
-                {console.log(opening)}
                 <OverlapContainer>
                     <MainHeader>
-                        <BasicHeader onClick={toCollectionMain}>낭만 모음집</BasicHeader>
-                        <ClickHeader onClick={toMyCollection}>나의 낭만 모음집</ClickHeader>
+                        <ClickHeader onClick={toCollectionMain}>낭만 모음집</ClickHeader>
+                        <BasicHeader onClick={toMyCollection}>나의 낭만 모음집</BasicHeader>
+                        <SubText>다른 이들의 낭만 편지와 답장을 둘러보세요.</SubText>
                     </MainHeader>
                     <MainContainer>
                         <Letter>
                             <LetterImg src={PinkLetter} alt="pinkletter" />
-                            <LetterContent>오늘은 정말로 힘들었어. 마치 어둠이 내 주위를 감싸고 있는 것 같아서 숨쉬기도 어려웠어. 무거운 어깨에는 고난과 역경의 짐이 실려있었고, 마음은 침체되어 있었어. 모든 것이 조용하고 어둡게 느껴졌어.</LetterContent>
+                            <LetterContent>{lettertxt}</LetterContent>
                             <From>별이 좋은 곰돌이가</From>
                         </Letter>
                         <Letter>
                             <LetterImg src={IvoryLetter} alt="ivoryletter" />
                             <To>별이 좋은 곰돌이에게</To>
-                            <LetterContent>편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명
-                            으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼
-                            요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. </LetterContent>
+                            <LetterContent>{letterrep}</LetterContent>
                             <From>케이크 만드는 고래가</From>
                         </Letter>
-                        { opening === "true" ?
                             <EmojiBox>
                                 <Emoji src={Heart} alt='heart' onClick={()=>setLike(like+1)}/>
                                 <Emoji src={Good} alt='good'onClick={()=>setLike(like+1)}/>
@@ -180,11 +189,13 @@ export default function MyWriting() {
                                 <Emoji src={Clober} alt='clober'onClick={()=>setLike(like+1)}/>
                                 <Emoji src={Clap} alt='clap'onClick={()=>setLike(like+1)}/>
                                 <Emoji src={Star} alt='start'onClick={()=>setLike(like+1)}/>
-                            </EmojiBox> : <></>
-                        }
+                            </EmojiBox> 
                     </MainContainer>  
                 </OverlapContainer>
             </Container>
         </div>
     )
 }
+
+//증가된 좋아요 수 main페이지에 반영하기
+//api연결
