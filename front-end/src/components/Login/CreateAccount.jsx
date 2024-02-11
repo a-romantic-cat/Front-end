@@ -47,7 +47,7 @@ export default function CreateAccount() {
     const navigate = useNavigate();
 
     const navigateBack = () => {
-        navigate(-1);
+        navigate("/Login");
     };
 
     return(

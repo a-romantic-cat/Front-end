@@ -83,6 +83,9 @@ const CompletedLetterReplying = () => {
   const handleNavigateToRomainticLetterboxMain = () => {
     navigate('/RomanticLetterbox');  
   };
+  const handleNavigateToCollectionMain = () => {
+    navigate('/CollectionMain');  
+  };
   return (
     <div>
       <Container>
@@ -102,7 +105,7 @@ const CompletedLetterReplying = () => {
             onClick={handleNavigateToRomainticLetterboxMain}>
             낭만우편함으로돌아가기
             </Button>
-            <Button>
+            <Button onClick={handleNavigateToCollectionMain}>
             낭만모음집바로가기
             </Button>
           </MainCon>

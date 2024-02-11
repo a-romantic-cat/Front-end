@@ -52,14 +52,6 @@ const Count=styled.span`
     margin-left:528px;
     top:55px;
 `
-const Emailbox=styled.div`
-    width: 582px;
-    height: 91px;
-    left: 650px;
-    top: 350px;
-    position: absolute;
-`
-
 const InputLogo = styled.div`
   left:0px;
   top: 0px;
@@ -88,7 +80,7 @@ const CheckAll=styled.input`
     cursor:pointer;
     width:24px;
     height:24px;
-    top:600px;
+    top:450px;
     left:650px;
     position: absolute;
 
@@ -104,7 +96,7 @@ const Alltxt=styled.div`
     width: 80px;
     height: 24px;
     left: 687px;
-    top:602px;
+    top:453px;
     color: #000000;
     font-size: 20px;
     font-family: Pretendard;
@@ -117,8 +109,8 @@ const SingleCheck=styled.div`
     width: 582px;
     left:650px;
     height:300px;
-    top:655px;
-    padding-top:18px;
+    top:510px;
+    padding-top:12px;
     border-top:1px solid #727272;
 `
 const Text = styled.span`
@@ -190,22 +182,16 @@ const ButtonTxt=styled.div`
 export default function Signin(){
 
     const [name, setName]=useState("");
-    const [email, setEmail]=useState("");
     const [length, setLength]=useState(0); 
     const data = [ {id: 0},{id: 1}];
     //const authorInput=useRef();
     
     useEffect(()=>{
         const storedName=localStorage.getItem('Name');
-        const storedEmail=localStorage.getItem('Email');
         if(storedName){
             setName(storedName);
         }
-        if(storedEmail){
-            setEmail(storedEmail);
-        }
         localStorage.setItem("Name", name);
-        localStorage.setItem("Email", email);
     },[]);
 
 
@@ -238,7 +224,6 @@ export default function Signin(){
 
     const navigateToTerms = () => {
         localStorage.setItem("Name",name);
-        localStorage.setItem("Email",email);
         navigate("/Terms");
     };
 
@@ -248,21 +233,12 @@ export default function Signin(){
 
     const onSubmit=(e)=>{
         e.preventDefault();
-        /*
-        const regExp=/^[A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{1,20}$/;
-        if(!regExp.test(name)){
-            alert("닉네임을 다시 작성해 주세요.");
-            authorInput.current.focus();
-            return;
-        }*/
         if(checkItems.length === data.length){
             navigateToMakeLetterbox(name);
         } else{
             return;
         }
     }
-
-    //const storedName=localStorage.getItem('Name');
     
     return(
         <div>
@@ -278,26 +254,13 @@ export default function Signin(){
                     onChange={(event)=>{
                         setName((event.target.value));
                         onInputHandler(event);
-                        //characterCheck(event);
                     }}
                     pattern="^[A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{1,20}$"
                     minlength="1"
                     maxlength="20"
-                    //ref={authorInput}
                 />
                 <Count>{`(`}{length}/20{`)`}</Count>
             </Namebox>
-            <Emailbox>
-                <InputLogo>이메일{'('}선택{')'}</InputLogo>
-                <Input 
-                    type="text"
-                    placeholder="xxxx@xxx.com"
-                    value={email}
-                    onChange={(event)=>{
-                        setEmail((event.target.value));
-                    }}
-                />
-            </Emailbox>
             <CheckAll type='checkbox' name='select-all'
               onChange={(e) => handleAllCheck(e.target.checked)}
               checked={checkItems.length === data.length ? true : false} />
