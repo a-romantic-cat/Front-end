@@ -113,7 +113,7 @@ const RealLogoutButton = styled.div`
 
 
 
-export default function Info({ isOpen, onClose }) {
+export default function Logout({ isOpen, onClose }) {
 
   const navigate = useNavigate();
   

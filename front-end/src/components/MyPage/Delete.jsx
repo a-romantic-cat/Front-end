@@ -227,7 +227,7 @@ const DeleteButton = styled.div`
     cursor: pointer;
 `;
 
-export default function MyPageMain() {
+export default function Delete() {
 
     const navigate = useNavigate();
   

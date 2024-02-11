@@ -141,6 +141,14 @@ export default function Header() {
     navigate("/PastLetterbox1");
   };
 
+  const navigateToPrivacy = () => {
+    navigate("/Privacy");
+  };
+
+  const navigateToUse = () => {
+    navigate("/Use");
+  };
+
     return (
       <Container>
         <LinkContainer>
@@ -206,10 +214,10 @@ export default function Header() {
         </LinkContainer>
 
         <PrivacyAndUse>
-            <Privacy>
+            <Privacy onClick={navigateToPrivacy}>
                 개인정보처리방침
             </Privacy>
-            <Use>
+            <Use onClick={navigateToUse}>
                 이용약관
             </Use>
         </PrivacyAndUse>

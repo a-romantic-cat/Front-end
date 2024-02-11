@@ -254,6 +254,7 @@ const SmallText = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 100%; /* 18px */
+  cursor: pointer;
 `;
 
 // 로그아웃
@@ -296,6 +297,14 @@ export default function MyPageMain() {
 
   const navigateToDelete = () => {
       navigate("/Delete");
+  };
+
+  const navigateToPrivacy = () => {
+      navigate("/Privacy");
+  };
+
+  const navigateToUse = () => {
+      navigate("/Use");
   };
 
   const [NickContent, setNickContent] = useState('');
@@ -410,11 +419,11 @@ export default function MyPageMain() {
           </BigText>
 
           <SmallTextContainer>
-            <SmallText>
+            <SmallText onClick={navigateToPrivacy}>
               개인정보처리방침
             </SmallText>
 
-            <SmallText>
+            <SmallText onClick={navigateToUse}>
               이용약관
             </SmallText>
           </SmallTextContainer>
