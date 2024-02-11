@@ -36,6 +36,7 @@ import SettingEnd from './components/Login/SettingEnd';
 import CollectionMain  from './components/RomanticLetterbox/Collection/CollectionMain';
 import MyCollection  from './components/RomanticLetterbox/Collection/MyCollection';
 import MyWriting  from './components/RomanticLetterbox/Collection/MyWriting';
+import CollectionLetter  from './components/RomanticLetterbox/Collection/CollectionLetter';
 import Logout from "./components/MyPage/Logout";
 import Delete from "./components/MyPage/Delete";
 import Privacy from "./components/MyPage/Privacy";
@@ -94,6 +95,7 @@ function App() {
           <Route path="/CollectionMain" element={<CollectionMain />} />
           <Route path="/MyCOllection" element={<MyCollection />} />
           <Route path="/MyWriting" element={<MyWriting />} />
+          <Route path="/CollectionLetter" element={<CollectionLetter />} />
           <Route path="/Logout" element={<Logout />} />
           <Route path="/Delete" element={<Delete />} />
           <Route path="/Privacy" element={<Privacy />} />

@@ -1,9 +1,10 @@
 import React, {useState,useEffect} from "react";
 import styled from 'styled-components';
 import Header from '../../Header/Header';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import twinkle from '../../../assets/img/반짝.svg';
 import LetterPaper from '../../../assets/img/편지지.svg';
+import Heart from '../../../assets/img/heart.svg';
 
 const Container = styled.div`
   box-sizing: border-box;
@@ -27,7 +28,7 @@ const OverlapContainer = styled.div`
 
 const MainHeader = styled.div`
     position:absolute;
-    width:990px;
+    width:1000px;
     height:88px;
     left:460px;
     top:130px;
@@ -38,8 +39,8 @@ const ClickHeader=styled.span`
     width:450px;
     height:60px;
     padding-bottom:12px;
-    padding-left:186px;
-    padding-right:186px;
+    padding-left:225px;
+    padding-right:150px;
     border-bottom:3.8px solid red;
     font-weight:600;
     font-family:Pretendard;
@@ -47,15 +48,15 @@ const ClickHeader=styled.span`
     cursor:pointer;
 `
 const BasicHeader=styled.span`
-    color: #FFF;
+    color: #CECECE;
     position:relative;
     width:450px;
     height:60px;
     padding-bottom:12px;
-    padding-left:170px;
+    padding-left:172px;
     padding-right:170px;
-    border-bottom:0.95px solid #FFF;
-    font-weight:180;
+    border-bottom:0.95px solid #CECECE;
+    font-weight:200;
     font-family:Pretendard;
     font-size:25px;
     cursor:pointer;
@@ -63,7 +64,7 @@ const BasicHeader=styled.span`
 const SubText=styled.div`
     position:absolute;
     left:0px;
-    top:40px;
+    top:45px;
     font-family:Pretendard;
     font-size:14px;
     color:white;
@@ -108,16 +109,59 @@ const LetterBox=styled.div`
     display:inline-block;
     margin-right:80px;
     margin-bottom:100px;
-    width:276px;
-    height:276px;
-
-    &.Hover{
-        border:1px solid wi
-    }
+    width:275px;
+    height:275px;
+    cursor:pointer;
+`
+const ShowReply=styled.div`
+    position:absolute;
+    top:0px;
+    background-color: #000000;
+    opacity:75%;
+    width:99%;
+    height:99.5%;
+    border: 1px solid white;
+    border-radius:8px;
+`
+const Reply=styled.span`
+    color:#FFF;
+    top:40%;
+    left:8%;
+    right:8%;
+    font-family: 'Gowun Dodum';
+    font-weight:10;
+    position: absolute;
+    font-size: 16px;
+    line-height: 165%;
+    display: -webkit-inline-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+`
+const LikeCnt=styled.div`
+    position: absolute;
+    background-color:white;
+    width:58px;
+    height:22px;
+    right:8%;
+    bottom:8%;
+    text-align:right;
+    padding-right:7px;
+    border-radius:10px;
+    color:#000000;
+    font-size:16px;
+    font-family:Pretendard;
+`
+const LikeImg=styled.img`
+    position: absolute;
+    width:16px;
+    height:16px;
+    right:22.5%;
+    bottom:9.7%;
 `
 const LetterPad=styled.img`
-    width:100%;
-    height:100%;
+    width:275px;
+    height:275px;
 `
 const LetterTxt = styled.div`
   font-family: 'Gowun Dodum';
@@ -129,11 +173,15 @@ const LetterTxt = styled.div`
   top:15%;
   left:9%;
   right:9%;
-`;
+  display: -webkit-inline-box ;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+`
 const Page=styled.div`
     position:absolute;
     width: 270px;
-    left:850px;
+    left:800px;
     bottom:-900px;
 `
 const PageNumber=styled.span`
@@ -149,6 +197,7 @@ const PageNumber=styled.span`
 const BeforeBtn=styled.span`
     position:absolute;
     color: white;
+    top:-2px;
     left:-40px;  
     font-size:24px; 
     font-family:Pretendard;
@@ -159,7 +208,7 @@ const AfterBtn=styled.span`
     font-size:24px;
     position:absolute;
     color: white;
-    top:1.2px;
+    top:-2px;
     right:-80px;   
     font-family:Pretendard;
     font-weight:Medium;
@@ -170,180 +219,163 @@ export default function CollectionMain() {
 
     const array=[
         { id:0, text:"0다른like:400 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:400, },
+            like:400, reply:"답장이다"},
         { id:1,text:"1 // like:290 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:290, },
+            like:290, reply:"답장이다"},
         { id:2,text:"2 // like:300 다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:300,},
+            like:300,reply:"답장이다"},
         { id:3, text:"3// like:380다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:380,},
+            like:380,reply:""},
         { id:4, text:"4다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:20,},
+            like:20,reply:"다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요."},
         { id:5, text:"5다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:150,},
+            like:150,reply:"다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요."},
         { id:6, text:"6다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:180,},
+            like:180,reply:"답장이다"},
         { id:7,text:"7다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:56,},
+            like:56,reply:"답장이다"},
         { id:8,text:"8다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:175,},
+            like:175,reply:"답장이다"},
         { id:9, text:"9다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:15, },
+            like:15, reply:"답장이다"},
         { id:10, text:"10다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:200, },
+            like:200, reply:"답장이다"},
         { id:11, text:"11다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:80, },
+            like:80, reply:"답장이다"},
         { id:12,text:"12다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:1, },
+            like:1, reply:"답장이다"},
         { id:13, text:"13다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:14, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:15, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:16, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:17, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:18, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:19, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:20, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:21, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:22, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:23, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:24, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:25, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:26, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:27, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:28, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:29, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:30, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:31,text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:32,text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:33, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:34, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:35, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:36, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:37, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:38, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:39, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-             like:99, },
+             like:99, reply:"답장이다"},
         { id:40, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:41, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:42, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:43, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:44, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:45, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:46, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:47, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:48, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:49, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:50, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:51, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:52, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:53, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:54, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:66, },
+            like:66, reply:"답장이다"},
         { id:55, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:56, text:"56다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:57, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:58, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:59, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:60, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:61, text:"61다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:62, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:63, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:64, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:65, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:66, text:"66다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:67, text:"67다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:68, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:69, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:70, text:"70다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:71, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:72, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
         { id:73, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:99, reply:"답장이다"},
     ]
 
-    const handletextlength=(props)=>{
-        const preview=[...props];
-        preview.length=55;
+/*
+    const location = useLocation();
+    const userId = (location.state.UserId).toSt;
+    const likeCount = location.state.likeCounting;*/
 
-        preview[53]=".";
-        preview[54]=".";
-        preview[55]=".";
-
-        return( preview )
-    }
-
-    const [order, setOrder] = useState("like");
     const [likebtn, setLikebtn]=useState(true);
     const [recentbtn, setRecentbtn]=useState(false);
     const [sortedArray, setSortedArray]=useState(array.sort((a, b) => b.like - a.like));
-  
-    useEffect(()=>{
-        if(likebtn===true){
-            setOrder("like");
-            setSortedArray(array.sort((a, b) => b.like - a.like));
-        }else{
-            setOrder("id");
-            setSortedArray(array.sort((a, b) => a.id - b.id));
-        } 
-    }, [recentbtn]); //sortedArray 비동기 오류
 
     const [nowPage, setNowPage]=useState(1);
     const [nowItem,setNowItem]=useState([...sortedArray.slice(0,12)]);
@@ -354,22 +386,24 @@ export default function CollectionMain() {
         setNowItem([...sortedArray.slice((nowPage-1)*12,(nowPage-1)*12+12)]);
     }, [nowPage, recentbtn]);
 
-    const [isHovering, setIsHovering] = useState(false);
-    
-    const handleMouseOver=(e)=>{
-        setIsHovering(true);
-        console.dir(e);
-    }
-    const handleMouseOut = () => {
-        setIsHovering(false);
-      };
-
     const navigate = useNavigate();
 
     const toMyCollection = () => {
         navigate("/MyCollection");
     };
 
+    const [hoveredCart, setHoveredCart] = useState(-1);
+
+    const showCartHandler = (i)=>{
+        setHoveredCart(i);
+    }
+
+    const hideCartHandler=()=>{
+       setHoveredCart(-1)
+    }
+
+    const location = useLocation();
+    const [plus,setPlus]=useState(0);
 
     return(
         <div>
@@ -381,25 +415,31 @@ export default function CollectionMain() {
                         <BasicHeader onClick={toMyCollection}>나의 낭만 모음집</BasicHeader>
                         <SubText>다른 이들의 낭만 편지와 답장을 둘러보세요.</SubText>
                         {likebtn==false?
-                            <ArrayBtn onClick={e=> {setLikebtn(true); setRecentbtn(false);}}>추천순</ArrayBtn>
+                            <ArrayBtn onClick={e=> {setLikebtn(true); setRecentbtn(false);setSortedArray(array.sort((a, b) => b.like - a.like));}}>추천순</ArrayBtn>
                             :<ClickedBtn>추천순</ClickedBtn>}
                         {recentbtn==false? 
-                            <ArrayBtn onClick={e=>{setLikebtn(false); setRecentbtn(true);}}>최신순</ArrayBtn>
+                            <ArrayBtn onClick={e=>{setLikebtn(false); setRecentbtn(true);setSortedArray(array.sort((a, b) => a.id - b.id));}}>최신순</ArrayBtn>
                             :<ClickedBtn>최신순</ClickedBtn>}
                     </MainHeader>
 
                     <MainBox >
-                        {nowItem.map(({text, id}) => (
-                            <LetterBox 
-                                key={id}
-                                className={isHovering ? `${id}"Hover"` : `${id}`}
-                                onMouseOver={e=>handleMouseOver(e,{id})}
-                                onMouseOut={e=>handleMouseOut(e)}
-                            > 
-                                <LetterPad src={LetterPaper} alt='letterpaper' />
+                        {nowItem.map(({text, id, like, reply}) => (
+                            <LetterBox key={id}
+                            onMouseOver={()=>showCartHandler(id)}
+                            onMouseOut={hideCartHandler}
+                            onClick={()=>navigate("/CollectionLetter", {state:{lettertext: `${text}`, letterreply:`${reply}`,likecounting:`${like}`}})}>
+                                <LetterPad src={LetterPaper} alt='letterpaper'/>
                                 <LetterTxt >
-                                    {handletextlength(text)}
+                                    {text}
                                 </LetterTxt>
+                                {id===hoveredCart?
+                                    <ShowReply>
+                                        {reply==""?
+                                            <Reply style={{textAlign:"center",}}>곧 답장이 도착할 거예요 :{`)`}</Reply>
+                                        : <Reply>{reply}</Reply>}
+                                        <LikeCnt>{like}</LikeCnt>
+                                        <LikeImg src={Heart} alt='heart' />
+                                    </ShowReply> :<></>}
                             </LetterBox>
                         ))}
                     </MainBox>
@@ -427,3 +467,4 @@ export default function CollectionMain() {
         </div>
     )
 }
+//&& setPlus((location.state.likecnt).toString())}>
