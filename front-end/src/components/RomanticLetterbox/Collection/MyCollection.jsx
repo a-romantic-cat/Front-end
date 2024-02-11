@@ -153,6 +153,10 @@ const LetterTxt = styled.div`
   top:15%;
   left:9%;
   right:9%;
+  display: -webkit-inline-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 `
 const PrivateTxt=styled.span`
     font-family:Pretendard;
@@ -258,17 +262,6 @@ export default function MyCollection() {
             like:200, open:true},
     ]
 
-    const handletextlength=(props)=>{
-        const preview=[...props];
-        preview.length=55;
-
-        preview[53]=".";
-        preview[54]=".";
-        preview[55]=".";
-
-        return( preview );
-    }
-
     const [writingbtn, setWritingbtn]=useState(true);
     const [Replyingbtn, setReplyingbtn]=useState(false);
     const [NowArray, setNowArray]=useState(WritingArray);
@@ -321,7 +314,7 @@ export default function MyCollection() {
                                 <LetterPad src={LetterPaper} alt='letterpaper' 
                                     onClick={e=>navigate("/MyWriting", { state: {openstate: `${open}`}})}/>
                                 <LetterTxt >
-                                    {handletextlength(text)}
+                                    {text}
                                 </LetterTxt>
                                 {open === false ? <PrivateTxt>나만보기</PrivateTxt> : <></> }
                                 {open === false ? <PrivImg src={PrivateImg} alt='나만보기'/> : <></>}

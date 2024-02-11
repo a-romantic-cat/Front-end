@@ -147,7 +147,13 @@ export default function MyWriting() {
     const navigate=useNavigate();
     const [like, setLike]=useState(0); //공감수
 
+    const location = useLocation();
+    const lettertxt=(location.state.lettertext).toString();
+    const letterrep=(location.state.letterreply).toString();
+    const plusing=Number((location.state.likecounting).toString());
+
     const toCollectionMain = () => {
+        
         navigate("/CollectionMain");
     };
     const toMyCollection = () => {
@@ -167,15 +173,13 @@ export default function MyWriting() {
                     <MainContainer>
                         <Letter>
                             <LetterImg src={PinkLetter} alt="pinkletter" />
-                            <LetterContent>오늘은 정말로 힘들었어. 마치 어둠이 내 주위를 감싸고 있는 것 같아서 숨쉬기도 어려웠어. 무거운 어깨에는 고난과 역경의 짐이 실려있었고, 마음은 침체되어 있었어. 모든 것이 조용하고 어둡게 느껴졌어.</LetterContent>
+                            <LetterContent>{lettertxt}</LetterContent>
                             <From>별이 좋은 곰돌이가</From>
                         </Letter>
                         <Letter>
                             <LetterImg src={IvoryLetter} alt="ivoryletter" />
                             <To>별이 좋은 곰돌이에게</To>
-                            <LetterContent>편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명
-                            으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼
-                            요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. </LetterContent>
+                            <LetterContent>{letterrep}</LetterContent>
                             <From>케이크 만드는 고래가</From>
                         </Letter>
                             <EmojiBox>
@@ -192,3 +196,6 @@ export default function MyWriting() {
         </div>
     )
 }
+
+//증가된 좋아요 수 main페이지에 반영하기
+//api연결
