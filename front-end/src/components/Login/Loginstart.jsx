@@ -10,24 +10,22 @@ import { useNavigate } from 'react-router-dom';
 const KakaoImg = styled.img`
     width:600px;
     margin-top:170px;
-    margin-left:800px;
+    margin-left:600px;
     cursor: pointer;
 `;
 
 const NaverImg= styled.img`
     width:600px;
     margin-top:35px;
-    margin-left:800px;
+    margin-left:600px;
     margin-bottom:0px;
     cursor: pointer;
 `;
 
 const GoogleImg = styled.img`
     width:600px;
-    padding-left:50px;
-    padding-right:20px;;
     margin-top:35px;
-    margin-left:750px;
+    margin-left:600px;
     margin-bottom: 200px;
     cursor: pointer;
 `;

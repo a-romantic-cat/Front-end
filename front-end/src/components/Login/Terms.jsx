@@ -17,23 +17,23 @@ const Container=styled.div`
     left:650px;
     top:110px;
     position: absolute;
-    width:640px;
+    width:650px;
     height:700px;
 `
 const Title=styled.div`
     margin-top:30px;
     font-family: Pretendard;
-    font-size: 24px;
-    font-weight: 400;
+    font-size: 40px;
+    font-weight: 450;
     line-height: 24px;
     text-align: left;
 `
 const Contents=styled.div`
     margin-left:5px;
-    margin-top:30px;
-    padding-bottom:130px;
+    margin-top:50px;
+    padding-bottom:100px;
     font-family: Pretendard;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
     line-height: 16px;
     letter-spacing: 0.20000000298023224px;
