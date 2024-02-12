@@ -27,7 +27,7 @@ const ModalContainer = styled.div`
     margin-right: 922px; //모달창 조금 왼쪽으로 가게
 `;
  
-export default function PastLetterboxModal({ isOpen, onClose }) {
+export default function PastLetterboxModal({ isOpen, onClose, position }) {
 
 	if (!isOpen) {
     return null;

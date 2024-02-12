@@ -327,10 +327,8 @@ export default function PastLetterbox1() {
         <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage} />
       </PaginationContainer>
 
-      
       <PastLetterboxModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       
-
       <Footer />
     </div>
   )
