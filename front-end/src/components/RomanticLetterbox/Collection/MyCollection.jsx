@@ -32,20 +32,19 @@ const OverlapContainer = styled.div`
 
 const MainHeader = styled.div`
     position:absolute;
-    width:1050px;
+    width:1020px;
     height:88px;
     left:460px;
     top:130px;
-    
 `
 const ClickHeader=styled.span`
     color:red;
     position:relative;
-    width:450px;
+    width:400px;
     height:60px;
     padding-bottom:12px;
-    padding-left:186px;
-    padding-right:150px;
+    padding-left:152px;
+    padding-right:170px;
     border-bottom:3.8px solid red;
     font-weight:600;
     font-family:Pretendard;
@@ -59,7 +58,7 @@ const BasicHeader=styled.span`
     height:60px;
     padding-bottom:12px;
     padding-left:210px;
-    padding-right:170px;
+    padding-right:150px;
     border-bottom:0.95px solid #CECECE;
     font-weight:200;
     font-family:Pretendard;
@@ -68,10 +67,10 @@ const BasicHeader=styled.span`
 `
 const HeaderLine=styled.div`
     position:absolute;
-    margin-left:389px;
-    top:122px;
+    margin-left:397px;
+    top:121px;
     width:600px;
-    margin-top:39px;
+    margin-top:44px;
     border-top:0.5px solid #757575;
 `
 const Writing=styled.div`
@@ -84,7 +83,8 @@ const Writing=styled.div`
     border-bottom: 0.5px solid ${props => props.bordercolor};
     cursor:pointer;
     width:130px;
-    padding-left:60px;
+    padding-left:50px;
+    padding-right:13px;
     height:35px;
     padding-top:15px;
     font-size:20px;
@@ -104,7 +104,7 @@ const Replying=styled.div`
     width:175px;
     text-align:center;
     height:35px;
-    padding-left:20px;
+    padding-left:25px;
     padding-top:15px;
     cursor:pointer;
     font-size:20px;
@@ -112,14 +112,15 @@ const Replying=styled.div`
 `
 const RedWritingImg=styled.img`
     position:absolute;
-    left:32px;
+    left:26px;
     top: 18px;
     width:19.62px;
     height:19.57px;
 `
 const WhiteReplyingImg=styled.img`
     position:absolute;
-    left:16px;
+    top:18px;
+    left:15px;
     width:19.62px;
     height:19.57px;
 `

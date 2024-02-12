@@ -28,7 +28,7 @@ const OverlapContainer = styled.div`
 
 const MainHeader = styled.div`
     position:absolute;
-    width:1000px;
+    width:1020px;
     height:88px;
     left:460px;
     top:130px;
@@ -39,7 +39,7 @@ const ClickHeader=styled.span`
     width:450px;
     height:60px;
     padding-bottom:12px;
-    padding-left:225px;
+    padding-left:210px;
     padding-right:150px;
     border-bottom:3.8px solid red;
     font-weight:600;
@@ -50,10 +50,10 @@ const ClickHeader=styled.span`
 const BasicHeader=styled.span`
     color: #CECECE;
     position:relative;
-    width:450px;
+    width:400px;
     height:60px;
     padding-bottom:12px;
-    padding-left:172px;
+    padding-left:152px;
     padding-right:170px;
     border-bottom:0.95px solid #CECECE;
     font-weight:200;
@@ -75,6 +75,7 @@ const ArrayBtn=styled.span`
     color: #757575;
     position:relative;
     top:50px;
+    width:52.58px;
     cursor:pointer;
     left:892px;
     background-color: #CECECE;
@@ -88,6 +89,7 @@ const ClickedBtn=styled.span`
     color: #C90000;
     font-weight:400;
     position:relative;
+    width:52.58px;
     top:50px;
     cursor:pointer;
     left:892px;
@@ -101,7 +103,7 @@ const MainBox=styled.div`
     position:absolute;
     width:1200px;
     height:1404px;
-    left:460px;
+    left:465px;
     top:260px;
 `
 const LetterBox=styled.div`
@@ -137,15 +139,18 @@ const Reply=styled.span`
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     overflow: hidden;
+    text-align:center;
 `
 const LikeCnt=styled.div`
     position: absolute;
     background-color:white;
     width:58px;
-    height:22px;
+    height:20px;
     right:8%;
     bottom:8%;
     text-align:right;
+    padding-top:1.0px;
+    padding-bottom:2px;
     padding-right:7px;
     border-radius:10px;
     color:#000000;
@@ -157,7 +162,7 @@ const LikeImg=styled.img`
     width:16px;
     height:16px;
     right:22.5%;
-    bottom:9.7%;
+    bottom:9.3%;
 `
 const LetterPad=styled.img`
     width:275px;
@@ -217,25 +222,25 @@ const AfterBtn=styled.span`
 
 export default function CollectionMain() {
 
-    const array=[
-        { id:0, text:"0다른like:400 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:400, reply:"답장이다"},
+    const array = [
+        { id:0, like:400,text:"0다른like:400 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
+             reply:"답장이다"},
         { id:1,text:"1 // like:290 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
             like:290, reply:"답장이다"},
         { id:2,text:"2 // like:300 다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:300,reply:"답장이다"},
+            like:300, reply:"답장이다"},
         { id:3, text:"3// like:380다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:380,reply:""},
+            like:380,  reply:""},
         { id:4, text:"4다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:20,reply:"다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요."},
+            like:20,  reply:"다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요."},
         { id:5, text:"5다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:150,reply:"다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요."},
+            like:150, reply:"다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요."},
         { id:6, text:"6다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:180,reply:"답장이다"},
+            like:180, reply:"답장이다"},
         { id:7,text:"7다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:56,reply:"답장이다"},
+            like:56, reply:"답장이다"},
         { id:8,text:"8다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:175,reply:"답장이다"},
+            like:175, reply:"답장이다"},
         { id:9, text:"9다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
             like:15, reply:"답장이다"},
         { id:10, text:"10다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
@@ -368,14 +373,43 @@ export default function CollectionMain() {
             like:99, reply:"답장이다"},
     ]
 
-/*
-    const location = useLocation();
-    const userId = (location.state.UserId).toSt;
-    const likeCount = location.state.likeCounting;*/
+    const location=useLocation();
+    const [toggle, setToggle]=useState(false);
+    const [dummyList, setDummyList]=useState(array);
+    
+    useEffect(()=>{ //처음 랜더링 시
+        const user=JSON.parse(localStorage.getItem("users")) || [];
+
+        if(location.state&&location.state.change){
+            if(user.length!=0){
+                setDummyList(user);
+            } else{
+                setDummyList(array);
+            }
+        }
+    },[]);
+    
+    useEffect(()=>{ 
+        const user=JSON.parse(localStorage.getItem("users")) || [];
+        if(user.length!=0){
+            onchange();
+        } else {
+            setDummyList(array);
+        }
+    },[location.state]);
+
+    const onchange=()=>{
+        setToggle(true);
+    };
+
+    useEffect(()=>{
+        setDummyList(JSON.parse(localStorage.getItem("users")) || []);
+        console.log(dummyList);  
+    }, [toggle]);
 
     const [likebtn, setLikebtn]=useState(true);
     const [recentbtn, setRecentbtn]=useState(false);
-    const [sortedArray, setSortedArray]=useState(array.sort((a, b) => b.like - a.like));
+    const [sortedArray, setSortedArray]=useState(dummyList.sort((a, b) => b.like - a.like));
 
     const [nowPage, setNowPage]=useState(1);
     const [nowItem,setNowItem]=useState([...sortedArray.slice(0,12)]);
@@ -383,8 +417,12 @@ export default function CollectionMain() {
     const PageArray= [...Array(MaxPage)].map((v,i)=>i+1);
 
     useEffect(()=>{
+        setSortedArray(dummyList.sort((a, b) => b.like - a.like));
+    }, [dummyList]);
+
+    useEffect(()=>{
         setNowItem([...sortedArray.slice((nowPage-1)*12,(nowPage-1)*12+12)]);
-    }, [nowPage, recentbtn]);
+    }, [nowPage, recentbtn,dummyList]);
 
     const navigate = useNavigate();
 
@@ -401,9 +439,16 @@ export default function CollectionMain() {
     const hideCartHandler=()=>{
        setHoveredCart(-1)
     }
+    /*
+    useEffect(() => {
+        if (location.state && location.state.newList) {
+            setDummyList(JSON.parse(localStorage.getItem("users")) || []);
+        }
+      });
 
-    const location = useLocation();
-    const [plus,setPlus]=useState(0);
+    const onChange=()=>{
+        setDummyList(JSON.parse(localStorage.getItem("users")) || []);
+    };*/
 
     return(
         <div>
@@ -415,29 +460,28 @@ export default function CollectionMain() {
                         <BasicHeader onClick={toMyCollection}>나의 낭만 모음집</BasicHeader>
                         <SubText>다른 이들의 낭만 편지와 답장을 둘러보세요.</SubText>
                         {likebtn==false?
-                            <ArrayBtn onClick={e=> {setLikebtn(true); setRecentbtn(false);setSortedArray(array.sort((a, b) => b.like - a.like));}}>추천순</ArrayBtn>
+                            <ArrayBtn onClick={e=> {setLikebtn(true); setRecentbtn(false);setSortedArray(dummyList.sort((a, b) => b.like - a.like));}}>추천순</ArrayBtn>
                             :<ClickedBtn>추천순</ClickedBtn>}
                         {recentbtn==false? 
                             <ArrayBtn onClick={e=>{setLikebtn(false); setRecentbtn(true);setSortedArray(array.sort((a, b) => a.id - b.id));}}>최신순</ArrayBtn>
                             :<ClickedBtn>최신순</ClickedBtn>}
                     </MainHeader>
-
                     <MainBox >
-                        {nowItem.map(({text, id, like, reply}) => (
-                            <LetterBox key={id}
-                            onMouseOver={()=>showCartHandler(id)}
+                        {nowItem.map((item) => (
+                            <LetterBox key={item.id}
+                            onMouseOver={()=>showCartHandler(item.id)}
                             onMouseOut={hideCartHandler}
-                            onClick={()=>navigate("/CollectionLetter", {state:{lettertext: `${text}`, letterreply:`${reply}`,likecounting:`${like}`}})}>
+                            onClick={()=>navigate("/CollectionLetter",{state: {propsList: JSON.stringify(dummyList), index: `${item.id}`}})}>
                                 <LetterPad src={LetterPaper} alt='letterpaper'/>
                                 <LetterTxt >
-                                    {text}
+                                    {item.text}
                                 </LetterTxt>
-                                {id===hoveredCart?
+                                {item.id===hoveredCart?
                                     <ShowReply>
-                                        {reply==""?
-                                            <Reply style={{textAlign:"center",}}>곧 답장이 도착할 거예요 :{`)`}</Reply>
-                                        : <Reply>{reply}</Reply>}
-                                        <LikeCnt>{like}</LikeCnt>
+                                        {item.reply==""?
+                                            <Reply>곧 답장이 도착할 거예요 :{`)`}</Reply>
+                                        : <Reply>{item.reply}</Reply>}
+                                        <LikeCnt>{item.like}</LikeCnt>
                                         <LikeImg src={Heart} alt='heart' />
                                     </ShowReply> :<></>}
                             </LetterBox>

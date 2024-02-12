@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styled from 'styled-components';
 import Header from '../../Header/Header';
 import twinkle from '../../../assets/img/반짝.svg';
@@ -21,7 +21,6 @@ const Container = styled.div`
   background-repeat: no-repeat;
   background-color: #081A2F;
 `;
-
 const OverlapContainer = styled.div`
   width: 100%;
   height: 980px;
@@ -31,10 +30,9 @@ const OverlapContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
-
 const MainHeader = styled.div`
     position:absolute;
-    width:1050px;
+    width:1040px;
     height:88px;
     left:460px;
     top:130px;
@@ -45,7 +43,7 @@ const ClickHeader=styled.span`
     width:450px;
     height:60px;
     padding-bottom:12px;
-    padding-left:225px;
+    padding-left:210px;
     padding-right:150px;
     border-bottom:3.8px solid red;
     font-weight:600;
@@ -59,7 +57,7 @@ const BasicHeader=styled.span`
     width:450px;
     height:60px;
     padding-bottom:12px;
-    padding-left:172px;
+    padding-left:149px;
     padding-right:170px;
     border-bottom:0.95px solid #CECECE;
     font-weight:200;
@@ -145,16 +143,48 @@ const SubText=styled.div`
 export default function MyWriting() {
 
     const navigate=useNavigate();
-    const [like, setLike]=useState(0); //공감수
+    const location=useLocation();
+    const [editedList, setEditedList] = useState([]);
+    const [itemId, setItemId] = useState(0);
+    const [toggle, setToggle]=useState(false);
+    const [itemtxt, setItemtxt]=useState("");
+    const [itemreply, setItemreply]=useState("");
+    
+    useEffect(() => {
+        if (location.state && location.state.propsList) {
+          const parsedList = JSON.parse(location.state.propsList);
+          setItemId(location.state.index);
+          setEditedList(parsedList);
+          localStorage.setItem("users", JSON.stringify(parsedList));
+          setToggle(true);
+        }
+    
+      }, [location.state]);
 
-    const location = useLocation();
-    const lettertxt=(location.state.lettertext).toString();
-    const letterrep=(location.state.letterreply).toString();
-    const plusing=Number((location.state.likecounting).toString());
+      useEffect(()=>{
+        editedList.map(i=>{
+            if(i.id==itemId){
+                setItemtxt(i.text);
+                setItemreply(i.reply); 
+            }
+        })
+      },[toggle])
+
+      const update =()=>{
+
+        const updatedList=editedList.map(item => {
+            if (item.id == itemId) {
+                return { ...item, like: item.like+1};  
+            }
+            return item;
+       });
+       localStorage.setItem("users", JSON.stringify(updatedList));
+       setEditedList(updatedList);
+    };
 
     const toCollectionMain = () => {
-        
-        navigate("/CollectionMain");
+        //navigate("/CollectionMain",{state: {newList: JSON.stringify(editedList)}});
+        navigate("/CollectionMain", {state:{change:true}});
     };
     const toMyCollection = () => {
         navigate("/MyCollection");
@@ -173,22 +203,25 @@ export default function MyWriting() {
                     <MainContainer>
                         <Letter>
                             <LetterImg src={PinkLetter} alt="pinkletter" />
-                            <LetterContent>{lettertxt}</LetterContent>
+                            <LetterContent>{itemtxt}</LetterContent>
                             <From>별이 좋은 곰돌이가</From>
                         </Letter>
                         <Letter>
                             <LetterImg src={IvoryLetter} alt="ivoryletter" />
-                            <To>별이 좋은 곰돌이에게</To>
-                            <LetterContent>{letterrep}</LetterContent>
-                            <From>케이크 만드는 고래가</From>
+                            {itemreply=="" ? <></>:
+                                <>
+                                <To>별이 좋은 곰돌이에게</To>
+                                <LetterContent>{itemreply}</LetterContent>
+                                <From>케이크 만드는 고래가</From>
+                                </>}       
                         </Letter>
                             <EmojiBox>
-                                <Emoji src={Heart} alt='heart' onClick={()=>setLike(like+1)}/>
-                                <Emoji src={Good} alt='good'onClick={()=>setLike(like+1)}/>
-                                <Emoji src={Sad} alt='sad'onClick={()=>setLike(like+1)}/>
-                                <Emoji src={Clober} alt='clober'onClick={()=>setLike(like+1)}/>
-                                <Emoji src={Clap} alt='clap'onClick={()=>setLike(like+1)}/>
-                                <Emoji src={Star} alt='start'onClick={()=>setLike(like+1)}/>
+                                <Emoji src={Heart} alt='heart' onClick={()=>update()}/>
+                                <Emoji src={Good} alt='good'onClick={()=>update()}/>
+                                <Emoji src={Sad} alt='sad'onClick={()=>update()}/>
+                                <Emoji src={Clober} alt='clober'onClick={()=>update()}/>
+                                <Emoji src={Clap} alt='clap'onClick={()=>update()}/>
+                                <Emoji src={Star} alt='start'onClick={()=>update()}/>
                             </EmojiBox> 
                     </MainContainer>  
                 </OverlapContainer>
@@ -197,5 +230,5 @@ export default function MyWriting() {
     )
 }
 
-//증가된 좋아요 수 main페이지에 반영하기
+//로컬스토리지에 업데이트되는 더미리스트 저장하고 가져오기
 //api연결
