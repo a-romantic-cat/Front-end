@@ -114,7 +114,7 @@ const From = styled.div`
   letter-spacing: 0.28px;
 `;
 
-//답장하기 버튼
+//우편함 방문하기 버튼
 const AnswerButton = styled.div`
   width: 174px;
   height: 42px;
@@ -188,7 +188,7 @@ export default function Check2({ isOpen, onClose }) {
 
         <AnswerButton onClick={navigateToAnswer1}>
             <AnswerText>
-            답장하기
+              우편함 방문하기
             </AnswerText>
         </AnswerButton>
       </RightContainer>

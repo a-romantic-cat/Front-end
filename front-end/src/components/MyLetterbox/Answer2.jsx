@@ -132,18 +132,6 @@ const Content = styled.div`
   position: relative; // (0/300)이랑 겹치게
 `;
 
-// (0/300)
-const NumberCount = styled.div`
-  color: var(--Grey-, #C5C5C5);
-  font-family: Pretendard;
-  font-size: 9.697px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  position: absolute; //겹치게
-  margin: 171.75px 0 0 401px;
-`;
-
 //닉네임이
 const FromContainer = styled.div`
   width: 40px;
@@ -220,6 +208,7 @@ const UnCheckbox = styled.div`
   background-size: cover;
   width: 16px;
   height: 16px;
+  cursor: pointer;
 `;
 
 //체크 된 박스
@@ -228,6 +217,7 @@ const Checkbox = styled.div`
   background-size: cover;
   width: 16px;
   height: 16px;
+  cursor: pointer;
 `;
 
 //마이디자인만 보기
@@ -374,7 +364,7 @@ const Answer2 = () => {
     navigate("/Answer3");
   };
 
-  const [check, setCheck] = useState(false); //고정핀
+  const [check, setCheck] = useState(false); //체크박스
   const handleCheck = () => { 
     setCheck(!check);
   }
@@ -413,10 +403,6 @@ const Answer2 = () => {
                 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명 으로 작성 돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼 요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익 명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.
               </Content>
             </Wrap>
-
-            <NumberCount>
-              (0/300)
-            </NumberCount>
           
             <FromContainer>
               <FromNickname>
@@ -433,7 +419,7 @@ const Answer2 = () => {
         <ScrollBoxContainer>
           <CheckboxAndText>
             <UnCheckbox>
-              <div onClick={handleCheck}> {/*고정핀 핸들*/}
+              <div onClick={handleCheck}> {/*체크박스 핸들*/}
                   {check ? (
                   <Checkbox />
                 ) :
