@@ -44,7 +44,7 @@ const ClickHeader=styled.span`
     height:60px;
     padding-bottom:12px;
     padding-left:210px;
-    padding-right:150px;
+    padding-right:172px;
     border-bottom:3.8px solid red;
     font-weight:600;
     font-family:Pretendard;
@@ -57,8 +57,8 @@ const BasicHeader=styled.span`
     width:450px;
     height:60px;
     padding-bottom:12px;
-    padding-left:149px;
-    padding-right:170px;
+    padding-left:160px;
+    padding-right:172px;
     border-bottom:0.95px solid #CECECE;
     font-weight:200;
     font-family:Pretendard;

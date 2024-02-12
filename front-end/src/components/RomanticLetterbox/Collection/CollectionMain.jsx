@@ -28,7 +28,7 @@ const OverlapContainer = styled.div`
 
 const MainHeader = styled.div`
     position:absolute;
-    width:1020px;
+    width:1010px;
     height:88px;
     left:460px;
     top:130px;
@@ -40,7 +40,7 @@ const ClickHeader=styled.span`
     height:60px;
     padding-bottom:12px;
     padding-left:210px;
-    padding-right:150px;
+    padding-right:172px;
     border-bottom:3.8px solid red;
     font-weight:600;
     font-family:Pretendard;
@@ -50,11 +50,11 @@ const ClickHeader=styled.span`
 const BasicHeader=styled.span`
     color: #CECECE;
     position:relative;
-    width:400px;
+    width:450px;
     height:60px;
     padding-bottom:12px;
-    padding-left:152px;
-    padding-right:170px;
+    padding-left:160px;
+    padding-right:175px;
     border-bottom:0.95px solid #CECECE;
     font-weight:200;
     font-family:Pretendard;
@@ -77,7 +77,7 @@ const ArrayBtn=styled.span`
     top:50px;
     width:52.58px;
     cursor:pointer;
-    left:892px;
+    left:890px;
     background-color: #CECECE;
     margin-right:4px;
     padding:5.3px;
@@ -92,7 +92,7 @@ const ClickedBtn=styled.span`
     width:52.58px;
     top:50px;
     cursor:pointer;
-    left:892px;
+    left:890px;
     background-color: #FFF;
     margin-right:4px;
     padding:5.3px;

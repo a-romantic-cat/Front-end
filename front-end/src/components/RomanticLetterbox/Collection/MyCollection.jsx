@@ -43,8 +43,8 @@ const ClickHeader=styled.span`
     width:400px;
     height:60px;
     padding-bottom:12px;
-    padding-left:152px;
-    padding-right:170px;
+    padding-left:160px;
+    padding-right:172px;
     border-bottom:3.8px solid red;
     font-weight:600;
     font-family:Pretendard;
@@ -58,7 +58,7 @@ const BasicHeader=styled.span`
     height:60px;
     padding-bottom:12px;
     padding-left:210px;
-    padding-right:150px;
+    padding-right:172px;
     border-bottom:0.95px solid #CECECE;
     font-weight:200;
     font-family:Pretendard;
@@ -67,9 +67,9 @@ const BasicHeader=styled.span`
 `
 const HeaderLine=styled.div`
     position:absolute;
-    margin-left:397px;
-    top:121px;
-    width:600px;
+    margin-left:396px;
+    top:118px;
+    width:590px;
     margin-top:44px;
     border-top:0.5px solid #757575;
 `
@@ -83,8 +83,8 @@ const Writing=styled.div`
     border-bottom: 0.5px solid ${props => props.bordercolor};
     cursor:pointer;
     width:130px;
-    padding-left:50px;
-    padding-right:13px;
+    padding-left:55px;
+    padding-right:6px;
     height:35px;
     padding-top:15px;
     font-size:20px;
@@ -120,7 +120,7 @@ const RedWritingImg=styled.img`
 const WhiteReplyingImg=styled.img`
     position:absolute;
     top:18px;
-    left:15px;
+    left:18px;
     width:19.62px;
     height:19.57px;
 `
