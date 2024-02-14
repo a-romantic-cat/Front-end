@@ -105,13 +105,7 @@ const StyledNavLink = styled(NavLink)`
   color: black;
 `;
 
-//아이콘 클릭시 빨간색 아이콘 이미지로 변경
-const Feather = ({ to, alt }) => {
-  const location = useLocation();
-  const isActive = location.pathname === to;
-  const src = isActive ? featherRed : feather;
-
-  const FeatherIcon = styled.div`
+const FeatherIcon = styled.div`
   width: 25px;
   height: 25px;
   position: relative;
@@ -121,26 +115,19 @@ const Feather = ({ to, alt }) => {
   display: flex;
   `;
 
-  const FeatherImg = styled.img`
-    width: 25px;
-    height: 25px;
+const FeatherImg = styled.img`
+  width: 25px;
+  height: 25px;
 
-    .active & {
-      color: #C90000;
-      border-bottom: 2px #C90000 solid;
-      padding-bottom: 39px;
-    }
-  `;
+  .active & {
+    color: #C90000;
+    border-bottom: 2px #C90000 solid;
+    padding-bottom: 39px;
+  }
+`;
 
-  return (
-    <FeatherIcon>
-      <FeatherImg src={src} alt={alt} />
-    </FeatherIcon>
-  );
-};
-
-  //로그인 버튼 
-  const LoginButton = styled.div`
+//로그인 버튼 
+const LoginButton = styled.div`
   width: 47px; 
   height: 21px;
   padding: 10.50px 20px;
@@ -205,6 +192,19 @@ const DetailMenuText = styled.div`
     font-weight: 500;
   }
 `;
+
+//아이콘 클릭시 빨간색 아이콘 이미지로 변경
+const Feather = ({ to, alt }) => {
+  const location = useLocation();
+  const isActive = location.pathname === to;
+  const src = isActive ? featherRed : feather;
+
+  return (
+    <FeatherIcon>
+      <FeatherImg src={src} alt={alt} />
+    </FeatherIcon>
+  );
+};
 
 export default function Header() {
   const [menuVisible, setMenuVisible] = useState(false);

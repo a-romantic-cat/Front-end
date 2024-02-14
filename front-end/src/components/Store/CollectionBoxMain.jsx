@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -14,6 +14,7 @@ import FileTypeCheckbox from '../../assets/img/FileTypeCheckbox.svg';
 import FileTypeCheckedCheckbox from '../../assets/img/FileTypeCheckedCheckbox.svg';
 import UploadPlusButton from '../../assets/img/UploadPlusButton.svg';
 import UploadPlusButtonHover from '../../assets/img/UploadPlusButtonHover.svg';
+import axios from 'axios';
 
 //수집함 데이터
 const displayedItems = [
@@ -247,7 +248,8 @@ const LetterBackground = styled.div`
   left: 0.20px;
   top: 0;
   position: absolute;
-  background: #CECECE;
+  background-image: url(${({ imageUrl }) => imageUrl});
+  background-size: cover;
   z-index: 1;
 `;
 
@@ -297,7 +299,8 @@ const StampBackground = styled.div`
   left: 0;
   top: 0;
   position: absolute;
-  background: #CECECE;
+  background-image: url(${({ imageUrl }) => imageUrl});
+  background-size: cover;
   z-index: 1;
 `;
 
@@ -337,7 +340,7 @@ const UploadContainer = styled.div`
   left: 0;
   top: 0;
   position: absolute;
-  border: 1px black dotted;
+  border: 1px black dashed;
   padding-top: 226px;
   padding-bottom: 126px;
   padding-left: 133px;
@@ -684,6 +687,102 @@ export default function MissionMain() {
     }
   };
 
+  const handleSaveClick = async () => {
+    const token = window.localStorage.getItem("token");
+    
+    try {
+      let response;
+  
+      if (checkedContainer === 'letter') {
+        // letter를 선택한 경우
+        response = await axios.post('https://dev.nangmancat.shop/myDesign/letter-paper', {
+          myDesignRequest: {
+            name: fileName,
+            member_id: 0,
+          },
+          img: preview,
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+        });
+      } else {
+        // stamp를 선택한 경우
+        response = await axios.post('https://dev.nangmancat.shop/myDesign/stamp', {
+          myDesignRequest: {
+            name: fileName,
+            member_id: 0,
+          },
+          img: preview,
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+        });
+      }
+  
+      if (response.data.isSuccess) {
+        alert('디자인이 성공적으로 등록되었습니다.');
+      } else {
+        alert('디자인 등록에 실패했습니다.');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const [tabLetters, setTabLetters] = useState([]);
+
+  useEffect(() => {
+    const fetchStamps = async () => {
+      const token = window.localStorage.getItem("token");
+      const response = await axios.get('https://dev.nangmancat.shop/letter-paper', {
+        params: {
+          page: 0,
+          pageSize: 12,
+          onlyMyDesign: isCheckedTab1
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+      });
+
+      if (response.data.isSuccess) {
+        setTabLetters(response.data.result);
+      } else {
+        console.error(response.data.message);
+      }
+    };
+
+    fetchStamps();
+  }, [isCheckedTab1]);
+
+  const [tabStamps, setTabStamps] = useState([]);
+
+  useEffect(() => {
+    const fetchStamps = async () => {
+      const token = window.localStorage.getItem("token");
+      const response = await axios.get('https://dev.nangmancat.shop/stamps', {
+        params: {
+          page: 0,
+          pageSize: 12,
+          onlyMyDesign: isCheckedTab2
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+      });
+
+      if (response.data.isSuccess) {
+        setTabStamps(response.data.result);
+      } else {
+        console.error(response.data.message);
+      }
+    };
+
+    fetchStamps();
+  }, [isCheckedTab2]);
+
   return (
     <div>
       <Header />
@@ -732,12 +831,12 @@ export default function MissionMain() {
             </MyDesignButtonContainer>
 
             <LetterContainer>
-              {displayedItems.filter(item => item.itemType === 'Letter').slice(startIndex, endIndex).map((letter, index) => (
-                <LetterBox key={letter.itemID}>
+              {tabLetters.filter(item => item.itemType === 'Letter').slice(startIndex, endIndex).map((letter, index) => (
+                <LetterBox key={letter.letterPaperId}>
                   <LetterInnerBox style={{ top: `${Math.floor(index / 3) * 361}px`, left: `${(index % 3) * 408}px` }}>
-                    <LetterBackground />
+                    <LetterBackground imageUrl={letter.letterPaperImageUrl} />
                     <LetterTextWrapper>
-                      <LetterText>{letter.itemName}</LetterText> {/* 편지지 이름 */}
+                      <LetterText>{letter.letterPaperName}</LetterText> {/* 편지지 이름 */}
                     </LetterTextWrapper>
                   </LetterInnerBox>
                 </LetterBox>
@@ -778,12 +877,12 @@ export default function MissionMain() {
             </MyDesignButtonContainer>
 
             <StampContainer>
-              {displayedItems.filter(item => item.itemType === 'Stamp').slice(startIndex, endIndex).map((stamp, index) => (
-                  <StampBox key={stamp.itemID}>
+              {tabStamps.filter(item => item.itemType === 'Stamp').slice(startIndex, endIndex).map((stamp, index) => (
+                  <StampBox key={stamp.stampId}>
                     <StampInnerBox style={{ top: `${Math.floor(index / 4) * 482}px`, left: `${(index % 4) * 306}px` }}>
-                      <StampBackground />
+                      <StampBackground imageUrl={stamp.stampImageUrl} />
                       <StampTextWrapper>
-                        <StampText>{stamp.itemName}</StampText> {/* 편지지 이름 */}
+                        <StampText>{stamp.stampName}</StampText> {/* 편지지 이름 */}
                       </StampTextWrapper>
                     </StampInnerBox>
                   </StampBox>
@@ -866,7 +965,7 @@ export default function MissionMain() {
               </FileTypeContainer>
 
               {isImageUploaded && (
-                <SaveButton>
+                <SaveButton onClick={handleSaveClick}>
                   <SaveText>저장하기</SaveText>
                 </SaveButton>
               )}

@@ -9,6 +9,7 @@ import MaskingTape from '../../assets/img/MaskingTape.svg';
 import 달력제목오른쪽 from '../../assets/img/달력제목오른쪽.svg';
 import 달력제목왼쪽 from '../../assets/img/달력제목왼쪽.svg';
 import 달력발자국도장 from '../../assets/img/달력발자국도장.svg';
+import SlowMemoImg from '../../assets/img/SlowMemoImg.svg';
 import DatePicker from 'react-datepicker'; //달력 기능 위해 react-datepicker 라이브러리 설치
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from 'date-fns/locale'; // 한국어 변경 위해 설치
@@ -162,7 +163,8 @@ const GrayBox = styled.div`
   left: 0;
   top: 0;
   position: absolute;
-  background: #E7E7E7;
+  background: url(${SlowMemoImg}) no-repeat center center;
+  background-size: cover;
   display: inline-flex;
   flex-direction: column;
   justify-content: flex-start;
