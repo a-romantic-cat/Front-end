@@ -17,6 +17,7 @@ import Answer4 from './components/MyLetterbox/Answer4';
 import OpenLetter1 from './components/MyLetterbox/OpenLetter1';
 import SlowLetterboxToday from './components/MyLetterbox/SlowLetterboxToday';
 import PastLetterbox1 from './components/MyLetterbox/PastLetterbox1';
+import PastLetterboxModal from './components/MyLetterbox/PastLetterboxModal';
 import PastLetterbox2 from './components/MyLetterbox/PastLetterbox2';
 import PastLetterbox3 from './components/MyLetterbox/PastLetterbox3';
 import CreateAccount from './components/Login/CreateAccount';
@@ -36,6 +37,14 @@ import SettingEnd from './components/Login/SettingEnd';
 import CollectionMain  from './components/RomanticLetterbox/Collection/CollectionMain';
 import MyCollection  from './components/RomanticLetterbox/Collection/MyCollection';
 import MyWriting  from './components/RomanticLetterbox/Collection/MyWriting';
+import CollectionLetter  from './components/RomanticLetterbox/Collection/CollectionLetter';
+import Logout from "./components/MyPage/Logout";
+import Delete from "./components/MyPage/Delete";
+import Privacy from "./components/MyPage/Privacy";
+import Use from "./components/MyPage/Use";
+
+
+
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -74,6 +83,7 @@ function App() {
           <Route path="/OpenLetter1" element={<OpenLetter1 />} />
           <Route path="/SlowLetterboxToday" element={<SlowLetterboxToday />} />
           <Route path="/PastLetterbox1" element={<PastLetterbox1 />} />
+          <Route path="/PastLetterboxModal" element={<PastLetterboxModal />} />
           <Route path="/PastLetterbox2" element={<PastLetterbox2 />} />
           <Route path="/PastLetterbox3" element={<PastLetterbox3 />} />
           <Route path="/Terms" element={<Terms />} />
@@ -87,6 +97,11 @@ function App() {
           <Route path="/CollectionMain" element={<CollectionMain />} />
           <Route path="/MyCOllection" element={<MyCollection />} />
           <Route path="/MyWriting" element={<MyWriting />} />
+          <Route path="/CollectionLetter" element={<CollectionLetter />} />
+          <Route path="/Logout" element={<Logout />} />
+          <Route path="/Delete" element={<Delete />} />
+          <Route path="/Privacy" element={<Privacy />} />
+          <Route path="/Use" element={<Use />} />
         </Routes>
       </BrowserRouter>
     </div>

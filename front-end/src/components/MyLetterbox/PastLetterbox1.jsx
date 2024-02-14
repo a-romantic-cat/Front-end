@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { useNavigate } from 'react-router-dom';
 import 다음버튼 from '../../assets/img/다음버튼.svg';
+import PastLetterboxModal from './PastLetterboxModal';
 
 //편지지 데이터
 const dummyLetter = [
@@ -253,11 +254,27 @@ export default function PastLetterbox1() {
     //해당 편지지의 인덱스를 selectedLetterIndex로 설정하고 선택된 편지지에 구매 관련 컴포넌트가 나타납니다.
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
   const navigate = useNavigate();
+  const timeoutRef = useRef(null); // timeout 참조
 
-  const navigateToPastLetterbox2 = () => {
-    navigate("/PastLetterbox2");
+  const timeout = () => {
+      timeoutRef.current = setTimeout(() => {
+          navigate('/PastLetterbox2');
+      }, 2000);
   };
+
+  useEffect(() => {
+      if (isModalOpen) {
+          timeout();
+      } else {
+          clearTimeout(timeoutRef.current); // 모달이 닫힐 때 타임아웃 제거
+      }
+
+      return () => {
+          clearTimeout(timeoutRef.current); // 컴포넌트 언마운트 시 타임아웃 제거
+      };
+  }, [isModalOpen, navigate]);
 
   return (
     <div>
@@ -277,7 +294,7 @@ export default function PastLetterbox1() {
         <Container>
           {dummyLetter.slice(startIndex, endIndex).map((letter, index) => (
             <LetterBox key={letter.id}>
-              <LetterInnerBox onClick={navigateToPastLetterbox2}>
+              <LetterInnerBox onClick={() => {setIsModalOpen(true)}}>
                 <LetterBackground
                   onClick={() => {
                     handleLetterBackgroundClick(index);
@@ -310,7 +327,8 @@ export default function PastLetterbox1() {
         <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage} />
       </PaginationContainer>
 
-
+      <PastLetterboxModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      
       <Footer />
     </div>
   )

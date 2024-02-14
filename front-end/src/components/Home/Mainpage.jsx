@@ -466,6 +466,7 @@ export default function Mainpage() {
   const navigateToMyInfo = () => {
     navigate("/MyPage");
   };
+
   
     return (
       <div>

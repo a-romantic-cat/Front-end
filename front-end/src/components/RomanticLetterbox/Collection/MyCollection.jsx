@@ -1,9 +1,14 @@
-import React, {useState,useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import styled from 'styled-components';
 import Header from '../../Header/Header';
 import twinkle from '../../../assets/img/반짝.svg';
 import LetterPaper from '../../../assets/img/편지지.svg';
 import { useNavigate } from "react-router-dom";
+import PrivateImg from '../../../assets/img/Unopen.svg';
+import WritingImg from '../../../assets/img/내가쓴편지.svg';
+import WritingImgWhite from '../../../assets/img/내가쓴편지2.svg';
+import ReplyingImg from '../../../assets/img/내가답장한편지.svg';
+import ReplyingImgRed from '../../../assets/img/내가답장한편지2.svg';
 
 const Container = styled.div`
   box-sizing: border-box;
@@ -27,7 +32,7 @@ const OverlapContainer = styled.div`
 
 const MainHeader = styled.div`
     position:absolute;
-    width:990px;
+    width:1020px;
     height:88px;
     left:460px;
     top:130px;
@@ -35,11 +40,11 @@ const MainHeader = styled.div`
 const ClickHeader=styled.span`
     color:red;
     position:relative;
-    width:450px;
+    width:400px;
     height:60px;
     padding-bottom:12px;
-    padding-left:186px;
-    padding-right:186px;
+    padding-left:160px;
+    padding-right:172px;
     border-bottom:3.8px solid red;
     font-weight:600;
     font-family:Pretendard;
@@ -47,48 +52,87 @@ const ClickHeader=styled.span`
     cursor:pointer;
 `
 const BasicHeader=styled.span`
-    color: #FFF;
+    color: #CECECE;
     position:relative;
     width:450px;
     height:60px;
     padding-bottom:12px;
-    padding-left:170px;
-    padding-right:170px;
-    border-bottom:0.95px solid #FFF;
-    font-weight:180;
+    padding-left:210px;
+    padding-right:172px;
+    border-bottom:0.95px solid #CECECE;
+    font-weight:200;
     font-family:Pretendard;
     font-size:25px;
     cursor:pointer;
 `
-const ArrayBtn=styled.span`
-    color: #757575;
+const HeaderLine=styled.div`
+    position:absolute;
+    margin-left:396px;
+    top:118px;
+    width:590px;
+    margin-top:44px;
+    border-top:0.5px solid #757575;
+`
+const Writing=styled.div`
+    display:inline-block;
+    color: ${props => props.color};
     position:relative;
-    top:50px;
-    border: 0.5px solid #757575;
+    top:80px;
+    border-top: 0.5px solid ${props => props.bordercolor};
+    border-left: 0.5px solid ${props => props.bordercolor};
+    border-bottom: 0.5px solid ${props => props.bordercolor};
     cursor:pointer;
+    width:130px;
+    padding-left:55px;
+    padding-right:6px;
+    height:35px;
+    padding-top:15px;
     font-size:20px;
     font-family:Pretendard;
     font-weight:200;
 `
-const ClickedBtn=styled.span`
-    color: #FF1F1F;
-    border: 0.5px solid #FF1F1F;
+const Replying=styled.div`
+    display:inline-block;
+    color: ${props => props.color};
+    border-top: 0.5px solid ${props => props.bordercolor};
+    border-right: 0.5px solid ${props => props.bordercolor};
+    border-bottom: 0.5px solid ${props => props.bordercolor};
+    border-left: 0.5px solid #FF1F1F;
     font-weight:200;
     position:relative;
-    top:50px;
-    padding:5px 40px 5px 40px;
+    top:80px;
+    width:175px;
+    text-align:center;
+    height:35px;
+    padding-left:25px;
+    padding-top:15px;
     cursor:pointer;
     font-size:20px;
     font-family:Pretendard;
+`
+const RedWritingImg=styled.img`
+    position:absolute;
+    left:26px;
+    top: 18px;
+    width:19.62px;
+    height:19.57px;
+`
+const WhiteReplyingImg=styled.img`
+    position:absolute;
+    top:18px;
+    left:18px;
+    width:19.62px;
+    height:19.57px;
 `
 const MainBox=styled.div`
     position:absolute;
     width:1200px;
     height:1404px;
     left:460px;
-    top:260px;
+    top:320px;
 `
 const LetterBox=styled.div`
+    cursor:pointer;
     position:relative;
     display:inline-block;
     margin-right:80px;
@@ -98,7 +142,6 @@ const LetterBox=styled.div`
 `
 const LetterPad=styled.img`
     width:100%;
-    cursor:pointer;
     height:100%;
 `
 const LetterTxt = styled.div`
@@ -111,11 +154,31 @@ const LetterTxt = styled.div`
   top:15%;
   left:9%;
   right:9%;
-`;
+  display: -webkit-inline-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+`
+const PrivateTxt=styled.span`
+    font-family:Pretendard;
+    font-size: 12px;
+    position: absolute;
+    font-weight:500;
+    left:14.3%;
+    bottom:9%;
+    color:#1E1E1E;
+`
+const PrivImg=styled.img`
+    position:absolute;
+    left:9%;
+    width:11.04px;
+    height:12px;
+    bottom:9.5%;
+`
 const Page=styled.div`
     position:absolute;
     width: 270px;
-    left:850px;
+    left:800px;
     bottom:-900px;
 `
 const PageNumber=styled.span`
@@ -132,6 +195,7 @@ const BeforeBtn=styled.span`
     position:absolute;
     color: white;
     left:-40px;  
+    top:-2px;
     font-size:24px; 
     font-family:Pretendard;
     font-weight:Medium;
@@ -141,7 +205,7 @@ const AfterBtn=styled.span`
     font-size:24px;
     position:absolute;
     color: white;
-    top:1.2px;
+    top:-2px;
     right:-80px;   
     font-family:Pretendard;
     font-weight:Medium;
@@ -150,181 +214,73 @@ const AfterBtn=styled.span`
 
 export default function MyCollection() {
 
-    const array=[
-        { id:0, text:"0다른like:400 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:400, },
+    const WritingArray=[
+        { id:0, text:"내가쓴거0다른like:400 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
+            like:400, open:true },
         { id:1,text:"1 // like:290 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:290, },
+            like:290, open:false},
         { id:2,text:"2 // like:300 다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:300,},
+            like:300, open:false},
         { id:3, text:"3// like:380다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:380,},
+            like:380, open:false},
         { id:4, text:"4다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:20,},
+            like:20, open:false},
         { id:5, text:"5다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:150,},
+            like:150,open:false},
         { id:6, text:"6다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:180,},
+            like:180, open:false},
         { id:7,text:"7다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:56,},
+            like:56, open:true},
         { id:8,text:"8다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:175,},
+            like:175, open:false},
         { id:9, text:"9다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:15, },
+            like:15, open:false},
         { id:10, text:"10다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:200, },
-        { id:11, text:"11다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:80, },
-        { id:12,text:"12다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:1, },
-        { id:13, text:"13다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:14, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:15, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:16, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:17, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:18, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:19, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:20, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:21, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:22, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:23, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:24, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:25, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:26, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:27, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:28, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:29, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:30, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:31,text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:32,text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:33, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:34, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:35, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:36, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:37, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:38, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:39, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-             like:99, },
-        { id:40, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:41, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:42, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:43, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:44, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:45, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:46, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:47, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:48, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:49, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:50, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:51, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:52, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:53, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:54, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:66, },
-        { id:55, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:56, text:"56다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:57, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:58, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:59, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:60, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:61, text:"61다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:62, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
-        { id:63, text:"14다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:99, },
+            like:200, open:false},
+    ]
+    const ReplyingArray=[
+        { id:0, text:"내가답장0다른like:400 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
+            like:400, open:true},
+        { id:1,text:"1 // like:290 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
+            like:290, open:true},
+        { id:2,text:"2 // like:300 다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
+            like:300, open:false},
+        { id:3, text:"3// like:380다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
+            like:380, open:false},
+        { id:4, text:"4다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
+            like:20, open:false},
+        { id:5, text:"5다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
+            like:150, open:false},
+        { id:6, text:"6다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
+            like:180, open:true},
+        { id:7,text:"7다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
+            like:56, open:true},
+        { id:8,text:"8다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
+            like:175, open:false},
+        { id:9, text:"9다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
+            like:15, open:false},
+        { id:10, text:"10다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
+            like:200, open:true},
     ]
 
-    const handletextlength=(props)=>{
-        const preview=[...props];
-        preview.length=55;
-
-        preview[53]=".";
-        preview[54]=".";
-        preview[55]=".";
-
-        return( preview )
-    }
-
-    const [order, setOrder] = useState("like");
-    const [likebtn, setLikebtn]=useState(true);
-    const [recentbtn, setRecentbtn]=useState(false);
-    const [sortedArray, setSortedArray]=useState(array.sort((a, b) => b.like - a.like));
-  
-    useEffect(()=>{
-        if(likebtn===true){
-            setOrder("like");
-            setSortedArray(array.sort((a, b) => b.like - a.like));
-        }else{
-            setOrder("id");
-            setSortedArray(array.sort((a, b) => a.id - b.id));
-        } 
-    }, [recentbtn]); //sortedArray 비동기 오류
+    const [writingbtn, setWritingbtn]=useState(true);
+    const [Replyingbtn, setReplyingbtn]=useState(false);
+    const [NowArray, setNowArray]=useState(WritingArray);
 
     const [nowPage, setNowPage]=useState(1);
-    const [nowItem,setNowItem]=useState([...sortedArray.slice(0,12)]);
-    const MaxPage=Math.ceil(array.length/12);  
-    const PageArray= [...Array(MaxPage)].map((v,i)=>i+1);
+    const [nowItem,setNowItem]=useState([...NowArray.slice(0,12)]);
+    const MaxPage=Math.ceil(NowArray.length/12);
+    const PageArray=[...Array(MaxPage)].map((v,i)=>i+1);
 
     useEffect(()=>{
-        setNowItem([...sortedArray.slice((nowPage-1)*12,(nowPage-1)*12+12)]);
-    }, [nowPage, recentbtn]);
+        setNowItem([...NowArray.slice((nowPage-1)*12,(nowPage-1)*12+12)]);
+    }, [nowPage, writingbtn]);
 
     const navigate=useNavigate();
 
     const toCollectionMain = () => {
         navigate("/CollectionMain");
     };
-    const toMyWriting = () => {
-        navigate("/MyWriting");
-    };
-
 
     return(
         <div>
@@ -334,23 +290,37 @@ export default function MyCollection() {
                     <MainHeader>
                         <BasicHeader onClick={toCollectionMain}>낭만 모음집</BasicHeader>
                         <ClickHeader >나의 낭만 모음집</ClickHeader>
-                        {likebtn==false?
-                            <ArrayBtn onClick={e=> {setLikebtn(true); setRecentbtn(false);}}>내가 쓴 편지</ArrayBtn>
-                            :<ClickedBtn>내가 쓴 편지</ClickedBtn>}
-                        {recentbtn==false? 
-                            <ArrayBtn onClick={e=>{setLikebtn(false); setRecentbtn(true);}}>내가 답장한 편지</ArrayBtn>
-                            :<ClickedBtn>내가 답장한 편지</ClickedBtn>}
+                        {writingbtn === false ?
+                            <Writing color={"#FFF"} bordercolor={"#757575"}
+                                onClick={e => {setWritingbtn(true); setReplyingbtn(false); setNowArray(WritingArray);}}>
+                                    <RedWritingImg src={WritingImgWhite} alt="redwritingimg"/>
+                                    내가 쓴 편지</Writing>
+                            : <Writing color={"#FF1F1F"} bordercolor={"#FF1F1F"}>
+                                <RedWritingImg src={WritingImg} />
+                                    내가 쓴 편지</Writing>}
+                        {Replyingbtn === false ? 
+                            <Replying color={"#FFF"} bordercolor={"#757575"}
+                                onClick={e => {setWritingbtn(false); setReplyingbtn(true); setNowArray(ReplyingArray);}}>
+                                    <WhiteReplyingImg src={ReplyingImg} alt="whitereplyingimg"/>
+                                    내가 답장한 편지</Replying>
+                            : <Replying color={"#FF1F1F"} bordercolor={"#FF1F1F"}>
+                                <WhiteReplyingImg src={ReplyingImgRed} />
+                                내가 답장한 편지</Replying>}
+                        <HeaderLine />
                     </MainHeader>
 
                     <MainBox >
-                        {nowItem.map(({text, id}) => (
-                            <LetterBox key={id} > 
-                                <LetterPad src={LetterPaper} alt='letterpaper' onClick={toMyWriting}/>
+                        {nowItem.map(({text, id, open}) => (
+                            <LetterBox key={id}> 
+                                <LetterPad src={LetterPaper} alt='letterpaper' 
+                                    onClick={e=>navigate("/MyWriting", { state: {openstate: `${open}`}})}/>
                                 <LetterTxt >
-                                    {handletextlength(text)}
+                                    {text}
                                 </LetterTxt>
+                                {open === false ? <PrivateTxt>나만보기</PrivateTxt> : <></> }
+                                {open === false ? <PrivImg src={PrivateImg} alt='나만보기'/> : <></>}
                             </LetterBox>
-                        ))}
+                        ))} 
                     </MainBox>
                     <Page>
                         {Math.ceil(nowPage/5)===1?<></>:
@@ -358,7 +328,7 @@ export default function MyCollection() {
                         {[PageArray.slice((Math.ceil(nowPage/5)-1)*5, (Math.ceil(nowPage/5)-1)*5+5)]
                             .map((item)=>(
                                 item.map((i)=>(
-                                    i==nowPage ? 
+                                    i===nowPage ? 
                                     <PageNumber key={i} color="red" style={{border:"0.3px solid red"}}>
                                         {i}
                                     </PageNumber>
@@ -368,7 +338,7 @@ export default function MyCollection() {
                                     </PageNumber>
                                 )) 
                         ))} 
-                        {Math.ceil(nowPage/5)==Math.ceil(MaxPage/5)?<></>:
+                        {Math.ceil(nowPage/5)===Math.ceil(MaxPage/5)?<></>:
                             <AfterBtn onClick={e=>setNowPage((e)=>e+1)}>{`>`}</AfterBtn>}
                     </Page>
                 </OverlapContainer>
@@ -377,55 +347,4 @@ export default function MyCollection() {
     )
 }
 
-//헤더-div 2개씩 각각 만들어서 이미지, span 넣기
-
-/*//내가쓴거, 답장한거 별개의 array 생성
-const Myarray=[
-        { id:0, text:"0다른like:400 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:400, },
-        { id:1,text:"1 // like:290 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:290, },
-        { id:2,text:"2 // like:300 다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:300,},
-        { id:3, text:"3// like:380다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:380,},
-        { id:4, text:"4다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:20,},
-        { id:5, text:"5다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:150,},
-        { id:6, text:"6다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:180,},
-        { id:7,text:"7다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:56,},
-        { id:8,text:"8다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:175,},
-        { id:9, text:"9다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:15, },
-        { id:10, text:"10다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:200, },
-    ]
-    const ReplyingArray=[
-        { id:0, text:"0다른like:400 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:400, },
-        { id:1,text:"1 // like:290 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:290, },
-        { id:2,text:"2 // like:300 다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:300,},
-        { id:3, text:"3// like:380다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:380,},
-        { id:4, text:"4다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:20,},
-        { id:5, text:"5다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:150,},
-        { id:6, text:"6다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:180,},
-        { id:7,text:"7다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:56,},
-        { id:8,text:"8다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:175,},
-        { id:9, text:"9다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:15, },
-        { id:10, text:"10다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
-            like:200, },
-    ]
-*/
+//메인화면 흐리게 만드는 기법

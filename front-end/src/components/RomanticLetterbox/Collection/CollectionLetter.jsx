@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styled from 'styled-components';
 import Header from '../../Header/Header';
 import twinkle from '../../../assets/img/반짝.svg';
@@ -21,7 +21,6 @@ const Container = styled.div`
   background-repeat: no-repeat;
   background-color: #081A2F;
 `;
-
 const OverlapContainer = styled.div`
   width: 100%;
   height: 980px;
@@ -31,10 +30,9 @@ const OverlapContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
-
 const MainHeader = styled.div`
     position:absolute;
-    width:1050px;
+    width:1040px;
     height:88px;
     left:460px;
     top:130px;
@@ -42,10 +40,10 @@ const MainHeader = styled.div`
 const ClickHeader=styled.span`
     color:red;
     position:relative;
-    width:400px;
+    width:450px;
     height:60px;
     padding-bottom:12px;
-    padding-left:160px;
+    padding-left:210px;
     padding-right:172px;
     border-bottom:3.8px solid red;
     font-weight:600;
@@ -59,7 +57,7 @@ const BasicHeader=styled.span`
     width:450px;
     height:60px;
     padding-bottom:12px;
-    padding-left:210px;
+    padding-left:160px;
     padding-right:172px;
     border-bottom:0.95px solid #CECECE;
     font-weight:200;
@@ -131,17 +129,62 @@ const Emoji=styled.img`
     margin-right:13.8px;
     cursor:pointer;
 `
+const SubText=styled.div`
+    position:absolute;
+    left:0px;
+    top:45px;
+    font-family:Pretendard;
+    font-size:14px;
+    color:white;
+    padding-top:15px;
+    font-weight:180;
+`
 
 export default function MyWriting() {
 
     const navigate=useNavigate();
-    const location = useLocation();
-    const opening=(location.state.openstate).toString();
+    const location=useLocation();
+    const [editedList, setEditedList] = useState([]);
+    const [itemId, setItemId] = useState(0);
+    const [toggle, setToggle]=useState(false);
+    const [itemtxt, setItemtxt]=useState("");
+    const [itemreply, setItemreply]=useState("");
     
-    const [like, setLike]=useState(0); //공감수
+    useEffect(() => {
+        if (location.state && location.state.propsList) {
+          const parsedList = JSON.parse(location.state.propsList);
+          setItemId(location.state.index);
+          setEditedList(parsedList);
+          localStorage.setItem("users", JSON.stringify(parsedList));
+          setToggle(true);
+        }
+    
+      }, [location.state]);
+
+      useEffect(()=>{
+        editedList.map(i=>{
+            if(i.id==itemId){
+                setItemtxt(i.text);
+                setItemreply(i.reply); 
+            }
+        })
+      },[toggle])
+
+      const update =()=>{
+
+        const updatedList=editedList.map(item => {
+            if (item.id == itemId) {
+                return { ...item, like: item.like+1};  
+            }
+            return item;
+       });
+       localStorage.setItem("users", JSON.stringify(updatedList));
+       setEditedList(updatedList);
+    };
 
     const toCollectionMain = () => {
-        navigate("/CollectionMain");
+        //navigate("/CollectionMain",{state: {newList: JSON.stringify(editedList)}});
+        navigate("/CollectionMain", {state:{change:true}});
     };
     const toMyCollection = () => {
         navigate("/MyCollection");
@@ -151,39 +194,41 @@ export default function MyWriting() {
         <div>
             <Container>
                 <Header />
-                {console.log(opening)}
                 <OverlapContainer>
                     <MainHeader>
-                        <BasicHeader onClick={toCollectionMain}>낭만 모음집</BasicHeader>
-                        <ClickHeader onClick={toMyCollection}>나의 낭만 모음집</ClickHeader>
+                        <ClickHeader onClick={toCollectionMain}>낭만 모음집</ClickHeader>
+                        <BasicHeader onClick={toMyCollection}>나의 낭만 모음집</BasicHeader>
+                        <SubText>다른 이들의 낭만 편지와 답장을 둘러보세요.</SubText>
                     </MainHeader>
                     <MainContainer>
                         <Letter>
                             <LetterImg src={PinkLetter} alt="pinkletter" />
-                            <LetterContent>오늘은 정말로 힘들었어. 마치 어둠이 내 주위를 감싸고 있는 것 같아서 숨쉬기도 어려웠어. 무거운 어깨에는 고난과 역경의 짐이 실려있었고, 마음은 침체되어 있었어. 모든 것이 조용하고 어둡게 느껴졌어.</LetterContent>
+                            <LetterContent>{itemtxt}</LetterContent>
                             <From>별이 좋은 곰돌이가</From>
                         </Letter>
                         <Letter>
                             <LetterImg src={IvoryLetter} alt="ivoryletter" />
-                            <To>별이 좋은 곰돌이에게</To>
-                            <LetterContent>편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명
-                            으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼
-                            요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. </LetterContent>
-                            <From>케이크 만드는 고래가</From>
+                            {itemreply=="" ? <></>:
+                                <>
+                                <To>별이 좋은 곰돌이에게</To>
+                                <LetterContent>{itemreply}</LetterContent>
+                                <From>케이크 만드는 고래가</From>
+                                </>}       
                         </Letter>
-                        { opening === "true" ?
                             <EmojiBox>
-                                <Emoji src={Heart} alt='heart' onClick={()=>setLike(like+1)}/>
-                                <Emoji src={Good} alt='good'onClick={()=>setLike(like+1)}/>
-                                <Emoji src={Sad} alt='sad'onClick={()=>setLike(like+1)}/>
-                                <Emoji src={Clober} alt='clober'onClick={()=>setLike(like+1)}/>
-                                <Emoji src={Clap} alt='clap'onClick={()=>setLike(like+1)}/>
-                                <Emoji src={Star} alt='start'onClick={()=>setLike(like+1)}/>
-                            </EmojiBox> : <></>
-                        }
+                                <Emoji src={Heart} alt='heart' onClick={()=>update()}/>
+                                <Emoji src={Good} alt='good'onClick={()=>update()}/>
+                                <Emoji src={Sad} alt='sad'onClick={()=>update()}/>
+                                <Emoji src={Clober} alt='clober'onClick={()=>update()}/>
+                                <Emoji src={Clap} alt='clap'onClick={()=>update()}/>
+                                <Emoji src={Star} alt='start'onClick={()=>update()}/>
+                            </EmojiBox> 
                     </MainContainer>  
                 </OverlapContainer>
             </Container>
         </div>
     )
 }
+
+//로컬스토리지에 업데이트되는 더미리스트 저장하고 가져오기
+//api연결

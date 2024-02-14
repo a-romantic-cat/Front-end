@@ -121,6 +121,14 @@ export default function Header() {
     navigate("/MyLetterbox");
   };
 
+  const navigateToSlowLetterboxToday = () => {
+    navigate("/SlowLetterboxToday");
+  };
+
+  const navigateToPastLetterbox1 = () => {
+    navigate("/PastLetterbox1");
+  };
+
   const navigateToAddress = () => {
     navigate("/AddressBook");
   };
@@ -129,16 +137,40 @@ export default function Header() {
     navigate("/RomanticLetterbox");
   };
 
+  const navigateToWritingLetter = () => {
+    navigate("/WritingLetter");
+  };
+
+  const navigateToReplyingLetter = () => {
+    navigate("/ReplyingLetter");
+  };
+
+  const navigateToCollectionMain = () => {
+    navigate("/CollectionMain");
+  };
+
   const navigateToStore = () => {
     navigate("/Store");
   };
 
-  const navigateToMyInfo = () => {
+  const navigateToCollectionBoxMain = () => {
+    navigate("/CollectionBoxMain");
+  };
+
+  const navigateToMissionMain = () => {
+    navigate("/MissionMain");
+  };
+
+  const navigateToMyPage = () => {
     navigate("/MyPage");
   };
 
-  const navigateToPastLetterbox1 = () => {
-    navigate("/PastLetterbox1");
+  const navigateToPrivacy = () => {
+    navigate("/Privacy");
+  };
+
+  const navigateToUse = () => {
+    navigate("/Use");
   };
 
     return (
@@ -151,7 +183,7 @@ export default function Header() {
                 <SmallText onClick={navigateToMyBoxMain}>
                     내 우편함
                 </SmallText>
-                <SmallText>
+                <SmallText onClick={navigateToSlowLetterboxToday}>
                     느린 우편함
                 </SmallText>
                 <SmallText onClick={navigateToPastLetterbox1}>
@@ -172,13 +204,13 @@ export default function Header() {
                 <SmallText onClick={navigateToRomantic}>
                     낭만 우편함
                 </SmallText>
-                <SmallText>
+                <SmallText onClick={navigateToWritingLetter}>
                     편지 쓰기
                 </SmallText>
-                <SmallText>
+                <SmallText onClick={navigateToReplyingLetter}>
                     편지 답장하기
                 </SmallText>
-                <SmallText>
+                <SmallText onClick={navigateToCollectionMain}>
                     낭만 모음집
                 </SmallText>
             </Inner3>
@@ -190,26 +222,26 @@ export default function Header() {
                 <SmallText onClick={navigateToStore}>
                     상점
                 </SmallText>
-                <SmallText>
+                <SmallText onClick={navigateToCollectionBoxMain}>
                     수집함
                 </SmallText>
-                <SmallText>
+                <SmallText onClick={navigateToMissionMain}>
                     미션
                 </SmallText>
             </Inner4>
 
             <Inner5>
-                <BoldText onClick={navigateToMyInfo}>
+                <BoldText onClick={navigateToMyPage}>
                     내 정보
                 </BoldText>
             </Inner5>
         </LinkContainer>
 
         <PrivacyAndUse>
-            <Privacy>
+            <Privacy onClick={navigateToPrivacy}>
                 개인정보처리방침
             </Privacy>
-            <Use>
+            <Use onClick={navigateToUse}>
                 이용약관
             </Use>
         </PrivacyAndUse>
