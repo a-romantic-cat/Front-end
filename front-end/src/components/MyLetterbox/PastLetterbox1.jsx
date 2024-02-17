@@ -261,7 +261,7 @@ export default function PastLetterbox1() {
   const timeout = () => {
       timeoutRef.current = setTimeout(() => {
           navigate('/PastLetterbox2');
-      }, 2000);
+      }, 500);
   };
 
   useEffect(() => {
