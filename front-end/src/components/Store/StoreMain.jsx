@@ -8,6 +8,9 @@ import Coin from '../../assets/img/코인.svg';
 import Under from '../../assets/img/Under.svg';
 import CoinRed from '../../assets/img/CoinRed.svg';
 import 다음버튼 from '../../assets/img/다음버튼.svg';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { decrement } from '../../redux/coinSlice';
 
 //편지지 데이터
 const dummyLetter = [
@@ -313,7 +316,9 @@ const LetterBackground = styled.div`
   left: 0.20px;
   top: 0;
   position: absolute;
-  background: ${({ isActive }) => (isActive ? 'rgba(46.99, 40.54, 38.50, 0.80)' : '#CECECE')};
+  background-image: url(${({ imageUrl }) => imageUrl});
+  background-size: cover;
+  filter: ${({ isClicked }) => (isClicked ? 'blur(5px)' : 'none')};
   cursor: pointer;
   z-index: 1;
 `;
@@ -478,7 +483,9 @@ const StampBackground = styled.div`
   left: 0;
   top: 0;
   position: absolute;
-  background: ${({ isActive }) => (isActive ? 'rgba(46.99, 40.54, 38.50, 0.80)' : '#CECECE')};
+  background-image: url(${({ imageUrl }) => imageUrl});
+  background-size: cover;
+  filter: ${({ isClicked }) => (isClicked ? 'blur(5px)' : 'none')};
   cursor: pointer;
   z-index: 1;
 `;
@@ -640,6 +647,32 @@ function LetterPage() {
   const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
   const [selectedLetterIndex, setSelectedLetterIndex] = useState(null);
   const [showCoinWrapper, setShowCoinWrapper] = useState(Array(dummyLetter.length).fill(true));
+  const [letters, setLetters] = useState([]); // API로 가져온 편지 데이터를 저장할 상태
+  const dispatch = useDispatch();
+  const coinCount = useSelector((state) => state.coin.coinCount); // 현재 코인 개수를 가져옵니다.
+
+  // 컴포넌트가 마운트될 때 API를 호출하여 편지지 데이터를 가져옴
+  useEffect(() => {
+    const fetchStamps = async () => {
+      const token = window.localStorage.getItem("token");
+      
+      try {
+        const response = await axios.get('https://dev.nangmancat.shop/store/letter-papers', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          params: {
+            page: 0, // 페이지 번호
+            pageSize: 15 // 페이지 크기
+          }
+        });
+        setLetters(response.data.result);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchStamps();
+  }, []);
 
   const handleDropdownToggle = () => {
     setDropdownOpen(!isDropdownOpen); // 드롭다운의 열림/닫힘 상태를 토글
@@ -662,12 +695,6 @@ function LetterPage() {
     setSelectedLetterIndex(null); // 페이지 변경 시 selectedLetterIndex 초기화
   };
 
-  const handleLetterInnerBoxClick = (index) => {
-    setSelectedLetterIndex(index === selectedLetterIndex ? null : index); // 페이징 기능 함수
-    // 클릭된 편지지의 인덱스를 설정하기 위해 setSelectedLetterIndex를 호출합니다.
-    // index는 클릭된 편지지의 인덱스입니다.
-  };
-
   const handleLetterBackgroundClick = (index) => {
     setSelectedLetterIndex(index); // LetterBackground를 클릭했을 때 호출되는 함수
     //해당 편지지의 인덱스를 selectedLetterIndex로 설정하고 선택된 편지지에 구매 관련 컴포넌트가 나타납니다.
@@ -677,7 +704,28 @@ function LetterPage() {
     setSelectedLetterIndex(null); // 선택된 편지지 인덱스 초기화
   };
 
-  const handlePurchaseButtonClick = (index) => {
+  const handlePurchaseButtonClick = async (index) => {
+    const letterPaperId = letters[index].letterPaperId; // 클릭된 편지지의 ID를 가져옵니다.
+    const price = letters[index].price; // 클릭된 편지지의 가격을 가져옵니다.
+    const token = window.localStorage.getItem("token"); // 사용자의 토큰을 가져옵니다.
+
+    try {
+      const response = await axios.post(`https://dev.nangmancat.shop/store/letter-papers/${letterPaperId}`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+      });
+
+      if (response.data.isSuccess) {
+        alert('편지지 구매에 성공했습니다.');
+        dispatch(decrement(price)); // 코인 개수를 차감하는 액션을 디스패치합니다.
+      } else {
+        alert('편지지 구매에 실패했습니다: ' + response.data.message);
+      }
+    } catch (error) {
+      console.error('Failed to purchase stamp', error);
+    }
+
     setSelectedLetterIndex(index); // 선택된 편지지 인덱스 
     setShowCoinWrapper((prev) => {
       const updatedShowCoinWrapper = [...prev];
@@ -726,7 +774,7 @@ function LetterPage() {
       </SortingContainer>
 
       <LetterContainer>
-        {dummyLetter.slice(startIndex, endIndex).map((letter, index) => (
+        {letters.slice(startIndex, endIndex).map((letter, index) => (
           <LetterBox key={letter.letterPaperId}>
             <LetterInnerBox
               style={{
@@ -735,6 +783,7 @@ function LetterPage() {
               }}
             >
               <LetterBackground
+                imageUrl={letter.letterImageUrl}
                 onClick={() => handleLetterBackgroundClick(index)}
                 isActive={index === selectedLetterIndex}
               />
@@ -793,8 +842,34 @@ function StampPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지에서 첫 번째 아이템의 인덱스
   const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
-  const [selectedStampIndex, setSelectedStampIndex] = useState(null);
+  const [selectedStampIndex, setSelectedStampIndex] = useState(null); // 선택된 우표의 인덱스를 저장할 상태
   const [showCoinWrapper, setShowCoinWrapper] = useState(Array(dummyCollectionStamp.length).fill(true));
+  const [stamps, setStamps] = useState([]); // API로 가져온 우표 데이터를 저장할 상태
+  const dispatch = useDispatch();
+  const coinCount = useSelector((state) => state.coin.coinCount); // 현재 코인 개수를 가져옵니다.
+
+  // 컴포넌트가 마운트될 때 API를 호출하여 우표 데이터를 가져옴
+  useEffect(() => {
+    const fetchStamps = async () => {
+      const token = window.localStorage.getItem("token");
+
+      try {
+        const response = await axios.get('https://dev.nangmancat.shop/store/stamps', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          params: {
+            page: 0, // 페이지 번호
+            pageSize: 15 // 페이지 크기
+          }
+        });
+        setStamps(response.data.result);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchStamps();
+  }, []);
 
   const handleDropdownToggle = () => {
     setDropdownOpen(!isDropdownOpen);
@@ -817,10 +892,6 @@ function StampPage() {
     setSelectedStampIndex(null); // 페이지 이동 시 selectedStampIndex 초기화
   };
 
-  const handleStampInnerBoxClick = (index) => {
-    setSelectedStampIndex(index === selectedStampIndex ? null : index);
-  };
-
   const handleStampBackgroundClick = (index) => {
     setSelectedStampIndex(index);
   };
@@ -829,7 +900,28 @@ function StampPage() {
     setSelectedStampIndex(null);
   };
 
-  const handlePurchaseButtonClick = (index) => {
+  const handlePurchaseButtonClick = async (index) => {
+    const stampId = stamps[index].stampId; // 클릭된 우표의 ID를 가져옵니다.
+    const price = stamps[index].price; // 클릭된 우표의 가격을 가져옵니다.
+    const token = window.localStorage.getItem("token"); // 사용자의 토큰을 가져옵니다.
+
+    try {
+      const response = await axios.post(`https://dev.nangmancat.shop/store/stamps/${stampId}`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+      });
+
+      if (response.data.isSuccess) {
+        alert('우표 구매에 성공했습니다.');
+        dispatch(decrement(price)); // 코인 개수를 차감하는 액션을 디스패치합니다.
+      } else {
+        alert('우표 구매에 실패했습니다: ' + response.data.message);
+      }
+    } catch (error) {
+      console.error('Failed to purchase stamp', error);
+    }
+
     setSelectedStampIndex(index);
     setShowCoinWrapper((prev) => {
       const updatedShowCoinWrapper = [...prev];
@@ -878,10 +970,11 @@ function StampPage() {
       </SortingContainer>
 
       <StampContainer>
-        {dummyCollectionStamp.slice(startIndex, endIndex).map((stamp, index) => (
+        {stamps.slice(startIndex, endIndex).map((stamp, index) => (
           <StampBox key={stamp.stampId}>
             <StampInnerBox style={{ top: `${Math.floor(index / 4) * 535}px`, left: `${(index % 4) * 306}px` }}>
               <StampBackground 
+                imageUrl={stamp.stampImageUrl}
                 onClick={() => handleStampBackgroundClick(index)}
                 isActive={index === selectedStampIndex}
               />
@@ -935,6 +1028,7 @@ function StampPage() {
 export default function StoreMain() {
   const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState('tab1');
+  const coinCount = useSelector((state) => state.coin.coinCount); // 현재 코인 개수를 가져옵니다.
 
   return (
     <div>
@@ -950,7 +1044,7 @@ export default function StoreMain() {
           </ItemDiv>
           <CoinDiv>
             <CoinImg src={Coin} alt='코인' />
-            <CoinCountDiv>30</CoinCountDiv>
+            <CoinCountDiv>{coinCount}</CoinCountDiv>
           </CoinDiv>
         </StoreInnerDiv>
         <StoreTitleText>상점</StoreTitleText>

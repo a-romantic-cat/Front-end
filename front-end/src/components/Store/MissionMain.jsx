@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from '../Header/Header';
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +16,7 @@ import MultiStamp3 from '../../assets/img/MultiStamp3.svg';
 import MultiStamp4 from '../../assets/img/MultiStamp4.svg';
 import MultiStamp5 from '../../assets/img/MultiStamp5.svg';
 import WhiteCoin from '../../assets/img/WhiteCoin.svg';
+import axios from 'axios';
 
 
 //미션 데이터
@@ -424,6 +425,48 @@ export default function MissionMain() {
     });
   }
 
+  const [missions, setMissions] = useState([]);
+  const fetchMissions = async () => {
+    const token = window.localStorage.getItem("token");
+
+    try {
+      const response = await axios.get(`https://dev.nangmancat.shop/missions/`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+      });
+  
+      // API 응답에서 미션 목록을 가져와 상태에 저장합니다.
+      setMissions(response.data.result);
+    } catch (error) {
+      console.error('Failed to fetch missions', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchMissions();
+  }, []);
+  
+  
+  const [missionDetail, setMissionDetail] = useState({});
+  const fetchMissionDetail = async (missionId) => {
+    const token = window.localStorage.getItem("token");
+
+    try {
+      const response = await axios.get(`https://dev.nangmancat.shop/missions/${missionId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+      });
+  
+      // API 응답에서 미션 상세 정보를 가져와서 상태에 저장합니다.
+      setMissionDetail(response.data.result);
+    } catch (error) {
+      console.error('Failed to fetch mission detail', error);
+    }
+  };
+
+
   return (
     <div>
         <Header />
@@ -448,7 +491,7 @@ export default function MissionMain() {
 
       <TabContentContainer>
         <MissionContainer>
-        {dummyMission.slice(startIndex, endIndex).map((mission, index) => {
+        {missions.slice(startIndex, endIndex).map((mission, index) => {
           let StampComponent, stampImgSrc, stampImgAlt;
           const isCompleted = (mission.totalSteps === 1 && mission.completedSteps === 1) || (mission.totalSteps === 5 && mission.completedSteps === 5);
           const isClicked = clickedMissions[mission.missionID];
@@ -496,7 +539,10 @@ export default function MissionMain() {
                       </CompletedPriceContainer>
                     </CompletedBackground>
                   ) : (
-                  <MissionFlipContainer onClick={() => handleFlipClick(mission.missionID)}>
+                  <MissionFlipContainer 
+                    onClick={() => handleFlipClick(mission.missionID)}
+                    onMouseOver={() => fetchMissionDetail(mission.missionID)}
+                  >
                     <MissionBackground>
                       <MissionText>
                         {mission.missionName}
@@ -509,10 +555,10 @@ export default function MissionMain() {
                       <StampComponent src={stampImgSrc} alt={stampImgAlt} />
                     </MissionBackground>
                     <DetailBackground>
-                      <MissionDetailText>{mission.description}</MissionDetailText>
+                      <MissionDetailText>{missionDetail.content}</MissionDetailText>
                       <DetailPriceContainer>
                         <WhiteCoinImg src={WhiteCoin} alt='미션 상세정보에서의 코인이미지' />
-                        <DetailPriceText>{mission.price}</DetailPriceText>
+                        <DetailPriceText>{missionDetail.coin}</DetailPriceText>
                       </DetailPriceContainer>
                     </DetailBackground>
                   </MissionFlipContainer>
