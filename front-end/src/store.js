@@ -1,21 +1,9 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit'
+import { configureStore } from "@reduxjs/toolkit";
+import coinReducer from '../src/redux/coinSlice';
 
-const coinSlice = createSlice({
-  name: 'coin',
-  initialState: {
-    coinCount: 50
-  },
-  reducers: {
-    decrement: (state, action) => {
-      state.coinCount -= action.payload;
-    }
-  }
-})
-
-export const { decrement } = coinSlice.actions
-
-export default configureStore({
+const store = configureStore({
   reducer: {
-    coin: coinSlice.reducer
-  }
-})
+    coin: coinReducer,
+  },
+});
+export default store;

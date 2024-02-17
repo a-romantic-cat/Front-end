@@ -10,7 +10,7 @@ import CoinRed from '../../assets/img/CoinRed.svg';
 import 다음버튼 from '../../assets/img/다음버튼.svg';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { decrement } from '../../store';
+import { decrement } from '../../redux/coinSlice';
 
 //편지지 데이터
 const dummyLetter = [
