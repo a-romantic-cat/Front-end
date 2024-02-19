@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 //모달창 열릴 때 백그라운드 블러 처리
 const BackgroundBlur = styled.div`
@@ -41,7 +42,7 @@ const Text = styled.div`
 const RedText = styled.div`
     color: #C90000;
     text-align: center;
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     font-size: 24px;
     font-style: normal;
     font-weight: 500;
@@ -52,7 +53,7 @@ const RedText = styled.div`
 //하시겠습니까?
 const BlackText = styled.div`
     color: #000;
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     font-size: 24px;
     font-style: normal;
     font-weight: 500;
@@ -121,6 +122,19 @@ export default function Logout({ isOpen, onClose }) {
     navigate("/");
   };
 
+  const handleLogout = async () => {
+    try {
+        navigateToHome(); // 로그아웃 후 홈 페이지로 이동합니다.
+        // API 요청을 보낼 URL로 변경하세요.
+        const response = await axios.post(`https://dev.nangmancat.shop/token/logout`);
+        // 로그아웃에 대한 추가 로직을 수행할 수 있습니다.
+        console.log(response.data.result); // 서버로부터의 응답을 로그합니다.
+    } catch (error) {
+        console.error('로그아웃 중 에러 발생:', error);
+        // 에러 처리 로직을 추가하세요.
+    }
+};
+
   if (!isOpen) {
     return null;
   }
@@ -143,7 +157,7 @@ export default function Logout({ isOpen, onClose }) {
             <CloseButton onClick={onClose}>
                 취소
             </CloseButton>
-            <RealLogoutButton onClick={navigateToHome}>
+            <RealLogoutButton onClick={handleLogout}>
                 로그아웃
             </RealLogoutButton>
         </ButtonContainer>

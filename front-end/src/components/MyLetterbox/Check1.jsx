@@ -4,6 +4,23 @@ import { useNavigate } from "react-router-dom";
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Check2 from './Check2';
+//import axios from 'axios';
+
+/*//편지지 데이터
+const dummyLetter = [
+  {letterboxId: 1, Name: "내우편함1", Date: "2024.01.01~2024.02.02"},
+  {letterboxId: 2, Name: "내우편함2", Date: "2024.01.01~2024.02.02"},
+  {letterboxId: 3, Name: "내우편함3", Date: "2024.01.01~2024.02.02"},
+  {letterboxId: 4, Name: "내우편함4", Date: "2024.01.01~2024.02.02"},
+  {letterboxId: 5, Name: "내우편함5", Date: "2024.01.01~2024.02.02"},
+  {letterboxId: 6, Name: "내우편함6", Date: "2024.01.01~2024.02.02"},
+  {letterboxId: 7, Name: "내우편함7", Date: "2024.01.01~2024.02.02"},
+  {letterboxId: 8, Name: "내우편함8", Date: "2024.01.01~2024.02.02"},
+  {letterboxId: 9, Name: "내우편함9", Date: "2024.01.01~2024.02.02"},
+  {letterboxId: 10, Name: "내우편함10", Date: "2024.01.01~2024.02.02"},
+  {letterboxId: 11, Name: "내우편함11", Date: "2024.01.01~2024.02.02"},
+  {letterboxId: 12, Name: "내우편함12", Date: "2024.01.01~2024.02.02"},
+];*/
 
 const TextContainer = styled.div`
   width: 100%;
@@ -177,6 +194,8 @@ const Check1 = () => {
     setPin(!pin);
   }
 
+  
+
   const [pin2, setPin2] = useState(false); //고정핀
   const handlePin2 = () => { 
     setPin2(!pin2);
@@ -217,7 +236,42 @@ const Check1 = () => {
     setPin9(!pin9);
   }
 
+  const [pin10, setPin10] = useState(false); //고정핀
+  const handlePin10 = () => { 
+    setPin10(!pin10);
+  }
+
+  const [pin11, setPin11] = useState(false); //고정핀
+  const handlePin11 = () => { 
+    setPin11(!pin11);
+  }
+
+  const [pin12, setPin12] = useState(false); //고정핀
+  const handlePin12 = () => { 
+    setPin12(!pin12);
+  }
+  
+
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
+
+
+  {/*const [letterboxes, setLetterboxes] = useState([]); // API로 가져온 데이터를 저장할 상태
+
+  const handleClick = async (index) => {
+    const letterboxId = letterboxes[index].letterboxId; // 클릭된 편지지의 letterboxId 가져옵니다.
+    const token = window.localStorage.getItem("token"); // 사용자의 토큰을 가져옵니다.
+
+    try {
+      const response = await axios.get(`https://dev.nangmancat.shop/letterboxes/${letterboxId}/list`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+      });
+      setLetterboxes(response.data.result);
+    } catch (error) {
+      console.error('에러발생', error);
+    }
+  }*/}
 
   return (
     <div>
@@ -237,7 +291,10 @@ const Check1 = () => {
       <WrapLetterContainer>
         <LetterContainer>
           <ScrollContainer>
-            <PinsAndUsersContainer>
+          {/*{dummyLetter.slice().map((letter, index) => (*/}
+            <PinsAndUsersContainer >
+              {/* key={letter.letterboxId}
+               onClick={() => handleClick(index)}*/}
               {/*1번째 */}
               <PinAndUserContainer>
                 <div onClick={handlePin}> {/*고정핀 핸들*/}
@@ -256,7 +313,7 @@ const Check1 = () => {
                   </UserNickname>
                 </WrapUserNickname>
               </PinAndUserContainer>
-              
+
               {/*2번째 */}
               <PinAndUserContainer>
                 <div onClick={handlePin2}>
@@ -409,7 +466,65 @@ const Check1 = () => {
                 </WrapUserNickname>
               </PinAndUserContainer>
 
+              {/*10번째 */}
+              <PinAndUserContainer>
+                <div onClick={handlePin10}>
+                    {pin10 ? (
+                    <RedPin />
+                  ) :
+                  (
+                    <Pin />
+                  )}
+                </div>
+                <WrapUserNickname onClick={() => {setIsModalOpen(true)}}>
+                  <Envelope>
+                  </Envelope>
+                  <UserNickname>
+                    닉네임
+                  </UserNickname>
+                </WrapUserNickname>
+              </PinAndUserContainer>
+
+              {/*11번째 */}
+              <PinAndUserContainer>
+                <div onClick={handlePin11}>
+                    {pin11 ? (
+                    <RedPin />
+                  ) :
+                  (
+                    <Pin />
+                  )}
+                </div>
+                <WrapUserNickname onClick={() => {setIsModalOpen(true)}}>
+                  <Envelope>
+                  </Envelope>
+                  <UserNickname>
+                    닉네임
+                  </UserNickname>
+                </WrapUserNickname>
+              </PinAndUserContainer>
+
+              {/*12번째 */}
+              <PinAndUserContainer>
+                <div onClick={handlePin12}>
+                    {pin12 ? (
+                    <RedPin />
+                  ) :
+                  (
+                    <Pin />
+                  )}
+                </div>
+                <WrapUserNickname onClick={() => {setIsModalOpen(true)}}>
+                  <Envelope>
+                  </Envelope>
+                  <UserNickname>
+                    닉네임
+                  </UserNickname>
+                </WrapUserNickname>
+              </PinAndUserContainer>
+
             </PinsAndUsersContainer>
+          { /* ))} */ }
           </ScrollContainer>
 
           <Check2 isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />

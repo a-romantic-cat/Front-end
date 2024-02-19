@@ -435,11 +435,11 @@ export default function MyPageMain() {
           </GrayLine>
 
           <SmallTextContainer>
-            <SmallText>
+            <SmallText onClick={() => window.open("https://www.notion.so/179e6d1d364646d18c52ecbd3088bf95?pvs=4")}>
               자주 묻는 질문 / Q&A
             </SmallText>
             
-            <SmallText>
+            <SmallText onClick={() => window.open("https://www.notion.so/2624774bed0444278c94ec0adbd752b5?pvs=4")}>
               낭만고양이 팀 소개
             </SmallText>
           </SmallTextContainer>

@@ -101,8 +101,6 @@ const To = styled.div`
   white-space: nowrap;
 `;
 
-
-
 const Wrap = styled.div`
   width: 438.01419px;
   height: 200.77px;
@@ -250,10 +248,11 @@ const ThreeStampContainer = styled.div`
 
 //작고 많은 우표 하나 하나
 const StampDesign = styled.div`
-  background-image: url("/images/우표3.svg");
+  background-image: ${({ url }) => `url(${url})`};
   background-size: cover;
   width: 115px;
   height: 153.33333px;
+  cursor: pointer;
 `;
 
 //버튼 3개 컨테이너
@@ -293,7 +292,7 @@ const Arrow1 = styled.div`
 
 const Prev = styled.div`
   color: #FFF;
-  font-family: Pretendard;
+  font-family: 'Pretendard';
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
@@ -314,7 +313,7 @@ const StoreButton = styled.div`
   cursor: pointer;
 
   color: #000;
-  font-family: Pretendard;
+  font-family: 'Pretendard';
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
@@ -342,7 +341,7 @@ const Arrow2 = styled.div`
 
 const Next = styled.div`
   color: #FFF;
-  font-family: Pretendard;
+  font-family: 'Pretendard';
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
@@ -369,6 +368,11 @@ const Answer3 = () => {
   const handleCheck = () => { 
     setCheck(!check);
   }
+
+  const [selectedImage, setSelectedImage] = useState('');
+  const handleImageClick = (image) => { // 오른쪽 클릭하면 왼쪽에 적용되게
+    setSelectedImage(image);
+  };
 
   return (
     <div>
@@ -398,7 +402,7 @@ const Answer3 = () => {
             </ToContainer>
             
             <Wrap>
-              <Stamp>
+              <Stamp style={{ backgroundImage: selectedImage ? `url(${selectedImage})` : 'url("/images/우표2.svg")' }}>
               </Stamp>
               <Content>
                 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명 으로 작성 돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼 요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익 명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요. 편지는 익명으로 작성돼요.
@@ -436,56 +440,57 @@ const Answer3 = () => {
 
           <SixStampContainer>
             <ThreeStampContainer>
-              <StampDesign>
+              <StampDesign url="/images/우표디자인1.svg" onClick={() => handleImageClick('/images/우표디자인1.svg')} alt='우표'>
               </StampDesign>
-              <StampDesign>
+              <StampDesign url="/images/우표디자인2.svg" onClick={() => handleImageClick('/images/우표디자인2.svg')} alt='우표'>
               </StampDesign>
-              <StampDesign>
-              </StampDesign>
-            </ThreeStampContainer>
-
-            <ThreeStampContainer>
-              <StampDesign>
-              </StampDesign>
-              <StampDesign>
-              </StampDesign>
-              <StampDesign>
+              <StampDesign url="/images/우표디자인3.svg" onClick={() => handleImageClick('/images/우표디자인3.svg')} alt='우표'>
               </StampDesign>
             </ThreeStampContainer>
 
             <ThreeStampContainer>
-              <StampDesign>
+              <StampDesign url="/images/우표디자인4.svg" onClick={() => handleImageClick('/images/우표디자인4.svg')} alt='우표'>
               </StampDesign>
-              <StampDesign>
+              <StampDesign url="/images/우표디자인5.svg" onClick={() => handleImageClick('/images/우표디자인5.svg')} alt='우표'>
               </StampDesign>
-              <StampDesign>
-              </StampDesign>
-            </ThreeStampContainer>
-
-            <ThreeStampContainer>
-              <StampDesign>
-              </StampDesign>
-              <StampDesign>
-              </StampDesign>
-              <StampDesign>
+              <StampDesign url="/images/우표디자인6.svg" onClick={() => handleImageClick('/images/우표디자인6.svg')} alt='우표'>
               </StampDesign>
             </ThreeStampContainer>
 
             <ThreeStampContainer>
-              <StampDesign>
+              <StampDesign url="/images/우표디자인7.svg" onClick={() => handleImageClick('/images/우표디자인7.svg')} alt='우표'>
               </StampDesign>
-              <StampDesign>
+              <StampDesign url="/images/우표디자인8.svg" onClick={() => handleImageClick('/images/우표디자인8.svg')} alt='우표'>
               </StampDesign>
-              <StampDesign>
+              <StampDesign url="/images/우표디자인9.svg" onClick={() => handleImageClick('/images/우표디자인9.svg')} alt='우표'>
               </StampDesign>
             </ThreeStampContainer>
 
             <ThreeStampContainer>
-              <StampDesign>
+              <StampDesign url="/images/우표디자인10.svg" onClick={() => handleImageClick('/images/우표디자인10.svg')} alt='우표'>
               </StampDesign>
-              <StampDesign>
+              <StampDesign url="/images/우표디자인11.svg" onClick={() => handleImageClick('/images/우표디자인11.svg')} alt='우표'>
               </StampDesign>
-              <StampDesign>
+              <StampDesign url="/images/우표디자인12.svg" onClick={() => handleImageClick('/images/우표디자인12.svg')} alt='우표'>
+              </StampDesign>
+            </ThreeStampContainer>
+
+            <ThreeStampContainer>
+              <StampDesign url="/images/우표디자인1.svg" onClick={() => handleImageClick('/images/우표디자인1.svg')} alt='우표'>
+              </StampDesign>
+              <StampDesign url="/images/우표디자인2.svg" onClick={() => handleImageClick('/images/우표디자인2.svg')} alt='우표'>
+              </StampDesign>
+              <StampDesign url="/images/우표디자인3.svg" onClick={() => handleImageClick('/images/우표디자인3.svg')} alt='우표'>
+              </StampDesign>
+            </ThreeStampContainer>
+
+            
+            <ThreeStampContainer>
+              <StampDesign url="/images/우표디자인4.svg" onClick={() => handleImageClick('/images/우표디자인4.svg')} alt='우표'>
+              </StampDesign>
+              <StampDesign url="/images/우표디자인5.svg" onClick={() => handleImageClick('/images/우표디자인5.svg')} alt='우표'>
+              </StampDesign>
+              <StampDesign url="/images/우표디자인6.svg" onClick={() => handleImageClick('/images/우표디자인6.svg')} alt='우표'>
               </StampDesign>
             </ThreeStampContainer>
           </SixStampContainer>
