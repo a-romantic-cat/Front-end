@@ -9,69 +9,7 @@ import Under from '../../assets/img/Under.svg';
 import CoinRed from '../../assets/img/CoinRed.svg';
 import 다음버튼 from '../../assets/img/다음버튼.svg';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { decrement } from '../../redux/coinSlice';
-
-//편지지 데이터
-const dummyLetter = [
-  {letterPaperId: 1, letterPaperName: "letter design 1", price: "30"},
-  {letterPaperId: 2, letterPaperName: "letter design 2", price: "30"},
-  {letterPaperId: 3, letterPaperName: "letter design 3", price: "30"},
-  {letterPaperId: 4, letterPaperName: "letter design 4", price: "30"},
-  {letterPaperId: 5, letterPaperName: "letter design 5", price: "30"},
-  {letterPaperId: 6, letterPaperName: "letter design 6", price: "30"},
-  {letterPaperId: 7, letterPaperName: "letter design 7", price: "30"},
-  {letterPaperId: 8, letterPaperName: "letter design 8", price: "30"},
-  {letterPaperId: 9, letterPaperName: "letter design 9", price: "30"},
-  {letterPaperId: 10, letterPaperName: "letter design 10", price: "30"},
-  {letterPaperId: 11, letterPaperName: "letter design 11", price: "30"},
-  {letterPaperId: 12, letterPaperName: "letter design 12", price: "30"},
-
-  {letterPaperId: 13, letterPaperName: "letter design 13", price: "30"},
-  {letterPaperId: 14, letterPaperName: "letter design 14", price: "30"},
-  {letterPaperId: 15, letterPaperName: "letter design 15", price: "30"},
-  {letterPaperId: 16, letterPaperName: "letter design 16", price: "30"},
-  {letterPaperId: 17, letterPaperName: "letter design 17", price: "30"},
-  {letterPaperId: 18, letterPaperName: "letter design 18", price: "30"},
-  {letterPaperId: 19, letterPaperName: "letter design 19", price: "30"},
-  {letterPaperId: 20, letterPaperName: "letter design 20", price: "30"},
-  {letterPaperId: 21, letterPaperName: "letter design 21", price: "30"},
-  {letterPaperId: 22, letterPaperName: "letter design 22", price: "30"},
-  {letterPaperId: 23, letterPaperName: "letter design 23", Price: "30"},
-  {letterPaperId: 24, letterPaperName: "letter design 24", price: "30"},
-
-  {letterPaperId: 25, letterPaperName: "letter design 25", price: "30"},
-];
-
-const dummyCollectionStamp = [
-  {stampId: 1, stampName: "stamp design 1", price: "30"},
-  {stampId: 2, stampName: "stamp design 2", price: "30"},
-  {stampId: 3, stampName: "stamp design 3", price: "30"},
-  {stampId: 4, stampName: "stamp design 4", price: "30"},
-  {stampId: 5, stampName: "stamp design 5", price: "30"},
-  {stampId: 6, stampName: "stamp design 6", price: "30"},
-  {stampId: 7, stampName: "stamp design 7", price: "30"},
-  {stampId: 8, stampName: "stamp design 8", price: "30"},
-  {stampId: 9, stampName: "stamp design 9", price: "30"},
-  {stampId: 10, stampName: "stamp design 10", price: "30"},
-  {stampId: 11, stampName: "stamp design 11", price: "30"},
-  {stampId: 12, stampName: "stamp design 12", price: "30"},
-
-  {stampId: 13, stampName: "stamp design 13", price: "30"},
-  {stampId: 14, stampName: "stamp design 14", price: "30"},
-  {stampId: 15, stampName: "stamp design 15", price: "30"},
-  {stampId: 16, stampName: "stamp design 16", price: "30"},
-  {stampId: 17, stampName: "stamp design 17", price: "30"},
-  {stampId: 18, stampName: "stamp design 18", price: "30"},
-  {stampId: 19, stampName: "stamp design 19", price: "30"},
-  {stampId: 20, stampName: "stamp design 20", price: "30"},
-  {stampId: 21, stampName: "stamp design 21", price: "30"},
-  {stampId: 22, stampName: "stamp design 22", price: "30"},
-  {stampId: 23, stampName: "stamp design 23", price: "30"},
-  {stampId: 24, stampName: "stamp design 24", price: "30"},
-
-  {stampId: 25, stampName: "stamp design 25", price: "30"},
-];
+import { useDispatch } from 'react-redux';
 
 //상점 
 const StoreMainDiv = styled.div`
@@ -93,10 +31,11 @@ const StoreInnerDiv = styled.div`
 `;
 
 const ItemDiv = styled.div`
+  width: 100%;
   padding: 8px 10px;
   background: #D5C9BD;
   border-radius: 10px;
-  justify-content:-start;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 7px;
   display: flex;
@@ -119,25 +58,25 @@ const CoinImg = styled.img`
 `;
 
 const TextDiv = styled.div`
+  width: 100%;
   color: black;
   font-size: 22px;
   font-family: 'Pretendard';
   font-weight: 600;
   line-height: 22px;
-  word-wrap: break-word;
+  white-space: nowrap;
 `;
 
 const CoinDiv = styled.div`
   padding-top: 7px;
   padding-bottom: 7px;
   justify-content: flex-start;
-  align-items: 'flex-start';
+  align-items: flex-start;
   gap: 8px;
   display: flex;
 `;
 
 const CoinCountDiv = styled.div`
-  width: 30.80px;
   color: black;
   font-size: 24px;
   font-family: 'Pretendard';
@@ -318,7 +257,10 @@ const LetterBackground = styled.div`
   position: absolute;
   background-image: url(${({ imageUrl }) => imageUrl});
   background-size: cover;
-  filter: ${({ isClicked }) => (isClicked ? 'blur(5px)' : 'none')};
+  ${({ isActive }) => isActive && `
+    background: rgba(46.99, 40.54, 38.50, 0.80);
+    backdrop-filter: blur(4px);
+  `}
   cursor: pointer;
   z-index: 1;
 `;
@@ -485,7 +427,10 @@ const StampBackground = styled.div`
   position: absolute;
   background-image: url(${({ imageUrl }) => imageUrl});
   background-size: cover;
-  filter: ${({ isClicked }) => (isClicked ? 'blur(5px)' : 'none')};
+  ${({ isActive }) => isActive && `
+    background: rgba(46.99, 40.54, 38.50, 0.80);
+    backdrop-filter: blur(4px);
+  `}
   cursor: pointer;
   z-index: 1;
 `;
@@ -639,54 +584,90 @@ const NextButtonImg = styled.img`
 
 function LetterPage() {
   const [isDropdownOpen, setDropdownOpen] = useState(false); // 드롭다운의 열림/닫힘 상태를 관리하는 상태 변수
-  const [selectedOption, setSelectedOption] = useState('인기순'); // 선택한 옵션을 관리하는 상태 변수
-  const itemsPerPage = 12; // 한 페이지에 표시할 아이템 개수
-  const totalPages = Math.ceil(dummyLetter.length / itemsPerPage); // 전체 페이지 수
+  const [selectedOption, setSelectedOption] = useState('최신순'); // 선택한 옵션을 관리하는 상태 변수
+  const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
-  const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지에서 첫 번째 아이템의 인덱스
-  const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
   const [selectedLetterIndex, setSelectedLetterIndex] = useState(null);
-  const [showCoinWrapper, setShowCoinWrapper] = useState(Array(dummyLetter.length).fill(true));
   const [letters, setLetters] = useState([]); // API로 가져온 편지 데이터를 저장할 상태
   const dispatch = useDispatch();
-  const coinCount = useSelector((state) => state.coin.coinCount); // 현재 코인 개수를 가져옵니다.
+  const [sort, setSort] = useState('latest'); // 정렬 방식을 관리하는 상태 변수
+
+  // 컴포넌트가 마운트될 때 API를 호출하여 편지지 데이터를 가져옴
+  // 함수를 useEffect 외부에서 정의합니다.
+  const fetchLetters = async (page) => {
+    const token = window.localStorage.getItem("token");
+    
+    try {
+      const response = await axios.get('https://dev.nangmancat.shop/store/letter-papers', {
+        headers: {
+          //Authorization: `Bearer ${token}`
+          Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
+        },
+        params: {
+          page: page,
+          pageSize: 12,
+          sort: sort
+        },
+      });
+    
+      if (Array.isArray(response.data.result.content)) {
+        setLetters(response.data.result.content);
+        setTotalPages(response.data.result.totalPages);
+        setShowCoinWrapper(Array(response.data.result.content.length).fill(true)); // letters 업데이트와 함께 showCoinWrapper도 업데이트
+      } else {
+        console.error('response.data.result.content is not an array');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // 컴포넌트가 마운트될 때 API를 호출하여 편지지 데이터를 가져옴
   useEffect(() => {
-    const fetchStamps = async () => {
-      const token = window.localStorage.getItem("token");
-      
-      try {
-        const response = await axios.get('https://dev.nangmancat.shop/store/letter-papers', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          },
-          params: {
-            page: 0, // 페이지 번호
-            pageSize: 15 // 페이지 크기
-          }
-        });
-        setLetters(response.data.result);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchStamps();
-  }, []);
+    fetchLetters(currentPage - 1);
+    console.log(`Current page is now ${currentPage}`);
+  }, [sort, currentPage]); // sort 상태가 변경될 때마다 요청을 보냅니다.
 
   const handleDropdownToggle = () => {
-    setDropdownOpen(!isDropdownOpen); // 드롭다운의 열림/닫힘 상태를 토글
+    setDropdownOpen(!isDropdownOpen);
   };
 
   const handleOptionSelect = (option) => {
-    setSelectedOption(option); // 선택한 옵션 업데이트
-    setDropdownOpen(false); // 드롭다운 닫기
+    setSelectedOption(option);
+    setDropdownOpen(false);
+    let sortParam;
+  
+    switch (option) {
+      case '인기순':
+        sortParam = 'popular';
+        break;
+      case '최신순':
+        sortParam = 'latest';
+        break;
+      case '낮은 가격순':
+        sortParam = 'low_price';
+        break;
+      case '높은 가격순':
+        sortParam = 'high_price';
+        break;
+      case '가나다순':
+        sortParam = 'alphabetical';
+        break;
+      default:
+        sortParam = 'latest';
+    }
+  
+    setSort(sortParam); // 선택된 정렬 방식을 상태에 저장합니다.
   };
 
+  const [showCoinWrapper, setShowCoinWrapper] = useState(Array(letters.length).fill(true));
+
   const handlePageChange = (page) => {
+    console.log(`Changing to page ${page}`);
     setCurrentPage(page); // 페이지 변경
     setSelectedLetterIndex(null); // 페이지 변경 시 selectedLetterIndex 초기화
-    setShowCoinWrapper(Array(dummyCollectionStamp.length).fill(true)); // 페이지 이동 시 showCoinWrapper 초기화
+    setShowCoinWrapper(Array(letters.length).fill(true)); // 페이지 이동 시 showCoinWrapper 초기화
+    fetchLetters(page - 1); // 페이지 번호를 0부터 시작하도록 -1을 해줍니다.
   };
 
   const handleNextPage = () => {
@@ -706,38 +687,35 @@ function LetterPage() {
 
   const handlePurchaseButtonClick = async (index) => {
     const letterPaperId = letters[index].letterPaperId; // 클릭된 편지지의 ID를 가져옵니다.
-    const price = letters[index].price; // 클릭된 편지지의 가격을 가져옵니다.
     const token = window.localStorage.getItem("token"); // 사용자의 토큰을 가져옵니다.
 
     try {
       const response = await axios.post(`https://dev.nangmancat.shop/store/letter-papers/${letterPaperId}`, {}, {
         headers: {
-          Authorization: `Bearer ${token}`
+          //Authorization: `Bearer ${token}`
+          Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
         },
       });
 
       if (response.data.isSuccess) {
         alert('편지지 구매에 성공했습니다.');
-        dispatch(decrement(price)); // 코인 개수를 차감하는 액션을 디스패치합니다.
+        setShowCoinWrapper((prev) => {
+          const updatedShowCoinWrapper = [...prev];
+          updatedShowCoinWrapper[index] = false;
+          return updatedShowCoinWrapper;
+        });
+        setSelectedLetterIndex(null); // 선택된 편지지 인덱스 초기화로 구매 버튼 후 창 닫기
       } else {
         alert('편지지 구매에 실패했습니다: ' + response.data.message);
       }
     } catch (error) {
       console.error('Failed to purchase stamp', error);
     }
-
-    setSelectedLetterIndex(index); // 선택된 편지지 인덱스 
-    setShowCoinWrapper((prev) => {
-      const updatedShowCoinWrapper = [...prev];
-      updatedShowCoinWrapper[index] = false;
-      return updatedShowCoinWrapper;
-    });
-    setSelectedLetterIndex(null); // 선택된 편지지 인덱스 초기화로 구매 버튼 후 창 닫기
   };
 
   useEffect(() => {
     setSelectedLetterIndex(null);
-    setShowCoinWrapper(Array(dummyCollectionStamp.length).fill(true)); // 페이지 이동 시 showCoinWrapper 초기화
+    setShowCoinWrapper(Array(letters.length).fill(true)); // 페이지 이동 시 showCoinWrapper 초기화
   }, [currentPage]);
 
   return (
@@ -753,19 +731,19 @@ function LetterPage() {
           </SelectedOptionContainer>
           {isDropdownOpen && (
             <OptionsContainer>
-              <Option style={{border: '1px black solid'}} onClick={() => handleOptionSelect('인기순')} selectedOption={selectedOption === '인기순'}>
-                <OptionText>인기순</OptionText>
-              </Option>
-              <Option onClick={() => handleOptionSelect('최신순')} selectedOption={selectedOption === '최신순'}>
+              <Option style={{border: '1px black solid'}} onClick={() => handleOptionSelect('최신순')} selectedOption={sort === 'latest'}>
                 <OptionText>최신순</OptionText>
               </Option>
-              <Option onClick={() => handleOptionSelect('낮은 가격순')} selectedOption={selectedOption === '낮은 가격순'}>
+              <Option onClick={() => handleOptionSelect('인기순')} selectedOption={sort === 'popular'}>
+                <OptionText>인기순</OptionText>
+              </Option>
+              <Option onClick={() => handleOptionSelect('낮은 가격순')} selectedOption={sort === 'low_price'}>
                 <OptionText>낮은 가격순</OptionText>
               </Option>
-              <Option onClick={() => handleOptionSelect('높은 가격순')} selectedOption={selectedOption === '높은 가격순'}>
+              <Option onClick={() => handleOptionSelect('높은 가격순')} selectedOption={sort === 'high_price'}>
                 <OptionText>높은 가격순</OptionText>
               </Option>
-              <Option onClick={() => handleOptionSelect('가나다순')} selectedOption={selectedOption === '가나다순'}>
+              <Option onClick={() => handleOptionSelect('가나다순')} selectedOption={sort === 'alphabetical'}>
                 <OptionText>가나다순</OptionText>
               </Option>
             </OptionsContainer>
@@ -774,7 +752,7 @@ function LetterPage() {
       </SortingContainer>
 
       <LetterContainer>
-        {letters.slice(startIndex, endIndex).map((letter, index) => (
+        {letters && letters.map((letter, index) => (
           <LetterBox key={letter.letterPaperId}>
             <LetterInnerBox
               style={{
@@ -783,7 +761,7 @@ function LetterPage() {
               }}
             >
               <LetterBackground
-                imageUrl={letter.letterImageUrl}
+                imageUrl={letter.letterPaperImageUrl}
                 onClick={() => handleLetterBackgroundClick(index)}
                 isActive={index === selectedLetterIndex}
               />
@@ -836,40 +814,44 @@ function LetterPage() {
 
 function StampPage() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('인기순');
-  const itemsPerPage = 12;
-  const totalPages = Math.ceil(dummyCollectionStamp.length / itemsPerPage);
+  const [selectedOption, setSelectedOption] = useState('최신순');
+  const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지에서 첫 번째 아이템의 인덱스
-  const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
   const [selectedStampIndex, setSelectedStampIndex] = useState(null); // 선택된 우표의 인덱스를 저장할 상태
-  const [showCoinWrapper, setShowCoinWrapper] = useState(Array(dummyCollectionStamp.length).fill(true));
   const [stamps, setStamps] = useState([]); // API로 가져온 우표 데이터를 저장할 상태
-  const dispatch = useDispatch();
-  const coinCount = useSelector((state) => state.coin.coinCount); // 현재 코인 개수를 가져옵니다.
+  const [sort, setSort] = useState('latest'); // 정렬 방식을 관리하는 상태 변수
 
   // 컴포넌트가 마운트될 때 API를 호출하여 우표 데이터를 가져옴
   useEffect(() => {
     const fetchStamps = async () => {
       const token = window.localStorage.getItem("token");
-
+      
       try {
         const response = await axios.get('https://dev.nangmancat.shop/store/stamps', {
           headers: {
-            Authorization: `Bearer ${token}`
+            //Authorization: `Bearer ${token}`
+            Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
           },
           params: {
             page: 0, // 페이지 번호
-            pageSize: 15 // 페이지 크기
+            pageSize: 12, // 페이지 크기
+            sort: sort, // 정렬 방식
           }
         });
-        setStamps(response.data.result);
+        if (Array.isArray(response.data.result.content)) {
+          setStamps(response.data.result.content);
+          setTotalPages(response.data.result.totalPages);
+          setShowCoinWrapper(Array(response.data.result.content.length).fill(true)); // Stmaps 업데이트와 함께 showCoinWrapper도 업데이트
+        } else {
+          console.error('response.data.result.content is not an array');
+        }
       } catch (error) {
         console.error(error);
       }
     };
+
     fetchStamps();
-  }, []);
+  }, [sort]); // sort 상태가 변경될 때마다 요청을 보냅니다.
 
   const handleDropdownToggle = () => {
     setDropdownOpen(!isDropdownOpen);
@@ -878,12 +860,37 @@ function StampPage() {
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
     setDropdownOpen(false);
+    let sortParam;
+  
+    switch (option) {
+      case '인기순':
+        sortParam = 'popular';
+        break;
+      case '최신순':
+        sortParam = 'latest';
+        break;
+      case '낮은 가격순':
+        sortParam = 'low_price';
+        break;
+      case '높은 가격순':
+        sortParam = 'high_price';
+        break;
+      case '가나다순':
+        sortParam = 'alphabetical';
+        break;
+      default:
+        sortParam = 'latest';
+    }
+  
+    setSort(sortParam); // 선택된 정렬 방식을 상태에 저장합니다.
   };
+
+  const [showCoinWrapper, setShowCoinWrapper] = useState(Array(stamps.length).fill(true));
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
     setSelectedStampIndex(null); // 페이지 이동 시 selectedStampIndex 초기화
-    setShowCoinWrapper(Array(dummyCollectionStamp.length).fill(true)); // 페이지 이동 시 showCoinWrapper 초기화
+    setShowCoinWrapper(Array(stamps.length).fill(true)); // 페이지 이동 시 showCoinWrapper 초기화
   };
 
   const handleNextPage = () => {
@@ -902,39 +909,40 @@ function StampPage() {
 
   const handlePurchaseButtonClick = async (index) => {
     const stampId = stamps[index].stampId; // 클릭된 우표의 ID를 가져옵니다.
-    const price = stamps[index].price; // 클릭된 우표의 가격을 가져옵니다.
     const token = window.localStorage.getItem("token"); // 사용자의 토큰을 가져옵니다.
 
     try {
       const response = await axios.post(`https://dev.nangmancat.shop/store/stamps/${stampId}`, {}, {
         headers: {
-          Authorization: `Bearer ${token}`
+          //Authorization: `Bearer ${token}`
+          Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
         },
       });
 
       if (response.data.isSuccess) {
         alert('우표 구매에 성공했습니다.');
-        dispatch(decrement(price)); // 코인 개수를 차감하는 액션을 디스패치합니다.
+        setShowCoinWrapper((prev) => {
+          const updatedShowCoinWrapper = [...prev];
+          updatedShowCoinWrapper[index] = false;
+          return updatedShowCoinWrapper;
+        });
+        setSelectedStampIndex(null);
       } else {
         alert('우표 구매에 실패했습니다: ' + response.data.message);
       }
     } catch (error) {
       console.error('Failed to purchase stamp', error);
     }
-
-    setSelectedStampIndex(index);
-    setShowCoinWrapper((prev) => {
-      const updatedShowCoinWrapper = [...prev];
-      updatedShowCoinWrapper[index] = false;
-      return updatedShowCoinWrapper;
-    });
-    setSelectedStampIndex(null);
   };
 
   useEffect(() => {
     setSelectedStampIndex(null);
-    setShowCoinWrapper(Array(dummyCollectionStamp.length).fill(true)); // 페이지 이동 시 showCoinWrapper 초기화
+    setShowCoinWrapper(Array(stamps.length).fill(true)); // 페이지 이동 시 showCoinWrapper 초기화
   }, [currentPage]);
+
+  
+    
+
 
   return (
     <div>
@@ -949,19 +957,19 @@ function StampPage() {
           </SelectedOptionContainer>
           {isDropdownOpen && (
             <OptionsContainer>
-              <Option style={{border: '1px black solid'}} onClick={() => handleOptionSelect('인기순')} selectedOption={selectedOption === '인기순'}>
-                <OptionText>인기순</OptionText>
-              </Option>
-              <Option onClick={() => handleOptionSelect('최신순')} selectedOption={selectedOption === '최신순'}>
+              <Option style={{border: '1px black solid'}} onClick={() => handleOptionSelect('최신순')} selectedOption={sort === 'latest'}>
                 <OptionText>최신순</OptionText>
               </Option>
-              <Option onClick={() => handleOptionSelect('낮은 가격순')} selectedOption={selectedOption === '낮은 가격순'}>
+              <Option onClick={() => handleOptionSelect('인기순')} selectedOption={sort === 'popular'}>
+                <OptionText>인기순</OptionText>
+              </Option>
+              <Option onClick={() => handleOptionSelect('낮은 가격순')} selectedOption={sort === 'low_price'}>
                 <OptionText>낮은 가격순</OptionText>
               </Option>
-              <Option onClick={() => handleOptionSelect('높은 가격순')} selectedOption={selectedOption === '높은 가격순'}>
+              <Option onClick={() => handleOptionSelect('높은 가격순')} selectedOption={sort === 'high_price'}>
                 <OptionText>높은 가격순</OptionText>
               </Option>
-              <Option onClick={() => handleOptionSelect('가나다순')} selectedOption={selectedOption === '가나다순'}>
+              <Option onClick={() => handleOptionSelect('가나다순')} selectedOption={sort === 'alphabetical'}>
                 <OptionText>가나다순</OptionText>
               </Option>
             </OptionsContainer>
@@ -970,7 +978,7 @@ function StampPage() {
       </SortingContainer>
 
       <StampContainer>
-        {stamps.slice(startIndex, endIndex).map((stamp, index) => (
+        {stamps && stamps.map((stamp, index) => (
           <StampBox key={stamp.stampId}>
             <StampInnerBox style={{ top: `${Math.floor(index / 4) * 535}px`, left: `${(index % 4) * 306}px` }}>
               <StampBackground 
@@ -1028,7 +1036,37 @@ function StampPage() {
 export default function StoreMain() {
   const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState('tab1');
-  const coinCount = useSelector((state) => state.coin.coinCount); // 현재 코인 개수를 가져옵니다.
+  const [coin, setCoin] = useState(0); // 코인의 값을 저장할 상태를 생성합니다.
+
+  const fetchUserCoin = async () => {
+    const token = window.localStorage.getItem('token'); // 로컬 스토리지에서 토큰을 가져옵니다.
+  
+    try {
+      const response = await axios.get('https://dev.nangmancat.shop/store/user-coin', {
+        headers: {
+          //Authorization: `Bearer ${token}` // 토큰을 Authorization 헤더에 추가합니다.
+          Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
+        },
+      });
+  
+      return response.data.result; // API 응답 결과에서 코인의 값만 반환합니다.
+    } catch (error) {
+      console.error('Failed to fetch user coin', error);
+      return null; // 에러가 발생하면 null을 반환합니다.
+    }
+  };
+
+  const CoinDisplay = () => {
+  
+    useEffect(() => {
+      const fetchAndSetCoin = async () => {
+        const fetchedCoin = await fetchUserCoin(); // 코인을 조회합니다.
+        setCoin(fetchedCoin); // 조회한 코인의 값을 상태에 저장합니다.
+      };
+  
+      fetchAndSetCoin();
+    }, []);
+  };
 
   return (
     <div>
@@ -1044,7 +1082,7 @@ export default function StoreMain() {
           </ItemDiv>
           <CoinDiv>
             <CoinImg src={Coin} alt='코인' />
-            <CoinCountDiv>{coinCount}</CoinCountDiv>
+            <CoinCountDiv>{coin}</CoinCountDiv>
           </CoinDiv>
         </StoreInnerDiv>
         <StoreTitleText>상점</StoreTitleText>
@@ -1064,4 +1102,4 @@ export default function StoreMain() {
       {currentTab === 'tab2' && <StampPage />}
     </div>
   )
-}
+};

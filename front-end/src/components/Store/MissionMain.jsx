@@ -17,6 +17,7 @@ import MultiStamp4 from '../../assets/img/MultiStamp4.svg';
 import MultiStamp5 from '../../assets/img/MultiStamp5.svg';
 import WhiteCoin from '../../assets/img/WhiteCoin.svg';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 //미션 데이터
@@ -55,10 +56,11 @@ const StoreInnerDiv = styled.div`
 `;
 
 const ItemDiv = styled.div`
+  width: 100%;
   padding: 8px 10px;
   background: #D5C9BD;
   border-radius: 10px;
-  justify-content:-start;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 7px;
   display: flex;
@@ -86,20 +88,19 @@ const TextDiv = styled.div`
   font-family: 'Pretendard';
   font-weight: 600;
   line-height: 22px;
-  word-wrap: break-word;
+  white-space: nowrap;
 `;
 
 const CoinDiv = styled.div`
   padding-top: 7px;
   padding-bottom: 7px;
   justify-content: flex-start;
-  align-items: 'flex-start';
+  align-items: flex-start;
   gap: 8px;
   display: flex;
 `;
 
 const CoinCountDiv = styled.div`
-  width: 30.80px;
   color: black;
   font-size: 24px;
   font-family: 'Pretendard';
@@ -393,11 +394,14 @@ const NextButtonImg = styled.img`
 
 export default function MissionMain() {
   const navigate = useNavigate();
-
   const itemsPerPage = 12; // 한 페이지에 표시할 아이템 개수
   const totalPages = Math.ceil(dummyMission.length / itemsPerPage); // 전체 페이지 수
-
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
+  const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지에서 첫 번째 아이템의 인덱스
+  const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
+  const [clickedMissions, setClickedMissions] = useState({}); // 각 미션에 대한 개별적 클릭 관리
+  const [missions, setMissions] = useState([]);
+  const [missionDetail, setMissionDetail] = useState({});
 
   const handlePageChange = (page) => {
     setCurrentPage(page); // 페이지 변경
@@ -407,11 +411,6 @@ export default function MissionMain() {
     const lastPage = totalPages; // 마지막 페이지 번호
     handlePageChange(lastPage); // 마지막 페이지로 이동
   };
-
-  const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지에서 첫 번째 아이템의 인덱스
-  const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
-
-  const [clickedMissions, setClickedMissions] = useState({}); // 각 미션에 대한 개별적 클릭 관리
 
   const handleFlipClick = (id) => {
     const mission = dummyMission.find(mission => mission.missionID === id);
@@ -423,16 +422,21 @@ export default function MissionMain() {
       ...clickedMissions,
       [id]: true
     });
-  }
+  };
 
-  const [missions, setMissions] = useState([]);
   const fetchMissions = async () => {
     const token = window.localStorage.getItem("token");
 
     try {
       const response = await axios.get(`https://dev.nangmancat.shop/missions/`, {
         headers: {
-          Authorization: `Bearer ${token}`
+          //Authorization: `Bearer ${token}`
+          Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
+        },
+        params: {
+          page: currentPage - 1,
+          pageSize: itemsPerPage,
+          sort: 'latest'
         },
       });
   
@@ -447,15 +451,14 @@ export default function MissionMain() {
     fetchMissions();
   }, []);
   
-  
-  const [missionDetail, setMissionDetail] = useState({});
   const fetchMissionDetail = async (missionId) => {
     const token = window.localStorage.getItem("token");
 
     try {
       const response = await axios.get(`https://dev.nangmancat.shop/missions/${missionId}`, {
         headers: {
-          Authorization: `Bearer ${token}`
+          //Authorization: `Bearer ${token}`
+          Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
         },
       });
   
@@ -466,6 +469,37 @@ export default function MissionMain() {
     }
   };
 
+  const [coin, setCoin] = useState(0); // 코인의 값을 저장할 상태를 생성합니다.
+
+  const fetchUserCoin = async () => {
+    const token = window.localStorage.getItem('token'); // 로컬 스토리지에서 토큰을 가져옵니다.
+  
+    try {
+      const response = await axios.get('https://dev.nangmancat.shop/store/user-coin', {
+        headers: {
+          //Authorization: `Bearer ${token}` // 토큰을 Authorization 헤더에 추가합니다.
+          Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
+        },
+      });
+  
+      return response.data.result; // API 응답 결과에서 코인의 값만 반환합니다.
+    } catch (error) {
+      console.error('Failed to fetch user coin', error);
+      return null; // 에러가 발생하면 null을 반환합니다.
+    }
+  };
+
+  const CoinDisplay = () => {
+  
+    useEffect(() => {
+      const fetchAndSetCoin = async () => {
+        const fetchedCoin = await fetchUserCoin(); // 코인을 조회합니다.
+        setCoin(fetchedCoin); // 조회한 코인의 값을 상태에 저장합니다.
+      };
+  
+      fetchAndSetCoin();
+    }, []);
+  };
 
   return (
     <div>
@@ -482,7 +516,7 @@ export default function MissionMain() {
           </ItemDiv>
           <CoinDiv>
             <CoinImg src={Coin} alt='코인' />
-            <CoinCountDiv>30</CoinCountDiv>
+            <CoinCountDiv>{coin}</CoinCountDiv>
           </CoinDiv>
         </StoreInnerDiv>
         <StoreTitleText>미션</StoreTitleText>
@@ -491,18 +525,18 @@ export default function MissionMain() {
 
       <TabContentContainer>
         <MissionContainer>
-        {missions.slice(startIndex, endIndex).map((mission, index) => {
+        {missions && missions.slice(startIndex, endIndex).map((mission, index) => {
           let StampComponent, stampImgSrc, stampImgAlt;
-          const isCompleted = (mission.totalSteps === 1 && mission.completedSteps === 1) || (mission.totalSteps === 5 && mission.completedSteps === 5);
+          const isCompleted = (mission.steps === 1 && mission.stepsCompleted === 1) || (mission.steps === 5 && mission.stepsCompleted === 5);
           const isClicked = clickedMissions[mission.missionID];
 
-          if (mission.totalSteps === 1) {
+          if (mission.steps === 1) {
             StampComponent = SingleStampImg; // 도장이 하나만 찍히는 이미지 컴포넌트
-            stampImgSrc = mission.completedSteps === 0 ? SingleStamp0 : SingleStamp1;
+            stampImgSrc = mission.stepsCompleted === 0 ? SingleStamp0 : SingleStamp1;
             stampImgAlt = "하나의 도장";
-          } else if (mission.totalSteps === 5) {
+          } else if (mission.steps === 5) {
             StampComponent = MultiStampImg; // 도장이 최대 5개까지 찍히는 이미지 컴포넌트
-            switch (mission.completedSteps) {
+            switch (mission.stepsCompleted) {
               case 0:
                 stampImgSrc = MultiStamp0;
                 break;
@@ -528,7 +562,7 @@ export default function MissionMain() {
           }
 
             return (
-              <MissionBox key={mission.missionID}>
+              <MissionBox key={mission.missionId}>
                 <MissionInnerBox style={{ top: `${Math.floor(index / 3) * 314}px`, left: `${(index % 3) * 408}px` }}>
                   {isCompleted && isClicked ? (
                     <CompletedBackground>
@@ -540,12 +574,12 @@ export default function MissionMain() {
                     </CompletedBackground>
                   ) : (
                   <MissionFlipContainer 
-                    onClick={() => handleFlipClick(mission.missionID)}
-                    onMouseOver={() => fetchMissionDetail(mission.missionID)}
+                    onClick={() => handleFlipClick(mission.missionId)}
+                    onMouseOver={() => fetchMissionDetail(mission.missionId)}
                   >
                     <MissionBackground>
                       <MissionText>
-                        {mission.missionName}
+                        {mission.name}
                       </MissionText>
                       {mission.isEveryday && 
                         <EverydayContainer>
@@ -568,7 +602,7 @@ export default function MissionMain() {
             );
           })}
         </MissionContainer>
-
+        
         {/* 페이징 네비게이션 */}
         <PaginationContainer>
           <PageNumberContainer>
