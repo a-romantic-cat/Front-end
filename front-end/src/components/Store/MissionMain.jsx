@@ -581,7 +581,7 @@ export default function MissionMain() {
                       <MissionText>
                         {mission.name}
                       </MissionText>
-                      {mission.isEveryday && 
+                      {mission.everyday && 
                         <EverydayContainer>
                           <EverydayText>매일+</EverydayText>
                         </EverydayContainer>

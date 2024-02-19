@@ -15,7 +15,8 @@ import FileTypeCheckedCheckbox from '../../assets/img/FileTypeCheckedCheckbox.sv
 import UploadPlusButton from '../../assets/img/UploadPlusButton.svg';
 import UploadPlusButtonHover from '../../assets/img/UploadPlusButtonHover.svg';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { completeMission } from '../../redux/completeMission';
 
 //수집함 데이터
 const displayedItems = [
@@ -571,27 +572,34 @@ const NextButtonImg = styled.img`
 
 export default function MissionMain() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [currentTab, setCurrentTab] = useState('Letter'); // 초기 탭을 'Letter'로 설정
-  const letters = displayedItems.filter(item => item.itemType === 'Letter'); // 아이템 타입에 따라 아이템을 분류합니다.
-  const stamps = displayedItems.filter(item => item.itemType === 'Stamp');
-  const items = currentTab === 'Letter' ? letters : stamps; // 현재 탭에 따라 표시할 아이템을 결정합니다.
-  const itemsPerPage = 12; // 한 페이지에 표시할 아이템 개수
   const [totalPagesForLetters, setTotalPagesForLetters] = useState([]);
   const [totalPagesForStamps, setTotalPagesForStamps] = useState([]);
   const totalPages = currentTab === 'Letter' ? totalPagesForLetters : totalPagesForStamps; // 현재 탭에 따라 총 페이지 수를 결정합니다.
-  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
-  const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지에서 첫 번째 아이템의 인덱스
-  const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
+  const [currentPageForLetters, setCurrentPageForLetters] = useState(1); // 현재 페이지
+  const [currentPageForStamps, setCurrentPageForStamps] = useState(1); // 현재 페이지
   const [isCheckedTab1, setIsCheckedTab1] = useState(false); // 각 탭별 체크박스 상태를 관리하는 상태를 추가합니다.
   const [isCheckedTab2, setIsCheckedTab2] = useState(false);
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page); // 페이지 변경
+  const handlePageChange1 = (page) => {
+    console.log(`Changing to page ${page}`);
+    setCurrentPageForLetters(page); // 페이지 변경
   };
 
-  const handleNextPage = () => {
-    const lastPage = totalPages; // 마지막 페이지 번호
-    handlePageChange(lastPage); // 마지막 페이지로 이동
+  const handleNextPage1 = () => {
+    const lastPage = totalPagesForLetters; // 마지막 페이지 번호
+    handlePageChange1(lastPage); // 마지막 페이지로 이동
+  };
+
+  const handlePageChange2 = (page) => {
+    console.log(`Changing to page ${page}`);
+    setCurrentPageForStamps(page); // 페이지 변경
+  };
+
+  const handleNextPage2 = () => {
+    const lastPage = totalPagesForStamps; // 마지막 페이지 번호
+    handlePageChange2(lastPage); // 마지막 페이지로 이동
   };
 
   // 클릭 이벤트 처리 함수를 각각 만듭니다.
@@ -727,6 +735,66 @@ const handleFileChange = (e) => {
     }
   };
 
+  const [tabLetters, setTabLetters] = useState([]);
+
+  const fetchLetters = async () => {
+    const token = window.localStorage.getItem("token");
+    const response = await axios.get('https://dev.nangmancat.shop/my-collection/letter-paper', {
+      params: {
+        page: currentPageForLetters - 1,
+        pageSize: 12,
+        onlyMyDesign: isCheckedTab1
+      },
+      headers: {
+        Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
+      },
+    });
+  
+    if (response.data.isSuccess) {
+      console.log(response.data.result); // 응답 데이터를 콘솔에 출력합니다.
+      setTabLetters(response.data.result.content);
+      setTotalPagesForLetters(response.data.result.totalPages);
+    } else {
+      console.error(response.data.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchLetters();
+    console.log(`Current page is now ${currentPageForLetters}`);
+  }, [currentPageForLetters, isCheckedTab1]);
+
+  const [tabStamps, setTabStamps] = useState([]);
+
+  const fetchStamps = async () => {
+    const token = window.localStorage.getItem("token");
+    const response = await axios.get('https://dev.nangmancat.shop/my-collection/stamp', {
+      params: {
+        page: currentPageForStamps - 1,
+        pageSize: 12,
+        onlyMyDesign: isCheckedTab2
+      },
+      headers: {
+        //Authorization: `Bearer ${token}`
+        Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
+      },
+    });
+  
+    if (response.data.isSuccess) {
+      console.log(response.data.result); // 응답 데이터를 콘솔에 출력합니다.
+      setTabStamps(response.data.result.content);
+      setTotalPagesForStamps(response.data.result.totalPages);
+    } else {
+      console.error(response.data.message);
+    }
+  };
+  
+  useEffect(() => {
+    fetchStamps();
+    console.log(`Current page is now ${currentPageForStamps}`);
+  }, [currentPageForStamps, isCheckedTab2]);
+  
+
   const handleSaveClick = async () => {
     const token = window.localStorage.getItem("token");
   
@@ -750,6 +818,9 @@ const handleFileChange = (e) => {
   
       if (response.data.isSuccess) {
         alert('디자인이 성공적으로 등록되었습니다.');
+        fetchLetters();  // 편지지 저장 후 목록을 다시 불러옵니다.
+        fetchStamps();
+        dispatch(completeMission(6)); // 미션 ID가 1인 미션을 완료하였음을 서버에 알립니다.
       } else {
         alert('디자인 등록에 실패했습니다.');
       }
@@ -757,63 +828,7 @@ const handleFileChange = (e) => {
       console.error(error);
     }
   };
-  
 
-  const [tabLetters, setTabLetters] = useState([]);
-
-  useEffect(() => {
-    const fetchLetters = async () => {
-      const token = window.localStorage.getItem("token");
-      const response = await axios.get('https://dev.nangmancat.shop/my-collection/letter-paper', {
-        params: {
-          page: 0,
-          pageSize: 12,
-          onlyMyDesign: isCheckedTab1
-        },
-        headers: {
-          //Authorization: `Bearer ${token}`
-          Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
-        },
-      });
-
-      if (response.data.isSuccess) {
-        setTabLetters(response.data.result.content);
-        setTotalPagesForLetters(response.data.result.totalPages);
-      } else {
-        console.error(response.data.message);
-      }
-    };
-
-    fetchLetters();
-  }, [isCheckedTab1]);
-
-  const [tabStamps, setTabStamps] = useState([]);
-
-  useEffect(() => {
-    const fetchStamps = async () => {
-      const token = window.localStorage.getItem("token");
-      const response = await axios.get('https://dev.nangmancat.shop/my-collection/stamp', {
-        params: {
-          page: 0,
-          pageSize: 12,
-          onlyMyDesign: isCheckedTab2
-        },
-        headers: {
-          //Authorization: `Bearer ${token}`
-          Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
-        },
-      });
-
-      if (response.data.isSuccess) {
-        setTabStamps(response.data.result.content);
-        setTotalPagesForStamps(response.data.result.totalPages);
-      } else {
-        console.error(response.data.message);
-      }
-    };
-
-    fetchStamps();
-  }, [isCheckedTab2]);
 
   const [coin, setCoin] = useState(0); // 코인의 값을 저장할 상태를 생성합니다.
 
@@ -895,7 +910,7 @@ const handleFileChange = (e) => {
             </MyDesignButtonContainer>
 
             <LetterContainer>
-              {tabLetters && tabLetters.filter(item => item.itemType === 'Letter').map((letter, index) => (
+              {tabLetters && tabLetters.map((letter, index) => (
                 <LetterBox key={letter.letterPaperId}>
                   <LetterInnerBox style={{ top: `${Math.floor(index / 3) * 361}px`, left: `${(index % 3) * 408}px` }}>
                     <LetterBackground imageUrl={letter.letterPaperImageUrl} />
@@ -911,17 +926,17 @@ const handleFileChange = (e) => {
             <PaginationContainer>
               <PageNumberContainer>
                   {Array.from({ length: totalPagesForLetters }, (_, index) => (
-                    <PageButton active={currentPage === index + 1} key={index + 1}>
+                    <PageButton active={currentPageForLetters === index + 1} key={index + 1}>
                       <PageNumberText
-                        active={currentPage === index + 1}
-                        onClick={() => handlePageChange(index + 1)}
+                        active={currentPageForLetters === index + 1}
+                        onClick={() => handlePageChange1(index + 1)}
                       >
                         {index + 1}
                       </PageNumberText>
                     </PageButton>
                   ))}
               </PageNumberContainer>
-              <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage} />
+              <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage1} />
             </PaginationContainer>
           </Tab1ContentContainer>
         </div>
@@ -941,7 +956,7 @@ const handleFileChange = (e) => {
             </MyDesignButtonContainer>
 
             <StampContainer>
-              {tabStamps && tabStamps.filter(item => item.itemType === 'Stamp').slice(startIndex, endIndex).map((stamp, index) => (
+              {tabStamps && tabStamps.map((stamp, index) => (
                   <StampBox key={stamp.stampId}>
                     <StampInnerBox style={{ top: `${Math.floor(index / 4) * 482}px`, left: `${(index % 4) * 306}px` }}>
                       <StampBackground imageUrl={stamp.stampImageUrl} />
@@ -957,17 +972,17 @@ const handleFileChange = (e) => {
             <PaginationContainer>
               <PageNumberContainer>
                   {Array.from({ length: totalPagesForStamps }, (_, index) => (
-                    <PageButton active={currentPage === index + 1} key={index + 1}>
+                    <PageButton active={currentPageForStamps === index + 1} key={index + 1}>
                       <PageNumberText
-                        active={currentPage === index + 1}
-                        onClick={() => handlePageChange(index + 1)}
+                        active={currentPageForStamps === index + 1}
+                        onClick={() => handlePageChange2(index + 1)}
                       >
                         {index + 1}
                       </PageNumberText>
                     </PageButton>
                   ))}
               </PageNumberContainer>
-              <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage} />
+              <NextButtonImg src={다음버튼} alt="다음버튼" onClick={handleNextPage2} />
             </PaginationContainer>
           </Tab2ContentContainer>
         </div>

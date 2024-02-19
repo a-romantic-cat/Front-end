@@ -10,6 +10,7 @@ import CoinRed from '../../assets/img/CoinRed.svg';
 import 다음버튼 from '../../assets/img/다음버튼.svg';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import { completeMission } from '../../redux/completeMission';
 
 //상점 
 const StoreMainDiv = styled.div`
