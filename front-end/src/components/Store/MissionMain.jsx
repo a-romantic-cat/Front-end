@@ -378,11 +378,8 @@ const NextButtonImg = styled.img`
 
 export default function MissionMain() {
   const navigate = useNavigate();
-  const itemsPerPage = 12; // 한 페이지에 표시할 아이템 개수
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
-  const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지에서 첫 번째 아이템의 인덱스
-  const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
   const [clickedMissions, setClickedMissions] = useState({}); // 각 미션에 대한 개별적 클릭 관리
   const [missions, setMissions] = useState([]);
   const [missionDetail, setMissionDetail] = useState({});
@@ -399,13 +396,13 @@ export default function MissionMain() {
         },
         params: {
           page: currentPage - 1,
-          pageSize: itemsPerPage,
-          sort: 'latest'
+          pageSize: 12,
         },
       });
   
       // API 응답에서 미션 목록을 가져와 상태에 저장합니다.
       setMissions(response.data.result);
+      setTotalPages(Math.ceil(response.data.result.length / 12));
     } catch (error) {
       console.error('Failed to fetch missions', error);
     }
@@ -413,7 +410,7 @@ export default function MissionMain() {
 
   useEffect(() => {
     fetchMissions();
-  }, []);
+  }, [currentPage]);
   
   const fetchMissionDetail = async (missionId) => {
     const token = window.localStorage.getItem("token");
@@ -509,7 +506,7 @@ export default function MissionMain() {
 
       <TabContentContainer>
         <MissionContainer>
-        {missions && missions.slice(startIndex, endIndex).map((mission, index) => {
+        {missions && missions.map((mission, index) => {
           let StampComponent, stampImgSrc, stampImgAlt;
           const isCompleted = (mission.steps === 1 && mission.stepsCompleted === 1) || (mission.steps === 5 && mission.stepsCompleted === 5);
           const isClicked = clickedMissions[mission.missionID];
@@ -607,5 +604,4 @@ export default function MissionMain() {
     </div>
   )
 }
-
 
