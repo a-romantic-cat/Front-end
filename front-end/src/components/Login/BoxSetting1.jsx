@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 //입력안할시 다음으로 안넘길 것인지
@@ -120,6 +120,10 @@ export default function BoxSetting1() {
     const onInputHandler = (e) => {
         setLength(e.target.value.length);
     };
+
+    useEffect(()=>{
+        localStorage.setItem("boxname", boxname);
+    },[boxname])
 
     return(
         <div>

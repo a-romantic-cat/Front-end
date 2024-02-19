@@ -226,7 +226,14 @@ export default function Signin(){
         localStorage.setItem("Name",name);
         navigate("/Terms");
     };
+/*
+    const navigateToMakeLetterbox = () => {
+        localStorage.setItem("Name",name);
+        navigate("/login");
+    };*/
 
+
+    
     const navigateToMakeLetterbox = () => {
         navigate("/MakeLetterbox", {state:{name:`${name}`}});
     };

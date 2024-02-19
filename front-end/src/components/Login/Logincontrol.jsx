@@ -11,7 +11,7 @@ const CatImg = styled.img`
     margin-left:845px;
 `;  
 
-export default function Login() {
+export default function Logincontrol() {
 
     return(
         <div>

@@ -11,6 +11,7 @@ import Sad from '../../../assets/img/sad.svg';
 import Clober from '../../../assets/img/clober.svg';
 import Clap from '../../../assets/img/clap.svg';
 import Star from '../../../assets/img/starEmoji.svg';
+import axios from "axios";
 
 const Container = styled.div`
   box-sizing: border-box;
@@ -139,6 +140,7 @@ export default function MyWriting() {
     const opening=(location.state.openstate).toString();
     
     const [like, setLike]=useState(0); //공감수
+    const [writingArray, setWritingArray]=useState([]);
 
     const toCollectionMain = () => {
         navigate("/CollectionMain");
@@ -146,6 +148,23 @@ export default function MyWriting() {
     const toMyCollection = () => {
         navigate("/MyCollection");
     };
+
+    useEffect(()=>{
+        const getData=async()=>{
+            try{
+                const response = await axios.get('https://dev.nangmancat.shop/nangman-collection/my/nangmanletters', 
+                    {params:{
+                        page:0,
+                        pageSize:12
+                    }
+            });
+                setWritingArray(response.data.result);
+                console.log(response);}
+            catch(e){
+                console.log(e);}
+        };
+        getData();
+    },[])
 
     return(
         <div>
