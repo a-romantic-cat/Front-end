@@ -18,35 +18,6 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { completeMission } from '../../redux/completeMission';
 
-//수집함 데이터
-const displayedItems = [
-  {itemID: 1, itemName: "새로운 편지지", itemType: "Letter"},
-  {itemID: 2, itemName: "동물 모양 우표", itemType: "Stamp"},
-  {itemID: 3, itemName: "새로운 편지지", itemType: "Letter"},
-  {itemID: 4, itemName: "새로운 편지지", itemType: "Letter"},
-  {itemID: 5, itemName: "새로운 편지지", itemType: "Letter"},
-  {itemID: 6, itemName: "새로운 편지지", itemType: "Letter"},
-  {itemID: 7, itemName: "새로운 편지지", itemType: "Letter"},
-  {itemID: 8, itemName: "새로운 편지지", itemType: "Letter"},
-  {itemID: 9, itemName: "새로운 편지지", itemType: "Letter"},
-  {itemID: 10, itemName: "새로운 편지지", itemType: "Letter"},
-  {itemID: 11, itemName: "새로운 편지지", itemType: "Letter"},
-  {itemID: 12, itemName: "새로운 편지지", itemType: "Letter"},
-
-  {itemID: 13, itemName: "동물 모양 우표", itemType: "Stamp"},
-  {itemID: 15, itemName: "동물 모양 우표", itemType: "Stamp"},
-  {itemID: 16, itemName: "동물 모양 우표", itemType: "Stamp"},
-  {itemID: 18, itemName: "동물 모양 우표", itemType: "Stamp"},
-  {itemID: 19, itemName: "동물 모양 우표", itemType: "Stamp"},
-  {itemID: 20, itemName: "동물 모양 우표", itemType: "Stamp"},
-  {itemID: 21, itemName: "동물 모양 우표", itemType: "Stamp"},
-  {itemID: 22, itemName: "동물 모양 우표", itemType: "Stamp"},
-  {itemID: 23, itemName: "동물 모양 우표", itemType: "Stamp"},
-  {itemID: 24, itemName: "동물 모양 우표", itemType: "Stamp"},
-
-  {itemID: 25, itemName: "동물 모양 우표", itemType: "Stamp"},
-];
-
 //수집함 제목
 const StoreMainDiv = styled.div`
   width: 1194px;

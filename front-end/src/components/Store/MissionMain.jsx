@@ -20,22 +20,6 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
 
-//미션 데이터
-const dummyMission = [
-  {missionID: 1, missionName: "출석 체크", totalSteps: 1, isEveryday: true, description: "오늘의 로그인 코인을 획득하세요.", price: 5, completedSteps: 0, isCompleted: false},
-  {missionID: 2, missionName: "기본은 인사부터!", totalSteps: 5, isEveryday: true, description: "친구의 우편함에 방문해 편지를 작성하세요.", price: 5, completedSteps: 1, isCompleted: false},
-  {missionID: 3, missionName: "고민 해결!", totalSteps: 5, isEveryday: true, description: "낭만 우편함에서 답장을 적어주세요.", price: 5, completedSteps:2, isCompleted: false},
-  {missionID: 4, missionName: "친구를 찾아보자", totalSteps: 1, isEveryday: false, description: "친구를 1명 이상 추가해보세요.", price: 5, completedSteps: 1, isCompleted: true},
-  {missionID: 5, missionName: "행복한 순간을 기록하자", totalSteps: 5, isEveryday: false, description: "느린 우편함에서 나를 위한 편지를 적어보세요.", price: 5, completedSteps: 3, isCompleted: false},
-  {missionID: 6, missionName: "상점 첫구매 이벤트!", totalSteps: 1, isEveryday: false, description: "상점에서 무엇이든 구매하세요.", price: 5, completedSteps: 0, isCompleted: false},
-  {missionID: 7, missionName: "내가 만든 편지지", totalSteps: 5, isEveryday: false, description: "마이디자인에서 편지지를 등록해보세요.", price: 5, completedSteps: 4, isCompleted: false},
-  {missionID: 8, missionName: "나만의 우표", totalSteps: 5, isEveryday: false, description: "마이디자인에서 우표를 등록해보세요.", price: 5, completedSteps: 5, isCompleted: true},
-  {missionID: 9, missionName: "고민이 생겼다면?", totalSteps: 5, isEveryday: false, description: "낭만 우편함에서 편지를 작성하세요.", price: 5, completedSteps: 0, isCompleted: false},
-  {missionID: 10, missionName: "도전! 친구찾기", totalSteps: 5, isEveryday: false, description: "친구를 찾아 주소록을 채워보세요.", price: 5, completedSteps: 0, isCompleted: false},
-  {missionID: 11, missionName: "코인 쓰고 코인 받자", totalSteps: 5, isEveryday: false, description: "상점에서 무엇이든 구매하세요.", price: 5, completedSteps: 0, isCompleted: false},
-  {missionID: 12, missionName: "내 우편함을 소개합니다", totalSteps: 1, isEveryday: false, description: "내 우편함 링크를 공유해보세요.", price: 5, completedSteps: 0, isCompleted: false},
-];
-
 //미션 제목
 const StoreMainDiv = styled.div`
   width: 1194px;
@@ -395,7 +379,7 @@ const NextButtonImg = styled.img`
 export default function MissionMain() {
   const navigate = useNavigate();
   const itemsPerPage = 12; // 한 페이지에 표시할 아이템 개수
-  const totalPages = Math.ceil(dummyMission.length / itemsPerPage); // 전체 페이지 수
+  const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
   const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지에서 첫 번째 아이템의 인덱스
   const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
@@ -403,26 +387,6 @@ export default function MissionMain() {
   const [missions, setMissions] = useState([]);
   const [missionDetail, setMissionDetail] = useState({});
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page); // 페이지 변경
-  };
-
-  const handleNextPage = () => {
-    const lastPage = totalPages; // 마지막 페이지 번호
-    handlePageChange(lastPage); // 마지막 페이지로 이동
-  };
-
-  const handleFlipClick = (id) => {
-    const mission = dummyMission.find(mission => mission.missionID === id);
-    const isCompleted = (mission.totalSteps === 1 && mission.completedSteps === 1) || (mission.totalSteps === 5 && mission.completedSteps === 5);
-    
-    if (!isCompleted) return;
-  
-    setClickedMissions({
-      ...clickedMissions,
-      [id]: true
-    });
-  };
 
   const fetchMissions = async () => {
     const token = window.localStorage.getItem("token");
@@ -499,6 +463,26 @@ export default function MissionMain() {
   
       fetchAndSetCoin();
     }, []);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page); // 페이지 변경
+  };
+
+  const handleNextPage = () => {
+    const lastPage = totalPages; // 마지막 페이지 번호
+    handlePageChange(lastPage); // 마지막 페이지로 이동
+  };
+
+  const handleFlipClick = (id) => {
+    const isCompleted = (missions.totalSteps === 1 && missions.completedSteps === 1) || (missions.totalSteps === 5 && missions.completedSteps === 5);
+    
+    if (!isCompleted) return;
+  
+    setClickedMissions({
+      ...clickedMissions,
+      [id]: true
+    });
   };
 
   return (
