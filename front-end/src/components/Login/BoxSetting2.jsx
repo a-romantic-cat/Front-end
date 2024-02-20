@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import {format} from 'date-fns';
@@ -123,6 +123,14 @@ export default function BoxSetting2() {
     const navigateNext = () => {
         navigate("/BoxSetting3");
     };
+
+    useEffect(()=>{
+        localStorage.setItem("start", startvalue);
+    },[startvalue])
+
+    useEffect(()=>{
+        localStorage.setItem("end", endvalue);
+    },[endvalue])
 
     return(
         <div>

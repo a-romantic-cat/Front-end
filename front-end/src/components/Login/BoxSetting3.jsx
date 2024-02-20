@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import AfterCheck from '../../assets/img/SelectedCheckbox.svg';
@@ -130,15 +130,31 @@ export default function BoxSetting3() {
         navigate("/SettingEnd");
     };
 
+    const [toggle, setToggle]=useState();
+
     const ChangeCheck=(e)=>{
         const checkboxes = document.getElementsByName('check')
         
         for (let i = 0; i < 2; i++) {
             if (checkboxes[i] !== e) {
               checkboxes[i].checked = false;
+            }else{
+                if(i==0){
+                    setToggle(0);
+                }else{
+                    setToggle(1);
+                }
             }
         }
-    }   
+    }  
+    
+    useEffect(()=>{
+        if(toggle==0){
+            localStorage.setItem("open", "login");
+        }else{
+            localStorage.setItem("open", "anyone");
+        }
+    }, [toggle]);
 
     return(
         <div>

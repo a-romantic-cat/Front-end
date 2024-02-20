@@ -9,6 +9,7 @@ import WritingImg from '../../../assets/img/내가쓴편지.svg';
 import WritingImgWhite from '../../../assets/img/내가쓴편지2.svg';
 import ReplyingImg from '../../../assets/img/내가답장한편지.svg';
 import ReplyingImgRed from '../../../assets/img/내가답장한편지2.svg';
+import axios from "axios";
 
 const Container = styled.div`
   box-sizing: border-box;
@@ -210,9 +211,25 @@ const AfterBtn=styled.span`
     font-family:Pretendard;
     font-weight:Medium;
     cursor:pointer;
-`
+`/*
+async function getWriting() {
+    const response = await axios.get(`https://dev.nangmancat.shop/nangman-letterbox/nangman-letters`)
+    return response.data;
+}
+async function getReplying() {
+    const response = await axios.get(`https://dev.nangmancat.shop/nangman-letterbox/nangman-replies`)
+    return response.data;
+}*/
 
 export default function MyCollection() {
+/*
+    const [writing,setWriting] = useAsync(() => getWriting());
+    const [replying,setReplying] = useAsync(() => getReplying());  //id가 바뀔때마다 호출   
+
+    const { loading,error, data : users } = state;  //data값이 users로 들어감
+    if ( loading ) return <div>로딩중..</div>
+    if (error) return <div>에러 발생!!</div>
+    if (!users) return null;  //users값이 유효하지 않는 경우
 
     const WritingArray=[
         { id:0, text:"내가쓴거0다른like:400 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
@@ -261,7 +278,45 @@ export default function MyCollection() {
             like:15, open:false},
         { id:10, text:"10다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.다른 이들의 낭만 편지와 답장을 둘러보세요.",
             like:200, open:true},
-    ]
+    ]*/
+
+    const [WritingArray, setWritingArray]=useState([]);
+    const [ReplyingArray, setReplyingArray]=useState([]);
+
+    useEffect(()=>{
+        const getData=async()=>{
+            try{
+                const response = await axios.get('https://dev.nangmancat.shop/nangman-collection/my/nangman-letters/', 
+                    {params:{
+                        page:0,
+                        pageSize:6
+                    }
+            });
+                setWritingArray(response.data.result);
+                console.log(response);}
+            catch(e){
+                console.log(e);}
+        };
+        getData();
+    },[])
+
+    useEffect(()=>{
+        const getData=async()=>{
+            try{
+                const response = await axios.get('https://dev.nangmancat.shop/nangman-collection/my/nangman-replies/', 
+                    {params:{
+                        page:0,
+                        pageSize:6
+                    }
+            });
+                setReplyingArray(response.data.result);
+                console.log(response);}
+            catch(e){
+                console.log(e);}
+        };
+        getData();
+    },[])
+
 
     const [writingbtn, setWritingbtn]=useState(true);
     const [Replyingbtn, setReplyingbtn]=useState(false);
@@ -346,5 +401,8 @@ export default function MyCollection() {
         </div>
     )
 }
-
-//메인화면 흐리게 만드는 기법
+//편지 목록 조회
+//GET/nangman-letterbox/nangman-letters (내가 작성)
+//GET/nangman-letterbox/nangman-replies (내가 답장)
+//https://dev.nangmancat.shop/nangman-letterbox/nangman-letters
+//https://dev.nangmancat.shop/nangman-letterbox/nangman-replies

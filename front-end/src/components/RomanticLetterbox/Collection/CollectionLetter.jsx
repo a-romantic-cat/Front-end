@@ -230,5 +230,5 @@ export default function MyWriting() {
     )
 }
 
-//로컬스토리지에 업데이트되는 더미리스트 저장하고 가져오기
-//api연결
+//낭만모음집 전체 목록 조회/GET/nangman-collection/{nangmanLetterId}
+//편지 공감 /POST/nangman-collection/{nangmanLetterId}/like
