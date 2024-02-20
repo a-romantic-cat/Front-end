@@ -9,10 +9,12 @@ import MaskingTape from '../../assets/img/MaskingTape.svg';
 import 달력제목오른쪽 from '../../assets/img/달력제목오른쪽.svg';
 import 달력제목왼쪽 from '../../assets/img/달력제목왼쪽.svg';
 import 달력발자국도장 from '../../assets/img/달력발자국도장.svg';
+import SlowMemoImg from '../../assets/img/SlowMemoImg.svg';
 import DatePicker from 'react-datepicker'; //달력 기능 위해 react-datepicker 라이브러리 설치
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from 'date-fns/locale'; // 한국어 변경 위해 설치
 import { createGlobalStyle } from 'styled-components';
+import axios from 'axios';
 
 const SlowLetterboxContainer = styled.div`
   width: 60px;
@@ -162,7 +164,8 @@ const GrayBox = styled.div`
   left: 0;
   top: 0;
   position: absolute;
-  background: #E7E7E7;
+  background: url(${SlowMemoImg}) no-repeat center center;
+  background-size: cover;
   display: inline-flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -468,20 +471,7 @@ export default function SlowLetterboxToday() {
   };
 
   // 등록된 날짜를 저장하는 상태
-const [markedDates, setMarkedDates] = useState([]);
-
-// '등록하기' 버튼을 클릭했을 때 호출되는 함수
-const handleRedBoxClick = () => {
-  setIsEditMode(false); // 편집 모드를 종료
-
-  // 기존 Wrapper를 숨기고 새로운 Wrapper를 보이게 합니다.
-  setOldWrapperVisible(false);
-  setNewWrapperVisible(true);
-
-  // 현재 선택된 날짜를 markedDates 상태에 추가합니다.
-  // spread 연산자(...)를 사용하여 기존 배열에 새로운 요소를 추가
-  setMarkedDates([...markedDates, startDate]);
-};
+  const [markedDates, setMarkedDates] = useState([]);
 
   const handleTextBoxChange = (e) => {
     setTextBoxValue(e.target.value); // TextBox의 값 변경
@@ -520,18 +510,33 @@ const handleRedBoxClick = () => {
       setNewWrapperVisible(true);
       return;
     }
-};
+  };
 
-const getLastWeekStartDate = (year) => {
-  // 해당 연도의 마지막 날짜를 구합니다.
-  let lastDayOfYear = new Date(year, 11, 31);
+  const getLastWeekStartDate = (year) => {
+    // 해당 연도의 마지막 날짜를 구합니다.
+    let lastDayOfYear = new Date(year, 11, 31);
 
-  // 해당 연도의 마지막 날짜가 속한 주의 첫 번째 날짜를 구합니다.
-  let dayOfWeek = lastDayOfYear.getDay();
-  let lastWeekStartDate = new Date(lastDayOfYear.setDate(31 - dayOfWeek));
+    // 해당 연도의 마지막 날짜가 속한 주의 첫 번째 날짜를 구합니다.
+    let dayOfWeek = lastDayOfYear.getDay();
+    let lastWeekStartDate = new Date(lastDayOfYear.setDate(31 - dayOfWeek));
 
-  return lastWeekStartDate;
-}
+    return lastWeekStartDate;
+  }
+
+  const memberId = 25;
+
+  // '등록하기' 버튼을 클릭했을 때 호출되는 함수
+  const handleRedBoxClick = () => {
+    setIsEditMode(false); // 편집 모드를 종료
+
+    // 기존 Wrapper를 숨기고 새로운 Wrapper를 보이게 합니다.
+    setOldWrapperVisible(false);
+    setNewWrapperVisible(true);
+
+    // 현재 선택된 날짜를 markedDates 상태에 추가합니다.
+    // spread 연산자(...)를 사용하여 기존 배열에 새로운 요소를 추가
+    setMarkedDates([...markedDates, startDate]);
+  };
 
   return (
     <div>

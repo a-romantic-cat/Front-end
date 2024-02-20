@@ -11,6 +11,7 @@ import Sad from '../../../assets/img/sad.svg';
 import Clober from '../../../assets/img/clober.svg';
 import Clap from '../../../assets/img/clap.svg';
 import Star from '../../../assets/img/starEmoji.svg';
+import axios from "axios";
 
 const Container = styled.div`
   box-sizing: border-box;
@@ -42,11 +43,11 @@ const MainHeader = styled.div`
 const ClickHeader=styled.span`
     color:red;
     position:relative;
-    width:450px;
+    width:400px;
     height:60px;
     padding-bottom:12px;
-    padding-left:186px;
-    padding-right:150px;
+    padding-left:160px;
+    padding-right:172px;
     border-bottom:3.8px solid red;
     font-weight:600;
     font-family:Pretendard;
@@ -60,7 +61,7 @@ const BasicHeader=styled.span`
     height:60px;
     padding-bottom:12px;
     padding-left:210px;
-    padding-right:170px;
+    padding-right:172px;
     border-bottom:0.95px solid #CECECE;
     font-weight:200;
     font-family:Pretendard;
@@ -136,10 +137,10 @@ export default function MyWriting() {
 
     const navigate=useNavigate();
     const location = useLocation();
-    //const [open, setOpen]=useState(location.state.openstate)
     const opening=(location.state.openstate).toString();
     
     const [like, setLike]=useState(0); //공감수
+    const [writingArray, setWritingArray]=useState([]);
 
     const toCollectionMain = () => {
         navigate("/CollectionMain");
@@ -147,6 +148,23 @@ export default function MyWriting() {
     const toMyCollection = () => {
         navigate("/MyCollection");
     };
+
+    useEffect(()=>{
+        const getData=async()=>{
+            try{
+                const response = await axios.get('https://dev.nangmancat.shop/nangman-collection/my/nangmanletters', 
+                    {params:{
+                        page:0,
+                        pageSize:12
+                    }
+            });
+                setWritingArray(response.data.result);
+                console.log(response);}
+            catch(e){
+                console.log(e);}
+        };
+        getData();
+    },[])
 
     return(
         <div>

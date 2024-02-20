@@ -42,12 +42,12 @@ const TextLogo = styled.div`
 
 
 
-export default function CreateAccount() {
+export default function Signup() {
 
     const navigate = useNavigate();
 
     const navigateBack = () => {
-        navigate("/Login");
+        navigate("/login");
     };
 
     return(
@@ -57,8 +57,7 @@ export default function CreateAccount() {
                 <Logo><img src={logo} alt='logo' /></Logo>
                 <TextLogo>낭만고양이</TextLogo>
             </HeaderContainer>
-            <Signin />
-            
+            <Signin /> 
         </div>
     )
 }   

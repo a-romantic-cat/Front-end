@@ -52,3 +52,4 @@ export default function SettingEnd() {
         </div>
     )
 }
+//회원가입/POST/signUp

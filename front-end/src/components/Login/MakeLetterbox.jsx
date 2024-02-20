@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import letterboxRed from "../../assets/img/내우체통_Red.svg";
 import letterboxPink from "../../assets/img/내우체통_Pink.svg";
@@ -107,6 +107,20 @@ export default function MakeLetterbox(){
     }
 
     const [mainImg, setMainImg]=useState(colorList.img1);
+
+    useEffect(()=>{
+        if(mainImg==colorList.img1){
+            localStorage.setItem("letterbox", "red");
+        } else if(mainImg==colorList.img2){
+            localStorage.setItem("letterbox", "pink");
+        } else if(mainImg==colorList.img3){
+            localStorage.setItem("letterbox", "green");
+        } else if(mainImg==colorList.img4){
+            localStorage.setItem("letterbox", "blue");
+        } else {
+            localStorage.setItem("letterbox", "purple");
+        }
+    }, [mainImg])
 
     const location=useLocation();
     const name=location.state.name;

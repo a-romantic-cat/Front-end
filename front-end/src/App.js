@@ -20,7 +20,7 @@ import PastLetterbox1 from './components/MyLetterbox/PastLetterbox1';
 import PastLetterboxModal from './components/MyLetterbox/PastLetterboxModal';
 import PastLetterbox2 from './components/MyLetterbox/PastLetterbox2';
 import PastLetterbox3 from './components/MyLetterbox/PastLetterbox3';
-import CreateAccount from './components/Login/CreateAccount';
+import Signup from './components/Login/Signup';
 import Terms from './components/Login/Terms';
 import MakeLetterbox from './components/Login/MakeLetterbox';
 import MissionMain from './components/Store/MissionMain';
@@ -42,6 +42,7 @@ import Logout from "./components/MyPage/Logout";
 import Delete from "./components/MyPage/Delete";
 import Privacy from "./components/MyPage/Privacy";
 import Use from "./components/MyPage/Use";
+import afterSignup from "./components/Login/Login";
 
 
 
@@ -63,7 +64,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/CreateAccount" element={<CreateAccount />} />
+          <Route path="/Signup" element={<Signup />} />
           <Route path="/MyLetterbox" element={<MyLetterbox />} />
           <Route path="/AddressBook" element={<AddressBook />} />
           <Route path="/RomanticLetterbox" element={<RomanticLetterbox />} />
@@ -102,6 +103,7 @@ function App() {
           <Route path="/Delete" element={<Delete />} />
           <Route path="/Privacy" element={<Privacy />} />
           <Route path="/Use" element={<Use />} />
+          <Route path="/AfterSignup" element={<afterSignup />} />
         </Routes>
       </BrowserRouter>
     </div>

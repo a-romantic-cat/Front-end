@@ -78,11 +78,11 @@ const XButtonImg = styled.img`
 `;
 
 const StampCollectionInnerContainer = styled.div`
-  width: 957px;
-  height: 614px;
+  width: 886px;
+  height: 586px;
   position: absolute;
-  left: 0;
-  top: 59px;
+  left: 71px;
+  top: 87px;
   background: #DCBC64;
   overflow-y: scroll; // 세로 방향으로 스크롤 허용
   overflow-x: hidden; // 가로 방향으로 스크롤 제거
@@ -122,6 +122,18 @@ const SubContainer = styled.div`
 `;
 
 const StampContainer = styled.div`
+  width: 166px;
+  height: 221px;
+  position: absolute;
+  background: white;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  cursor: pointer;
+`;
+
+const StampItem = styled.div`
   width: 166px;
   height: 221px;
   position: absolute;
@@ -209,21 +221,18 @@ export default function OpenLetter1() {
         <XButtonImg src={XButton} alt='XButton' onClick={navigateToMyLetterbox}/>
         <StampCollectionInnerContainer>
           {
-            // subContainerPositions 배열을 순회하면서 SubContainer 컴포넌트를 생성합니다.
-            subContainerPositions.map((top) => (
-              <SubContainer style={{ top }}>
-                {
-                  // stampContainerPositions 배열을 순회하면서 StampContainer 컴포넌트를 생성합니다.
-                  stampContainerPositions.map((left) => (
-                    <div>
-                      <StampContainer style={{ left }} onClick={() => setIsModalOpen(true)}>
-                        <DropButtonImg src={DropButton} alt='DropButton' />
-                        <StampText>우표</StampText>
-                      </StampContainer>
-                    </div>
-                  ))
-                }
-              </SubContainer>
+            // 배열의 길이를 12로 설정하여 12개의 아이템을 생성합니다.
+            Array.from({ length: 12 }).map((_, index) => (
+              <StampItem
+                style={{
+                  top: `${Math.floor(index / 4) * 279}px`, 
+                  left: `${(index % 4) * 227}px`
+                }}
+                onClick={() => setIsModalOpen(true)}
+              >
+                <DropButtonImg src={DropButton} alt='DropButton' />
+                <StampText>우표</StampText>
+              </StampItem>
             ))
           }
         </StampCollectionInnerContainer>
