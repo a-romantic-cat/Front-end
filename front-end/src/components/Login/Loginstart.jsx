@@ -68,12 +68,9 @@ export default function Loginstart() {
         const NaverURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${naver_client_id}&state=false&redirect_uri=${redirect_uri}`;
     
         useEffect(() => {
-            const fetchData = async (nickname, email) => {
+            const fetchData = async () => {
                 try {
-                    const data = {
-                        nickname:nickname
-                    };
-                    const response = await axios.post(`https://dev.nangmancat.shop?email=${email}`, data);
+                    const response = await axios.get("http://localhost:3000");
                     console.log("응답 확인", response);
                     const token = response.headers.authorization;
                     localStorage.setItem("token", token);
@@ -83,7 +80,7 @@ export default function Loginstart() {
                 }
             };
         
-            fetchData("사용자닉네임", "사용자이메일@example.com");
+            fetchData();
         }, []);
         
         return (
@@ -93,7 +90,7 @@ export default function Loginstart() {
 
     const Googlehandle = () => {
         const googleURL= `https://accounts.google.com/o/oauth2/v2/auth?client_id=${google_client_id}&redirect_uri=${gredirect_uri}&response_type=code&scope=email`;
-        //const code = new URL(window.location.href).searchParams.get("code"); //인가코드 받아오기
+        const code = new URL(window.location.href).searchParams.get("code"); //인가코드
     
     useEffect(() => {
         const fetchData = async () => {
