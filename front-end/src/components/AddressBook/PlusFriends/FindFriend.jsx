@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import SoleOfCat from '../../../assets/img/Sole.svg';
 import AddFriend from '../../../assets/img/친구추가.svg'; 
 import CompleteFriend from '../../../assets/img/친구추가완료.svg';
+import { useDispatch } from 'react-redux';
+import { completeMission } from '../../../redux/completeMission';
 
 const FindFriendCon = styled.div`
   width: 522px;
@@ -51,10 +53,12 @@ const Add = styled.img`
 `;
 
 const FindFriend = ({searchResult}) => {
+  const dispatch = useDispatch();
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   // 친구 요청 보내기 누르면 -> 친구 요청 완료로 변경 및 이미지 변경
   const handleBtnClick = () => {
     setFriendRequestSent(!friendRequestSent);
+    dispatch(completeMission(4)); // 친구 요청 성공 후 미션 완료 알림을 서버에 전송
   };
 
   return (

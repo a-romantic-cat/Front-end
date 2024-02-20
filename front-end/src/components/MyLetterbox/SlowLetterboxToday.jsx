@@ -15,6 +15,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ko } from 'date-fns/locale'; // 한국어 변경 위해 설치
 import { createGlobalStyle } from 'styled-components';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { completeMission } from '../../redux/completeMission';
 
 const SlowLetterboxContainer = styled.div`
   width: 60px;
@@ -460,6 +462,7 @@ export default function SlowLetterboxToday() {
   const [isOldWrapperVisible, setOldWrapperVisible] = React.useState(true); // 편집 모드로 글쓰는 기능 wrapper
   const [isNewWrapperVisible, setNewWrapperVisible] = React.useState(false); // 블러 백그라운드 wrapper
   const [startDate, setStartDate] = useState(new Date());
+  const dispatch = useDispatch();
 
   const today = new Date(); // 오늘의 날짜를 가져옴
   const year = today.getFullYear(); // 연도
@@ -536,6 +539,8 @@ export default function SlowLetterboxToday() {
     // 현재 선택된 날짜를 markedDates 상태에 추가합니다.
     // spread 연산자(...)를 사용하여 기존 배열에 새로운 요소를 추가
     setMarkedDates([...markedDates, startDate]);
+
+    dispatch(completeMission(5));
   };
 
   return (

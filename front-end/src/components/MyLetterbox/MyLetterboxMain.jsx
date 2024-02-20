@@ -12,6 +12,8 @@ import 친구요청완료버튼 from '../../assets/img/친구요청완료버튼.
 import 친구상태버튼 from '../../assets/img/친구상태버튼.svg';
 import 우편함만들기버튼 from '../../assets/img/우편함만들기버튼.svg';
 import Info from './Info';
+import { useDispatch } from 'react-redux';
+import { completeMission } from '../../redux/completeMission';
 
 //닉네임님의 우편함이름
 const Container = styled.div`
@@ -307,6 +309,7 @@ const BoxCheckText = styled.div`
 
 export default function MyLetterboxMain() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
 
   const navigateToCheck1 = () => {
@@ -376,7 +379,10 @@ export default function MyLetterboxMain() {
         text: 'Check out this website:',
         url: window.location.href, // 현재 페이지의 URL
       })
-      .then(() => console.log('Successful share'))
+      .then(() => {
+        console.log('Successful share');
+        dispatch(completeMission(12)); // 링크 공유 성공 후 미션 완료 알림을 서버에 전송
+      })
       .catch(error => console.log('Error sharing:', error));
     } else {
       // 웹 공유 API를 지원하지 않는 브라우저에서는 다른 방식으로 공유 기능을 구현합니다.

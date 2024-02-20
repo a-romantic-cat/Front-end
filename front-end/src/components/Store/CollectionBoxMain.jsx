@@ -791,7 +791,11 @@ const handleFileChange = (e) => {
         alert('디자인이 성공적으로 등록되었습니다.');
         fetchLetters();  // 편지지 저장 후 목록을 다시 불러옵니다.
         fetchStamps();
-        dispatch(completeMission(6)); // 미션 ID가 1인 미션을 완료하였음을 서버에 알립니다.
+        if (checkedContainer === 'letter') {
+          dispatch(completeMission(7)); // 편지지 마이디자인 등록일 때 미션 완료 알림을 서버에 전송
+        } else if (checkedContainer === 'stamp') {
+          dispatch(completeMission(8)); // 우표 마이디자인 등록일 때 미션 완료 알림을 서버에 전송
+        }
       } else {
         alert('디자인 등록에 실패했습니다.');
       }

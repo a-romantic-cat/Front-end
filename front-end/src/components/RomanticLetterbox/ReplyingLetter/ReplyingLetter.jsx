@@ -4,6 +4,8 @@ import Header from '../../Header/Header';
 import twinkle from '../../../assets/img/반짝.svg';
 import letterString from '../../../assets/img/줄.svg';
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { completeMission } from '../../../redux/completeMission';
 
 // 기본 화면 및 배경 => 배경화면 나중에 뷰포트 기준으로 바꿀 예정?
 const Container = styled.div`
@@ -197,6 +199,7 @@ const SendButton = styled.button`
   right: 70px;
 `;
 const ReplyingLetter = () => {
+  const dispatch = useDispatch();
   const [letterContent, setLetterContent] = useState('');
   const handleLetterChange = (event) => {
     const content = event.target.value;
@@ -208,6 +211,7 @@ const ReplyingLetter = () => {
   const navigate = useNavigate(); 
   const handleNavigateToCompletedLetterReplying = () => {
     navigate('/CompletedLetterReplying');  
+    dispatch(completeMission(3)); // 답장 성공 후 해당 미션 완료 알림을 서버에 전송
   };
   return (
     <div>

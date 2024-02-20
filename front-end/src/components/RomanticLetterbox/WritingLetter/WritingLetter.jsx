@@ -4,6 +4,8 @@ import Header from '../../Header/Header';
 import twinkle from '../../../assets/img/반짝.svg';
 import letterString from '../../../assets/img/줄.svg';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { completeMission } from '../../../redux/completeMission';
 
 // 기본 화면 및 배경 => 배경화면 나중에 뷰포트 기준으로 바꿀 예정?
 const Container = styled.div`
@@ -237,8 +239,10 @@ const SendButton = styled.button`
 `;
 const WritingLetter = () => {
   const navigate = useNavigate(); 
+  const dispatch = useDispatch();
   const handleNavigateToCompletedLetterWriting = () => {
     navigate('/CompletedLetterWriting');  
+    dispatch(completeMission(9)); // 편지 작성 성공 후 해당 미션 완료 알림을 서버에 전송
   };
   // 동의 비동의 체크박스를 하나만 선택하기 위함
   const [agreeChecked, setAgreeChecked] = useState(false);
