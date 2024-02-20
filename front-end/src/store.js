@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import coinReducer from '../src/redux/coinSlice';
+import missionsReducer from "../src/redux/completeMission";
 
 const store = configureStore({
   reducer: {
-    coin: coinReducer,
+    missions: missionsReducer,
   },
 });
+
 export default store;

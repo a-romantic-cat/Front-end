@@ -17,23 +17,8 @@ import MultiStamp4 from '../../assets/img/MultiStamp4.svg';
 import MultiStamp5 from '../../assets/img/MultiStamp5.svg';
 import WhiteCoin from '../../assets/img/WhiteCoin.svg';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 
-
-//미션 데이터
-const dummyMission = [
-  {missionID: 1, missionName: "출석 체크", totalSteps: 1, isEveryday: true, description: "오늘의 로그인 코인을 획득하세요.", price: 5, completedSteps: 0, isCompleted: false},
-  {missionID: 2, missionName: "기본은 인사부터!", totalSteps: 5, isEveryday: true, description: "친구의 우편함에 방문해 편지를 작성하세요.", price: 5, completedSteps: 1, isCompleted: false},
-  {missionID: 3, missionName: "고민 해결!", totalSteps: 5, isEveryday: true, description: "낭만 우편함에서 답장을 적어주세요.", price: 5, completedSteps:2, isCompleted: false},
-  {missionID: 4, missionName: "친구를 찾아보자", totalSteps: 1, isEveryday: false, description: "친구를 1명 이상 추가해보세요.", price: 5, completedSteps: 1, isCompleted: true},
-  {missionID: 5, missionName: "행복한 순간을 기록하자", totalSteps: 5, isEveryday: false, description: "느린 우편함에서 나를 위한 편지를 적어보세요.", price: 5, completedSteps: 3, isCompleted: false},
-  {missionID: 6, missionName: "상점 첫구매 이벤트!", totalSteps: 1, isEveryday: false, description: "상점에서 무엇이든 구매하세요.", price: 5, completedSteps: 0, isCompleted: false},
-  {missionID: 7, missionName: "내가 만든 편지지", totalSteps: 5, isEveryday: false, description: "마이디자인에서 편지지를 등록해보세요.", price: 5, completedSteps: 4, isCompleted: false},
-  {missionID: 8, missionName: "나만의 우표", totalSteps: 5, isEveryday: false, description: "마이디자인에서 우표를 등록해보세요.", price: 5, completedSteps: 5, isCompleted: true},
-  {missionID: 9, missionName: "고민이 생겼다면?", totalSteps: 5, isEveryday: false, description: "낭만 우편함에서 편지를 작성하세요.", price: 5, completedSteps: 0, isCompleted: false},
-  {missionID: 10, missionName: "도전! 친구찾기", totalSteps: 5, isEveryday: false, description: "친구를 찾아 주소록을 채워보세요.", price: 5, completedSteps: 0, isCompleted: false},
-  {missionID: 11, missionName: "코인 쓰고 코인 받자", totalSteps: 5, isEveryday: false, description: "상점에서 무엇이든 구매하세요.", price: 5, completedSteps: 0, isCompleted: false},
-  {missionID: 12, missionName: "내 우편함을 소개합니다", totalSteps: 1, isEveryday: false, description: "내 우편함 링크를 공유해보세요.", price: 5, completedSteps: 0, isCompleted: false},
-];
 
 //미션 제목
 const StoreMainDiv = styled.div`
@@ -55,10 +40,11 @@ const StoreInnerDiv = styled.div`
 `;
 
 const ItemDiv = styled.div`
+  width: 100%;
   padding: 8px 10px;
   background: #D5C9BD;
   border-radius: 10px;
-  justify-content:-start;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 7px;
   display: flex;
@@ -86,20 +72,19 @@ const TextDiv = styled.div`
   font-family: 'Pretendard';
   font-weight: 600;
   line-height: 22px;
-  word-wrap: break-word;
+  white-space: nowrap;
 `;
 
 const CoinDiv = styled.div`
   padding-top: 7px;
   padding-bottom: 7px;
   justify-content: flex-start;
-  align-items: 'flex-start';
+  align-items: flex-start;
   gap: 8px;
   display: flex;
 `;
 
 const CoinCountDiv = styled.div`
-  width: 30.80px;
   color: black;
   font-size: 24px;
   font-family: 'Pretendard';
@@ -393,51 +378,31 @@ const NextButtonImg = styled.img`
 
 export default function MissionMain() {
   const navigate = useNavigate();
-
-  const itemsPerPage = 12; // 한 페이지에 표시할 아이템 개수
-  const totalPages = Math.ceil(dummyMission.length / itemsPerPage); // 전체 페이지 수
-
+  const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page); // 페이지 변경
-  };
-
-  const handleNextPage = () => {
-    const lastPage = totalPages; // 마지막 페이지 번호
-    handlePageChange(lastPage); // 마지막 페이지로 이동
-  };
-
-  const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지에서 첫 번째 아이템의 인덱스
-  const endIndex = startIndex + itemsPerPage; // 현재 페이지에서 마지막 아이템의 인덱스
-
   const [clickedMissions, setClickedMissions] = useState({}); // 각 미션에 대한 개별적 클릭 관리
-
-  const handleFlipClick = (id) => {
-    const mission = dummyMission.find(mission => mission.missionID === id);
-    const isCompleted = (mission.totalSteps === 1 && mission.completedSteps === 1) || (mission.totalSteps === 5 && mission.completedSteps === 5);
-    
-    if (!isCompleted) return;
-  
-    setClickedMissions({
-      ...clickedMissions,
-      [id]: true
-    });
-  }
-
   const [missions, setMissions] = useState([]);
+  const [missionDetail, setMissionDetail] = useState({});
+
+
   const fetchMissions = async () => {
     const token = window.localStorage.getItem("token");
 
     try {
       const response = await axios.get(`https://dev.nangmancat.shop/missions/`, {
         headers: {
-          Authorization: `Bearer ${token}`
+          //Authorization: `Bearer ${token}`
+          Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
+        },
+        params: {
+          page: currentPage - 1,
+          pageSize: 12,
         },
       });
   
       // API 응답에서 미션 목록을 가져와 상태에 저장합니다.
       setMissions(response.data.result);
+      setTotalPages(Math.ceil(response.data.result.length / 12));
     } catch (error) {
       console.error('Failed to fetch missions', error);
     }
@@ -445,17 +410,16 @@ export default function MissionMain() {
 
   useEffect(() => {
     fetchMissions();
-  }, []);
+  }, [currentPage]);
   
-  
-  const [missionDetail, setMissionDetail] = useState({});
   const fetchMissionDetail = async (missionId) => {
     const token = window.localStorage.getItem("token");
 
     try {
       const response = await axios.get(`https://dev.nangmancat.shop/missions/${missionId}`, {
         headers: {
-          Authorization: `Bearer ${token}`
+          //Authorization: `Bearer ${token}`
+          Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
         },
       });
   
@@ -466,6 +430,57 @@ export default function MissionMain() {
     }
   };
 
+  const [coin, setCoin] = useState(0); // 코인의 값을 저장할 상태를 생성합니다.
+
+  const fetchUserCoin = async () => {
+    const token = window.localStorage.getItem('token'); // 로컬 스토리지에서 토큰을 가져옵니다.
+  
+    try {
+      const response = await axios.get('https://dev.nangmancat.shop/store/user-coin', {
+        headers: {
+          //Authorization: `Bearer ${token}` // 토큰을 Authorization 헤더에 추가합니다.
+          Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
+        },
+      });
+  
+      return response.data.result; // API 응답 결과에서 코인의 값만 반환합니다.
+    } catch (error) {
+      console.error('Failed to fetch user coin', error);
+      return null; // 에러가 발생하면 null을 반환합니다.
+    }
+  };
+
+  const CoinDisplay = () => {
+  
+    useEffect(() => {
+      const fetchAndSetCoin = async () => {
+        const fetchedCoin = await fetchUserCoin(); // 코인을 조회합니다.
+        setCoin(fetchedCoin); // 조회한 코인의 값을 상태에 저장합니다.
+      };
+  
+      fetchAndSetCoin();
+    }, []);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page); // 페이지 변경
+  };
+
+  const handleNextPage = () => {
+    const lastPage = totalPages; // 마지막 페이지 번호
+    handlePageChange(lastPage); // 마지막 페이지로 이동
+  };
+
+  const handleFlipClick = (id) => {
+    const isCompleted = (missions.totalSteps === 1 && missions.completedSteps === 1) || (missions.totalSteps === 5 && missions.completedSteps === 5);
+    
+    if (!isCompleted) return;
+  
+    setClickedMissions({
+      ...clickedMissions,
+      [id]: true
+    });
+  };
 
   return (
     <div>
@@ -482,7 +497,7 @@ export default function MissionMain() {
           </ItemDiv>
           <CoinDiv>
             <CoinImg src={Coin} alt='코인' />
-            <CoinCountDiv>30</CoinCountDiv>
+            <CoinCountDiv>{coin}</CoinCountDiv>
           </CoinDiv>
         </StoreInnerDiv>
         <StoreTitleText>미션</StoreTitleText>
@@ -491,18 +506,18 @@ export default function MissionMain() {
 
       <TabContentContainer>
         <MissionContainer>
-        {missions.slice(startIndex, endIndex).map((mission, index) => {
+        {missions && missions.map((mission, index) => {
           let StampComponent, stampImgSrc, stampImgAlt;
-          const isCompleted = (mission.totalSteps === 1 && mission.completedSteps === 1) || (mission.totalSteps === 5 && mission.completedSteps === 5);
+          const isCompleted = (mission.steps === 1 && mission.stepsCompleted === 1) || (mission.steps === 5 && mission.stepsCompleted === 5);
           const isClicked = clickedMissions[mission.missionID];
 
-          if (mission.totalSteps === 1) {
+          if (mission.steps === 1) {
             StampComponent = SingleStampImg; // 도장이 하나만 찍히는 이미지 컴포넌트
-            stampImgSrc = mission.completedSteps === 0 ? SingleStamp0 : SingleStamp1;
+            stampImgSrc = mission.stepsCompleted === 0 ? SingleStamp0 : SingleStamp1;
             stampImgAlt = "하나의 도장";
-          } else if (mission.totalSteps === 5) {
+          } else if (mission.steps === 5) {
             StampComponent = MultiStampImg; // 도장이 최대 5개까지 찍히는 이미지 컴포넌트
-            switch (mission.completedSteps) {
+            switch (mission.stepsCompleted) {
               case 0:
                 stampImgSrc = MultiStamp0;
                 break;
@@ -528,7 +543,7 @@ export default function MissionMain() {
           }
 
             return (
-              <MissionBox key={mission.missionID}>
+              <MissionBox key={mission.missionId}>
                 <MissionInnerBox style={{ top: `${Math.floor(index / 3) * 314}px`, left: `${(index % 3) * 408}px` }}>
                   {isCompleted && isClicked ? (
                     <CompletedBackground>
@@ -540,14 +555,14 @@ export default function MissionMain() {
                     </CompletedBackground>
                   ) : (
                   <MissionFlipContainer 
-                    onClick={() => handleFlipClick(mission.missionID)}
-                    onMouseOver={() => fetchMissionDetail(mission.missionID)}
+                    onClick={() => handleFlipClick(mission.missionId)}
+                    onMouseOver={() => fetchMissionDetail(mission.missionId)}
                   >
                     <MissionBackground>
                       <MissionText>
-                        {mission.missionName}
+                        {mission.name}
                       </MissionText>
-                      {mission.isEveryday && 
+                      {mission.everyday && 
                         <EverydayContainer>
                           <EverydayText>매일+</EverydayText>
                         </EverydayContainer>
@@ -568,7 +583,7 @@ export default function MissionMain() {
             );
           })}
         </MissionContainer>
-
+        
         {/* 페이징 네비게이션 */}
         <PaginationContainer>
           <PageNumberContainer>
@@ -589,5 +604,4 @@ export default function MissionMain() {
     </div>
   )
 }
-
 
