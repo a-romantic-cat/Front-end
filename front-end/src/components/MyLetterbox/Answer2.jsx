@@ -56,7 +56,7 @@ const LetterConatiner = styled.div`
 
 //왼쪽 컨테이너
 const WhiteLetterContainer = styled.div`
-  background-image: url("/images/더흰편지지.svg");
+  //background-image: url("/images/더흰편지지.svg");
   background-size: cover;
   width: 480px;
   height: 287.33566px;
@@ -253,6 +253,7 @@ const Letter = styled.div`
   background-color: #FFF;
   width: 150px;
   height: 89.94976px;
+  cursor: pointer;
 `;
 
 //버튼 3개 컨테이너
@@ -369,6 +370,11 @@ const Answer2 = () => {
     setCheck(!check);
   }
 
+  const [selectedColor, setSelectedColor] = useState('');
+  const handleColorClick = (color) => { // 오른쪽 클릭하면 왼쪽에 적용되게
+    setSelectedColor(color);
+  };
+
   return (
     <div>
       <Header />
@@ -385,7 +391,7 @@ const Answer2 = () => {
       </TextContainer>
 
       <LetterConatiner>
-        <WhiteLetterContainer>
+        <WhiteLetterContainer style={{ backgroundImage: selectedColor ? 'none' : 'url("/images/더흰편지지.svg")', backgroundColor: selectedColor }}> 
           <ContentContainer>
             <ToContainer>
               <ToMyNickname>
@@ -435,110 +441,83 @@ const Answer2 = () => {
 
           <NineLetterContainer>
             <ThreeLetterContainer>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#EECFD4' }} onClick={() => handleColorClick('#EECFD4')} alt='편지지'>
               </Letter>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#E3A9A5' }} onClick={() => handleColorClick('#E3A9A5')} alt='편지지'>
               </Letter>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#FE9D97' }} onClick={() => handleColorClick('#FE9D97')} alt='편지지'>
               </Letter>
             </ThreeLetterContainer>
 
             <ThreeLetterContainer>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#FC5FA0' }} onClick={() => handleColorClick('#FC5FA0')} alt='편지지'>
               </Letter>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#F1605D' }} onClick={() => handleColorClick('#F1605D')} alt='편지지'>
               </Letter>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#8A0F0A' }} onClick={() => handleColorClick('#8A0F0A')} alt='편지지'>
               </Letter>
             </ThreeLetterContainer>
 
             <ThreeLetterContainer>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#EBDED5' }} onClick={() => handleColorClick('#EBDED5')} alt='편지지'>
               </Letter>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#ECCCB3' }} onClick={() => handleColorClick('#ECCCB3')} alt='편지지'>
               </Letter>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#E19E6A' }} onClick={() => handleColorClick('#E19E6A')} alt='편지지'>
               </Letter>
             </ThreeLetterContainer>
 
             <ThreeLetterContainer>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#FFEBAE' }} onClick={() => handleColorClick('#FFEBAE')} alt='편지지'>
               </Letter>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#FBD165' }} onClick={() => handleColorClick('#FBD165')} alt='편지지'>
               </Letter>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#DCDBD7' }} onClick={() => handleColorClick('#DCDBD7')} alt='편지지'>
               </Letter>
             </ThreeLetterContainer>
 
             <ThreeLetterContainer>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#D5E5E2' }} onClick={() => handleColorClick('#D5E5E2')} alt='편지지'>
               </Letter>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#C6CDBD' }} onClick={() => handleColorClick('#C6CDBD')} alt='편지지'>
               </Letter>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#92BB9B' }} onClick={() => handleColorClick('#92BB9B')} alt='편지지'>
               </Letter>
             </ThreeLetterContainer>
 
             <ThreeLetterContainer>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#8BBDB1' }} onClick={() => handleColorClick('#8BBDB1')} alt='편지지'>
               </Letter>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#627272' }} onClick={() => handleColorClick('#627272')} alt='편지지'>
               </Letter>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#26656E' }} onClick={() => handleColorClick('#26656E')} alt='편지지'>
               </Letter>
             </ThreeLetterContainer>
 
             <ThreeLetterContainer>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#26330E' }} onClick={() => handleColorClick('#26330E')} alt='편지지'>
               </Letter>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#7CB8C0' }} onClick={() => handleColorClick('#7CB8C0')} alt='편지지'>
               </Letter>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#BDC9D8' }} onClick={() => handleColorClick('#BDC9D8')} alt='편지지'>
               </Letter>
             </ThreeLetterContainer>
 
             <ThreeLetterContainer>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#BFC6E6' }} onClick={() => handleColorClick('#BFC6E6')} alt='편지지'>
               </Letter>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#80A0E9' }} onClick={() => handleColorClick('#80A0E9')} alt='편지지'>
               </Letter>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#6056B4' }} onClick={() => handleColorClick('#6056B4')} alt='편지지'>
               </Letter>
             </ThreeLetterContainer>
 
             <ThreeLetterContainer>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#232E34' }} onClick={() => handleColorClick('#232E34')} alt='편지지'>
               </Letter>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#C1B1D7' }} onClick={() => handleColorClick('#C1B1D7')} alt='편지지'>
               </Letter>
-              <Letter>
-                편지지
+              <Letter style={{ backgroundColor: '#543787' }} onClick={() => handleColorClick('#543787')} alt='편지지'>
               </Letter>
             </ThreeLetterContainer>
           </NineLetterContainer>
