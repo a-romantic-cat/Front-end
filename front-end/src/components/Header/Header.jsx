@@ -4,6 +4,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import logo from '../../assets/img/낭만고양이로고.svg';
 import feather from '../../assets/img/Feather.svg';
 import featherRed from '../../assets/img/FeatherRed.svg';
+import 로그인버튼 from '../../assets/img/로그인버튼.svg';
 import '../../index.css';
 
 
@@ -105,13 +106,7 @@ const StyledNavLink = styled(NavLink)`
   color: black;
 `;
 
-//아이콘 클릭시 빨간색 아이콘 이미지로 변경
-const Feather = ({ to, alt }) => {
-  const location = useLocation();
-  const isActive = location.pathname === to;
-  const src = isActive ? featherRed : feather;
-
-  const FeatherIcon = styled.div`
+const FeatherIcon = styled.div`
   width: 25px;
   height: 25px;
   position: relative;
@@ -121,26 +116,19 @@ const Feather = ({ to, alt }) => {
   display: flex;
   `;
 
-  const FeatherImg = styled.img`
-    width: 25px;
-    height: 25px;
+const FeatherImg = styled.img`
+  width: 25px;
+  height: 25px;
 
-    .active & {
-      color: #C90000;
-      border-bottom: 2px #C90000 solid;
-      padding-bottom: 39px;
-    }
-  `;
+  .active & {
+    color: #C90000;
+    border-bottom: 2px #C90000 solid;
+    padding-bottom: 39px;
+  }
+`;
 
-  return (
-    <FeatherIcon>
-      <FeatherImg src={src} alt={alt} />
-    </FeatherIcon>
-  );
-};
-
-  //로그인 버튼 
-  const LoginButton = styled.div`
+//로그인 버튼 
+const LoginButton = styled.div`
   width: 47px; 
   height: 21px;
   padding: 10.50px 20px;
@@ -206,8 +194,24 @@ const DetailMenuText = styled.div`
   }
 `;
 
+//아이콘 클릭시 빨간색 아이콘 이미지로 변경
+const Feather = ({ to, alt }) => {
+  const location = useLocation();
+  const isActive = location.pathname === to;
+  const src = isActive ? featherRed : feather;
+
+  return (
+    <FeatherIcon>
+      <FeatherImg src={src} alt={alt} />
+    </FeatherIcon>
+  );
+};
+
 export default function Header() {
   const [menuVisible, setMenuVisible] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(null);
+  const location = useLocation();
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
 
   const showMenu = () => {
     setMenuVisible(true);
@@ -217,13 +221,9 @@ export default function Header() {
     setMenuVisible(false);
   };
 
-  const [activeIndex, setActiveIndex] = useState(null);
-
   const handleClick = (index) => {
     setActiveIndex(index);
   };
-
-  const location = useLocation();
 
   useEffect(() => {
     switch(location.pathname) {
@@ -285,9 +285,17 @@ export default function Header() {
           </MenuItem>
         </MenuContainer>
         <FeatherContainer>
+        {token ? (
           <StyledNavLink to="/MyPage">
             <Feather to="/MyPage" alt='feather' />
           </StyledNavLink>
+        ) : (
+          <StyledNavLink to="/login">
+            <LoginButton>
+              <LoginText>로그인</LoginText>
+            </LoginButton>
+          </StyledNavLink>
+        )}
         </FeatherContainer>
       </InnerContainer>
 

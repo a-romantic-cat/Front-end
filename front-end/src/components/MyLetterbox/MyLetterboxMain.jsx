@@ -307,6 +307,7 @@ const BoxCheckText = styled.div`
 
 export default function MyLetterboxMain() {
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
 
   const navigateToCheck1 = () => {
     navigate("/Check1");
@@ -315,36 +316,6 @@ export default function MyLetterboxMain() {
   const navigateToOpenLetter1 = () => {
     navigate("/OpenLetter1");
   };
-
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
-
-  {/* API로부터 닉네임과 우편함 이름을 받아오는 경우, 일반적으로 비동기 작업을 처리, fetch 함수를 사용하여 API에서 데이터를 받아오는 간단한 예시
-  function MyComponent() {
-    const [nickname, setNickname] = useState('');
-    const [mailboxName, setMailboxName] = useState('');
-
-    useEffect(() => {
-      fetch('API_URL') // 실제 API URL로 교체하세요.
-        .then(response => response.json())
-        .then(data => {
-          setNickname(data.nickname);
-          setMailboxName(data.mailboxName);
-        });
-    }, []);
-
-    return (
-      <Container>
-        <InnerContainer>
-          <Nickname>
-            <div>{nickname}</div>
-          </Nickname>
-          <Message>님의</Message>
-        </InnerContainer>
-        <MailboxName>{mailboxName}</MailboxName>
-      </Container>
-    );
-  }
-  */}
   
   const RemainingTime = () => {
     const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0 });
