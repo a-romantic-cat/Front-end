@@ -286,7 +286,7 @@ export default function PastLetterbox1() {
     try {
       const response = await axios.get(`https://dev.nangmancat.shop/letterboxes/${letterPapermemberId}/expired`, {}, {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
         },
       });
       setMembers(response.data.result);
