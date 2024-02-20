@@ -36,9 +36,9 @@ export default function Loginstart() {
     const Rest_api_key='9a5be400ad290154ad8d52df97ed0a3c';
     const naver_client_id = 'b57dd3KbzMp32o_rFf1B'; // Naver Client ID
     const google_client_id="959567592586-7croeo7s1ddfq361oklc4dqucksmrvge.apps.googleusercontent.com"
-    //const redirect_uri = process.env.REACT_APP_REDIRECT_URI || "https://dev.nangmancat.shop/login/oauth2/code/google"; //Redirect URI
+    const redirect_uri = process.env.REACT_APP_REDIRECT_URI || "https://dev.nangmancat.shop/login/oauth2/code/google"; //Redirect URI
     const kredirect_uri="https://dev.nangmancat.shop/login/oauth2/code/kakao"; 
-    const gredirect_uri="https://dev.nangmancat.shop/login/oauth2/code/google";
+    const gredirect_uri="https://dev.nangmancat.shopz/oauth2/code/google";
 
     const Kakaohandle = () => {
         const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${kredirect_uri}&response_type=code`;
@@ -61,6 +61,33 @@ export default function Loginstart() {
         
         return (
             <KakaoImg src={Kakao} onClick={() => window.location.href = kakaoURL} />
+        );
+    }
+
+    const Naverhandle = () => {
+        const NaverURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${naver_client_id}&state=false&redirect_uri=${redirect_uri}`;
+    
+        useEffect(() => {
+            const fetchData = async (nickname, email) => {
+                try {
+                    const data = {
+                        nickname:nickname
+                    };
+                    const response = await axios.post(`https://dev.nangmancat.shop?email=${email}`, data);
+                    console.log("응답 확인", response);
+                    const token = response.headers.authorization;
+                    localStorage.setItem("token", token);
+                    console.log(token);
+                } catch (e) {
+                    console.error(e);
+                }
+            };
+        
+            fetchData("사용자닉네임", "사용자이메일@example.com");
+        }, []);
+        
+        return (
+            <NaverImg src={Naver} onClick={() => window.location.href = NaverURL} />
         );
     }
 
@@ -91,6 +118,7 @@ export default function Loginstart() {
     return (
         <div> 
             <Kakaohandle />
+            <Naverhandle />
             <Googlehandle />
         </div>
     );
@@ -132,30 +160,5 @@ const Kakaohandle = () => {
     );
 }
 
-const Naverhandle = () => {
-    const NaverURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${naver_client_id}&state=false&redirect_uri=${redirect_uri}`;
 
-    useEffect(() => {
-        const fetchData = async (nickname, email) => {
-            try {
-                const data = {
-                    nickname:nickname
-                };
-                const response = await axios.post(`https://dev.nangmancat.shop?email=${email}`, data);
-                console.log("응답 확인", response);
-                const token = response.headers.authorization;
-                localStorage.setItem("token", token);
-                console.log(token);
-            } catch (e) {
-                console.error(e);
-            }
-        };
-    
-        fetchData("사용자닉네임", "사용자이메일@example.com");
-    }, []);
-    
-    return (
-        <NaverImg src={Naver} onClick={() => window.location.href = NaverURL} />
-    );
-}
 */
