@@ -11,6 +11,7 @@ import 다음버튼 from '../../assets/img/다음버튼.svg';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { completeMission } from '../../redux/completeMission';
+import Footer from '../Footer/Footer';
 
 //상점 
 const StoreMainDiv = styled.div`
@@ -1101,6 +1102,8 @@ export default function StoreMain() {
 
       {currentTab === 'tab1' && <LetterPage />}
       {currentTab === 'tab2' && <StampPage />}
+
+      
     </div>
   )
 };
