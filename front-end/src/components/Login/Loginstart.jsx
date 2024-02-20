@@ -90,7 +90,7 @@ export default function Loginstart() {
 
     const Googlehandle = () => {
         const googleURL= `https://accounts.google.com/o/oauth2/v2/auth?client_id=${google_client_id}&redirect_uri=${gredirect_uri}&response_type=code&scope=email`;
-        const code = new URL(window.location.href).searchParams.get("code"); //인가코드
+        const code = new URL(window.location.href).searchParams.get("code"); //인가코드 받아오기
     
     useEffect(() => {
         const fetchData = async () => {
