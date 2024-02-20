@@ -110,7 +110,7 @@ const PrevButton = styled.img`
     cursor: pointer;
 `;
 
-const Friends = ({ dummyFriend }) => {
+const Friends = ({ Friendss }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false); // 드롭다운의 열림/닫힘 상태를 관리하는 변수
   const [selectedOption, setSelectedOption] = useState('가나다순'); // 선택한 옵션을 관리하는 변수
 
@@ -130,10 +130,10 @@ const Friends = ({ dummyFriend }) => {
   const [showFindContent, setShowFindContent] = useState(false);
 
   const filterItems = (searchTerm) => {
-    const filtered = dummyFriend.filter(
+    const filtered = Friendss.filter(
       (item) =>
         item.NickName.includes(searchTerm) ||
-        item.PostNum.includes(searchTerm)
+        String(item.PostNum).includes(searchTerm)
     );
     setSearchResults(filtered);
   };
@@ -163,12 +163,12 @@ const Friends = ({ dummyFriend }) => {
   const handlePrevPage = () => {
     setCurrentPage((prevPage) => (prevPage - 2 >= 1) ? prevPage - 2 : totalPages);
   };
-  const totalPages = Math.ceil((showFindContent ? searchResults.length : dummyFriend.length) / itemsPerPage);
+  const totalPages = Math.ceil((showFindContent ? searchResults.length : Friendss.length) / itemsPerPage);
   const startIdx = (currentPage - 1) * itemsPerPage;
   const endIdx = startIdx + itemsPerPage;
 
-  const leftPageItems = (showFindContent ? searchResults : dummyFriend).slice(startIdx, endIdx);
-  const rightPageItems = (showFindContent ? searchResults : dummyFriend).slice(endIdx, endIdx + itemsPerPage);
+  const leftPageItems = (showFindContent ? searchResults : Friendss).slice(startIdx, endIdx);
+  const rightPageItems = (showFindContent ? searchResults : Friendss).slice(endIdx, endIdx + itemsPerPage);
   return (
     <div>
       <SearchForm
@@ -201,7 +201,7 @@ const Friends = ({ dummyFriend }) => {
           <PostListLeft>
             {leftPageItems.map((postInfo) => (
               <FriendsList
-                key={postInfo.id}
+                key={postInfo.PostNum}
                 postInfo={postInfo} />
             ))}
           </PostListLeft>
@@ -222,7 +222,7 @@ const Friends = ({ dummyFriend }) => {
           <PostListRight>
             {rightPageItems.map((postInfo) => (
               <FriendsList
-                key={postInfo.id}
+                key={postInfo.PostNum}
                 postInfo={postInfo} />
             ))}
           </PostListRight>

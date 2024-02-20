@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styled from 'styled-components';
 import Header from '../../Header/Header';
 import twinkle from '../../../assets/img/반짝.svg';
@@ -209,6 +210,38 @@ const ReplyingLetter = () => {
   const handleNavigateToCompletedLetterReplying = () => {
     navigate('/CompletedLetterReplying');  
   };
+
+  // useEffect(() => {
+  //   // API 호출 함수
+  //   const fetchLetters = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         "https://dev.nangmancat.shop:443/nangman-letterbox/letter-list",
+  //         {
+  //           params: {
+  //             nangmanLetterId: 0
+  //           },
+  //           headers: {
+  //           // Authorization: `Bearer ${token}`
+  //           Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g`
+  //         }
+  //         }
+  //       );
+  //       // 응답에서 필요한 데이터 추출
+  //       const letterContent = response.data.result.content;
+  //       const previews = letterContent.map(letter => letter.preview);
+  //       console.log(previews);
+  //       // 데이터 상태에 설정
+  //       setLetters(previews);
+  //     } catch (error) {
+  //       console.error("API 호출 중 오류:", error);
+  //     }
+  //   };
+
+  //   // 함수 호출
+  //   fetchLetters();
+  // }, []);
+  
   return (
     <div>
       <Container>

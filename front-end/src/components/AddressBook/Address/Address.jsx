@@ -122,7 +122,7 @@ const PrevButton = styled.img`
   cursor: pointer;
 `;
 
-const Address = ({ dummyAddress }) => {
+const Address = ({ Address }) => {
   // 드롭 다운 useState
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('가나다순');
@@ -143,10 +143,10 @@ const Address = ({ dummyAddress }) => {
   const [showFindContent, setShowFindContent] = useState(false);
 
   const filterItems = (searchTerm) => {
-    const filtered = dummyAddress.filter(
+    const filtered = Address.filter(
       (item) =>
         item.NickName.includes(searchTerm) ||
-        item.PostNum.includes(searchTerm)
+        String(item.PostNum).includes(searchTerm)
     );
     setSearchResults(filtered);
   };
@@ -178,12 +178,12 @@ const Address = ({ dummyAddress }) => {
     setCurrentPage((prevPage) => (prevPage - 2 >= 1) ? prevPage - 2 : totalPages);
   };
   // 전체 페이지를 구해서, 왼쪽 페이지와 오른쪽 페이지에 6개씩 나눠서 보여줌.
-  const totalPages = Math.ceil((showFindContent ? searchResults.length : dummyAddress.length) / itemsPerPage);
+  const totalPages = Math.ceil((showFindContent ? searchResults.length : Address.length) / itemsPerPage);
   const startIdx = (currentPage - 1) * itemsPerPage;
   const endIdx = startIdx + itemsPerPage;
 
-  const leftPageItems = (showFindContent ? searchResults : dummyAddress).slice(startIdx, endIdx);
-  const rightPageItems = (showFindContent ? searchResults : dummyAddress).slice(endIdx, endIdx + itemsPerPage);
+  const leftPageItems = (showFindContent ? searchResults : Address).slice(startIdx, endIdx);
+  const rightPageItems = (showFindContent ? searchResults : Address).slice(endIdx, endIdx + itemsPerPage);
 
   return (
     <div>
@@ -217,7 +217,10 @@ const Address = ({ dummyAddress }) => {
             {console.log("leftPageItems:", leftPageItems)}
 
             {leftPageItems.map((postInfo) => (
-              <AddressList key={`left${postInfo.id}`} postInfo={postInfo} />
+              <AddressList 
+
+              key={postInfo.PostNum}
+              postInfo={postInfo} />
             ))}
           </PostListLeft>
 
@@ -237,7 +240,9 @@ const Address = ({ dummyAddress }) => {
             {console.log("rightPageItems:", rightPageItems)}
 
             {rightPageItems.map((postInfo) => (
-              <AddressList key={`right${postInfo.id}`} postInfo={postInfo} />
+              <AddressList 
+              key={postInfo.PostNum}
+              postInfo={postInfo} />
             ))}
           </PostListRight>
           <PageCon>

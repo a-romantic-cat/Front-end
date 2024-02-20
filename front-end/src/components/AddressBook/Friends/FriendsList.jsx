@@ -72,7 +72,7 @@ const FriendsList = ({ postInfo }) => {
           </Name>
           <Message>님의 우편함</Message>
           <Number>
-            {postInfo.PostNum}
+            #{postInfo.PostNum}
           </Number>
         </Item>
       </ItemContainer>

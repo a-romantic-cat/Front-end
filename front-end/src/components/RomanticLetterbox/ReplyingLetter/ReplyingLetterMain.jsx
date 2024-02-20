@@ -1,9 +1,11 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styled from 'styled-components';
 import Header from '../../Header/Header';
 import twinkle from '../../../assets/img/반짝.svg';
 import letterPaper from '../../../assets/img/편지.svg';
 import { useNavigate } from 'react-router-dom';
+
 
 // 기본 화면 및 배경 => 배경화면 나중에 뷰포트 기준으로 바꿀 예정?
 const Container = styled.div`
@@ -187,6 +189,39 @@ const ReplyingLetterMain = () => {
   };
 
   const [selectShow, setSelectShow] = useState(false);
+  const [letters, setLetters] = useState([]);
+
+  useEffect(() => {
+    // API 호출 함수
+    const fetchLetters = async () => {
+      try {
+        const response = await axios.get(
+          "https://dev.nangmancat.shop/nangman-letterbox/letter-list",
+          {
+            params: {
+              page: 0,
+              pageSize: 9,
+            },
+            headers: {
+            // Authorization: `Bearer ${token}`
+            Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g`
+          }
+          }
+        );
+        // 응답에서 필요한 데이터 추출
+        const letterContent = response.data.result.content;
+        const previews = letterContent.map(letter => letter.preview);
+        console.log(previews);
+        // 데이터 상태에 설정
+        setLetters(previews);
+      } catch (error) {
+        console.error("API 호출 중 오류:", error);
+      }
+    };
+
+    // 함수 호출
+    fetchLetters();
+  }, []);
 
   const handleImageContainerClick = () => {
     setSelectShow(true);
@@ -222,7 +257,7 @@ const ReplyingLetterMain = () => {
                 <ImageWrapper key={index}>
                 <Image src={letterPaper} alt={`이미지 ${index + 1}`} />
                 <LetterContent>
-                안녕하세요 저는 낭만고양이 입니다 가나다라마바사 아자차카 타파하하하하하하
+                {letters[index]}
                 </LetterContent>
               </ImageWrapper>
 

@@ -98,16 +98,6 @@ const Option1 = styled.div`
   display: inline-flex;
 `;
 
-const Option2 = styled.div`
-  align-self: stretch;
-  flex: 1 1 0;
-  padding: 6.5px 13px;
-  background: ${({ selectedOption }) => (selectedOption ? '#E5E5E5' : 'white')};
-  border: 1px black solid;
-  justify-content: flex-start;
-  align-items: center;
-  display: inline-flex;
-`;
 const Option3 = styled.div`
   align-self: stretch;
   flex: 1 1 0;
@@ -179,22 +169,18 @@ const SearchForm = ({
           <OptionContainer>
             <Option1 onClick={() => handleOptionSelect('가나다순')} selectedOption={selectedOption === '가나다순'}>
               <OptionText>
-                가나다순
+              가나다순
               </OptionText>
             </Option1>
-            <Option2 onClick={() => handleOptionSelect('정렬기준')} selectedOption={selectedOption === '정렬기준'}>
-              <OptionText>
-                정렬기준
-              </OptionText>
-            </Option2>
+           
             <Option3 onClick={() => handleOptionSelect('우편번호순')} selectedOption={selectedOption === '우편번호순'}>
               <OptionText>
-                우편번호순
+              우편번호순
               </OptionText>
             </Option3>
-            <Option4 onClick={() => handleOptionSelect('최근 친구순')} selectedOption={selectedOption === '최근 친구순'}>
+            <Option4 onClick={() => handleOptionSelect('최신 친구순')} selectedOption={selectedOption === '최신 친구순'}>
               <OptionText>
-                최근 친구순
+              최신 친구순
               </OptionText>
             </Option4>
             <Option5 onClick={() => handleOptionSelect('오래된 친구순')} selectedOption={selectedOption === '오래된 친구순'}>

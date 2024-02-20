@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import React, {useState}  from "react";
+import React, {useState, useEffect}  from "react";
+import axios from 'axios';
 import Header from '../Header/Header';
 import AddressInfo from './Address/Address';
 import Friends from './Friends/Friends';
 import PlusFriends from './PlusFriends/PlusFriends';
-
 
 const Tap = styled.div`
   box-sizing: border-box;
@@ -14,8 +14,6 @@ const Tap = styled.div`
   left: 363px;
   top: 62px;
 `;
-// 탭이 사다리꼴이라서, 좌우 border가 안들어가는 것같아서, 덮어씌워서 처리함...ㅠ
-// 중복 코드라서 Common으로 빼려고 했지만, 위치값때문에 그냥 다 때려박았음.. 나중에 리팩토링할때 전체 코드 중복 따로 뺄게게유..
 const AddressOverLap = styled.div `
   position: absolute;
   left: -.5px;
@@ -126,118 +124,217 @@ const InnerContainer = styled.div`
   height: 693px;
 `;
 
-
 export default function AddressBookMain() {
-  // 주소록 더미 데이터
-  const dummyAddress = [
-    {id: 1, NickName: "지우", PostNum: "#1234"},
-    {id: 2, NickName: "지지우", PostNum: "#4321"},
-    {id: 3, NickName: "지지지우", PostNum: "#5678"},
-    {id: 4, NickName: "지지지지지우", PostNum: "#9101"},
-    {id: 5, NickName: "지우우우우우우우우", PostNum: "#5678"},
-    {id: 6, NickName: "지우우", PostNum: "#1010"},
 
-    {id: 7, NickName: "우지", PostNum: "#1234"},
-    {id: 8, NickName: "우우지", PostNum: "#4321"},
-    {id: 9, NickName: "우우우지", PostNum: "#5678"},
-    {id: 10, NickName: "우우우웅지", PostNum: "#9101"},
-    {id: 11, NickName: "재민재민", PostNum: "#5678"},
-    {id: 12, NickName: "재재민", PostNum: "#1010"},
-
-    {id: 13, NickName: "재미미미", PostNum: "#1"},
-    {id: 14, NickName: "지지우", PostNum: "#2"},
-    {id: 15, NickName: "지지지우", PostNum: "#3"},
-    {id: 16, NickName: "지지지지지우", PostNum: "#4"},
-    {id: 17, NickName: "지우우우우우우우우", PostNum: "#5"},
-    {id: 18, NickName: "지우우", PostNum: "#6"},
-    
-    {id: 19, NickName: "재미미미", PostNum: "#7"},
-    {id: 20, NickName: "지지우", PostNum: "#8"},
-    {id: 21, NickName: "지지지우", PostNum: "#9"}
-  ];
-  // 친한친구 더미데이터
-  const dummyFriend = [
-    {id: 1, NickName: "지우", PostNum: "#1234"},
-    {id: 2, NickName: "지지우", PostNum: "#4321"},
-    {id: 3, NickName: "지지지우", PostNum: "#5678"},
-    {id: 4, NickName: "지지지지지우", PostNum: "#9101"},
-    {id: 5, NickName: "지우우우우우우우우", PostNum: "#5678"},
-    {id: 6, NickName: "지우우", PostNum: "#1010"},
-
-    {id: 7, NickName: "우지", PostNum: "#1234"},
-    {id: 8, NickName: "우우지", PostNum: "#4321"},
-    {id: 9, NickName: "우우우지", PostNum: "#5678"},
-  ];
-  // 친구추가, 보낸 요청 및 받은 요청 더미데이터
-  const dummyRequestFriend = [
-    {id: 1, NickName: "지우", PostNum: "#1234"},
-    {id: 2, NickName: "지지우", PostNum: "#4321"},
-    {id: 3, NickName: "지지지우", PostNum: "#5678"},
-    {id: 4, NickName: "지지지지지우", PostNum: "#9101"},
-    {id: 5, NickName: "지우우우우우우우우", PostNum: "#5678"},
-    {id: 6, NickName: "지우우", PostNum: "#1010"},
-
-    {id: 7, NickName: "우지", PostNum: "#1234"},
-    {id: 8, NickName: "우우지", PostNum: "#4321"},
-    {id: 9, NickName: "우우우지", PostNum: "#5678"},
-    {id: 10, NickName: "우우우웅지", PostNum: "#9101"},
-    {id: 11, NickName: "재민재민", PostNum: "#5678"},
-    {id: 12, NickName: "재재민", PostNum: "#1010"},
-
-    {id: 13, NickName: "재미미미", PostNum: "#1"},
-    {id: 14, NickName: "지지우", PostNum: "#2"},
-    {id: 15, NickName: "지지지우", PostNum: "#3"},
-    {id: 16, NickName: "지지지지지우", PostNum: "#4"},
-    {id: 17, NickName: "지우우우우우우우우", PostNum: "#5"},
-    {id: 18, NickName: "지우우", PostNum: "#6"},
-    
-    {id: 19, NickName: "재미미미", PostNum: "#7"},
-    {id: 20, NickName: "지지우", PostNum: "#8"},
-    {id: 21, NickName: "지지지우", PostNum: "#9"}, 
-    {id: 22, NickName: "우지", PostNum: "#1234"},
-    {id: 23, NickName: "우우지", PostNum: "#4321"},
-    {id: 24, NickName: "우우우지", PostNum: "#5678"},
-    {id: 25, NickName: "우우우웅지", PostNum: "#9101"},
-    {id: 26, NickName: "재민재민", PostNum: "#5678"},
-    {id: 27, NickName: "재재민", PostNum: "#1010"},
-
-    {id: 28, NickName: "재미미미", PostNum: "#1"},
-    {id: 29, NickName: "지지우", PostNum: "#2"},
-    {id: 30, NickName: "지지지우", PostNum: "#3"},
-    {id: 31, NickName: "지지지지지우", PostNum: "#4"},
-    {id: 32, NickName: "지우우우우우우우우", PostNum: "#5"},
-    {id: 33, NickName: "지우우", PostNum: "#6"},
-    
-    {id: 34, NickName: "재미미미", PostNum: "#7"},
-    {id: 36, NickName: "지지우", PostNum: "#8"},
-    {id: 35, NickName: "지지지우", PostNum: "#9"}
-  ];
   // 친구추가, 검색 더미데이터
   const dummyPlusFriend = [
     {id: 999, NickName: "지승도", PostNum: "#999"},
     {id: 990, NickName: "최재민", PostNum: "#990"}
   ];
+
+
   const [activeTab, setActiveTab] = useState('Address'); // 기본
 
   const handleTabClick = (tab) => {
-    // if (activeTab === tab) {
-    //   // 만약 현재 탭이 이미 활성화된 탭이면 페이지를 새로고침할 뻔
-    //   window.location.reload(); 
-    // } else {
       setActiveTab(tab);
-    
   };
+  const [Address, setAddress] = useState([]);
+  const [Receive, setReceive] = useState([]);
+  const [Request, setRequest] = useState([]);
+  const [Friendss, setFriends] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const BaseURL = "https://dev.nangmancat.shop";
+  // const token = window.localStorage.getItem("token");
+  // 주소록 친구 목록 
+  useEffect(() => {
+    const getAddress = async () => {
+      try {
+        const response = await axios.get(BaseURL + `/address-book/?page=${currentPage}`, {
+          headers: {
+            // Authorization: `Bearer ${token}`
+            Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g`
+          }
+        });
+    
+        console.log(response.data.result);
+    
+        if (response.data.isSuccess) {
+          // 통신 성공 시 새로운 응답 구조로 데이터를 설정합니다.
+          setAddress(response.data.result.map(item => ({
+            NickName: item.friendName,
+            PostNum: item.friendId,
+            Status: item.friendStatus
+          })));
+        } else {
+          // 통신 실패 시 에러 처리
+          const errorCode = response.data.code;
+          const errorMessage = response.data.message;
+    
+          if (errorCode === "401") {
+            console.error("Unauthorized 에러:", errorMessage);
+          } else if (errorCode === "403") {
+            console.error("Forbidden 에러:", errorMessage);
+          } else if (errorCode === "404") {
+            console.error("Not Found 에러:", errorMessage);
+          } else {
+            console.error("기타 에러:", errorMessage);
+          }
+        }
+      } catch (error) {
+        console.error("에러 발생:", error.message);
+      }
+    };    
+  
+    getAddress();
+  }, [currentPage]);
+  
+  // 친한 친구 목록
+  useEffect(() => {
+    const getFriends = async () => {
+      try {
+        const response = await axios.get(BaseURL + `/address-book/close-friends?page=${currentPage}`, {
+          headers: {
+            Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g`
+          }
+        });
+    
+        console.log(response.data.result);
+    
+        if (response.data.isSuccess) {
+          // 통신 성공 시 새로운 응답 구조로 데이터를 설정합니다.
+          setFriends(response.data.result.map(item => ({
+            NickName: item.friendName,
+            PostNum: item.friendId,
+            Status: item.friendStatus
+          })));
+        } else {
+          // 통신 실패 시 에러 처리
+          const errorCode = response.data.code;
+          const errorMessage = response.data.message;
+    
+          if (errorCode === "401") {
+            console.error("Unauthorized 에러:", errorMessage);
+          } else if (errorCode === "403") {
+            console.error("Forbidden 에러:", errorMessage);
+          } else if (errorCode === "404") {
+            console.error("Not Found 에러:", errorMessage);
+          } else {
+            console.error("기타 에러:", errorMessage);
+          }
+        }
+      } catch (error) {
+        console.error("에러 발생:", error.message);
+      }
+    };    
+  
+    getFriends();
+  }, [currentPage]);
+
+  // 받은 요청
+  useEffect(() => {
+    const getReceive = async () => {
+      try {
+        const response = await axios.get(BaseURL + `/address-book/recieved`, {
+          headers: {
+            Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g`
+          }
+        });
+    
+        console.log(response.data.result);
+    
+        if (response.data.isSuccess) {
+          // 통신 성공 시 새로운 응답 구조로 데이터를 설정합니다.
+          setReceive(response.data.result.map(item => ({
+            NickName: item.friendName,
+            PostNum: item.friendId
+          })));
+        } else {
+          // 통신 실패 시 에러 처리
+          const errorCode = response.data.code;
+          const errorMessage = response.data.message;
+    
+          if (errorCode === "401") {
+            console.error("Unauthorized 에러:", errorMessage);
+          } else if (errorCode === "403") {
+            console.error("Forbidden 에러:", errorMessage);
+          } else if (errorCode === "404") {
+            console.error("Not Found 에러:", errorMessage);
+          } else {
+            console.error("기타 에러:", errorMessage);
+          }
+        }
+      } catch (error) {
+        console.error("에러 발생:", error.message);
+      }
+    };    
+  
+    getReceive();
+  }, []);
+
+  // 보낸 요청
+useEffect(() => {
+  const getRequest = async () => {
+    try {
+      const response = await axios.get(BaseURL + `/address-book/requested`, {
+        headers: {
+          Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g`
+        }
+      });
+  
+      console.log(response.data.result);
+  
+      if (response.data.isSuccess) {
+        // 통신 성공 시 새로운 응답 구조로 데이터를 설정합니다.
+        setRequest(response.data.result.map(item => ({
+          NickName: item.friendName,
+          PostNum: item.friendId
+        })));
+      } else {
+        // 통신 실패 시 에러 처리
+        const errorCode = response.data.code;
+        const errorMessage = response.data.message;
+  
+        if (errorCode === "401") {
+          console.error("Unauthorized 에러:", errorMessage);
+        } else if (errorCode === "403") {
+          console.error("Forbidden 에러:", errorMessage);
+        } else if (errorCode === "404") {
+          console.error("Not Found 에러:", errorMessage);
+        } else {
+          console.error("기타 에러:", errorMessage);
+        }
+      }
+    } catch (error) {
+      console.error("에러 발생:", error.message);
+    }
+  };    
+
+  getRequest();
+}, []);
+
+ // 친구추가에서 사용자 아이디(우편번호)를 통한 사용자 검색 API
+
 
   return (
     <div>
         <Header/>
         <Tap>
           <AddressOverLap/>
-          <AddressOut isActive={activeTab === 'Address'} onClick={() => handleTabClick('Address')}>
-             주소록
-          </AddressOut>
+          <AddressOut
+          isActive={activeTab === 'Address'}
+          onClick={() => {
+            handleTabClick('Address');
+            setCurrentPage(0); // 탭누르면 다시 초기화
+          }}
+        >
+          주소록
+        </AddressOut>
+
           <FriendsOverLap/>
-          <FriendsOut isActive={activeTab === 'Friends'} onClick={() => handleTabClick('Friends')}>
+          <FriendsOut isActive={activeTab === 'Friends'} onClick={() => {handleTabClick('Friends')
+          setCurrentPage(0);
+        }}>
               친한친구
           </FriendsOut>
           <PlusFriendsOverLap/>
@@ -250,22 +347,26 @@ export default function AddressBookMain() {
           <InnerContainer>
           {activeTab === 'Address' && (
             <AddressInfo
-            dummyAddress = {dummyAddress}
+            Address = {Address}
+            crp = {currentPage}
             />
           )}
           {activeTab === 'Friends' && (
             <Friends 
-            dummyFriend = {dummyFriend}
+            Friendss = {Friendss}
             />
           )}
           {activeTab === 'PlusFriends' && (
             <PlusFriends
-            dummyRequestFriend = {dummyRequestFriend}
+            Request = {Request}
+            receive = {Receive}
             dummyPlusFriend = {dummyPlusFriend}
             />
           )}
           </InnerContainer>
         </Container>
+         
+        
     </div>
   )
 }
