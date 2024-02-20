@@ -114,25 +114,6 @@ const StampCollectionInnerContainer = styled.div`
   }
 `;
 
-const SubContainer = styled.div`
-  width: 847px;
-  height: 221px;
-  position: absolute;
-  left: 71px;
-`;
-
-const StampContainer = styled.div`
-  width: 166px;
-  height: 221px;
-  position: absolute;
-  background: white;
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  cursor: pointer;
-`;
-
 const StampItem = styled.div`
   width: 166px;
   height: 221px;
@@ -182,8 +163,6 @@ const PinImg = styled.img`
 export default function OpenLetter1() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const navigate = useNavigate(); 
-  const subContainerPositions = [28, 307, 586]; // 각 SubContainer의 top 위치를 저장
-  const stampContainerPositions = [0, 227, 454, 681]; // 각 StampContainer의 left 위치를 저장
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
 
   const navigateToMyLetterbox = () => {

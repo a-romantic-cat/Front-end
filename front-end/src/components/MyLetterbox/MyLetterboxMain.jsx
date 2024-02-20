@@ -398,11 +398,11 @@ export default function MyLetterboxMain() {
       <Container>
         <InnerContainer>
           <Nickname>
-            <div>닉네임</div>
+            <div>낭만</div>
           </Nickname>
           <Message>님의</Message>
         </InnerContainer>
-        <MailboxName>우편함이름</MailboxName>
+        <MailboxName>낭만우편함</MailboxName>
       </Container>
 
       <Notice>편지가 도착했어요. 우편함을 확인해보세요!</Notice>

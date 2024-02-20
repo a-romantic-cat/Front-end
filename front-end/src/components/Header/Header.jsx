@@ -4,7 +4,6 @@ import { NavLink, useLocation } from 'react-router-dom';
 import logo from '../../assets/img/낭만고양이로고.svg';
 import feather from '../../assets/img/Feather.svg';
 import featherRed from '../../assets/img/FeatherRed.svg';
-import 로그인버튼 from '../../assets/img/로그인버튼.svg';
 import '../../index.css';
 
 
@@ -211,7 +210,7 @@ export default function Header() {
   const [menuVisible, setMenuVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(null);
   const location = useLocation();
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
+  //const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
 
   const showMenu = () => {
     setMenuVisible(true);
@@ -285,6 +284,10 @@ export default function Header() {
           </MenuItem>
         </MenuContainer>
         <FeatherContainer>
+          <StyledNavLink to="/MyPage">
+            <Feather to="/MyPage" alt='feather' />
+          </StyledNavLink>
+        {/*
         {token ? (
           <StyledNavLink to="/MyPage">
             <Feather to="/MyPage" alt='feather' />
@@ -296,6 +299,7 @@ export default function Header() {
             </LoginButton>
           </StyledNavLink>
         )}
+        */}
         </FeatherContainer>
       </InnerContainer>
 

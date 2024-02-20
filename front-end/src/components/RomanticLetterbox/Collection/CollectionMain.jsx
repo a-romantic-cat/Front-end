@@ -6,7 +6,7 @@ import twinkle from '../../../assets/img/반짝.svg';
 import LetterPaper from '../../../assets/img/편지지.svg';
 import Heart from '../../../assets/img/heart.svg';
 import axios from "axios";
-import useAsync from 'react-async';
+import { useAsync } from 'react-async';
 
 const Container = styled.div`
   box-sizing: border-box;
