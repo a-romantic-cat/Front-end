@@ -1,7 +1,10 @@
 import React from 'react'
+import Logincontrl from "../components/Login/Logincontrol"
 
 export default function Login() {
   return (
-    <div>Login</div>
+    <div>
+      <Logincontrl />
+    </div>
   )
 }
