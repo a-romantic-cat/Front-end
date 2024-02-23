@@ -18,6 +18,7 @@ import MultiStamp5 from '../../assets/img/MultiStamp5.svg';
 import WhiteCoin from '../../assets/img/WhiteCoin.svg';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
+import Footer from '../Footer/Footer';
 
 
 //미션 제목
@@ -450,17 +451,14 @@ export default function MissionMain() {
     }
   };
 
-  const CoinDisplay = () => {
+  useEffect(() => {
+    const fetchAndSetCoin = async () => {
+      const fetchedCoin = await fetchUserCoin(); // 코인을 조회합니다.
+      setCoin(fetchedCoin); // 조회한 코인의 값을 상태에 저장합니다.
+    };
   
-    useEffect(() => {
-      const fetchAndSetCoin = async () => {
-        const fetchedCoin = await fetchUserCoin(); // 코인을 조회합니다.
-        setCoin(fetchedCoin); // 조회한 코인의 값을 상태에 저장합니다.
-      };
-  
-      fetchAndSetCoin();
-    }, []);
-  };
+    fetchAndSetCoin();
+  }, []);
 
   const handlePageChange = (page) => {
     setCurrentPage(page); // 페이지 변경

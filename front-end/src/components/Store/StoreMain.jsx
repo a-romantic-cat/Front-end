@@ -1107,7 +1107,6 @@ export default function StoreMain() {
       {currentTab === 'tab1' && <LetterPage />}
       {currentTab === 'tab2' && <StampPage />}
 
-      
     </div>
   )
 };
