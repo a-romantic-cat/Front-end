@@ -18,6 +18,7 @@ import MultiStamp5 from '../../assets/img/MultiStamp5.svg';
 import WhiteCoin from '../../assets/img/WhiteCoin.svg';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
+import Footer from '../Footer/Footer';
 
 
 //미션 제목
@@ -450,17 +451,14 @@ export default function MissionMain() {
     }
   };
 
-  const CoinDisplay = () => {
+  useEffect(() => {
+    const fetchAndSetCoin = async () => {
+      const fetchedCoin = await fetchUserCoin(); // 코인을 조회합니다.
+      setCoin(fetchedCoin); // 조회한 코인의 값을 상태에 저장합니다.
+    };
   
-    useEffect(() => {
-      const fetchAndSetCoin = async () => {
-        const fetchedCoin = await fetchUserCoin(); // 코인을 조회합니다.
-        setCoin(fetchedCoin); // 조회한 코인의 값을 상태에 저장합니다.
-      };
-  
-      fetchAndSetCoin();
-    }, []);
-  };
+    fetchAndSetCoin();
+  }, []);
 
   const handlePageChange = (page) => {
     setCurrentPage(page); // 페이지 변경
@@ -472,7 +470,8 @@ export default function MissionMain() {
   };
 
   const handleFlipClick = (id) => {
-    const isCompleted = (missions.totalSteps === 1 && missions.completedSteps === 1) || (missions.totalSteps === 5 && missions.completedSteps === 5);
+    const mission = missions.find(mission => mission.missionId === id);
+    const isCompleted = mission && mission.missionStatus === 'COMPLETED';
     
     if (!isCompleted) return;
   
@@ -508,8 +507,8 @@ export default function MissionMain() {
         <MissionContainer>
         {missions && missions.map((mission, index) => {
           let StampComponent, stampImgSrc, stampImgAlt;
-          const isCompleted = (mission.steps === 1 && mission.stepsCompleted === 1) || (mission.steps === 5 && mission.stepsCompleted === 5);
-          const isClicked = clickedMissions[mission.missionID];
+          const isCompleted = mission.missionStatus === 'COMPLETED' ? true : false;
+          const isClicked = clickedMissions[mission.missionId];
 
           if (mission.steps === 1) {
             StampComponent = SingleStampImg; // 도장이 하나만 찍히는 이미지 컴포넌트

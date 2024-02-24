@@ -5,6 +5,8 @@ import logo from '../../assets/img/낭만고양이로고.svg';
 import feather from '../../assets/img/Feather.svg';
 import featherRed from '../../assets/img/FeatherRed.svg';
 import '../../index.css';
+import { useDispatch } from 'react-redux';
+import { completeMission } from '../../redux/completeMission';
 
 
 const Container = styled.div`
@@ -210,6 +212,7 @@ export default function Header() {
   const [menuVisible, setMenuVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(null);
   const location = useLocation();
+  const dispatch = useDispatch();
   //const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
 
   const showMenu = () => {
@@ -375,7 +378,7 @@ export default function Header() {
             </DetailMenuItem>
             <DetailMenuItem>
             <StyledNavLink to="/MissionMain">
-              <DetailMenuText active={activeIndex === 9} onClick={() => handleClick(9)}>
+              <DetailMenuText active={activeIndex === 9} onClick={() => {handleClick(9); dispatch(completeMission(1));}}>
                 미션
               </DetailMenuText>
             </StyledNavLink>

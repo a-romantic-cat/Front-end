@@ -113,7 +113,7 @@ const Use = styled.div`
     cursor: pointer;
 `;
 
-export default function Header() {
+export default function Footer() {
 
   const navigate = useNavigate();
 

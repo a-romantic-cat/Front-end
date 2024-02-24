@@ -143,8 +143,8 @@ export default function Check2({ isOpen, onClose }) {
 
   const navigate = useNavigate();
 
-  const navigateToAnswer1 = () => {
-    navigate("/Answer1");
+  const navigateToMain = () => {
+    navigate("/MyLetterbox");
   };
 
 	if (!isOpen) {
@@ -186,7 +186,7 @@ export default function Check2({ isOpen, onClose }) {
             </ContentContainer>
         </WhiteLetterContainer>
 
-        <AnswerButton onClick={navigateToAnswer1}>
+        <AnswerButton onClick={navigateToMain}>
             <AnswerText>
               우편함 방문하기
             </AnswerText>

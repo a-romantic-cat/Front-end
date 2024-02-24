@@ -9,9 +9,9 @@ import Under from '../../assets/img/Under.svg';
 import CoinRed from '../../assets/img/CoinRed.svg';
 import 다음버튼 from '../../assets/img/다음버튼.svg';
 import axios from 'axios';
+import Footer from '../Footer/Footer';
 import { useDispatch } from 'react-redux';
 import { completeMission } from '../../redux/completeMission';
-import Footer from '../Footer/Footer';
 
 //상점 
 const StoreMainDiv = styled.div`
@@ -707,6 +707,7 @@ function LetterPage() {
           return updatedShowCoinWrapper;
         });
         setSelectedLetterIndex(null); // 선택된 편지지 인덱스 초기화로 구매 버튼 후 창 닫기
+        dispatch(completeMission(11));
       } else {
         alert('편지지 구매에 실패했습니다: ' + response.data.message);
       }
@@ -822,6 +823,7 @@ function StampPage() {
   const [selectedStampIndex, setSelectedStampIndex] = useState(null); // 선택된 우표의 인덱스를 저장할 상태
   const [stamps, setStamps] = useState([]); // API로 가져온 우표 데이터를 저장할 상태
   const [sort, setSort] = useState('latest'); // 정렬 방식을 관리하는 상태 변수
+  const dispatch = useDispatch();
 
   // 컴포넌트가 마운트될 때 API를 호출하여 우표 데이터를 가져옴
   useEffect(() => {
@@ -929,6 +931,8 @@ function StampPage() {
           return updatedShowCoinWrapper;
         });
         setSelectedStampIndex(null);
+
+        dispatch(completeMission(11));
       } else {
         alert('우표 구매에 실패했습니다: ' + response.data.message);
       }
@@ -1103,7 +1107,6 @@ export default function StoreMain() {
       {currentTab === 'tab1' && <LetterPage />}
       {currentTab === 'tab2' && <StampPage />}
 
-      
     </div>
   )
 };
