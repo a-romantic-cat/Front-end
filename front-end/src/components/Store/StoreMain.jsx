@@ -594,16 +594,41 @@ function LetterPage() {
   const dispatch = useDispatch();
   const [sort, setSort] = useState('latest'); // 정렬 방식을 관리하는 상태 변수
 
+  // axiosInstance.js
+
+const instance = axios.create({
+  baseURL: 'https://dev.nangmancat.shop',
+});
+
+instance.interceptors.response.use(
+  response => response,
+  async error => {
+    if (error.response.status === 401) {
+      try {
+        const res = await instance.put('/member/refreshToken');
+        window.localStorage.setItem('token', res.data.accessToken);
+        error.config.headers.Authorization = `Bearer ${res.data.accessToken}`;
+        return instance(error.config);
+      } catch (err) {
+        console.error(err);
+        return Promise.reject(error);
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
+
   // 컴포넌트가 마운트될 때 API를 호출하여 편지지 데이터를 가져옴
   // 함수를 useEffect 외부에서 정의합니다.
   const fetchLetters = async (page) => {
     const token = window.localStorage.getItem("token");
     
     try {
-      const response = await axios.get('https://dev.nangmancat.shop/store/letter-papers', {
+      const response = await instance.get('https://dev.nangmancat.shop/store/letter-papers', {
         headers: {
           //Authorization: `Bearer ${token}`
-          Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
+          Authorization:"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhaHkwMjA2MDZAZy5ob25naWsuYWMua3IiLCJyb2xlIjoiUk9MRV9VU0VSIiwiZW1haWwiOiJhaHkwMjA2MDZAZy5ob25naWsuYWMua3IiLCJpYXQiOjE3MDg4Nzc1NjEsImV4cCI6MTcwODg3OTM2MX0.tbbZ6_0kLWXann6xtpC6KR51BSYAjPvqEHCLg0Cdt4s"
         },
         params: {
           page: page,
