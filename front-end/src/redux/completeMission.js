@@ -7,8 +7,7 @@ export const completeMission = createAsyncThunk(
     const token = window.localStorage.getItem("token");
     const response = await axios.post(`https://dev.nangmancat.shop/missions/${missionId}`, {}, {
       headers: {
-        //Authorization: `Bearer ${token}`
-        Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
+        Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhaHkwMjA2MDZAZy5ob25naWsuYWMua3IiLCJyb2xlIjoiUk9MRV9VU0VSIiwiZW1haWwiOiJhaHkwMjA2MDZAZy5ob25naWsuYWMua3IiLCJpYXQiOjE3MDg5NDU4NDQsImV4cCI6MTcwODk0NzY0NH0.vAguOOlRg6399ByqeIV6F213S_CuXqsZLhjYC41TFLw"}`
       },
     });
     return response.data;

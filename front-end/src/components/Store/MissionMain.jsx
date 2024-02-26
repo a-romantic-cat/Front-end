@@ -392,8 +392,7 @@ export default function MissionMain() {
     try {
       const response = await axios.get(`https://dev.nangmancat.shop/missions/`, {
         headers: {
-          //Authorization: `Bearer ${token}`
-          Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
+          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhaHkwMjA2MDZAZy5ob25naWsuYWMua3IiLCJyb2xlIjoiUk9MRV9VU0VSIiwiZW1haWwiOiJhaHkwMjA2MDZAZy5ob25naWsuYWMua3IiLCJpYXQiOjE3MDg5NDU4NDQsImV4cCI6MTcwODk0NzY0NH0.vAguOOlRg6399ByqeIV6F213S_CuXqsZLhjYC41TFLw"}`
         },
         params: {
           page: currentPage - 1,
@@ -419,8 +418,7 @@ export default function MissionMain() {
     try {
       const response = await axios.get(`https://dev.nangmancat.shop/missions/${missionId}`, {
         headers: {
-          //Authorization: `Bearer ${token}`
-          Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
+          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhaHkwMjA2MDZAZy5ob25naWsuYWMua3IiLCJyb2xlIjoiUk9MRV9VU0VSIiwiZW1haWwiOiJhaHkwMjA2MDZAZy5ob25naWsuYWMua3IiLCJpYXQiOjE3MDg5NDU4NDQsImV4cCI6MTcwODk0NzY0NH0.vAguOOlRg6399ByqeIV6F213S_CuXqsZLhjYC41TFLw"}`
         },
       });
   
@@ -439,8 +437,7 @@ export default function MissionMain() {
     try {
       const response = await axios.get('https://dev.nangmancat.shop/store/user-coin', {
         headers: {
-          //Authorization: `Bearer ${token}` // 토큰을 Authorization 헤더에 추가합니다.
-          Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0RnJvbnRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2Nzk4OTg3MTksImV4cCI6MTcxMTQzNDcxOX0.U_wPr40TAh6blLYYJGR-8gvhFXA_cwxGKPFGzad4b9g'
+          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhaHkwMjA2MDZAZy5ob25naWsuYWMua3IiLCJyb2xlIjoiUk9MRV9VU0VSIiwiZW1haWwiOiJhaHkwMjA2MDZAZy5ob25naWsuYWMua3IiLCJpYXQiOjE3MDg5NDU4NDQsImV4cCI6MTcwODk0NzY0NH0.vAguOOlRg6399ByqeIV6F213S_CuXqsZLhjYC41TFLw"}`
         },
       });
   
@@ -508,7 +505,6 @@ export default function MissionMain() {
         {missions && missions.map((mission, index) => {
           let StampComponent, stampImgSrc, stampImgAlt;
           const isCompleted = mission.missionStatus === 'COMPLETED' ? true : false;
-          const isClicked = clickedMissions[mission.missionId];
 
           if (mission.steps === 1) {
             StampComponent = SingleStampImg; // 도장이 하나만 찍히는 이미지 컴포넌트
@@ -544,7 +540,7 @@ export default function MissionMain() {
             return (
               <MissionBox key={mission.missionId}>
                 <MissionInnerBox style={{ top: `${Math.floor(index / 3) * 314}px`, left: `${(index % 3) * 408}px` }}>
-                  {isCompleted && isClicked ? (
+                  {isCompleted ? (
                     <CompletedBackground>
                       <CompletedText>코인을 획득했습니다!</CompletedText>
                       <CompletedPriceContainer>
